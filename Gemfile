@@ -54,6 +54,9 @@ end
 group :test do
   gem "cucumber-rails", :require => false
   gem "shoulda"
+  gem "brakeman"
+  gem "simplecov", ">=0.3.8", :require => false
+  gem "simplecov-rcov"
 end
 
 gem "haml"
@@ -63,4 +66,3 @@ gem "simple_form"
 gem "capistrano-ext"
 gem "capistrano"
 gem "capistrano_colors"
-gem "simplecov", :require => false, :group => :test
