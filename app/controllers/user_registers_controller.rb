@@ -9,7 +9,7 @@ class UserRegistersController < Devise::RegistrationsController
 
   # Override the create method in the RegistrationsController to add the notification hook
   def create
-    build_resource
+    build_resource sign_up_params
 
     if resource.save
       Notifier.notify_superusers_of_access_request(resource).deliver

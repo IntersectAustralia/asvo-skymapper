@@ -41,8 +41,14 @@ class User < ActiveRecord::Base
   # Overrride Devise method so we can check if account is active before allowing them to get a password reset email
   def send_reset_password_instructions
     if approved?
-      generate_reset_password_token!
-      ::Devise.mailer.reset_password_instructions(self).deliver
+      raw, enc = Devise.token_generator.generate(self.class, :reset_password_token)
+
+      self.reset_password_token   = enc
+      self.reset_password_sent_at = Time.now.utc
+      self.save(:validate => false)
+
+      send_devise_notification(:reset_password_instructions, raw, {})
+      raw
     else
       if pending_approval? or deactivated?
         Notifier.notify_user_that_they_cant_reset_their_password(self).deliver
