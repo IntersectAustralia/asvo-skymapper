@@ -5,3 +5,6 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+require File.dirname(__FILE__) + '/seed_helper.rb'
+
+create_roles_and_permissions

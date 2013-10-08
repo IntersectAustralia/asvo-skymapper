@@ -1,10 +1,41 @@
 def populate_data
   load_password
 
-  # put your populate steps here
+  User.delete_all
+
+  create_test_users
+end
+
+def create_test_users
+
+  (1..5).each do |i|
+    email = "admin#{i}@intersect.org.au"
+    create_user(:email => email, :first_name => "Administrator", :last_name => i)
+    set_role(email, "superuser")
+  end
+
+  create_unapproved_user(:email => "unapproved1@intersect.org.au", :first_name => "Unapproved", :last_name => "One")
+  create_unapproved_user(:email => "unapproved2@intersect.org.au", :first_name => "Unapproved", :last_name => "Two")
 
 end
 
+def set_role(email, role)
+  user      = User.where(:email => email).first
+  role      = Role.where(:name => role).first
+  user.role = role
+  user.save!
+end
+
+def create_user(attrs)
+  u = User.new(attrs.merge(:password => @password))
+  u.activate
+  u.save!
+end
+
+def create_unapproved_user(attrs)
+  u = User.create!(attrs.merge(:password => @password))
+  u.save!
+end
 
 def load_password
   password_file = File.expand_path("#{Rails.root}/tmp/env_config/sample_password.yml", __FILE__)

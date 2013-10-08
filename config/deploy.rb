@@ -17,8 +17,7 @@ set :keep_releases, 5
 
 # Deploy using copy for now
 set :scm, 'git'
-set :repository, 'git@github.com:IntersectAustralia/asvo-skymapper.git
-'
+set :repository, 'git@github.com:IntersectAustralia/asvo-skymapper.git'
 set :deploy_via, :copy
 set :copy_exclude, [".git/*"]
 

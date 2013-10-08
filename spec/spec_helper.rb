@@ -38,3 +38,12 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 end
+class Warden::SessionSerializer
+  def serialize(record)
+    record
+  end
+
+  def deserialize(keys)
+    keys
+  end
+end
