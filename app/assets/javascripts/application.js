@@ -12,6 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
 //= require bootstrap
+//= require angular.min
+//= require angular-mocks
+//= require angular-resource.min
+//= require_tree .
 
