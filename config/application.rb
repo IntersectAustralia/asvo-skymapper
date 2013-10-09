@@ -12,7 +12,9 @@ end
 module AsvoSkymapper
   class Application < Rails::Application
     config.autoload_paths += %W( #{config.root}/lib )
-    config.generators do |g|  
+    config.autoload_paths += Dir["#{config.root}/app/models/**/"]
+
+    config.generators do |g|
       g.stylesheets false
       g.test_framework :rspec
       g.fixture_replacement :factory_girl, :dir => "spec/factories"
