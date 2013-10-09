@@ -7,20 +7,20 @@ describe QueryBuilder do
 SELECT
     TOP 1000
     *
-    FROM <tablename>
+    FROM <table_name>
     WHERE
-        1=CONTAINS(POINT('ICRS', <ra_column_name>, <dcl_column_name>),
-                   CIRCLE('ICRS', <ra_point>, <dcl_point>, <cone_radius> ))
+        1=CONTAINS(POINT('ICRS', <ra_column_name>, <dec_column_name>),
+                   CIRCLE('ICRS', <ra>, <dec>, <sr> ))
     END_ADQL
 
     result = <<-END_ADQL
 SELECT
     TOP 1000
     *
-    FROM <tablename>
+    FROM <table_name>
     WHERE
-        1=CONTAINS(POINT('ICRS', <ra_column_name>, <dcl_column_name>),
-                   CIRCLE('ICRS', <ra_point>, <dcl_point>, <cone_radius> ))
+        1=CONTAINS(POINT('ICRS', <ra_column_name>, <dec_column_name>),
+                   CIRCLE('ICRS', <ra>, <dec>, <sr> ))
     END_ADQL
     query = QueryBuilder.new(adql)
     query.build.should == result
@@ -31,10 +31,10 @@ SELECT
 SELECT
     TOP 1000
     *
-    FROM <tablename>
+    FROM <table_name>
     WHERE
-        1=CONTAINS(POINT('ICRS', <ra_column_name>, <dcl_column_name>),
-                   CIRCLE('ICRS', <ra_point>, <dcl_point>, <cone_radius> ))
+        1=CONTAINS(POINT('ICRS', <ra_column_name>, <dec_column_name>),
+                   CIRCLE('ICRS', <ra>, <dec>, <sr> ))
     END_ADQL
 
     result = <<-END_ADQL
@@ -44,15 +44,15 @@ SELECT
     FROM public.fs_distilled
     WHERE
         1=CONTAINS(POINT('ICRS', mean_ra, mean_dcl),
-                   CIRCLE('ICRS', 90.0, -1.0, 1.0 ))
+                   CIRCLE('ICRS', 62.70968, -1.18844, 0.5 ))
     END_ADQL
     args = {
-        tablename: 'public.fs_distilled',
+        table_name: 'public.fs_distilled',
         ra_column_name: 'mean_ra',
-        dcl_column_name: 'mean_dcl',
-        ra_point: 90.0,
-        dcl_point: -1.0,
-        cone_radius: 1.0
+        dec_column_name: 'mean_dcl',
+        ra: 62.70968,
+        dec: -1.18844,
+        sr: 0.5
     }
     query = QueryBuilder.new(adql, args)
     query.build.should == result

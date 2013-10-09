@@ -4,10 +4,10 @@ class PointQuery < Query
 SELECT
     TOP 1000
     *
-    FROM <tablename>
+    FROM <table_name>
     WHERE
         1=CONTAINS(POINT('ICRS', <ra_column_name>, <dec_column_name>),
-                   CIRCLE('ICRS', <ra_point>, <dec_point>, <cone_radius> ))
+                   CIRCLE('ICRS', <ra>, <dec>, <sr> ))
   END_ADQL
 
   attr_accessor :table_name, :ra_column_name, :dec_column_name, :ra, :dec, :sr
