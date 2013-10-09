@@ -1,5 +1,4 @@
 class QueryGenerator
-  include CatalogueType
 
   def self.generate_point_query(dataset, args)
     registry = Rails.application.config.asvo_registry
