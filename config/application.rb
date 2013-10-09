@@ -13,6 +13,7 @@ module AsvoSkymapper
   class Application < Rails::Application
     config.autoload_paths += %W( #{config.root}/lib )
     config.autoload_paths += Dir["#{config.root}/app/models/**/"]
+    config.autoload_paths += Dir["#{config.root}/app/services/**/"]
 
     config.generators do |g|
       g.stylesheets false
