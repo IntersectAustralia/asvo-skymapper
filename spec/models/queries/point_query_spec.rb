@@ -2,18 +2,6 @@ require 'spec_helper'
 
 describe PointQuery do
 
-  # TODO use factory girl?
-  subject do
-    query = PointQuery.new
-    query.table_name = ''
-    query.ra_column_name = ''
-    query.dec_column_name = ''
-    query.ra = 0.0
-    query.dec = 0.0
-    query.sr = 1.0
-    query
-  end
-
   # Validate Table Name
   it { should allow_value('public.fs_distilled').for(:table_name) }
   it { should_not allow_value(nil).for(:table_name) }
