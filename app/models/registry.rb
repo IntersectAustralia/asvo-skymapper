@@ -1,13 +1,21 @@
 class Registry
 
   def initialize(registry_file)
-    registry_file = File.open(registry_file, 'r') unless registry_file.instance_of?(File)
-    registry_yaml = YAML.load(registry_file)
-    parse_registry(registry_yaml)
+    @registry_file = registry_file.instance_of?(File) ? registry_file : File.open(registry_file, 'r')
+    @registry_yaml = YAML.load(@registry_file)
+    parse_registry(@registry_yaml)
   end
 
-  def datasets
-    @datasets
+  def raw
+    @registry_yaml
+  end
+
+  def find_dataset(dataset_name)
+    @datasets[dataset_name]
+  end
+
+  def find_catalogue(dataset_name, catalogue_name)
+    @datasets[dataset_name][:catalogues][catalogue_name]
   end
 
   private

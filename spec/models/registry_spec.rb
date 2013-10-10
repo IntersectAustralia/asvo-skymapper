@@ -14,13 +14,10 @@ describe Registry do
   it 'Load skymapper registry from YAML configuration file' do
     registry = Registry.new(ASVO_REGISTRY_FILEPATH)
 
-    skymapper = registry.datasets[:skymapper]
+    skymapper = registry.find_dataset(:skymapper)
     skymapper.should_not be_nil
 
-    catalogues = skymapper[:catalogues]
-    catalogues.should_not be_nil
-
-    fs_catalogue = catalogues[:fs]
+    fs_catalogue = registry.find_catalogue(:skymapper, :fs)
     fs_catalogue.should_not be_nil
 
     fs_catalogue[:service].should == 'TAP'
