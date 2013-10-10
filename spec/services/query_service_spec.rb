@@ -47,11 +47,63 @@ describe SyncQueryService do
   end
 
   it 'Fetch point query results for skymapper cataglogue fs returns no matches' do
-
+    pending("getting proper test data")
   end
 
   it 'Fetch point query results for skymapper cataglogue fs returns maximum of 1000 matches' do
+    pending("getting proper test data")
+  end
 
+  it 'Raises error if failed to get response' do
+    # stub network post
+    Net::HTTP.stub(:post_form).and_raise(Exception)
+
+    service_args = {
+        dataset: :skymapper,
+        catalogue: :fs,
+    }
+
+    service = SyncQueryService.new(service_args)
+
+    query_args = {
+        dataset: :skymapper,
+        catalogue: :fs,
+        ra: 62.70968,
+        dec: -1.18844,
+        sr: 0.5
+    }
+
+    point_query = QueryGenerator.generate_point_query(query_args)
+
+    expect { service.fetch_results(point_query) }.to raise_error(Exception)
+  end
+
+  it 'Raises error if response is garbage' do
+    # mock network response
+    mock_res = double('Net::HTTPResponse')
+    mock_res.should_receive(:body).and_return(File.read(Rails.root.join('spec/fixtures/skymapper_point_query_results_1.vo')))
+
+    # stub network post
+    Net::HTTP.stub(:post_form).and_return(mock_res)
+
+    service_args = {
+        dataset: :skymapper,
+        catalogue: :fs,
+    }
+
+    service = SyncQueryService.new(service_args)
+
+    query_args = {
+        dataset: :skymapper,
+        catalogue: :fs,
+        ra: 62.70968,
+        dec: -1.18844,
+        sr: 0.5
+    }
+
+    point_query = QueryGenerator.generate_point_query(query_args)
+
+    expect { service.fetch_results(point_query) }.to raise_error(Exception)
   end
 
 end
