@@ -1,0 +1,31 @@
+%p
+  The radial search will return all objects in the SkyMapper catalogue that fall within the search radius of the specified right ascension and declination. All values are in decimal degrees.
+%p
+  The system currently supports a maximum search radius of 10°.
+
+%form
+  .row-fluid
+    .span6
+      %label{ for: :catalogue }
+        SkyMapper Survey:
+      %select#catalogue
+        %option{ value: :fs }
+          Five-Second Survey
+        %option{ value: :ms }
+          Main Survey
+  .row-fluid
+    .span6
+      %label{ for: :ra }
+        Right Ascension (deg):
+      %input#ra
+    .span6
+      %label{ for: :dec }
+        Declination (deg):
+      %input#dec
+  .row-fluid
+    .span6
+      %label{ for: :sr }
+        Search Radius (deg):
+      %input#sr
+  .form-actions
+    = button_to 'Search SkyMapper', '#', class: 'btn btn-primary'

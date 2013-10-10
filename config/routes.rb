@@ -27,10 +27,11 @@ AsvoSkymapper::Application.routes.draw do
     end
   end
 
-
-  root :to => "pages#home"
+  root :to => "search#index"
 
   get "pages/home"
+
+  get '/search', to: 'search#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
