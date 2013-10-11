@@ -8,7 +8,7 @@
     .span6
       %label{ for: :catalogue }
         SkyMapper Survey:
-      %select#catalogue{ name: 'catalogue', 'ng-model' => 'form.catalogue' }
+      %select#catalogue{ 'ng-model' => 'form.catalogue' }
         %option{ value: :fs }
           Five-Second Survey
         %option{ value: :ms }
@@ -18,18 +18,18 @@
     .span6
       %label{ for: :ra }
         Right Ascension (deg):
-      %input#ra{ name: 'ra', 'ng-model' => 'form.ra' }
+      %input#ra{ 'ng-model' => 'form.ra' }
 
     .span6
       %label{ for: :dec }
         Declination (deg):
-      %input#dec{ name: 'dec', 'ng-model' => 'form.dec' }
+      %input#dec{ 'ng-model' => 'form.dec' }
 
   .row-fluid
     .span6
       %label{ for: :sr }
         Search Radius (deg):
-      %input#sr{ name: 'sr', 'ng-model' => 'form.sr' }
+      %input#sr{ 'ng-model' => 'form.sr' }
 
   .form-actions
     %input.btn.btn-primary{ type: 'submit', value: 'Search SkyMapper', 'ng-click' => 'peformRadialSearch()' }
