@@ -3,29 +3,33 @@
 %p
   The system currently supports a maximum search radius of 10°.
 
-%form
+%form#radial-search{ 'ng-controller' => 'RadialSearchController' }
   .row-fluid
     .span6
       %label{ for: :catalogue }
         SkyMapper Survey:
-      %select#catalogue
+      %select#catalogue{ name: 'catalogue', 'ng-model' => 'form.catalogue' }
         %option{ value: :fs }
           Five-Second Survey
         %option{ value: :ms }
           Main Survey
+
   .row-fluid
     .span6
       %label{ for: :ra }
         Right Ascension (deg):
-      %input#ra
+      %input#ra{ name: 'ra', 'ng-model' => 'form.ra' }
+
     .span6
       %label{ for: :dec }
         Declination (deg):
-      %input#dec
+      %input#dec{ name: 'dec', 'ng-model' => 'form.dec' }
+
   .row-fluid
     .span6
       %label{ for: :sr }
         Search Radius (deg):
-      %input#sr
+      %input#sr{ name: 'sr', 'ng-model' => 'form.sr' }
+
   .form-actions
-    = button_to 'Search SkyMapper', '#', class: 'btn btn-primary'
+    %input.btn.btn-primary{ type: 'submit', value: 'Search SkyMapper', 'ng-click' => 'peformRadialSearch()' }
