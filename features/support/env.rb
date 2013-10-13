@@ -58,6 +58,11 @@ end
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
-# fix ambigous matches
+# Capybara custom settings
+require 'capybara/poltergeist'
+
+# Use perfer exact matcher (fix ambiguous matches)
 Capybara.match = :prefer_exact
 
+# Use phantomjs for javascript tests (headless javascript driver)
+Capybara.javascript_driver = :poltergeist

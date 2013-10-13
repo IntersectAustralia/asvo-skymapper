@@ -55,7 +55,7 @@ end
 Then /^I should get a security error "([^"]*)"$/ do |message|
   page.should have_content(message)
   current_path = URI.parse(current_url).path
-  current_path.should == path_to("the home page")
+  current_path.should == path_to("the signin page")
 end
 
 Then /^I should see link "([^"]*)"$/ do |text|

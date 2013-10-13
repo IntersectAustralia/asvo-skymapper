@@ -8,7 +8,7 @@ Feature: Edit my details
     And I am logged in as "georgina@intersect.org.au"
 
   Scenario: Edit my information
-    Given I am on the home page
+    Given I am on the signin page
     When I follow "Edit My Details"
     And I fill in "First Name" with "Fred"
     And I fill in "Last Name" with "Bloggs"
@@ -20,7 +20,7 @@ Feature: Edit my details
     And the "Last Name" field should contain "Bloggs"
 
   Scenario: Validation error
-    Given I am on the home page
+    Given I am on the signin page
     When I follow "Edit My Details"
     And I fill in "First Name" with ""
     And I fill in "Last Name" with "Bloggs"
@@ -28,7 +28,7 @@ Feature: Edit my details
     Then I should see "First name can't be blank"
 
   Scenario: Cancel editing my information
-    Given I am on the home page
+    Given I am on the signin page
     When I follow "Edit My Details"
     And I follow "Cancel"
     Then I should be on the user profile page

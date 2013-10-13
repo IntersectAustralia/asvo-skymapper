@@ -7,7 +7,7 @@ Then /^I should get the following security outcomes$/ do |table|
     if outcome == "error"
       page.should have_content(message)
       current_path = URI.parse(current_url).path
-      current_path.should == path_to("the home page")
+      current_path.should == path_to("the signin page")
     else
       current_path = URI.parse(current_url).path
       current_path.should == path_to(page_to_visit)

@@ -10,7 +10,7 @@ Feature: Logging Out
     And I should see "Logged in successfully."
   
   Scenario: Successful logout
-    Given I am on the home page
+    Given I am on the signin page
     When I follow "Logout"
     Then I should see "Logged out successfully."
 

@@ -11,7 +11,10 @@ module NavigationHelpers
     when /^the home\s?page$/
       '/'
 
-        # User paths
+    # User paths
+    when /the signin page/
+      '/pages/home'
+
     when /the login page/
       new_user_session_path
 

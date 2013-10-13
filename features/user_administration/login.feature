@@ -20,7 +20,7 @@ Feature: Logging In
     And I should be on the home page
 
   Scenario: Successful login from home page
-    Given I am on the home page
+    Given I am on the signin page
     When I fill in "Email" with "georgina@intersect.org.au"
     And I fill in "Password" with "Pas$w0rd"
     And I press "Log in"

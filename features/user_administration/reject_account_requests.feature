@@ -58,7 +58,7 @@ Feature: Reject access requests
   Scenario: Rejected user should not be able to log in
     Given I am on the access requests page
     When I follow "Reject" for "diego@intersect.org.au"
-    And I am on the home page
+    And I am on the signin page
     And I follow "Logout"
     And I am on the login page
     And I fill in "Email" with "diego@intersect.org.au"
@@ -70,7 +70,7 @@ Feature: Reject access requests
   Scenario: Rejected as spam user should not be able to log in
     Given I am on the access requests page
     When I follow "Reject as Spam" for "diego@intersect.org.au"
-    And I am on the home page
+    And I am on the signin page
     And I follow "Logout"
     And I am on the login page
     And I fill in "Email" with "diego@intersect.org.au"
@@ -82,7 +82,7 @@ Feature: Reject access requests
   Scenario: Rejected user should be able to apply again
     Given I am on the access requests page
     When I follow "Reject" for "diego@intersect.org.au"
-    And I am on the home page
+    And I am on the signin page
     And I follow "Logout"
     And I am on the request account page
     And I fill in the following:
@@ -97,7 +97,7 @@ Feature: Reject access requests
   Scenario: Rejected as spam user should not be able to apply again
     Given I am on the access requests page
     When I follow "Reject as Spam" for "diego@intersect.org.au"
-    And I am on the home page
+    And I am on the signin page
     And I follow "Logout"
     And I am on the request account page
     And I fill in the following:

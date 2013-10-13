@@ -20,7 +20,6 @@ Feature: Request an account
     Then I should see "Thanks for requesting an account. You will receive an email when your request has been approved."
     And I should not see "Your account is not active"
     And I should be on the home page
-    And I should see "Please enter your email and password to log in"
 
   Scenario: Email to superuser upon account request and clicking through to access requests page
     Given I am on the request account page

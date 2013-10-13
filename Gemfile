@@ -52,6 +52,8 @@ group :development, :test do
   #gem "spork"
   gem "launchy"    # So you can do Then show me the page
   gem "zeus"
+
+  gem "poltergeist"
 end
 
 group :test do
