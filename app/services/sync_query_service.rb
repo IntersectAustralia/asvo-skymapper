@@ -16,8 +16,8 @@ class SyncQueryService
   def fetch_results(query)
     begin
       form = {
-          request: 'doquery',
-          lang: 'adql',
+          request: 'doQuery',
+          lang: 'ADQL',
           query: query.to_adql
       }
 
