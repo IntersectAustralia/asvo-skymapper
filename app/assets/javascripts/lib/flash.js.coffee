@@ -1,4 +1,4 @@
-FLASH_TIMEOUT = 1000
+FLASH_TIMEOUT = 5000
 
 window.flash = (type, message) ->
   $('.flash').empty()
