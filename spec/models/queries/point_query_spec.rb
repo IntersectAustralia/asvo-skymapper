@@ -18,6 +18,7 @@ describe PointQuery do
   it { should allow_value('0').for(:ra) }
   it { should allow_value('359.99999').for(:ra) }
   it { should allow_value('123.45678').for(:ra) }
+  it { should allow_value(' 1.12345  ').for(:ra) }
 
   it { should_not allow_value('-0.00001').for(:ra) }
   it { should_not allow_value('360').for(:ra) }
@@ -32,8 +33,9 @@ describe PointQuery do
   it { should allow_value('0').for(:dec) }
   it { should allow_value('12.34567').for(:dec) }
   it { should allow_value('-12.34567').for(:dec) }
-  it { should_not allow_value(nil).for(:dec) }
+  it { should allow_value(' -  1.12345  ').for(:dec) }
 
+  it { should_not allow_value(nil).for(:dec) }
   it { should_not allow_value('-90.0001').for(:dec) }
   it { should_not allow_value('90.0001').for(:dec) }
   it { should_not allow_value('1000').for(:dec) }
@@ -46,12 +48,14 @@ describe PointQuery do
   it { should allow_value('0.0001').for(:sr) }
   it { should allow_value('10').for(:sr) }
   it { should allow_value('1.23456789').for(:sr) }
+  it { should allow_value('  1.12345  ').for(:sr) }
 
   it { should_not allow_value('0').for(:sr) }
   it { should_not allow_value('10.0001').for(:sr) }
   it { should_not allow_value('1000').for(:sr) }
   it { should_not allow_value('-1000').for(:sr) }
   it { should_not allow_value(nil).for(:sr) }
+
 
   it 'Create point query for skymapper catalogue fs' do
     registry = Rails.application.config.asvo_registry
@@ -61,9 +65,9 @@ describe PointQuery do
         table_name: catalogue[:table_name],
         ra_column_name: catalogue[:ra_column_name],
         dec_column_name: catalogue[:dec_column_name],
-        ra: 62.70968,
-        dec: -1.18844,
-        sr: 0.5
+        ra: '62.70968',
+        dec: '-1.18844',
+        sr: '0.5'
     }
 
     query = PointQuery.create(args)
