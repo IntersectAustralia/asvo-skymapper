@@ -3,33 +3,66 @@
 %p
   The system currently supports a maximum search radius of 10°.
 
-%form#radial-search{ 'ng-controller' => 'RadialSearchController' }
-  .row-fluid
-    .span6
-      %label{ for: :catalogue }
-        SkyMapper Survey:
-      %select#catalogue{ 'ng-model' => 'form.catalogue' }
-        %option{ value: :fs }
-          Five-Second Survey
-        %option{ value: :ms }
-          Main Survey
+.form-container{ 'ng-controller' => 'RadialSearchController' }
+  %form#radial_search_form.cancel{ name: 'radial_search_form', 'ng-submit' => 'peformRadialSearch()', novalidate: '' }
+    %fieldset
+      .row-fluid
+        .span6
+          %label{ for: :catalogue }
+            SkyMapper Survey:
+          %select#catalogue{ 'ng-model' => 'form.catalogue', name: 'catalogue', required: '' }
+            %option{ value: :fs }
+              Five-Second Survey
+            %option{ value: :ms }
+              Main Survey
+          .error{ 'ng-show' => '(submitted || radial_search_form.catalogue.$dirty) && radial_search_form.catalogue.$invalid' }
+            %small.error{ 'ng-show' => 'radial_search_form.catalogue.$error.required' }
+              This field is required.
 
-  .row-fluid
-    .span6
-      %label{ for: :ra }
-        Right Ascension (deg):
-      %input#ra{ 'ng-model' => 'form.ra' }
+      .row-fluid
+        .span6
+          %label{ for: :ra }
+            Right Ascension (deg):
+          %input#ra{ type: 'number', name: 'ra', 'ng-model' => 'form.ra', required: '', range: '[0, 360)', decimal: 5 }
+          .error{ 'ng-show' => '(submitted || radial_search_form.ra.$dirty) && radial_search_form.ra.$invalid' }
+            %small.error{ 'ng-show' => 'radial_search_form.ra.$error.required' }
+              This field is required.
+            %small.error{ 'ng-show' => 'radial_search_form.ra.$error.range' }
+              This field is should be a number greater than or equal to 0 and less than 360.
+            %small.error{ 'ng-show' => 'radial_search_form.ra.$error.decimal' }
+              This field is should be a number with 5 decimal places.
+        .span6
+          %label{ for: :dec }
+            Declination (deg):
+          %input#dec{ type: 'number', name: 'dec', 'ng-model' => 'form.dec', required: '', range: '[-90, 90]', decimal: 5 }
+          .error{ 'ng-show' => '(submitted || radial_search_form.dec.$dirty) && radial_search_form.dec.$invalid' }
+            %small.error{ 'ng-show' => 'radial_search_form.dec.$error.required' }
+              This field is required.
+            %small.error{ 'ng-show' => 'radial_search_form.ra.$error.range' }
+              This field is should be a number greater than or equal to -90 and less than or equal to 90.
+            %small.error{ 'ng-show' => 'radial_search_form.ra.$error.decimal' }
+              This field is should be a number with 5 decimal places.
 
-    .span6
-      %label{ for: :dec }
-        Declination (deg):
-      %input#dec{ 'ng-model' => 'form.dec' }
+      .row-fluid
+        .span6
+          %label{ for: :sr }
+            Search Radius (deg):
+          %input#sr{  type: 'number', name: 'sr', 'ng-model' => 'form.sr', required: '', range: '(0, 10]' }
+          .error{ 'ng-show' => '(submitted || radial_search_form.sr.$dirty) && radial_search_form.sr.$invalid' }
+            %small.error{ 'ng-show' => 'radial_search_form.sr.$error.required' }
+              This field is required.
+            %small.error{ 'ng-show' => 'radial_search_form.ra.$error.range' }
+              This field is should be a number greater than 0 and less than or equal to 10.
 
-  .row-fluid
-    .span6
-      %label{ for: :sr }
-        Search Radius (deg):
-      %input#sr{ 'ng-model' => 'form.sr' }
+    .form-actions
+      %input.btn.btn-primary{ type: 'submit', value: 'Search SkyMapper' }
 
-  .form-actions
-    %input.btn.btn-primary{ type: 'submit', value: 'Search SkyMapper', 'ng-click' => 'peformRadialSearch()' }
+  %table#results.table.table-striped.table-condensed
+    %thead
+      %tr
+        %td{ 'ng-repeat' => '(field, value) in objects[0]' }
+          {{field}}
+    %tbody
+      %tr{ 'ng-repeat' => 'obj in objects' }
+        %td{ 'ng-repeat' => '(field, value) in obj' }
+          {{value}}

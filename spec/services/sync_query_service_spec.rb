@@ -75,7 +75,7 @@ describe SyncQueryService do
 
     point_query = QueryGenerator.generate_point_query(query_args)
 
-    expect { service.fetch_results(point_query) }.to raise_error(Exception)
+    service.fetch_results(point_query).should be_nil
   end
 
   it 'Raises error if response is garbage' do
@@ -103,7 +103,7 @@ describe SyncQueryService do
 
     point_query = QueryGenerator.generate_point_query(query_args)
 
-    expect { service.fetch_results(point_query) }.to raise_error(Exception)
+    service.fetch_results(point_query).should be_empty
   end
 
 end

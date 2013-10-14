@@ -4,9 +4,13 @@ class VOTableParser
     doc = Nokogiri::HTML(xml)
 
     vo_table = VOTable.new
-    vo_table.query_status = doc.xpath('//info[@name="QUERY_STATUS"]').attr('value').value.upcase
-    vo_table.provider = doc.xpath('//info[@name="PROVIDER"]').text
-    vo_table.query = doc.xpath('//info[@name="QUERY"]').attr('value').value
+
+    vo_table.query_status = doc.xpath('//info[@name="QUERY_STATUS"]').attr('value').value.upcase unless
+        doc.xpath('//info[@name="QUERY_STATUS"]').empty?
+    vo_table.provider = doc.xpath('//info[@name="PROVIDER"]').text unless
+        doc.xpath('//info[@name="PROVIDER"]').empty?
+    vo_table.query = doc.xpath('//info[@name="QUERY"]').attr('value').value unless
+        doc.xpath('//info[@name="QUERY"]').empty?
     vo_table.table_fields = parse_fields(doc)
     vo_table.table_data = parse_data(vo_table.table_fields, doc)
 

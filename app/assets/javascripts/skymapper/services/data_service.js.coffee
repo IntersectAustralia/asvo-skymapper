@@ -1,36 +1,26 @@
-angular.module('SkyMapper.DataService', []).service '$dataService',
+angular.module('SkyMapper.DataService', []).service '$dataService', ['$http', '$q',
 
   class DataService
 
-    @RADIAL_SEARCH_URL = 'search/radial'
-
-    constructor: (@$http) ->
+    constructor: (@$http, @$q) ->
 
     generateURL: (url, args) ->
-      url += '?'
-      for key, value of args
-        url += "#{key}=#{value}&"
-      url
+      "#{url}?#{jQuery.param({query:args})}"
 
-    fetchObjects: (args) ->
+    fetchObjects: (url, args) ->
+      deferred_results = @$q.defer()
 
-      results = {
-        completed: false,
-        success: false,
-        objects: []
-      }
+      @$http.get(@generateURL(url, args))
 
-      @$http.get(@generateURL(DataService.RADIAL_SEARCH_URL, args))
+        .success (data) ->
+          #console.log("success: #{data}")
 
-        .success (objects) ->
+          deferred_results.resolve(data.objects)
 
-          results.complete = true
-          results.success = true
-          results.objects = objects
+        .error (data) ->
+          #console.log("error: #{data}")
 
-        .error ->
+          deferred_results.reject(data.error)
 
-          results.complete = true
-          results.success = false
-
-      results
+      deferred_results.promise
+]

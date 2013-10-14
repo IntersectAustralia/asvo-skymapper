@@ -15,7 +15,7 @@ SELECT
   validates :table_name, presence: true
   validates :ra_column_name, presence: true
   validates :dec_column_name, presence: true
-  validates :ra, presence: true, numericality: { greater_than_or_equal_to: 0, less_than: 360 }, format: { with: /^\d+??(?:\.\d{0,5})?$/ }
+  validates :ra, presence: true, numericality: { greater_than_or_equal_to: 0, less_than: 360 }, format: { with: /^-?\d+??(?:\.\d{0,5})?$/ }
   validates :dec, presence: true, numericality: { greater_than_or_equal_to: -90, less_than_or_equal_to: 90 }, format: { with: /^-?\d+??(?:\.\d{0,5})?$/ }
   validates :sr, presence: true, numericality: { greater_than: 0, less_than_or_equal_to: 10 }
 

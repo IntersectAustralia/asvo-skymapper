@@ -14,15 +14,20 @@ class SyncQueryService
   end
 
   def fetch_results(query)
-    form = {
-        request: 'doquery',
-        lang: 'adql',
-        query: query.to_adql
-    }
+    begin
+      form = {
+          request: 'doquery',
+          lang: 'adql',
+          query: query.to_adql
+      }
 
-    res = Net::HTTP.post_form(request, form)
+      res = Net::HTTP.post_form(request, form)
 
-    results_table = VOTableParser.parse_xml(res.body)
+      results_table = VOTableParser.parse_xml(res.body)
+    rescue Exception
+      #puts $!.inspect, $@
+    end
+
     results_table
   end
 

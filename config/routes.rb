@@ -31,7 +31,9 @@ AsvoSkymapper::Application.routes.draw do
 
   get "pages/home"
 
+  # Search routes
   get '/search', to: 'search#index'
+  get '/search/radial', to: 'search#radial_search'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
