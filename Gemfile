@@ -54,6 +54,7 @@ group :development, :test do
   gem "zeus"
 
   gem "poltergeist"
+  gem "teaspoon"
 end
 
 group :test do
