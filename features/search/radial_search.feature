@@ -19,3 +19,12 @@ Feature: Radial search
     | survey             | ra       | dec      | sr  |
     | Five-Second Survey | 62.70968 | -1.18844 | 0.5 |
 
+  @javascript
+  Scenario Outline: I cannot perform raidal search if form has errors
+    And I select the "Radial" tab
+    And I fill in "<value>" for "<field>"
+    Then I should see "<error>" for "<field>"
+  Examples:
+    | field | value | error |
+    | Right Ascension (deg) | | This field is required |
+

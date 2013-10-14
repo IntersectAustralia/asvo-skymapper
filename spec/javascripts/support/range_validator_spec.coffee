@@ -90,3 +90,16 @@ describe 'RangeValidator', ->
     expect(validator.validate(undefined)).toBe false
     expect(validator.validate('')).toBe false
     expect(validator.validate('abc')).toBe false
+
+  it 'allows negative ranges', ->
+    range = '[   - 20    , -   10    ]'
+    validator = new RangeValidator(range)
+    
+    expect(validator.validate('-  10')).toBe true
+    expect(validator.validate('-  20')).toBe true
+    expect(validator.validate('-  15')).toBe true
+    expect(validator.validate('-9.9')).toBe false
+    expect(validator.validate('-20.1')).toBe false
+    expect(validator.validate(undefined)).toBe false
+    expect(validator.validate('')).toBe false
+    expect(validator.validate('abc')).toBe false

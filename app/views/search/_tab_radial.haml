@@ -38,9 +38,9 @@
           .error{ 'ng-show' => '(submitted || radial_search_form.dec.$dirty) && radial_search_form.dec.$invalid' }
             %small.error{ 'ng-show' => 'radial_search_form.dec.$error.required' }
               This field is required.
-            %small.error{ 'ng-show' => 'radial_search_form.ra.$error.range' }
+            %small.error{ 'ng-show' => 'radial_search_form.dec.$error.range' }
               This field is should be a number greater than or equal to -90 and less than or equal to 90.
-            %small.error{ 'ng-show' => 'radial_search_form.ra.$error.decimal' }
+            %small.error{ 'ng-show' => 'radial_search_form.dec.$error.decimal' }
               This field is should be a number with 5 decimal places.
 
       .row-fluid
@@ -51,7 +51,7 @@
           .error{ 'ng-show' => '(submitted || radial_search_form.sr.$dirty) && radial_search_form.sr.$invalid' }
             %small.error{ 'ng-show' => 'radial_search_form.sr.$error.required' }
               This field is required.
-            %small.error{ 'ng-show' => 'radial_search_form.ra.$error.range' }
+            %small.error{ 'ng-show' => 'radial_search_form.sr.$error.range' }
               This field is should be a number greater than 0 and less than or equal to 10.
 
     .form-actions
