@@ -50,9 +50,9 @@ SELECT
         table_name: 'public.fs_distilled',
         ra_column_name: 'mean_ra',
         dec_column_name: 'mean_dcl',
-        ra: 62.70968,
-        dec: -1.18844,
-        sr: 0.5
+        ra: '62.70968',
+        dec: '-1.18844',
+        sr: '0.5'
     }
     query = QueryBuilder.new(adql, args)
     query.build.should == result
