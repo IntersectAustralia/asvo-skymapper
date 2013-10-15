@@ -53,11 +53,6 @@ namespace :server_setup do
       run "#{try_sudo} chown -R #{user}.#{group} #{shared_path}/db_dumps"
     end
   end
-  namespace :rvm do
-    task :trust_rvmrc do
-      run "rvm rvmrc trust #{release_path}"
-    end
-  end
   task :gem_install, :roles => :app do
     run 'gem install bundler'
     run "gem install passenger --version #{passenger_version}"
@@ -85,7 +80,6 @@ namespace :server_setup do
 end
 before 'deploy:setup' do
   server_setup.rpm_install
-  server_setup.rvm.trust_rvmrc
   server_setup.gem_install
   server_setup.passenger
 end
@@ -98,11 +92,11 @@ after 'deploy:update' do
   server_setup.config.apache
   deploy.restart
   deploy.additional_symlinks
+  deploy.precompile_assets
 end
 after 'deploy:finalize_update' do
    generate_database_yml
 end
-
 namespace :deploy do
 
   # Passenger specifics: restart by touching the restart.txt file
@@ -202,6 +196,11 @@ namespace :deploy do
     backup.db.trim
     migrate
     restart
+  end
+
+  desc 'Precompile assets'
+  task :precompile_assets do
+    run("cd #{current_path} && exec bundle rake assets:clean assets:precompile", :env => {'RAILS_ENV' => "#{stage}"})
   end
 
 end
