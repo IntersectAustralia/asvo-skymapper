@@ -10,13 +10,16 @@
     = csrf_meta_tags
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
   %body
-    .navbar.navbar-fixed-top
+
+    #banner.navbar
       .navbar-inner
         .container
           %a.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse"}
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
+          %a.brand.logo{ :href => root_path }
+            %img{:src => "/images/asvo_logo.png"}
           %a.brand{:href => root_path } SkyMapper
           .nav-collapse
             %ul.nav
@@ -24,8 +27,7 @@
               %li= link_to "LINK2"
               %li= link_to "LINK3"
           = render 'layouts/user_menu'
-
-    .container.main_content
+    .container-fluid.main_content
       .flash
         - flash.each do |name, msg|
           - next if name == :timedout
