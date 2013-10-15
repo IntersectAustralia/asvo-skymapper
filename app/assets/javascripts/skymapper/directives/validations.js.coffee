@@ -8,15 +8,13 @@ window.skymapper_app.directive "range", ->
       rangeValidator = new RangeValidator(attr.range)
 
       ctrl.$parsers.unshift (value) ->
-        value = $(elem).val()
 
         valid = rangeValidator.validate(value)
         ctrl.$setValidity('range', valid)
 
-        valid ? value : undefined
+        value
 
       ctrl.$formatters.unshift (value) ->
-        value = $(elem).val()
         
         valid = rangeValidator.validate(value)
         ctrl.$setValidity('range', valid)
@@ -35,15 +33,13 @@ window.skymapper_app.directive "decimal", ->
       formatValidator = new FormatValidator(format)
 
       ctrl.$parsers.unshift (value) ->
-        value = $(elem).val()
 
         valid = formatValidator.validate(value)
         ctrl.$setValidity('decimal', valid)
 
-        valid ? value : undefined
+        value
 
       ctrl.$formatters.unshift (value) ->
-        value = $(elem).val()
 
         valid = formatValidator.validate(value)
         ctrl.$setValidity('decimal', valid)
