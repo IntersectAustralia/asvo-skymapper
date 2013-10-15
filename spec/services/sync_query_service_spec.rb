@@ -40,7 +40,7 @@ describe SyncQueryService do
 
     point_query = QueryGenerator.generate_point_query(query_args)
 
-    mock_results_table = YAML.load(File.read(Rails.root.join('spec/fixtures/skymapper_point_query_results_1.vo')))
+    mock_results_table = YAML.load(File.read(Rails.root.join('spec/fixtures/skymapper_point_query_1.vo')))
 
     results_table = service.fetch_results(point_query)
     results_table.eql?(mock_results_table).should be_true
@@ -81,7 +81,7 @@ describe SyncQueryService do
   it 'Raises error if response is garbage' do
     # mock network response
     mock_res = double('Net::HTTPResponse')
-    mock_res.should_receive(:body).and_return(File.read(Rails.root.join('spec/fixtures/skymapper_point_query_results_1.vo')))
+    mock_res.should_receive(:body).and_return(File.read(Rails.root.join('spec/fixtures/skymapper_point_query_1.vo')))
 
     # stub network post
     Net::HTTP.stub(:post_form).and_return(mock_res)
