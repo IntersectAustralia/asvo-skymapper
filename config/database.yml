@@ -1,4 +1,4 @@
-development:
+development: &development
   adapter: postgresql
   encoding: unicode
   database: skymapper
@@ -20,6 +20,12 @@ test: &test
   username: skymapper
   password: skymapper
   timeout: 5000
+
+qa:
+  <<: *development
+
+staging:
+  <<: *development
 
 production:
   adapter: postgresql
