@@ -65,4 +65,4 @@ require 'capybara/poltergeist'
 Capybara.match = :prefer_exact
 
 # Use phantomjs for javascript tests (headless javascript driver)
-Capybara.javascript_driver = :poltergeist
+#Capybara.javascript_driver = :poltergeist

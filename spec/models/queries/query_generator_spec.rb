@@ -6,9 +6,9 @@ describe QueryGenerator do
     args = {
         dataset: :skymapper,
         catalogue: :fs,
-        ra: 62.70968,
-        dec: -1.18844,
-        sr: 0.5
+        ra: '62.70968',
+        dec: '-1.18844',
+        sr: '0.5'
     }
     point_query = QueryGenerator.generate_point_query(args)
     point_query.valid?.should be_true
