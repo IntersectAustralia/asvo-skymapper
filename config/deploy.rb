@@ -140,20 +140,20 @@ namespace :deploy do
   # Load the schema
   desc 'Load the schema into the database (WARNING: destructive!)'
   task :schema_load, :roles => :db do
-    run("cd #{current_path} && exec rake db:schema:load", :env => {'RAILS_ENV' => "#{stage}"})
+    run("cd #{current_path} && exec bundle rake db:schema:load", :env => {'RAILS_ENV' => "#{stage}"})
   end
 
   # Run the sample data populator
   desc 'Run the test data populator script to load test data into the db (WARNING: destructive!)'
   task :populate, :roles => :db do
     generate_populate_yml
-    run("cd #{current_path} && exec rake db:populate", :env => {'RAILS_ENV' => "#{stage}"})
+    run("cd #{current_path} && exec bundle rake db:populate", :env => {'RAILS_ENV' => "#{stage}"})
   end
 
   # Seed the db
   desc 'Run the seeds script to load seed data into the db (WARNING: destructive!)'
   task :seed, :roles => :db do
-    run("cd #{current_path} && exec rake db:seed", :env => {'RAILS_ENV' => "#{stage}"})
+    run("cd #{current_path} && exec bundle rake db:seed", :env => {'RAILS_ENV' => "#{stage}"})
   end
 
   desc 'Full redepoyment, it runs deploy:update and deploy:refresh_db'
@@ -190,7 +190,7 @@ namespace :deploy do
     update
     rebundle
 
-    cat_migrations_output = capture("cd #{current_path} && rake db:cat_pending_migrations 2>&1", :env => {'RAILS_ENV' => stage}).chomp
+    cat_migrations_output = capture("cd #{current_path} && bundle rake db:cat_pending_migrations 2>&1", :env => {'RAILS_ENV' => stage}).chomp
     puts cat_migrations_output
 
     if cat_migrations_output != '0 pending migration(s)'
@@ -210,12 +210,12 @@ namespace :backup do
   namespace :db do
     desc 'make a database backup'
     task :dump do
-      run "cd #{current_path} && rake db:backup", :env => {'RAILS_ENV' => stage}
+      run "cd #{current_path} && bundle rake db:backup", :env => {'RAILS_ENV' => stage}
     end
 
     desc 'trim database backups'
     task :trim do
-      run "cd #{current_path} && rake db:trim_backups", :env => {'RAILS_ENV' => stage}
+      run "cd #{current_path} && bundle rake db:trim_backups", :env => {'RAILS_ENV' => stage}
     end
   end
 end
