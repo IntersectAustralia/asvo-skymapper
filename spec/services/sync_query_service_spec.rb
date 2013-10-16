@@ -106,4 +106,43 @@ describe SyncQueryService do
     service.fetch_results(point_query).should be_empty
   end
 
+  it 'Fetch point query results for skymapper catalogue ms' do
+    # mock network response
+    mock_res = double('Net::HTTPResponse')
+    mock_res.should_receive(:body).and_return(File.read(Rails.root.join('spec/fixtures/skymapper_point_query_2.xml')))
+
+    # stub network post
+    Net::HTTP.stub(:post_form).and_return(mock_res)
+
+    service_args = {
+        dataset: :skymapper,
+        catalogue: :ms,
+    }
+
+    service = SyncQueryService.new(service_args)
+
+    query_args = {
+        dataset: :skymapper,
+        catalogue: :ms,
+        ra: '62.70968',
+        dec: '-1.18844',
+        sr: '0.5'
+    }
+
+    point_query = QueryGenerator.generate_point_query(query_args)
+
+    mock_results_table = YAML.load(File.read(Rails.root.join('spec/fixtures/skymapper_point_query_2.vo')))
+
+    results_table = service.fetch_results(point_query)
+    results_table.eql?(mock_results_table).should be_true
+  end
+
+  it 'Fetch point query results for skymapper cataglogue ms returns no matches' do
+    pending("getting proper test data")
+  end
+
+  it 'Fetch point query results for skymapper cataglogue ms returns maximum of 1000 matches' do
+    pending("getting proper test data")
+  end
+
 end
