@@ -14,7 +14,7 @@ datasets:
         service: TAP
         service_end_point: http://astroa.anu.edu.au:8080/skymapperpublic-asov-tap/tap
         table_name: public.ms_distilled
-        ra_column_name: mean_ra
-        dec_column_name: mean_dcl
+        ra_column_name: ra
+        dec_column_name: dcl
   - dataset: wigglez
     description: TODO

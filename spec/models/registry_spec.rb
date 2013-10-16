@@ -32,8 +32,8 @@ describe Registry do
     ms_catalogue[:service].should == 'TAP'
     ms_catalogue[:service_end_point].should == 'http://astroa.anu.edu.au:8080/skymapperpublic-asov-tap/tap'
     ms_catalogue[:table_name].should == 'public.ms_distilled'
-    ms_catalogue[:ra_column_name].should == 'mean_ra'
-    ms_catalogue[:dec_column_name].should == 'mean_dcl'
+    ms_catalogue[:ra_column_name].should == 'ra'
+    ms_catalogue[:dec_column_name].should == 'dcl'
   end
 
 end

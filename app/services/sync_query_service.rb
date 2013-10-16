@@ -1,3 +1,5 @@
+require 'net/http'
+
 class SyncQueryService
 
   def initialize(args)
