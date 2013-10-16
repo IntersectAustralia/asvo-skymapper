@@ -14,10 +14,12 @@ Feature: Radial search
     And I fill in "<dec>" for "Declination (deg)"
     And I fill in "<sr>" for "Search Radius (deg)"
     And I press "Search SkyMapper"
+    And I cannot press "Search SkyMapper"
     Then I should see search table "skymapper_radial_search_1.vo"
+    And I can press "Search SkyMapper"
   Examples:
-    | survey             | ra       | dec      | sr  |
-    | Five-Second Survey | -1.18844 | -1.18844 | 0.5 |
+    | survey             | ra        | dec      | sr  |
+    | Five-Second Survey | 178.83871 | -1.18844 | 0.5 |
 
   @javascript
   Scenario Outline: I perform radial search
@@ -27,7 +29,9 @@ Feature: Radial search
     And I fill in "<dec>" for "Declination (deg)"
     And I fill in "<sr>" for "Search Radius (deg)"
     And I press "Search SkyMapper"
+    And I cannot press "Search SkyMapper"
     Then I should see search table "skymapper_radial_search_2.vo"
+    And I can press "Search SkyMapper"
   Examples:
     | survey      | ra        | dec      | sr  |
     | Main Survey | 178.83871 | -1.18844 | 0.5 |

@@ -6,27 +6,29 @@ window.skymapper_app.controller 'RadialSearchController', ['$scope', '$dataServi
 
     constructor: ($scope, $dataService) ->
 
-      $scope.submitted = false
       $scope.form = {}
-      $scope.objects = []
+      $scope.objects = undefined
+      $scope.submitted = false
 
       $scope.peformRadialSearch = ->
+
         $scope.submitted = true
 
         if $scope.radial_search_form.$valid
-          results_promise = $dataService.fetchObjects(RadialSearchController.RADIAL_SEARCH_URL, $scope.form)
 
-          $('#progress-bar').show()
+          $scope.objects = undefined
+          $scope.$parent.searching = true
+          results_promise = $dataService.fetchObjects(RadialSearchController.RADIAL_SEARCH_URL, $scope.form)
 
           results_promise.then(
             (objects) ->
               $scope.objects = objects
               flash('notice', 'Completed Search')
-              $('#progress-bar').hide()
+              $scope.$parent.searching = false
             ,
             (error) ->
               flash('error', error)
-              $('#progress-bar').hide()
+              $scope.$parent.searching = false
             ,
             undefined
           )
