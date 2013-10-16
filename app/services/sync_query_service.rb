@@ -17,13 +17,7 @@ class SyncQueryService
 
   def fetch_results(query)
     begin
-      form = {
-          request: 'doQuery',
-          lang: 'ADQL',
-          query: query.to_adql
-      }
-
-      res = Net::HTTP.post_form(request, form)
+      res = fetch_query_response(query)
 
       results_table = VOTableParser.parse_xml(res.body)
     rescue Exception
@@ -31,6 +25,17 @@ class SyncQueryService
     end
 
     results_table
+  end
+
+  def fetch_query_response(query)
+    form = {
+        request: 'doQuery',
+        lang: 'ADQL',
+        query: query.to_adql
+    }
+
+    res = Net::HTTP.post_form(request, form)
+    res
   end
 
 end
