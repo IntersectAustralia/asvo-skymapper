@@ -16,13 +16,17 @@ window.skymapper_app.controller 'RadialSearchController', ['$scope', '$dataServi
         if $scope.radial_search_form.$valid
           results_promise = $dataService.fetchObjects(RadialSearchController.RADIAL_SEARCH_URL, $scope.form)
 
+          $('#progress-bar').show()
+
           results_promise.then(
             (objects) ->
               $scope.objects = objects
               flash('notice', 'Completed Search')
+              $('#progress-bar').hide()
             ,
             (error) ->
               flash('error', error)
+              $('#progress-bar').hide()
             ,
             undefined
           )
