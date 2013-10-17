@@ -64,6 +64,7 @@ group :test do
   gem "simplecov", ">=0.3.8", :require => false
   gem "simplecov-rcov"
   gem "selenium-webdriver"
+  gem "fakeweb"
 end
 
 gem "haml"

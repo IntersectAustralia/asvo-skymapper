@@ -22,18 +22,7 @@ class SearchController < ApplicationController
       { name: 'Radius:', value: params[:sr] }
     ]
 
-    catalogue_fields = query_fields(DEFAULT_DATASET, params[:catalogue])
-    @fields = [
-      { name: 'Object Id', field: catalogue_fields[:object_id_field] },
-      { name: 'Right ascension', field: catalogue_fields[:ra_field] },
-      { name: 'Declination', field: catalogue_fields[:dec_field] },
-      { name: 'u', field: catalogue_fields[:u_field] },
-      { name: 'v', field: catalogue_fields[:v_field] },
-      { name: 'g', field: catalogue_fields[:g_field] },
-      { name: 'r', field: catalogue_fields[:i_field] },
-      { name: 'i', field: catalogue_fields[:r_field] },
-      { name: 'z', field: catalogue_fields[:z_field] },
-    ]
+    @fields = radial_search_fields(params[:catalogue])
 
     render 'search_results'
   end
@@ -41,6 +30,8 @@ class SearchController < ApplicationController
   def radial_search_results
     fetch_search_results(QueryGenerator.method(:generate_point_query))
   end
+
+  # HELPERS
 
   def fetch_search_results(query_factory)
     args = params[:query]
@@ -76,6 +67,21 @@ class SearchController < ApplicationController
     end
   rescue StandardError => error
     raise error
+  end
+
+  def radial_search_fields(catagloue)
+    catalogue_fields = query_fields(DEFAULT_DATASET, catagloue)
+    [
+        { name: 'Object Id', field: catalogue_fields[:object_id_field] },
+        { name: 'Right ascension', field: catalogue_fields[:ra_field] },
+        { name: 'Declination', field: catalogue_fields[:dec_field] },
+        { name: 'u', field: catalogue_fields[:u_field] },
+        { name: 'v', field: catalogue_fields[:v_field] },
+        { name: 'g', field: catalogue_fields[:g_field] },
+        { name: 'r', field: catalogue_fields[:i_field] },
+        { name: 'i', field: catalogue_fields[:r_field] },
+        { name: 'z', field: catalogue_fields[:z_field] },
+    ]
   end
 
   protected

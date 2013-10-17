@@ -13,14 +13,38 @@ Feature: Radial search
     And I fill in "<ra>" for "Right Ascension (deg)"
     And I fill in "<dec>" for "Declination (deg)"
     And I fill in "<sr>" for "Search Radius (deg)"
-    And I fake search with "<results>"
+    And I fake search for catalogue "<catalogue>" returns "<results>"
     And I press "Search SkyMapper"
     Then I should be on the radial search results page
-    And I should see results for "<results>"
+    And I should see radial search parameters ("<ra>", "<dec>", "<sr>")
+    And I should see results "<results>"
+    And I should see "Query return <count> objects."
   Examples:
-    | survey             | ra        | dec      | sr  | results                 |
-    | Five-Second Survey | 178.83871 | -1.18844 | 0.5 | skymapper_point_query_1 |
-    | Main Survey        | 178.83871 | -1.18844 | 0.5 | skymapper_point_query_2 |
+    | survey             | catalogue | ra        | dec      | sr  | results                 | count |
+    | Five-Second Survey | fs        | 178.83871 | -1.18844 | 0.5 | skymapper_point_query_1 | 272   |
+    | Five-Second Survey | fs        | 1         | 1        | 1   | skymapper_point_query_3 | 0     |
+    | Main Survey        | ms        | 178.83871 | -1.18844 | 0.5 | skymapper_point_query_2 | 10000 |
+    | Main Survey        | ms        | 1         | 1        | 1   | skymapper_point_query_3 | 0     |
+
+  @javascript
+  Scenario Outline: I cannot perform radial search if request error
+    And I select the "Radial" tab
+    And I select "<survey>" from "SkyMapper Survey"
+    And I fill in "<ra>" for "Right Ascension (deg)"
+    And I fill in "<dec>" for "Declination (deg)"
+    And I fill in "<sr>" for "Search Radius (deg)"
+    And I fake search for catalogue "<catalogue>" returns error
+    And I press "Search SkyMapper"
+    Then I should be on the radial search results page
+    And I should see radial search parameters ("<ra>", "<dec>", "<sr>")
+    And I should not see results table
+    And I should see "There was an error fetching the results."
+  Examples:
+    | survey             | catalogue | ra        | dec      | sr  |
+    | Five-Second Survey | fs        | 178.83871 | -1.18844 | 0.5 |
+    | Five-Second Survey | fs        | 1         | 1        | 1   |
+    | Main Survey        | ms        | 178.83871 | -1.18844 | 0.5 |
+    | Main Survey        | ms        | 1         | 1        | 1   |
 
   @javascript
   Scenario Outline: I can submit radial search with the follow values

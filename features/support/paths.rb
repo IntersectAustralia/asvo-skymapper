@@ -46,6 +46,9 @@ module NavigationHelpers
     when /the list users page/
       users_path
 
+    when /^the radial search results page$/
+      radial_search_path
+
 # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
