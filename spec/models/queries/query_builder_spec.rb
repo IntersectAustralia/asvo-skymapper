@@ -44,13 +44,13 @@ SELECT
     FROM public.fs_distilled
     WHERE
         1=CONTAINS(POINT('ICRS', mean_ra, mean_dcl),
-                   CIRCLE('ICRS', 62.70968, -1.18844, 0.5 ))
+                   CIRCLE('ICRS', 178.83871, -1.18844, 0.5 ))
     END_ADQL
     args = {
         table_name: 'public.fs_distilled',
         ra_column_name: 'mean_ra',
         dec_column_name: 'mean_dcl',
-        ra: '62.70968',
+        ra: '178.83871',
         dec: '-1.18844',
         sr: '0.5'
     }

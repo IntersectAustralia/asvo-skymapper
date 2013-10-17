@@ -65,7 +65,7 @@ describe PointQuery do
         table_name: catalogue[:table_name],
         ra_field: catalogue[:fields][:ra_field],
         dec_field: catalogue[:fields][:dec_field],
-        ra: '62.70968',
+        ra: '178.83871',
         dec: '-1.18844',
         sr: '0.5'
     }
@@ -93,7 +93,7 @@ SELECT
         table_name: catalogue[:table_name],
         ra_field: catalogue[:fields][:ra_field],
         dec_field: catalogue[:fields][:dec_field],
-        ra: '62.70968',
+        ra: '178.83871',
         dec: '-1.18844',
         sr: '0.5'
     }

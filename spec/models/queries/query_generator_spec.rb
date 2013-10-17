@@ -6,7 +6,7 @@ describe QueryGenerator do
     args = {
         dataset: 'skymapper',
         catalogue: 'fs',
-        ra: '62.70968',
+        ra: '178.83871',
         dec: '-1.18844',
         sr: '0.5'
     }
@@ -18,7 +18,7 @@ describe QueryGenerator do
     args = {
         dataset: 'skymapper',
         catalogue: 'ms',
-        ra: '62.70968',
+        ra: '178.83871',
         dec: '-1.18844',
         sr: '0.5'
     }
