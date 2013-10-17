@@ -1,0 +1,8 @@
+.span12
+  %h5 Search Parameters
+  %ul
+    - @parameters.each do |param|
+      %li
+        = param[:name]
+        %span.pull-right
+          = "#{param[:value]}°"

@@ -1,0 +1,9 @@
+%section#search.row-fluid{ 'ng-controller' => 'SearchResultsController', 'ng-init' => "doSearch('#{@results_path}')" }
+
+  .span9
+    %h3 Search Results
+    = render 'search_results_table'
+
+  .span3
+    = render 'search_parameters'
+    = render 'help'

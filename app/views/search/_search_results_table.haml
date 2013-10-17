@@ -1,0 +1,13 @@
+.row-fluid
+  .span12
+    %table.table.table-striped.table-bordered
+      %thead
+        %tr
+          - @fields.each do |field|
+            %th
+              = field[:name]
+      %tbody
+        %tr{ 'ng-repeat' => 'obj in objects' }
+          - @fields.each do |field|
+            %td
+              = "{{obj['#{field[:field]}']}}"
