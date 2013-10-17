@@ -6,15 +6,15 @@ SELECT
     *
     FROM <table_name>
     WHERE
-        1=CONTAINS(POINT('ICRS', <ra_column_name>, <dec_column_name>),
+        1=CONTAINS(POINT('ICRS', <ra_field>, <dec_field>),
                    CIRCLE('ICRS', <ra>, <dec>, <sr> ))
   END_ADQL
 
-  attr_accessor :table_name, :ra_column_name, :dec_column_name, :ra, :dec, :sr
+  attr_accessor :table_name, :ra_field, :dec_field, :ra, :dec, :sr
 
   validates :table_name, presence: true
-  validates :ra_column_name, presence: true
-  validates :dec_column_name, presence: true
+  validates :ra_field, presence: true
+  validates :dec_field, presence: true
   validates :ra, presence: true, numericality: { greater_than_or_equal_to: 0, less_than: 360 }, format: { with: /^-?\d+?(.\d{0,5})?$/ }
   validates :dec, presence: true, numericality: { greater_than_or_equal_to: -90, less_than_or_equal_to: 90 }, format: { with: /^-?\d+?(.\d{0,5})?$/ }
   validates :sr, presence: true, numericality: { greater_than: 0, less_than_or_equal_to: 10 }
@@ -30,8 +30,8 @@ SELECT
   def to_args
     args = {
       table_name: table_name,
-      ra_column_name: ra_column_name,
-      dec_column_name: dec_column_name,
+      ra_field: ra_field,
+      dec_field: dec_field,
       ra: ra,
       dec: dec,
       sr: sr
@@ -41,8 +41,8 @@ SELECT
 
   def from_args(args)
     self.table_name = args[:table_name]
-    self.ra_column_name = args[:ra_column_name]
-    self.dec_column_name = args[:dec_column_name]
+    self.ra_field = args[:ra_field]
+    self.dec_field = args[:dec_field]
     self.ra = clean(args[:ra])
     self.dec = clean(args[:dec])
     self.sr = clean(args[:sr])

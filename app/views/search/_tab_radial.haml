@@ -3,8 +3,8 @@
 %p
   The system currently supports a maximum search radius of 10°.
 
-.form-container{ 'ng-controller' => 'RadialSearchController' }
-  %form#radial_search_form.cancel{ name: 'radial_search_form', 'ng-submit' => 'peformRadialSearch()', novalidate: '' }
+.form-container
+  %form#radial_search_form.cancel{ name: 'radial_search_form', 'ng-submit' => "submit('radial_search_form', '#{radial_search_path}')", novalidate: '' }
     %fieldset
       .row-fluid
         .span6
@@ -56,13 +56,3 @@
 
     .form-actions
       %input#submit.btn.btn-primary{ type: 'submit', value: 'Search SkyMapper', 'ng-disabled' => 'searching' }
-
-  %table#results.table.table-striped.table-condensed
-    %thead
-      %tr
-        %td{ 'ng-repeat' => '(field, value) in objects[0]' }
-          {{field}}
-    %tbody
-      %tr{ 'ng-repeat' => 'obj in objects' }
-        %td{ 'ng-repeat' => '(field, value) in obj' }
-          {{value}}

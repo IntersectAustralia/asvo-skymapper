@@ -15,7 +15,7 @@ angular.module('SkyMapper.DataService', []).service '$dataService', ['$http', '$
         .success (data) ->
           #console.log("success: #{data}")
 
-          deferred_results.resolve(data.objects)
+          deferred_results.resolve(data)
 
         .error (data) ->
           #console.log("error: #{data}")

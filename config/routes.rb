@@ -1,9 +1,9 @@
 AsvoSkymapper::Application.routes.draw do
-  devise_for :users, controllers: {registrations: "user_registers", passwords: "user_passwords"}
+  devise_for :users, controllers: {registrations: 'user_registers', passwords: 'user_passwords' }
   devise_scope :user do
-    get "/users/profile", :to => "user_registers#profile" #page which gives options to edit details or change password
-    get "/users/edit_password", :to => "user_registers#edit_password" #allow users to edit their own password
-    put "/users/update_password", :to => "user_registers#update_password" #allow users to edit their own password
+    get '/users/profile', :to => 'user_registers#profile' #page which gives options to edit details or change password
+    get '/users/edit_password', :to => 'user_registers#edit_password' #allow users to edit their own password
+    put '/users/update_password', :to => 'user_registers#update_password' #allow users to edit their own password
   end
 
   resources :users, :only => [:show] do
@@ -23,17 +23,18 @@ AsvoSkymapper::Application.routes.draw do
       put :update_role
       get :edit_approval
       put :approve
-
     end
+
   end
 
-  root :to => "search#index"
+  root :to => 'search#index'
 
-  get "pages/home"
+  get 'pages/home'
 
   # Search routes
   get '/search', to: 'search#index'
-  get '/search/radial', to: 'search#radial_search'
+  get '/search/radial', to: 'search#radial_search', as: 'radial_search'
+  get '/search/radial/results', to: 'search#radial_search_results', as: 'radial_search_results'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -4,11 +4,11 @@ describe SyncQueryService do
 
   it 'Fetch results uses synchronous request' do
     registry = Rails.application.config.asvo_registry
-    catalogue = registry.find_catalogue(:skymapper, :fs)
+    catalogue = registry.find_catalogue('skymapper', 'fs')
 
     service_args = {
-        dataset: :skymapper,
-        catalogue: :fs,
+        dataset: 'skymapper',
+        catalogue: 'fs',
     }
 
     service = SyncQueryService.new(service_args)
@@ -24,15 +24,15 @@ describe SyncQueryService do
     Net::HTTP.stub(:post_form).and_return(mock_res)
 
     service_args = {
-        dataset: :skymapper,
-        catalogue: :fs,
+        dataset: 'skymapper',
+        catalogue: 'fs',
     }
 
     service = SyncQueryService.new(service_args)
 
     query_args = {
-        dataset: :skymapper,
-        catalogue: :fs,
+        dataset: 'skymapper',
+        catalogue: 'fs',
         ra: '62.70968',
         dec: '-1.18844',
         sr: '0.5'
@@ -59,15 +59,15 @@ describe SyncQueryService do
     Net::HTTP.stub(:post_form).and_raise(Exception)
 
     service_args = {
-        dataset: :skymapper,
-        catalogue: :fs,
+        dataset: 'skymapper',
+        catalogue: 'fs',
     }
 
     service = SyncQueryService.new(service_args)
 
     query_args = {
-        dataset: :skymapper,
-        catalogue: :fs,
+        dataset: 'skymapper',
+        catalogue: 'fs',
         ra: '62.70968',
         dec: '-1.18844',
         sr: '0.5'
@@ -87,15 +87,15 @@ describe SyncQueryService do
     Net::HTTP.stub(:post_form).and_return(mock_res)
 
     service_args = {
-        dataset: :skymapper,
-        catalogue: :fs,
+        dataset: 'skymapper',
+        catalogue: 'fs',
     }
 
     service = SyncQueryService.new(service_args)
 
     query_args = {
-        dataset: :skymapper,
-        catalogue: :fs,
+        dataset: 'skymapper',
+        catalogue: 'fs',
         ra: '62.70968',
         dec: '-1.18844',
         sr: '0.5'
@@ -115,15 +115,15 @@ describe SyncQueryService do
     Net::HTTP.stub(:post_form).and_return(mock_res)
 
     service_args = {
-        dataset: :skymapper,
-        catalogue: :ms,
+        dataset: 'skymapper',
+        catalogue: 'ms',
     }
 
     service = SyncQueryService.new(service_args)
 
     query_args = {
-        dataset: :skymapper,
-        catalogue: :ms,
+        dataset: 'skymapper',
+        catalogue: 'ms',
         ra: '62.70968',
         dec: '-1.18844',
         sr: '0.5'

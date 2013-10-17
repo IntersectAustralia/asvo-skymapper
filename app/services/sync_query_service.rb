@@ -21,7 +21,7 @@ class SyncQueryService
 
       results_table = VOTableParser.parse_xml(res.body)
     rescue Exception
-      #puts $!.inspect, $@
+      puts $!.inspect, $@ unless Rails.env == 'test'
     end
 
     results_table

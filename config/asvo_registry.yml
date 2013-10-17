@@ -1,20 +1,36 @@
-datasets:
-  - dataset: skymapper
-    description: TODO
-    catalogues:
-      - catalogue: fs
-        description: TODO
-        service: TAP
-        service_end_point: http://astroa.anu.edu.au:8080/skymapperpublic-asov-tap/tap
-        table_name: public.fs_distilled
-        ra_column_name: mean_ra
-        dec_column_name: mean_dcl
-      - catalogue: ms
-        description: TODO
-        service: TAP
-        service_end_point: http://astroa.anu.edu.au:8080/skymapperpublic-asov-tap/tap
-        table_name: public.ms_distilled
-        ra_column_name: ra
-        dec_column_name: dcl
-  - dataset: wigglez
-    description: TODO
+:datasets:
+  - :dataset: skymapper
+    :description: TODO
+    :catalogues:
+      - :catalogue: fs
+        :description: TODO
+        :service: TAP
+        :service_end_point: http://astroa.anu.edu.au:8080/skymapperpublic-asov-tap/tap
+        :table_name: public.fs_distilled
+        :fields:
+          :ra_field: mean_ra
+          :dec_field: mean_dcl
+          :object_id_field: global_object_id
+          :u_field: flux_u
+          :v_field: flux_v
+          :g_field: flux_g
+          :r_field: flux_r
+          :i_field: flux_i
+          :z_field: flux_z
+      - :catalogue: ms
+        :description: TODO
+        :service: TAP
+        :service_end_point: http://astroa.anu.edu.au:8080/skymapperpublic-asov-tap/tap
+        :table_name: public.ms_distilled
+        :fields:
+          :ra_field: ra
+          :dec_field: dcl
+          :object_id_field: new_object_id
+          :u_field: mean_u
+          :v_field: mean_v
+          :g_field: mean_g
+          :r_field: mean_r
+          :i_field: mean_i
+          :z_field: mean_z
+  - :dataset: wigglez
+    :description: TODO

@@ -6,13 +6,13 @@ describe PointQuery do
   it { should allow_value('public.fs_distilled').for(:table_name) }
   it { should_not allow_value(nil).for(:table_name) }
 
-  # Validate Right Ascension Column Name
-  it { should allow_value('mean_ra').for(:ra_column_name) }
-  it { should_not allow_value(nil).for(:ra_column_name) }
+  # Validate Right Ascension Field
+  it { should allow_value('mean_ra').for(:ra_field) }
+  it { should_not allow_value(nil).for(:ra_field) }
 
-  # Validate Declination Column Name
-  it { should allow_value('mean_dcl').for(:dec_column_name) }
-  it { should_not allow_value(nil).for(:dec_column_name) }
+  # Validate Declination Field
+  it { should allow_value('mean_dcl').for(:dec_field) }
+  it { should_not allow_value(nil).for(:dec_field) }
 
   # Validate Right Ascension (RA)
   it { should allow_value('0').for(:ra) }
@@ -59,12 +59,12 @@ describe PointQuery do
 
   it 'Create point query for skymapper catalogue fs' do
     registry = Rails.application.config.asvo_registry
-    catalogue = registry.find_catalogue(:skymapper, :fs)
+    catalogue = registry.find_catalogue('skymapper', 'fs')
 
     args = {
         table_name: catalogue[:table_name],
-        ra_column_name: catalogue[:ra_column_name],
-        dec_column_name: catalogue[:dec_column_name],
+        ra_field: catalogue[:fields][:ra_field],
+        dec_field: catalogue[:fields][:dec_field],
         ra: '62.70968',
         dec: '-1.18844',
         sr: '0.5'
@@ -79,7 +79,7 @@ SELECT
     *
     FROM #{catalogue[:table_name]}
     WHERE
-        1=CONTAINS(POINT('ICRS', #{catalogue[:ra_column_name]}, #{catalogue[:dec_column_name]}),
+        1=CONTAINS(POINT('ICRS', #{catalogue[:fields][:ra_field]}, #{catalogue[:fields][:dec_field]}),
                    CIRCLE('ICRS', #{args[:ra]}, #{args[:dec]}, #{args[:sr]} ))
     END_ADQL
     query.to_adql.should == adql
@@ -87,12 +87,12 @@ SELECT
 
   it 'Create point query for skymapper catalogue ms' do
     registry = Rails.application.config.asvo_registry
-    catalogue = registry.find_catalogue(:skymapper, :ms)
+    catalogue = registry.find_catalogue('skymapper', 'ms')
 
     args = {
         table_name: catalogue[:table_name],
-        ra_column_name: catalogue[:ra_column_name],
-        dec_column_name: catalogue[:dec_column_name],
+        ra_field: catalogue[:fields][:ra_field],
+        dec_field: catalogue[:fields][:dec_field],
         ra: '62.70968',
         dec: '-1.18844',
         sr: '0.5'
@@ -107,7 +107,7 @@ SELECT
     *
     FROM #{catalogue[:table_name]}
     WHERE
-        1=CONTAINS(POINT('ICRS', #{catalogue[:ra_column_name]}, #{catalogue[:dec_column_name]}),
+        1=CONTAINS(POINT('ICRS', #{catalogue[:fields][:ra_field]}, #{catalogue[:fields][:dec_field]}),
                    CIRCLE('ICRS', #{args[:ra]}, #{args[:dec]}, #{args[:sr]} ))
     END_ADQL
     query.to_adql.should == adql
