@@ -35,6 +35,8 @@ AsvoSkymapper::Application.routes.draw do
   get '/search', to: 'search#index'
   get '/search/radial', to: 'search#radial_search', as: 'radial_search'
   get '/search/radial/results', to: 'search#radial_search_results', as: 'radial_search_results'
+  get '/search/rectangular', to: 'search#rectangular_search', as: 'rectangular_search'
+  get '/search/rectangular/results', to: 'search#rectangular_search_results', as: 'rectangular_search_results'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

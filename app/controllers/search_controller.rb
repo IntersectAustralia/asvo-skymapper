@@ -38,11 +38,33 @@ class SearchController < ApplicationController
     render 'search_results'
   end
 
-  def radial_search_results
-    fetch_search_results(QueryGenerator.method(:generate_point_query))
+  def rectangular_search
+    @results_path = rectangular_search_results_path
+
+    @parameters = [
+        { name: 'Right ascension min:', value: params[:ra_min] },
+        { name: 'Right ascension max:', value: params[:ra_max] },
+        { name: 'Declination min:', value: params[:dec_min] },
+        { name: 'Declination max:', value: params[:dec_max] }
+    ]
+
+    catalogue_fields = query_fields(DEFAULT_DATASET, params[:catalogue])
+    @fields = [
+        { name: 'Object Id', field: catalogue_fields[:object_id_field] },
+        { name: 'Right ascension', field: catalogue_fields[:ra_field] },
+        { name: 'Declination', field: catalogue_fields[:dec_field] },
+        { name: 'u', field: catalogue_fields[:u_field] },
+        { name: 'v', field: catalogue_fields[:v_field] },
+        { name: 'g', field: catalogue_fields[:g_field] },
+        { name: 'r', field: catalogue_fields[:i_field] },
+        { name: 'i', field: catalogue_fields[:r_field] },
+        { name: 'z', field: catalogue_fields[:z_field] },
+    ]
+
+    render 'search_results'
   end
 
-  def fetch_search_results(query_factory)
+  def radial_search_results
     args = params[:query]
     raise SearchError.new 'Invalid search arguments' unless args
 
@@ -54,6 +76,26 @@ class SearchController < ApplicationController
         sr: args[:sr]
     }
 
+    fetch_search_results(query_args, QueryGenerator.method(:generate_point_query))
+  end
+
+  def rectangular_search_results
+    args = params[:query]
+    raise SearchError.new 'Invalid search arguments' unless args
+
+    query_args = {
+        dataset: DEFAULT_DATASET,
+        catalogue: args[:catalogue],
+        ra_min: args[:ra_min],
+        ra_max: args[:ra_max],
+        dec_min: args[:dec_min],
+        dec_max: args[:dec_max]
+    }
+
+    fetch_search_results(query_args, QueryGenerator.method(:generate_rectangular_query))
+  end
+
+  def fetch_search_results(query_args, query_factory)
     query = query_factory.call(query_args)
     raise SearchError.new 'Invalid search arguments' unless query and query.valid?
 
