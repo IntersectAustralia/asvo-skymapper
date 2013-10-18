@@ -5,9 +5,8 @@ window.skymapper_app.directive "range", ->
     require: 'ngModel',
     link: (scope, elem, attr, ctrl) ->
 
-      rangeValidator = new RangeValidator(attr.range)
-
       ctrl.$parsers.unshift (value) ->
+        rangeValidator = new RangeValidator(attr.range)
 
         valid = rangeValidator.validate(value)
         ctrl.$setValidity('range', valid)
@@ -15,11 +14,18 @@ window.skymapper_app.directive "range", ->
         value
 
       ctrl.$formatters.unshift (value) ->
+        rangeValidator = new RangeValidator(attr.range)
         
         valid = rangeValidator.validate(value)
         ctrl.$setValidity('range', valid)
 
         value
+
+      scope.$watch attr.dependentOn, ->
+        rangeValidator = new RangeValidator(attr.range)
+
+        valid = rangeValidator.validate(elem.val())
+        ctrl.$setValidity('range', valid)
   }
 
 window.skymapper_app.directive "decimal", ->
@@ -29,10 +35,9 @@ window.skymapper_app.directive "decimal", ->
     require: 'ngModel',
     link: (scope, elem, attr, ctrl) ->
 
-      format = "^-?\\d+?(.\\d{0,#{attr.decimal}})?$"
-      formatValidator = new FormatValidator(format)
-
       ctrl.$parsers.unshift (value) ->
+        format = "^-?\\d+?(.\\d{0,#{attr.decimal}})?$"
+        formatValidator = new FormatValidator(format)
 
         valid = formatValidator.validate(value)
         ctrl.$setValidity('decimal', valid)
@@ -40,9 +45,17 @@ window.skymapper_app.directive "decimal", ->
         value
 
       ctrl.$formatters.unshift (value) ->
+        format = "^-?\\d+?(.\\d{0,#{attr.decimal}})?$"
+        formatValidator = new FormatValidator(format)
 
         valid = formatValidator.validate(value)
         ctrl.$setValidity('decimal', valid)
 
         value
+
+      scope.$watch attr.dependentOn, ->
+        rangeValidator = new RangeValidator(attr.range)
+
+        valid = rangeValidator.validate(elem.val())
+        ctrl.$setValidity('range', valid)
   }
