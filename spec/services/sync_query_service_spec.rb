@@ -46,7 +46,7 @@ describe SyncQueryService do
         catalogue: 'fs',
     }
 
-    mock_service_run('skymapper_point_query_1', query_args, service_args, QueryGenerator.method(:generate_point_query))
+    mock_service_run('skymapper_point_query_fs_1', query_args, service_args, QueryGenerator.method(:generate_point_query))
   end
 
   it 'Fetch point query results for skymapper cataglogue fs returns no matches' do
@@ -63,7 +63,7 @@ describe SyncQueryService do
         catalogue: 'fs',
     }
 
-    mock_service_run('skymapper_point_query_2', query_args, service_args, QueryGenerator.method(:generate_point_query))
+    mock_service_run('skymapper_point_query_fs_2', query_args, service_args, QueryGenerator.method(:generate_point_query))
   end
 
   it 'Fetch point query results for skymapper cataglogue fs returns maximum of 1000 matches' do
@@ -80,7 +80,7 @@ describe SyncQueryService do
         catalogue: 'fs',
     }
 
-    mock_service_run('skymapper_point_query_3', query_args, service_args, QueryGenerator.method(:generate_point_query))
+    mock_service_run('skymapper_point_query_fs_3', query_args, service_args, QueryGenerator.method(:generate_point_query))
   end
 
   it 'Fetch point query results for skymapper catalogue ms' do
@@ -97,7 +97,7 @@ describe SyncQueryService do
         catalogue: 'ms',
     }
 
-    mock_service_run('skymapper_point_query_4', query_args, service_args, QueryGenerator.method(:generate_point_query))
+    mock_service_run('skymapper_point_query_ms_1', query_args, service_args, QueryGenerator.method(:generate_point_query))
   end
 
   it 'Fetch point query results for skymapper cataglogue ms returns no matches' do
@@ -114,7 +114,7 @@ describe SyncQueryService do
         catalogue: 'ms',
     }
 
-    mock_service_run('skymapper_point_query_5', query_args, service_args, QueryGenerator.method(:generate_point_query))
+    mock_service_run('skymapper_point_query_ms_2', query_args, service_args, QueryGenerator.method(:generate_point_query))
   end
 
   it 'Fetch point query results for skymapper cataglogue ms returns maximum of 1000 matches' do
@@ -131,7 +131,7 @@ describe SyncQueryService do
         catalogue: 'ms',
     }
 
-    mock_service_run('skymapper_point_query_6', query_args, service_args, QueryGenerator.method(:generate_point_query))
+    mock_service_run('skymapper_point_query_ms_3', query_args, service_args, QueryGenerator.method(:generate_point_query))
   end
 
   it 'Fetch rectangular query results for skymapper catalogue fs' do
@@ -149,7 +149,7 @@ describe SyncQueryService do
         catalogue: 'fs',
     }
 
-    mock_service_run('skymapper_rectangular_query_1', query_args, service_args, QueryGenerator.method(:generate_rectangular_query))
+    mock_service_run('skymapper_rectangular_query_fs_1', query_args, service_args, QueryGenerator.method(:generate_rectangular_query))
   end
 
   it 'Fetch rectangular query results for skymapper cataglogue fs returns no matches' do
@@ -167,7 +167,7 @@ describe SyncQueryService do
         catalogue: 'fs',
     }
 
-    mock_service_run('skymapper_rectangular_query_2', query_args, service_args, QueryGenerator.method(:generate_rectangular_query))
+    mock_service_run('skymapper_rectangular_query_fs_2', query_args, service_args, QueryGenerator.method(:generate_rectangular_query))
   end
 
   it 'Fetch rectangular query results for skymapper cataglogue fs returns maximum of 1000 matches' do
@@ -185,7 +185,7 @@ describe SyncQueryService do
         catalogue: 'fs',
     }
 
-    mock_service_run('skymapper_rectangular_query_3', query_args, service_args, QueryGenerator.method(:generate_rectangular_query))
+    mock_service_run('skymapper_rectangular_query_fs_3', query_args, service_args, QueryGenerator.method(:generate_rectangular_query))
   end
 
   it 'Fetch rectangular query results for skymapper catalogue ms' do
@@ -203,7 +203,7 @@ describe SyncQueryService do
         catalogue: 'ms',
     }
 
-    mock_service_run('skymapper_rectangular_query_4', query_args, service_args, QueryGenerator.method(:generate_rectangular_query))
+    mock_service_run('skymapper_rectangular_query_ms_1', query_args, service_args, QueryGenerator.method(:generate_rectangular_query))
   end
 
   it 'Fetch rectangular query results for skymapper cataglogue ms returns no matches' do
@@ -221,7 +221,7 @@ describe SyncQueryService do
         catalogue: 'ms',
     }
 
-    mock_service_run('skymapper_rectangular_query_5', query_args, service_args, QueryGenerator.method(:generate_rectangular_query))
+    mock_service_run('skymapper_rectangular_query_ms_1', query_args, service_args, QueryGenerator.method(:generate_rectangular_query))
   end
 
   it 'Fetch rectangular query results for skymapper cataglogue ms returns maximum of 1000 matches' do
@@ -239,7 +239,7 @@ describe SyncQueryService do
         catalogue: 'ms',
     }
 
-    mock_service_run('skymapper_rectangular_query_6', query_args, service_args, QueryGenerator.method(:generate_rectangular_query))
+    mock_service_run('skymapper_rectangular_query_ms_3', query_args, service_args, QueryGenerator.method(:generate_rectangular_query))
   end
 
   it 'Raises error if failed to get response' do
