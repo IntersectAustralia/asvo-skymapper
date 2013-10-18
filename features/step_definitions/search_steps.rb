@@ -8,6 +8,13 @@ And /^I should see radial search parameters with values \("([^"]*)", "([^"]*)", 
   step "I should see search parameter \"Radius\" as \"#{sr}\""
 end
 
+And /^I should see rectangular search parameters with values \("([^"]*)", "([^"]*)", "([^"]*)", "([^"]*)"\)$/ do |ra_min, ra_max, dec_min, dec_max|
+  step "I should see search parameter \"Right Ascension min\" as \"#{ra_min}\""
+  step "I should see search parameter \"Right Ascension max\" as \"#{ra_max}\""
+  step "I should see search parameter \"Declination min\" as \"#{dec_min}\""
+  step "I should see search parameter \"Declination max\" as \"#{dec_max}\""
+end
+
 And /^I should see search parameter "([^"]*)" as "([^"]*)"/ do |parameter, value|
   within(find('.search-parameter', text: parameter)) do
     find('.search-value').text.should == "#{value}°"
@@ -21,7 +28,7 @@ end
 And /^I should see results for catalogue "([^"]*)" with headers$/ do |catalogue|
   page.should have_css('table', visible: true)
 
-  fields = SearchController.new.radial_search_fields(catalogue)
+  fields = SearchController.new.search_fields(catalogue)
 
   table_headers = all('thead th')
   fields.each_with_index do |field, index|
@@ -37,7 +44,7 @@ And /^I should see results for catalogue "([^"]*)" as "([^"]*)" with "([^"]*)" p
   step "I should see results for catalogue \"#{catalogue}\" with headers"
 
   results_table = YAML.load(File.read(Rails.root.join("spec/fixtures/#{file}.vo")))
-  fields = SearchController.new.radial_search_fields(catalogue)
+  fields = SearchController.new.search_fields(catalogue)
 
   pages = (results_table.table_data.length / limit.to_i).ceil
   (1..pages).each do |page|
