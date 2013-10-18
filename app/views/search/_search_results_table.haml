@@ -1,16 +1,17 @@
-#search-results.row-fluid{ 'ng-controller' => 'PaginationController', 'ng-hide' => 'objects == undefined || objects.length == 0' }
+#search-results.row-fluid{ 'ng-hide' => 'objects == undefined || objects.length == 0' }
   .span12
+    %pagination{ 'ng-controller' => 'PaginationController',  'max-page-links' => '10', 'items-per-page' => '50', items: 'objects' }
 
-    = render 'pagination'
+      = render 'pagination'
 
-    %table.table.table-striped.table-bordered
-      %thead
-        %tr
-          - @fields.each do |field|
-            %th
-              = field[:name]
-      %tbody
-        %tr{ 'ng-repeat' => 'obj in pagination.pageItems' }
-          - @fields.each do |field|
-            %td
-              = "{{obj['#{field[:field]}']}}"
+      %table.table.table-striped.table-bordered
+        %thead
+          %tr
+            - @fields.each do |field|
+              %th
+                = field[:name]
+        %tbody
+          %tr{ 'ng-repeat' => 'obj in pagination.pageItems' }
+            - @fields.each do |field|
+              %td
+                = "{{obj['#{field[:field]}']}}"

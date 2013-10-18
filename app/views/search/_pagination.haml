@@ -1,12 +1,12 @@
 .pagination
   %ul
-    %li{ 'ng-class' => '{disabled: pagination.previousLinkDisabled}' }
-      %a.first-page{ 'ng-click' => 'onFirst()' } «
-    %li{ 'ng-class' => '{disabled: pagination.previousLinkDisabled}' }
-      %a.previous-page{ 'ng-click' => 'onPrevious()' } ‹
-    %li{ 'ng-repeat' => 'page in pagination.pages', 'ng-class' => '{disabled: page == pagination.currentPage}'}
-      %a{ 'ng-click' => 'onPage(page)' } {{page + 1}}
-    %li{ 'ng-class' => '{disabled: pagination.nextLinkDisabled}' }
-      %a.next-page{ 'ng-click' => 'onNext()' } ›
-    %li{ 'ng-class' => '{disabled: pagination.nextLinkDisabled}' }
-      %a.last-page{ 'ng-click' => 'onLast()' } »
+    %li{ 'ng-class' => '{disabled: pagination.isFirstPage()}' }
+      %a.first-page{ 'ng-click' => 'pagination.firstPage()' } «
+    %li{ 'ng-class' => '{disabled: pagination.isFirstPage()}' }
+      %a.previous-page{ 'ng-click' => 'pagination.previousPage()' } ‹
+    %li{ 'ng-repeat' => 'page in pagination.pageLinks', 'ng-class' => '{disabled: page == pagination.currentPage}'}
+      %a{ 'ng-click' => 'pagination.selectPage(page)' } {{page + 1}}
+    %li{ 'ng-class' => '{disabled: pagination.isLastPage()}' }
+      %a.next-page{ 'ng-click' => 'pagination.nextPage()' } ›
+    %li{ 'ng-class' => '{disabled: pagination.isLastPage()}' }
+      %a.last-page{ 'ng-click' => 'pagination.lastPage()' } »

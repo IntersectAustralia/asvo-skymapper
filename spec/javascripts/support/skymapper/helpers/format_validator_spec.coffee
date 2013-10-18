@@ -1,4 +1,4 @@
-#= require skymapper/directives/format_validator
+#= require skymapper/helpers/format_validator
 
 describe 'FormatValidator', ->
 

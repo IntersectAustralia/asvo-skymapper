@@ -1,4 +1,4 @@
-window.skymapper_app.directive "range", ->
+window.skymapper_app.directive 'range', ->
 
   {
     restrict: 'A',
@@ -29,7 +29,7 @@ window.skymapper_app.directive "range", ->
           ctrl.$setValidity('range', valid)
   }
 
-window.skymapper_app.directive "decimal", ->
+window.skymapper_app.directive 'decimal', ->
 
   {
     restrict: 'A',

@@ -1,4 +1,4 @@
-#= require skymapper/directives/range_validator
+#= require skymapper/helpers/range_validator
 
 describe 'RangeValidator', ->
 
