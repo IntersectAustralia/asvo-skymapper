@@ -13,18 +13,34 @@ Feature: Radial search
     And I fill in "<ra>" for "Right Ascension (deg)"
     And I fill in "<dec>" for "Declination (deg)"
     And I fill in "<sr>" for "Search Radius (deg)"
-    And I fake search for catalogue "<catalogue>" returns "<results>"
+    And I fake search request for catalogue "<catalogue>" with "<results>"
     And I press "Search SkyMapper"
     Then I should be on the radial search results page
-    And I should see radial search parameters ("<ra>", "<dec>", "<sr>")
-    And I should see results "<results>"
-    And I should see "Query return <count> objects."
+    And I should see radial search parameters with values ("<ra>", "<dec>", "<sr>")
+    And I should see "Query returned <count> objects."
+    And I should see results for catalogue "<catalogue>" as "<results>" with "50" per page
   Examples:
     | survey             | catalogue | ra        | dec      | sr  | results                 | count |
     | Five-Second Survey | fs        | 178.83871 | -1.18844 | 0.5 | skymapper_point_query_1 | 272   |
-    | Five-Second Survey | fs        | 1         | 1        | 1   | skymapper_point_query_3 | 0     |
-    | Main Survey        | ms        | 178.83871 | -1.18844 | 0.5 | skymapper_point_query_2 | 10000 |
-    | Main Survey        | ms        | 1         | 1        | 1   | skymapper_point_query_3 | 0     |
+    | Main Survey        | ms        | 178.83871 | -1.18844 | 0.5 | skymapper_point_query_2 | 1000  |
+
+  @javascript
+  Scenario Outline: I perform radial search returns empty
+    And I select the "Radial" tab
+    And I select "<survey>" from "SkyMapper Survey"
+    And I fill in "<ra>" for "Right Ascension (deg)"
+    And I fill in "<dec>" for "Declination (deg)"
+    And I fill in "<sr>" for "Search Radius (deg)"
+    And I fake search request for catalogue "<catalogue>" with "<results>"
+    And I press "Search SkyMapper"
+    Then I should be on the radial search results page
+    And I should see radial search parameters with values ("<ra>", "<dec>", "<sr>")
+    And I should see "Query returned <count> objects."
+    And I should not see any results
+  Examples:
+    | survey             | catalogue | ra        | dec      | sr  | results                 | count |
+    | Five-Second Survey | fs        | 178.83871 | -1.18844 | 0.5 | skymapper_point_query_3 | 0     |
+    | Main Survey        | ms        | 178.83871 | -1.18844 | 0.5 | skymapper_point_query_4 | 0     |
 
   @javascript
   Scenario Outline: I cannot perform radial search if request error
@@ -33,12 +49,12 @@ Feature: Radial search
     And I fill in "<ra>" for "Right Ascension (deg)"
     And I fill in "<dec>" for "Declination (deg)"
     And I fill in "<sr>" for "Search Radius (deg)"
-    And I fake search for catalogue "<catalogue>" returns error
+    And I fake search request for catalogue "<catalogue>" returns error
     And I press "Search SkyMapper"
     Then I should be on the radial search results page
-    And I should see radial search parameters ("<ra>", "<dec>", "<sr>")
-    And I should not see results table
+    And I should see radial search parameters with values ("<ra>", "<dec>", "<sr>")
     And I should see "There was an error fetching the results."
+    And I should not see any results
   Examples:
     | survey             | catalogue | ra        | dec      | sr  |
     | Five-Second Survey | fs        | 178.83871 | -1.18844 | 0.5 |

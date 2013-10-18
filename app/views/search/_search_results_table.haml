@@ -1,5 +1,8 @@
-.row-fluid
+#search-results.row-fluid{ 'ng-controller' => 'PaginationController', 'ng-hide' => 'objects == undefined || objects.length == 0' }
   .span12
+
+    = render 'pagination'
+
     %table.table.table-striped.table-bordered
       %thead
         %tr
@@ -7,7 +10,7 @@
             %th
               = field[:name]
       %tbody
-        %tr{ 'ng-repeat' => 'obj in objects' }
+        %tr{ 'ng-repeat' => 'obj in pagination.pageItems' }
           - @fields.each do |field|
             %td
               = "{{obj['#{field[:field]}']}}"

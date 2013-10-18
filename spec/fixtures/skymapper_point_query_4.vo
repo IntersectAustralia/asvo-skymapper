@@ -1,0 +1,283 @@
+--- !ruby/object:VOTable
+query_status: OK
+provider: TAP for SkyMapperPublic
+query: |
+  SELECT
+      TOP 1000
+      *
+      FROM public.ms_distilled
+      WHERE
+          1=CONTAINS(POINT('ICRS', ra, dcl),
+                     CIRCLE('ICRS', 178.83871, -1.18844, 0.5 ))
+table_fields:
+- :id: new_object_id
+  :name: new_object_id
+  :ucd: meta.id;meta.main
+  :datatype: long
+  :unit: 
+- :id: mean_epoch
+  :name: mean_epoch
+  :ucd: 
+  :datatype: integer
+  :unit: 
+- :id: ra
+  :name: ra
+  :ucd: pos.eq.ra;meta.main
+  :datatype: double
+  :unit: deg
+- :id: dcl
+  :name: dcl
+  :ucd: pos.eq.dec;meta.main
+  :datatype: double
+  :unit: deg
+- :id: pi
+  :name: pi
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: sigma_pi
+  :name: sigma_pi
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: mu_x
+  :name: mu_x
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: mu_y
+  :name: mu_y
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: sigma_mu_x
+  :name: sigma_mu_x
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: sigma_mu_y
+  :name: sigma_mu_y
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: mean_u
+  :name: mean_u
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: mean_v
+  :name: mean_v
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: mean_g
+  :name: mean_g
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: mean_r
+  :name: mean_r
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: mean_i
+  :name: mean_i
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: mean_z
+  :name: mean_z
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: sigma_u
+  :name: sigma_u
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: sigma_v
+  :name: sigma_v
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: sigma_g
+  :name: sigma_g
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: sigma_r
+  :name: sigma_r
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: sigma_i
+  :name: sigma_i
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: sigma_z
+  :name: sigma_z
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: petro_u
+  :name: petro_u
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: petro_v
+  :name: petro_v
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: petro_g
+  :name: petro_g
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: petro_r
+  :name: petro_r
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: petro_i
+  :name: petro_i
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: petro_z
+  :name: petro_z
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: petro_sigma_u
+  :name: petro_sigma_u
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: petro_sigma_v
+  :name: petro_sigma_v
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: petro_sigma_g
+  :name: petro_sigma_g
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: petro_sigma_r
+  :name: petro_sigma_r
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: petro_sigma_i
+  :name: petro_sigma_i
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: petro_sigma_z
+  :name: petro_sigma_z
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: variability
+  :name: variability
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: transient
+  :name: transient
+  :ucd: 
+  :datatype: boolean
+  :unit: 
+- :id: a
+  :name: a
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: b
+  :name: b
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: theta
+  :name: theta
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: sigma_a
+  :name: sigma_a
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: sigma_b
+  :name: sigma_b
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: sigma_theta
+  :name: sigma_theta
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: radius_frac_20
+  :name: radius_frac_20
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: radius_frac_90
+  :name: radius_frac_90
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: class_star
+  :name: class_star
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: class_desc
+  :name: class_desc
+  :ucd: 
+  :datatype: char
+  :unit: 
+- :id: field_id_1
+  :name: field_id_1
+  :ucd: 
+  :datatype: integer
+  :unit: 
+- :id: object_id_1
+  :name: object_id_1
+  :ucd: 
+  :datatype: integer
+  :unit: 
+- :id: field_id_2
+  :name: field_id_2
+  :ucd: 
+  :datatype: integer
+  :unit: 
+- :id: object_id_2
+  :name: object_id_2
+  :ucd: 
+  :datatype: integer
+  :unit: 
+- :id: field_id_3
+  :name: field_id_3
+  :ucd: 
+  :datatype: integer
+  :unit: 
+- :id: object_id_3
+  :name: object_id_3
+  :ucd: 
+  :datatype: integer
+  :unit: 
+- :id: field_id_4
+  :name: field_id_4
+  :ucd: 
+  :datatype: integer
+  :unit: 
+- :id: object_id_4
+  :name: object_id_4
+  :ucd: 
+  :datatype: integer
+  :unit: 
+table_data: []
