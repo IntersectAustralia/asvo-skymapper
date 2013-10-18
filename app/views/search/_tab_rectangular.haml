@@ -38,7 +38,8 @@
             %small.error{ 'ng-show' => 'rectangular_search_form.ra_max.$error.required' }
               This field is required.
             %small.error{ 'ng-show' => 'rectangular_search_form.ra_max.$error.range' }
-              This field should be a number greater than or equal to {{form.ra_min | min:0}} and less than 360.
+
+              This field should be a number greater than {{form.ra_min > 0 | iif : "" : "or equal to "}}{{form.ra_min | min:0}} and less than 360.
             %small.error{ 'ng-show' => 'rectangular_search_form.ra_max.$error.decimal' }
               This field should be a number with 5 decimal places.
 
@@ -63,7 +64,7 @@
             %small.error{ 'ng-show' => 'rectangular_search_form.dec_max.$error.required' }
               This field is required.
             %small.error{ 'ng-show' => 'rectangular_search_form.dec_max.$error.range' }
-              This field should be a number greater than or equal to {{form.dec_min | min:-90}} and less than or equal to 90.
+              This field should be a number greater than {{form.dec_min > -90 | iif : "" : "or equal to "}}{{form.dec_min | min:-90}} and less than or equal to 90.
             %small.error{ 'ng-show' => 'rectangular_search_form.dec_max.$error.decimal' }
               This field should be a number with 5 decimal places.
 
