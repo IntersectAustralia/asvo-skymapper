@@ -25,6 +25,11 @@ class @RangeValidator
     min_range = parseFloat(match[2])
     max_range = parseFloat(match[4])
 
-    return (number > min_range || (left_bracket == '[' && number == min_range)) &&
-        (number < max_range || (right_bracket == ']' && number == max_range))
+    # Min range is inclusive when it is 0
+    if min_range != 0
+      return (number > min_range || (left_bracket == '[' && number > min_range)) &&
+          (number < max_range || (right_bracket == ']' && number == max_range))
+    else
+      return (number > min_range || (left_bracket == '[' && number == min_range)) &&
+          (number < max_range || (right_bracket == ']' && number == max_range))
 

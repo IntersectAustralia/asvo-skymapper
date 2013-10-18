@@ -49,8 +49,8 @@ Feature: Radial search
     And I fill in "<value>" for "<field>"
     Then I should see error "<error>" for "<field>"
   Examples:
-    | field                       | value    | error                                                                        |
-    | Right Ascension min (deg)   | -1       | This field should be a number greater than or equal to 0 and less than 360.  |
+    | field                     | value    | error                                                                                    |
+    | Right Ascension min (deg) | -1       | This field should be a number greater than or equal to 0 and less than 360.              |
     | Right Ascension min (deg) | 360      | This field should be a number greater than or equal to 0 and less than 360.              |
     | Right Ascension min (deg) | 1.123456 | This field should be a number with 5 decimal places.                                     |
     | Right Ascension max (deg) | -1       | This field should be a number greater than or equal to 0 and less than 360.              |
@@ -68,28 +68,42 @@ Feature: Radial search
     And I select the "Rectangular" tab
     And I fill in "20" for "Right Ascension min (deg)"
     And I fill in "10" for "Right Ascension max (deg)"
-    Then I should see error "This field should be a number greater than or equal to 20 and less than 360." for "Right Ascension max (deg)"
+    Then I should see error "This field should be a number greater than 20 and less than 360." for "Right Ascension max (deg)"
 
   @javascript
   Scenario: Right Ascension min greater than the Right Ascension max should display error for decimals
     And I select the "Rectangular" tab
     And I fill in "33.33" for "Right Ascension min (deg)"
     And I fill in "10.5" for "Right Ascension max (deg)"
-    Then I should see error "This field should be a number greater than or equal to 33.33 and less than 360." for "Right Ascension max (deg)"
+    Then I should see error "This field should be a number greater than 33.33 and less than 360." for "Right Ascension max (deg)"
+
+  @javascript
+  Scenario: Right Ascension max should be greater than or equal to the Right Ascension min when Right Ascension min is 0
+    And I select the "Rectangular" tab
+    And I fill in "0" for "Right Ascension min (deg)"
+    And I fill in "-1" for "Right Ascension max (deg)"
+    Then I should see error "This field should be a number greater than or equal to 0 and less than 360." for "Right Ascension max (deg)"
 
   @javascript
   Scenario: Declination min greater than the Declination max should display error for integers
     And I select the "Rectangular" tab
     And I fill in "-45" for "Declination min (deg)"
     And I fill in "-50" for "Declination max (deg)"
-    Then I should see error "This field should be a number greater than or equal to -45 and less than or equal to 90." for "Declination max (deg)"
+    Then I should see error "This field should be a number greater than -45 and less than or equal to 90." for "Declination max (deg)"
 
   @javascript
   Scenario: Declination min greater than the Declination max should display error for decimals
     And I select the "Rectangular" tab
     And I fill in "12.1234" for "Declination min (deg)"
     And I fill in "-50" for "Declination max (deg)"
-    Then I should see error "This field should be a number greater than or equal to 12.1234 and less than or equal to 90." for "Declination max (deg)"
+    Then I should see error "This field should be a number greater than 12.1234 and less than or equal to 90." for "Declination max (deg)"
+
+  @javascript
+  Scenario: Declination max should be greater than or equal to the Declination min when Declination min is 0
+    And I select the "Rectangular" tab
+    And I fill in "0" for "Declination min (deg)"
+    And I fill in "-91" for "Declination max (deg)"
+    Then I should see error "This field should be a number greater than 0 and less than or equal to 90." for "Declination max (deg)"
 
   @javascript
   Scenario Outline: I cannot submit rectangular search if form has errors (required errors)

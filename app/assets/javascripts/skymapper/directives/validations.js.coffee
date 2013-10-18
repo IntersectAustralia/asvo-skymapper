@@ -21,11 +21,12 @@ window.skymapper_app.directive "range", ->
 
         value
 
-      scope.$watch attr.dependentOn, ->
-        rangeValidator = new RangeValidator(attr.range)
+      if attr.dependentOn
+        scope.$watch attr.dependentOn, ->
+          rangeValidator = new RangeValidator(attr.range)
 
-        valid = rangeValidator.validate(elem.val())
-        ctrl.$setValidity('range', valid)
+          valid = rangeValidator.validate(elem.val())
+          ctrl.$setValidity('range', valid)
   }
 
 window.skymapper_app.directive "decimal", ->
@@ -53,9 +54,10 @@ window.skymapper_app.directive "decimal", ->
 
         value
 
-      scope.$watch attr.dependentOn, ->
-        rangeValidator = new RangeValidator(attr.range)
+      if attr.dependentOn
+        scope.$watch attr.dependentOn, ->
+          rangeValidator = new RangeValidator(attr.range)
 
-        valid = rangeValidator.validate(elem.val())
-        ctrl.$setValidity('range', valid)
+          valid = rangeValidator.validate(elem.val())
+          ctrl.$setValidity('range', valid)
   }
