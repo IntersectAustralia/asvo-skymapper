@@ -9,6 +9,8 @@ window.skymapper_app.controller 'SearchController', ['$scope', '$window',
 
       $scope.submit = (form, url) ->
         $scope.submitted = true
+        console.log(form)
+        console.log($scope[form])
         if $scope[form].$valid
           args = jQuery.param($scope.form)
           $window.location.href = "#{url}?#{args}"
