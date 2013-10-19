@@ -14,6 +14,7 @@ describe 'RangeValidator', ->
     expect(validator.validate(undefined)).toBe false
     expect(validator.validate('')).toBe false
     expect(validator.validate('abc')).toBe false
+    expect(validator.validate('.')).toBe false
 
   it 'can validate left inclusive range', ->
     range = '(10, 20]'
@@ -27,6 +28,7 @@ describe 'RangeValidator', ->
     expect(validator.validate(undefined)).toBe false
     expect(validator.validate('')).toBe false
     expect(validator.validate('abc')).toBe false
+    expect(validator.validate('.')).toBe false
 
   it 'can validate right inclusive range', ->
     range = '[10, 20)'
@@ -40,6 +42,7 @@ describe 'RangeValidator', ->
     expect(validator.validate(undefined)).toBe false
     expect(validator.validate('')).toBe false
     expect(validator.validate('abc')).toBe false
+    expect(validator.validate('.')).toBe false
 
   it 'can validate non inclusive range', ->
     range = '(10, 20)'
@@ -53,6 +56,7 @@ describe 'RangeValidator', ->
     expect(validator.validate(undefined)).toBe false
     expect(validator.validate('')).toBe false
     expect(validator.validate('abc')).toBe false
+    expect(validator.validate('.')).toBe false
 
   it 'cannot validate undefined range and value', ->
     range = undefined
@@ -65,6 +69,8 @@ describe 'RangeValidator', ->
     expect(validator.validate('20.1')).toBe false
     expect(validator.validate(undefined)).toBe false
     expect(validator.validate('')).toBe false
+    expect(validator.validate('abc')).toBe false
+    expect(validator.validate('.')).toBe false
 
   it 'cannot validate malformed range and defined value', ->
     range = '(12],2]'
@@ -77,6 +83,8 @@ describe 'RangeValidator', ->
     expect(validator.validate('20.1')).toBe false
     expect(validator.validate(undefined)).toBe false
     expect(validator.validate('')).toBe false
+    expect(validator.validate('abc')).toBe false
+    expect(validator.validate('.')).toBe false
 
   it 'ignores white spaces', ->
     range = '[   10    , 20    ]'
@@ -90,6 +98,7 @@ describe 'RangeValidator', ->
     expect(validator.validate(undefined)).toBe false
     expect(validator.validate('   ')).toBe false
     expect(validator.validate('  abc')).toBe false
+    expect(validator.validate('  .')).toBe false
 
   it 'allows negative ranges', ->
     range = '[   - 20    , -   10    ]'
@@ -103,3 +112,4 @@ describe 'RangeValidator', ->
     expect(validator.validate(undefined)).toBe false
     expect(validator.validate('')).toBe false
     expect(validator.validate('abc')).toBe false
+    expect(validator.validate('.')).toBe false

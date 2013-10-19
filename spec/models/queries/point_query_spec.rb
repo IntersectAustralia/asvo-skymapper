@@ -27,6 +27,7 @@ describe PointQuery do
   it { should_not allow_value('123.456789').for(:ra) }
   it { should_not allow_value(nil).for(:ra) }
   it { should_not allow_value('abc').for(:ra) }
+  it { should_not allow_value('.').for(:ra) }
 
   # Validate Declination (DEC)
   it { should allow_value('-90').for(:dec) }
@@ -45,6 +46,7 @@ describe PointQuery do
   it { should_not allow_value('-12.3456789').for(:dec) }
   it { should_not allow_value(nil).for(:dec) }
   it { should_not allow_value('abc').for(:dec) }
+  it { should_not allow_value('.').for(:dec) }
 
   # Validate Search Radius (SR)
   it { should allow_value('0.0001').for(:sr) }
@@ -58,7 +60,7 @@ describe PointQuery do
   it { should_not allow_value('-1000').for(:sr) }
   it { should_not allow_value(nil).for(:sr) }
   it { should_not allow_value('abc').for(:sr) }
-
+  it { should_not allow_value('.').for(:sr) }
 
   it 'Create point query for skymapper catalogue fs' do
     registry = Rails.application.config.asvo_registry

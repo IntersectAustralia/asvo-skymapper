@@ -10,6 +10,7 @@ describe 'FormatValidator', ->
     expect(formatValidator.validate('10.12345')).toBe true
     expect(formatValidator.validate('10.123456')).toBe false
     expect(formatValidator.validate('abc')).toBe false
+    expect(formatValidator.validate('.')).toBe false
 
   it 'ignores spaces', ->
     format = '^-?\\d+?(.\\d{0,5})?$'
@@ -19,3 +20,4 @@ describe 'FormatValidator', ->
     expect(formatValidator.validate('10.12345'  )).toBe true
     expect(formatValidator.validate('  10.123456')).toBe false
     expect(formatValidator.validate('abc  ')).toBe false
+    expect(formatValidator.validate('.  ')).toBe false
