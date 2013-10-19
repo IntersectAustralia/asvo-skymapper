@@ -19,6 +19,7 @@ describe PointQuery do
   it { should allow_value('359.99999').for(:ra) }
   it { should allow_value('123.45678').for(:ra) }
   it { should allow_value(' 1.12345  ').for(:ra) }
+  it { should allow_value(' .12345  ').for(:ra) }
 
   it { should_not allow_value('-0.00001').for(:ra) }
   it { should_not allow_value('360').for(:ra) }
@@ -36,6 +37,7 @@ describe PointQuery do
   it { should allow_value('12.34567').for(:dec) }
   it { should allow_value('-12.34567').for(:dec) }
   it { should allow_value(' -  1.12345  ').for(:dec) }
+  it { should allow_value(' -  .12345  ').for(:dec) }
 
   it { should_not allow_value(nil).for(:dec) }
   it { should_not allow_value('-90.0001').for(:dec) }
@@ -53,6 +55,7 @@ describe PointQuery do
   it { should allow_value('10').for(:sr) }
   it { should allow_value('1.23456789').for(:sr) }
   it { should allow_value('  1.12345  ').for(:sr) }
+  it { should allow_value('  .12345  ').for(:sr) }
 
   it { should_not allow_value('0').for(:sr) }
   it { should_not allow_value('10.0001').for(:sr) }
