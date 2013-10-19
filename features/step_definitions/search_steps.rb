@@ -40,7 +40,7 @@ And /^I goto the next page$/ do
   find('.next-page').click
 end
 
-And /^I should see results for catalogue "([^"]*)" as "([^"]*)" with "([^"]*)" per page$/ do |catalogue, file, limit|
+And /^I should see results for catalogue "([^"]*)" as "([^"]*)" in all pages with limit "([^"]*)"$/ do |catalogue, file, limit|
   step "I should see results for catalogue \"#{catalogue}\" with headers"
 
   results_table = YAML.load(File.read(Rails.root.join("spec/fixtures/#{file}.vo")))
@@ -101,4 +101,14 @@ end
 
 Before do
   FakeWeb.clean_registry
+end
+
+And /^I can(?: not)? press page "([^"]*)"$/ do |not, page|
+  find(".pagination #{not ? '.disabled' : nil}", text: page)
+end
+
+And /^I can(?: not)? press pages "([^"]*)" to "([^"]*)"$/ do |not, from, to|
+  (from.to_i..to.to_i).each do |i|
+    step "I can#{not ? 'not' : nil} press page #{i}"
+  end
 end
