@@ -8,7 +8,7 @@ query: |
       FROM public.fs_distilled
       WHERE
           1=CONTAINS(POINT('ICRS', mean_ra, mean_dcl),
-                     CIRCLE('ICRS', 178.83871, -1.18844, 0.5 ))
+                     CIRCLE('ICRS', 1, 1, 1 ))
 table_fields:
 - :id: global_object_id
   :name: global_object_id
