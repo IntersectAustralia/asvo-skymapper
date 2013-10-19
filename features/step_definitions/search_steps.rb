@@ -40,31 +40,35 @@ And /^I goto the next page$/ do
   find('.next-page').click
 end
 
-And /^I should see results for catalogue "([^"]*)" as "([^"]*)" in all pages with limit "([^"]*)"$/ do |catalogue, file, limit|
+And /^I should see results for catalogue "([^"]*)" as "([^"]*)" in page "([^"]*)" with limit "([^"]*)"$/ do |catalogue, file, page, limit|
   step "I should see results for catalogue \"#{catalogue}\" with headers"
 
-  results_table = YAML.load(File.read(Rails.root.join("spec/fixtures/#{file}.vo")))
   fields = SearchController.new.search_fields(catalogue)
 
-  pages = (results_table.table_data.length / limit.to_i).ceil
-  (1..pages).each do |page|
+  results_table = YAML.load(File.read(Rails.root.join("spec/fixtures/#{file}.vo")))
 
-    table_rows = all('tbody tr')
-    table_rows.each_with_index do |row, row_index|
+  table_rows = all('tbody tr')
+  table_rows.each_with_index do |row, row_index|
 
-      within(row) do
+    within(row) do
 
-        table_fields = all('td')
-        fields.each_with_index do |field, field_index|
-          table_fields[field_index].text.should == results_table.table_data[(page - 1) * limit.to_i + row_index][field[:field]]
-        end
-
+      table_fields = all('td')
+      fields.each_with_index do |field, field_index|
+        table_fields[field_index].text.should == results_table.table_data[(page.to_i - 1) * limit.to_i + row_index][field[:field]]
       end
 
     end
 
-    step 'I goto the next page'
+  end
+end
 
+And /^I should see results for catalogue "([^"]*)" as "([^"]*)" in all pages with limit "([^"]*)"$/ do |catalogue, file, limit|
+  results_table = YAML.load(File.read(Rails.root.join("spec/fixtures/#{file}.vo")))
+
+  pages = (results_table.table_data.length / limit.to_i).ceil
+  (1..pages).each do |page|
+    step "I should see results fro catalogue \"#{catalogue}\" as \"#{file}\" in page \"#{page}\" with limit \"#{limit}\""
+    step 'I goto the next page'
   end
 end
 
@@ -96,19 +100,49 @@ Then /^I should see error "([^"]*)" for "([^"]*)"$/ do |error, field|
 end
 
 And /^I wait$/ do
-  sleep(10)
+  sleep(1)
+end
+
+And /^I wait for "([^"]*)"$/ do |message|
+  loop do
+    break unless page.has_content?(message)
+    sleep(1)
+  end
 end
 
 Before do
   FakeWeb.clean_registry
 end
 
-And /^I can(?: not)? press page "([^"]*)"$/ do |not, page|
-  find(".pagination #{not ? '.disabled' : nil}", text: page)
+And /^I can(not)? see page "([^"]*)"$/ do |cannot, page|
+  find('.pagination a', text: page, visible: cannot ? false : true)
 end
 
-And /^I can(?: not)? press pages "([^"]*)" to "([^"]*)"$/ do |not, from, to|
+And /^I can see pages "([^"]*)" to "([^"]*)"$/ do |from, to|
   (from.to_i..to.to_i).each do |i|
-    step "I can#{not ? 'not' : nil} press page #{i}"
+    step "I can see page \"#{i}\""
   end
+end
+
+And /^I can(not)? press page "([^"]*)"$/ do |cannot, page|
+  find(".pagination #{cannot ? '.disabled' : nil}", text: page)
+end
+
+And /^I can press pages "([^"]*)" to "([^"]*)" except "([^"]*)"$/ do |from, to, page|
+  (from.to_i..to.to_i).each do |i|
+    step "I can#{i == page.to_i ? 'not' : nil} press page \"#{i}\""
+  end
+end
+
+And /^I select page "([^"]*)"$/ do |page|
+  find('.pagination a', text: page).click
+end
+
+Then /^I should see pages "([^"]*)" to "([^"]*)" with page "([^"]*)" selected given "([^"]*)" total pages$/ do |min_page, max_page, page, total|
+  step "I can see pages \"#{min_page}\" to \"#{max_page}\""
+  step "I can#{page == 1 ? 'not' : nil} press page \"«\""
+  step "I can#{page == 1 ? 'not' : nil} press page \"‹\""
+  step "I can press pages \"#{min_page}\" to \"#{max_page}\" except \"#{page}\""
+  step "I can#{page == total ? 'not' : nil} press page \"›\""
+  step "I can#{page == total ? 'not' : nil} press page \"»\""
 end

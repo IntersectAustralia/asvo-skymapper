@@ -66,3 +66,6 @@ Capybara.match = :prefer_exact
 
 # Use phantomjs for javascript tests (headless javascript driver)
 #Capybara.javascript_driver = :poltergeist
+
+# Increase wait time
+Capybara.default_wait_time = 5

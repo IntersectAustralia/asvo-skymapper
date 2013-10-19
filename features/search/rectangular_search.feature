@@ -18,6 +18,7 @@ Feature: Rectangular search
     And I press "Search SkyMapper"
     And I should see rectangular search parameters with values ("<ra_min>", "<ra_max>", "<dec_min>", "<dec_max>")
     Then I should be on the rectangular search results page
+    And I wait for "Fetching results..."
     And I should see "Query returned <count> objects."
     And I should see results for catalogue "<catalogue>" as "<results>" with "50" per page
   Examples:
@@ -37,12 +38,33 @@ Feature: Rectangular search
     And I press "Search SkyMapper"
     And I should see rectangular search parameters with values ("<ra_min>", "<ra_max>", "<dec_min>", "<dec_max>")
     Then I should be on the rectangular search results page
+    And I wait for "Fetching results..."
     And I should see "Query returned <count> objects."
     And I should not see any results
   Examples:
     | survey             | catalogue | ra_min    | ra_max | dec_min | dec_max | results                          | count |
     | Five-Second Survey | fs        | 178.83871 | 0      | 0.5     | 45      | skymapper_rectangular_query_fs_2 | 0     |
     | Main Survey        | ms        | 178.83871 | 20     | 0.5     | 45      | skymapper_rectangular_query_ms_2 | 0     |
+
+  @javascript
+  Scenario Outline: I cannot perform rectangular search if request error
+    nd I select the "Rectangular" tab
+    And I select "<survey>" from "SkyMapper Survey"
+    And I fill in "<ra_min>" for "Right Ascension Min (deg)"
+    And I fill in "<ra_max>" for "Right Ascension Max (deg)"
+    And I fill in "<dec_min>" for "Declination Min (deg)"
+    And I fill in "<dec_max>" for "Declination Max (deg)"
+    And I fake search request for catalogue "<catalogue>" with "<results>"
+    And I press "Search SkyMapper"
+    Then I should be on the rectangular search results page
+    And I should see rectangular search parameters with values ("<ra_min>", "<ra_max>", "<dec_min>", "<dec_max>")
+    And I wait for "Fetching results..."
+    And I should see "There was an error fetching the results."
+    And I should not see any results
+  Examples:
+    | survey             | catalogue | ra_min    | ra_max | dec_min | dec_max |
+    | Five-Second Survey | fs        | 178.83871 | 0      | 0.5     | 45      |
+    | Main Survey        | ms        | 178.83871 | 20     | 0.5     | 45      |
 
   @javascript
   Scenario Outline: I can submit rectangular search with the follow values
