@@ -67,7 +67,7 @@ And /^I should see results for catalogue "([^"]*)" as "([^"]*)" in all pages wit
 
   pages = (results_table.table_data.length / limit.to_i).ceil
   (1..pages).each do |page|
-    step "I should see results fro catalogue \"#{catalogue}\" as \"#{file}\" in page \"#{page}\" with limit \"#{limit}\""
+    step "I should see results for catalogue \"#{catalogue}\" as \"#{file}\" in page \"#{page}\" with limit \"#{limit}\""
     step 'I goto the next page'
   end
 end

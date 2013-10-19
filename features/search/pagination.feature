@@ -35,5 +35,5 @@ Feature: Pagination
     And I should see pages "6" to "15" with page "11" selected given "20" total pages
     And I should see results for catalogue "<catalogue>" as "<results>" in page "11" with limit "50"
   Examples:
-    | survey      | catalogue | ra        | dec      | sr  | results                    | count |
-    | Main Survey | ms        | 178.83871 | -1.18844 | 0.5 | skymapper_point_query_2    | 1000  |
+    | survey             | catalogue | ra        | dec      | sr  | results                    | count |
+    | Five-Second Survey | fs        | 178.83871 | -1.18844 | 0.5 | skymapper_point_query_fs_3 | 1000  |
