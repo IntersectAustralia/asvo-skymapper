@@ -14,9 +14,13 @@ class @Paginator
   setItems: (@items) ->
     
   selectPage: (page) ->
-    return unless @items
-    return if page >= @totalPages
-    return if page < 0
+    return unless @maxPageLinks && @itemsPerPage && @items
+    
+    if page >= @totalPages
+      page = @totalPages - 1
+    else if page < 0
+      page = 0
+
     return if page == @currentPage
 
     @currentPage = page
@@ -25,19 +29,20 @@ class @Paginator
     @pageItems = @items.slice(@currentPage * @itemsPerPage, (@currentPage + 1) * @itemsPerPage)
 
   getPageLinks: (page, total, size) ->
-    links = []
-
-    min_page = Math.max(0, page - size)
-    max_page = Math.min(total, page + size)
+    min_delta = Math.ceil(size / 2)
+    max_delta = size - min_delta
+    min_page = Math.max(0, page - min_delta)
+    max_page = Math.min(total, page + max_delta)
 
     if min_page == 0
-      max_page = Math.min(total, min_page + size * 2)
+      max_page = Math.min(total, min_page + size)
     else if max_page == total
-      min_page = Math.max(0, max_page - size * 2)
+      min_page = Math.max(0, max_page - size)
 
-    for i in [min_page..max_page-1]
-      links.push(i)
-    links
+    start = min_page
+    end = Math.max(min_page, max_page-1)
+    return [] if start == end
+    [start..end]
 
   isFirstPage: ->
     @currentPage == 0
