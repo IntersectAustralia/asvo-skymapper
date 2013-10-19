@@ -15,8 +15,8 @@ SELECT
   validates :table_name, presence: true
   validates :ra_field, presence: true
   validates :dec_field, presence: true
-  validates :ra, presence: true, numericality: { greater_than_or_equal_to: 0, less_than: 360 }, format: { with: /^-?\d*?(\.\d{1,5})?$/ }
-  validates :dec, presence: true, numericality: { greater_than_or_equal_to: -90, less_than_or_equal_to: 90 }, format: { with: /^-?\d*?(\.\d{1,5})?$/ }
+  validates :ra, presence: true, numericality: { greater_than_or_equal_to: 0, less_than: 360 }, format: { with: /^-?\d*(\.\d{1,5})?$/ }
+  validates :dec, presence: true, numericality: { greater_than_or_equal_to: -90, less_than_or_equal_to: 90 }, format: { with: /^-?\d*(\.\d{1,5})?$/ }
   validates :sr, presence: true, numericality: { greater_than: 0, less_than_or_equal_to: 10 }
 
   before_validation :clean_values, only: [:ra, :dec, :sr]

@@ -29,6 +29,7 @@ describe RectangularQuery do
   it { should_not allow_value(nil).for(:ra_min) }
   it { should_not allow_value('abc').for(:ra_min) }
   it { should_not allow_value('.').for(:ra_min) }
+  it { should_not allow_value(' 1.  ').for(:ra_min) }
 
   # Validate Right Ascension max (RA)
   it { should allow_value('0').for(:ra_max) }
@@ -45,6 +46,7 @@ describe RectangularQuery do
   it { should_not allow_value(nil).for(:ra_max) }
   it { should_not allow_value('abc').for(:ra_max) }
   it { should_not allow_value('.').for(:ra_max) }
+  it { should_not allow_value(' 1.  ').for(:ra_min) }
 
   # Validate Declination min (DEC)
   it { should allow_value('-90').for(:dec_min) }
@@ -65,6 +67,7 @@ describe RectangularQuery do
   it { should_not allow_value(nil).for(:dec_min) }
   it { should_not allow_value('abc').for(:dec_min) }
   it { should_not allow_value('.').for(:dec_min) }
+  it { should_not allow_value(' -  1.  ').for(:dec_min) }
 
   # Validate Declination max (DEC)
   it { should allow_value('-90').for(:dec_max) }
@@ -85,6 +88,7 @@ describe RectangularQuery do
   it { should_not allow_value(nil).for(:dec_max) }
   it { should_not allow_value('abc').for(:dec_max) }
   it { should_not allow_value('.').for(:dec_max) }
+  it { should_not allow_value(' -  1.  ').for(:dec_max) }
 
   it 'Create rectangular query for skymapper catalogue fs' do
     registry = Rails.application.config.asvo_registry
