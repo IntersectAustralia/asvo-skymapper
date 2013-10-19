@@ -24,7 +24,9 @@ Feature: Rectangular search
   Examples:
     | survey             | catalogue | ra_min    | ra_max | dec_min | dec_max | results                          | count |
     | Five-Second Survey | fs        | 178.83871 | 0      | 0.5     | 45      | skymapper_rectangular_query_fs_1 |       |
+    | Five-Second Survey | fs        | 178.83871 | 0      | 0.5     | 45      | skymapper_rectangular_query_fs_3 | 1000  |
     | Main Survey        | ms        | 178.83871 | 20     | 0.5     | 45      | skymapper_rectangular_query_ms_1 |       |
+    | Main Survey        | ms        | 178.83871 | 20     | 0.5     | 45      | skymapper_rectangular_query_ms_3 | 1000  |
 
   @javascript
   Scenario Outline: I perform rectangular search returns empty
@@ -48,7 +50,7 @@ Feature: Rectangular search
 
   @javascript
   Scenario Outline: I cannot perform rectangular search if request error
-    nd I select the "Rectangular" tab
+    And I select the "Rectangular" tab
     And I select "<survey>" from "SkyMapper Survey"
     And I fill in "<ra_min>" for "Right Ascension Min (deg)"
     And I fill in "<ra_max>" for "Right Ascension Max (deg)"
@@ -62,9 +64,9 @@ Feature: Rectangular search
     And I should see "There was an error fetching the results."
     And I should not see any results
   Examples:
-    | survey             | catalogue | ra_min    | ra_max | dec_min | dec_max |
-    | Five-Second Survey | fs        | 178.83871 | 0      | 0.5     | 45      |
-    | Main Survey        | ms        | 178.83871 | 20     | 0.5     | 45      |
+    | survey             | catalogue | ra_min    | ra_max | dec_min | dec_max | results                          |
+    | Five-Second Survey | fs        | 178.83871 | 0      | 0.5     | 45      | skymapper_rectangular_query_fs_1 |
+    | Main Survey        | ms        | 178.83871 | 20     | 0.5     | 45      | skymapper_rectangular_query_ms_1 |
 
   @javascript
   Scenario Outline: I can submit rectangular search with the follow values
@@ -106,12 +108,12 @@ Feature: Rectangular search
     | Declination Min (deg)     | -91      | This field should be a number greater than or equal to -90 and less than or equal to 90. |
     | Declination Min (deg)     | 91       | This field should be a number greater than or equal to -90 and less than or equal to 90. |
     | Declination Min (deg)     | 1.123456 | This field should be a number with 5 decimal places.                                     |
-    | Declination Min (deg)     | abc      | This field should be a number greater than or equal to 0 and less than 360.              |
+    | Declination Min (deg)     | abc      | This field should be a number greater than or equal to -90 and less than or equal to 90. |
     | Declination Min (deg)     | abc      | This field should be a number with 5 decimal places.                                     |
     | Declination Max (deg)     | -91      | This field should be a number greater than or equal to -90 and less than or equal to 90. |
     | Declination Max (deg)     | 91       | This field should be a number greater than or equal to -90 and less than or equal to 90. |
     | Declination Max (deg)     | 1.123456 | This field should be a number with 5 decimal places.                                     |
-    | Declination Max (deg)     | abc      | This field should be a number greater than or equal to 0 and less than 360.              |
+    | Declination Max (deg)     | abc      | This field should be a number greater than or equal to -90 and less than or equal to 90. |
     | Declination Max (deg)     | abc      | This field should be a number with 5 decimal places.                                     |
 
   @javascript
@@ -119,11 +121,11 @@ Feature: Rectangular search
     And I select the "Rectangular" tab
     And I fill in "<min>" for "<min_field>"
     And I fill in "<max>" for "<max_field>"
-    Then I should see error "<error>" for "<Max_field>"
+    Then I should see error "<error>" for "<max_field>"
   Examples:
     | min_field                 | max_field                 | min     | max  | error                                                                                        |
     | Right Ascension Min (deg) | Right Ascension Max (deg) | 20      | 10   | This field should be a number greater than or equal to 20 and less than 360.                 |
-    | Right Ascension Min (deg) | Right Ascension Max (deg) | 33.3    | 10.5 | This field should be a number greater than or equal to 33.33 and less than 360.              |
+    | Right Ascension Min (deg) | Right Ascension Max (deg) | 33.3    | 10.5 | This field should be a number greater than or equal to 33.3 and less than 360.              |
     | Right Ascension Min (deg) | Right Ascension Max (deg) | 0       | -1   | This field should be a number greater than or equal to 0 and less than 360.                  |
     | Declination Min (deg)     | Declination Max (deg)     | -45     | -50  | This field should be a number greater than or equal to -45 and less than or equal to 90.     |
     | Declination Min (deg)     | Declination Max (deg)     | 12.1234 | -50  | This field should be a number greater than or equal to 12.1234 and less than or equal to 90. |
