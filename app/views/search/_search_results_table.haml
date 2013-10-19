@@ -1,6 +1,6 @@
 #search-results.row-fluid{ 'ng-hide' => 'objects == undefined || objects.length == 0' }
   .span12
-    %pagination{ 'ng-controller' => 'PaginationController',  'max-page-links' => '10', 'items-per-page' => '50', items: 'objects' }
+    %pagination{ 'max-page-links' => '10', 'items-per-page' => '50', items: 'objects' }
 
       = render 'pagination'
 
