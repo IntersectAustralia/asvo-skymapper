@@ -269,7 +269,7 @@ describe SyncQueryService do
   it 'Raises error if response is garbage' do
     # mock network response
     mock_res = double('Net::HTTPResponse')
-    mock_res.should_receive(:body).and_return(File.read(Rails.root.join('spec/fixtures/skymapper_point_query_1.vo')))
+    mock_res.should_receive(:body).and_return(File.read(Rails.root.join('spec/fixtures/skymapper_point_query_fs_1.vo')))
 
     # stub network post
     Net::HTTP.stub(:post_form).and_return(mock_res)
