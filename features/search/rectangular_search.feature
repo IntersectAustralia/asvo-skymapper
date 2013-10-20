@@ -117,6 +117,21 @@ Feature: Rectangular search
     | Declination Max (deg)     | abc      | This field should be a number with 5 decimal places.                                     |
 
   @javascript
+  Scenario Outline: Max fields should display not display errors if min fields are less than or equal to
+    And I select the "Rectangular" tab
+    And I fill in "<min>" for "<min_field>"
+    And I fill in "<max>" for "<max_field>"
+    Then I should see error "<error>" for "<max_field>"
+  Examples:
+    | min_field                 | max_field                 | min       | max       |
+    | Right Ascension Min (deg) | Right Ascension Max (deg) | 20        | 20        |
+    | Right Ascension Min (deg) | Right Ascension Max (deg) | 20        | 30        |
+    | Right Ascension Min (deg) | Right Ascension Max (deg) | 20.12345  | 20.12346  |
+    | Declination Min (deg)     | Declination Max (deg)     | -45       | -45       |
+    | Declination Min (deg)     | Declination Max (deg)     | -45       | -35       |
+    | Declination Min (deg)     | Declination Max (deg)     | -45.12345 | -45.12346 |
+
+  @javascript
   Scenario Outline: Max fields should display error if min fields are greater than
     And I select the "Rectangular" tab
     And I fill in "<min>" for "<min_field>"
