@@ -156,10 +156,10 @@ describe SyncQueryService do
     query_args = {
         dataset: 'skymapper',
         catalogue: 'fs',
-        ra_min: '178.83871',
-        ra_max: '300',
-        dec_min: '0.5',
-        dec_max: '0.5'
+        ra_min: '11',
+        ra_max: '1',
+        dec_min: '1',
+        dec_max: '1'
     }
 
     service_args = {
@@ -210,10 +210,10 @@ describe SyncQueryService do
     query_args = {
         dataset: 'skymapper',
         catalogue: 'fs',
-        ra_min: '178.83871',
-        ra_max: '-1.18844',
-        dec_min: '0.5',
-        dec_max: '0.5'
+        ra_min: '1',
+        ra_max: '1',
+        dec_min: '1',
+        dec_max: '1'
     }
 
     service_args = {
@@ -221,7 +221,7 @@ describe SyncQueryService do
         catalogue: 'ms',
     }
 
-    mock_service_run('skymapper_rectangular_query_ms_1', query_args, service_args, QueryGenerator.method(:generate_rectangular_query))
+    mock_service_run('skymapper_rectangular_query_ms_2', query_args, service_args, QueryGenerator.method(:generate_rectangular_query))
   end
 
   it 'Fetch rectangular query results for skymapper cataglogue ms returns maximum of 1000 matches' do

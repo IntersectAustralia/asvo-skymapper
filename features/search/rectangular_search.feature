@@ -20,7 +20,7 @@ Feature: Rectangular search
     Then I should be on the rectangular search results page
     And I wait for "Fetching results..."
     And I should see "Query returned <count> objects."
-    And I should see results for catalogue "<catalogue>" as "<results>" with "50" per page
+    And I should see results for catalogue "<catalogue>" as "<results>" in all pages with limit "50"
   Examples:
     | survey             | catalogue | ra_min    | ra_max | dec_min | dec_max | results                          | count |
     | Five-Second Survey | fs        | 178.83871 | 0      | 0.5     | 45      | skymapper_rectangular_query_fs_1 |       |
@@ -44,9 +44,9 @@ Feature: Rectangular search
     And I should see "Query returned <count> objects."
     And I should not see any results
   Examples:
-    | survey             | catalogue | ra_min    | ra_max | dec_min | dec_max | results                          | count |
-    | Five-Second Survey | fs        | 178.83871 | 0      | 0.5     | 45      | skymapper_rectangular_query_fs_2 | 0     |
-    | Main Survey        | ms        | 178.83871 | 20     | 0.5     | 45      | skymapper_rectangular_query_ms_2 | 0     |
+    | survey             | catalogue | ra_min | ra_max | dec_min | dec_max | results                          | count |
+    | Five-Second Survey | fs        | 1      | 1      | 1       | 1       | skymapper_rectangular_query_fs_2 | 0     |
+    | Main Survey        | ms        | 1      | 1      | 1       | 1       | skymapper_rectangular_query_ms_2 | 0     |
 
   @javascript
   Scenario Outline: I cannot perform rectangular search if request error
@@ -125,7 +125,7 @@ Feature: Rectangular search
   Examples:
     | min_field                 | max_field                 | min     | max  | error                                                                                        |
     | Right Ascension Min (deg) | Right Ascension Max (deg) | 20      | 10   | This field should be a number greater than or equal to 20 and less than 360.                 |
-    | Right Ascension Min (deg) | Right Ascension Max (deg) | 33.3    | 10.5 | This field should be a number greater than or equal to 33.3 and less than 360.              |
+    | Right Ascension Min (deg) | Right Ascension Max (deg) | 33.3    | 10.5 | This field should be a number greater than or equal to 33.3 and less than 360.               |
     | Right Ascension Min (deg) | Right Ascension Max (deg) | 0       | -1   | This field should be a number greater than or equal to 0 and less than 360.                  |
     | Declination Min (deg)     | Declination Max (deg)     | -45     | -50  | This field should be a number greater than or equal to -45 and less than or equal to 90.     |
     | Declination Min (deg)     | Declination Max (deg)     | 12.1234 | -50  | This field should be a number greater than or equal to 12.1234 and less than or equal to 90. |
@@ -144,7 +144,7 @@ Feature: Rectangular search
     | Declination Max (deg)     | This field is required. |
 
   @javascript
-  Scenario: I submit perform radial search if form has errors (select required errors)
+  Scenario: I submit perform rectangular search if form has errors (select required errors)
     And I select the "Rectangular" tab
     And I press "Search SkyMapper"
     Then I should see error "This field is required." for "SkyMapper Survey"

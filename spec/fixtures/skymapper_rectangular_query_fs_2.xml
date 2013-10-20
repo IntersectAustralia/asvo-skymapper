@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VOTABLE version="1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ivoa.net/xml/VOTable/v1.2" xmlns="http://www.ivoa.net/xml/VOTable/v1.2">
+	<RESOURCE type="results">
+		<INFO name="QUERY_STATUS" value="OK" />
+		<INFO name="PROVIDER" value="ASOV">TAP for SkyMapperPublic</INFO>
+		<INFO name="QUERY" value="SELECT
+    TOP 1000
+    *
+    FROM public.fs_distilled
+    WHERE
+        (mean_ra &gt;= 1 AND mean_ra &lt;= 1) AND
+        (mean_dcl &gt;= 1 AND mean_dcl &lt;= 1)
+" />
+		<TABLE>
+			<FIELD ID="global_object_id" name="global_object_id" ucd="meta.id;meta.main" datatype="integer"/>
+			<FIELD ID="field_id" name="field_id" datatype="integer"/>
+			<FIELD ID="mean_ra" name="mean_ra" ucd="pos.eq.ra;meta.main" datatype="double" unit="deg"/>
+			<FIELD ID="mean_dcl" name="mean_dcl" ucd="pos.eq.dec;meta.main" datatype="double" unit="deg"/>
+			<FIELD ID="sigma_ra" name="sigma_ra" datatype="double"/>
+			<FIELD ID="sigma_dcl" name="sigma_dcl" datatype="double"/>
+			<FIELD ID="n_epochs" name="n_epochs" datatype="integer"/>
+			<FIELD ID="flux_u" name="flux_u" datatype="double"/>
+			<FIELD ID="sigma_flux_u" name="sigma_flux_u" datatype="double"/>
+			<FIELD ID="flux_v" name="flux_v" datatype="double"/>
+			<FIELD ID="sigma_flux_v" name="sigma_flux_v" datatype="double"/>
+			<FIELD ID="flux_g" name="flux_g" datatype="double"/>
+			<FIELD ID="sigma_flux_g" name="sigma_flux_g" datatype="double"/>
+			<FIELD ID="flux_r" name="flux_r" datatype="double"/>
+			<FIELD ID="sigma_flux_r" name="sigma_flux_r" datatype="double"/>
+			<FIELD ID="flux_i" name="flux_i" datatype="double"/>
+			<FIELD ID="sigma_flux_i" name="sigma_flux_i" datatype="double"/>
+			<FIELD ID="flux_z" name="flux_z" datatype="double"/>
+			<FIELD ID="sigma_flux_z" name="sigma_flux_z" datatype="double"/>
+			<DATA>
+				<TABLEDATA>
+				</TABLEDATA>
+			</DATA>
+		</TABLE>
+	</RESOURCE>
+</VOTABLE>

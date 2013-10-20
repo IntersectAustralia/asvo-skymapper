@@ -41,9 +41,9 @@ Feature: Radial search
     And I should see "Query returned <count> objects."
     And I should not see any results
   Examples:
-    | survey             | catalogue | ra | dec | sr  | results                    | count |
-    | Five-Second Survey | fs        | 1  | 1   | 1   | skymapper_point_query_fs_2 | 0     |
-    | Main Survey        | ms        | 1  | 1   | 1   | skymapper_point_query_ms_2 | 0     |
+    | survey             | catalogue | ra | dec | sr | results                    | count |
+    | Five-Second Survey | fs        | 1  | 1   | 1  | skymapper_point_query_fs_2 | 0     |
+    | Main Survey        | ms        | 1  | 1   | 1  | skymapper_point_query_ms_2 | 0     |
 
   @javascript
   Scenario Outline: I cannot perform radial search if request error
