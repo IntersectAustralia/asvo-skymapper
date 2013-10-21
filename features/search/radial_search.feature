@@ -18,7 +18,7 @@ Feature: Radial search
     Then I should be on the radial search results page
     And I should see radial search parameters with values ("<ra>", "<dec>", "<sr>")
     And I should see "Query returned <count> objects."
-  #And I should see results for catalogue "<catalogue>" as "<results>" in all pages with limit "50"
+    And I should see results for catalogue "<catalogue>" as "<results>" in all pages with limit "50"
   Examples:
     | survey             | catalogue | ra        | dec      | sr   | results                    | count |
     | Five-Second Survey | fs        | 178.83871 | -1.18844 | 0.5  | skymapper_point_query_fs_1 | 272   |
