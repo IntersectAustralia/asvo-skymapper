@@ -98,23 +98,23 @@ Feature: Rectangular search
     | Right ascension min (deg) | -1       | This field should be a number greater than or equal to 0 and less than 360.              |
     | Right ascension min (deg) | 360      | This field should be a number greater than or equal to 0 and less than 360.              |
     | Right ascension min (deg) | 1.123456 | This field should be a number with 5 decimal places.                                     |
-    | Right ascension min (deg) | 7a      | This field should be a number greater than or equal to 0 and less than 360.              |
-    | Right ascension min (deg) | 7a      | This field should be a number with 5 decimal places.                                     |
+    | Right ascension min (deg) | 7abc     | This field should be a number greater than or equal to 0 and less than 360.              |
+    | Right ascension min (deg) | 7abc     | This field should be a number with 5 decimal places.                                     |
     | Right ascension max (deg) | -1       | This field should be a number greater than or equal to 0 and less than 360.              |
     | Right ascension max (deg) | 360      | This field should be a number greater than or equal to 0 and less than 360.              |
     | Right ascension max (deg) | 1.123456 | This field should be a number with 5 decimal places.                                     |
-    | Right ascension max (deg) | 7a      | This field should be a number greater than or equal to 0 and less than 360.              |
-    | Right ascension max (deg) | 7a      | This field should be a number with 5 decimal places.                                     |
+    | Right ascension max (deg) | 7abc     | This field should be a number greater than or equal to 0 and less than 360.              |
+    | Right ascension max (deg) | 7abc     | This field should be a number with 5 decimal places.                                     |
     | Declination min (deg)     | -91      | This field should be a number greater than or equal to -90 and less than or equal to 90. |
     | Declination min (deg)     | 91       | This field should be a number greater than or equal to -90 and less than or equal to 90. |
     | Declination min (deg)     | 1.123456 | This field should be a number with 5 decimal places.                                     |
-    | Declination min (deg)     | 7a      | This field should be a number greater than or equal to -90 and less than or equal to 90. |
-    | Declination min (deg)     | 7a      | This field should be a number with 5 decimal places.                                     |
+    | Declination min (deg)     | 7abc     | This field should be a number greater than or equal to -90 and less than or equal to 90. |
+    | Declination min (deg)     | 7abc     | This field should be a number with 5 decimal places.                                     |
     | Declination max (deg)     | -91      | This field should be a number greater than or equal to -90 and less than or equal to 90. |
     | Declination max (deg)     | 91       | This field should be a number greater than or equal to -90 and less than or equal to 90. |
     | Declination max (deg)     | 1.123456 | This field should be a number with 5 decimal places.                                     |
-    | Declination max (deg)     | 7a      | This field should be a number greater than or equal to -90 and less than or equal to 90. |
-    | Declination max (deg)     | 7a      | This field should be a number with 5 decimal places.                                     |
+    | Declination max (deg)     | 7abc     | This field should be a number greater than or equal to -90 and less than or equal to 90. |
+    | Declination max (deg)     | 7abc     | This field should be a number with 5 decimal places.                                     |
 
   @javascript
   Scenario Outline: max fields should display not display errors if min fields are less than or equal to
