@@ -47,7 +47,7 @@
         .span6
           %label{ for: :sr }
             Search Radius (deg):
-          %input#sr{ type: 'text', name: 'sr', 'ng-model' => 'form.sr', required: '', range: '(0, 10]' }
+          %input#sr{ type: 'text', name: 'sr', 'ng-model' => 'form.sr', required: '', range: '(0, 10]', 'ng-init' => 'form.sr = 0.5' }
           .error{ 'ng-show' => '(submitted || radial_search_form.sr.$dirty) && radial_search_form.sr.$invalid' }
             %small.error{ 'ng-show' => 'radial_search_form.sr.$error.required' }
               This field is required.

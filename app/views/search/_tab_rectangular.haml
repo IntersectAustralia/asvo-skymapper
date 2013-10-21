@@ -3,7 +3,7 @@
 
 .form-container
   %form#rectangular_search_form.cancel{ name: 'rectangular_search_form', 'ng-submit' => "submit('rectangular_search_form', '#{rectangular_search_path}')", novalidate: '' }
-    %fieldset{ 'ng-controller' => 'RectangularSearchController' }
+    %fieldset
       .row-fluid
         .span6
           %label{ for: :catalogue }
