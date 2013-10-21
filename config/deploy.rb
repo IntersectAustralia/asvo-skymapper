@@ -2,6 +2,7 @@ require 'bundler/capistrano'
 require 'capistrano/ext/multistage'
 require 'capistrano_colors'
 require 'rvm/capistrano'
+require 'deploy/create_deployment_record'
 
 set :keep_releases, 5
 set :application, 'asvo-skymapper'

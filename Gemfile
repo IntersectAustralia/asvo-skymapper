@@ -55,6 +55,8 @@ group :development, :test do
 
   gem "poltergeist"
   gem "teaspoon"
+
+  gem "create_deployment_record", git: 'https://github.com/IntersectAustralia/create_deployment_record.git'
 end
 
 group :test do
