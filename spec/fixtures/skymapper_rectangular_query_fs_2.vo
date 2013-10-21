@@ -7,8 +7,8 @@ query: |
       *
       FROM public.fs_distilled
       WHERE
-          (mean_ra >= 1 AND mean_ra <= 1) AND
-          (mean_dcl >= 1 AND mean_dcl <= 1)
+          1=CONTAINS(POINT('ICRS',mean_ra,mean_dcl),
+                     BOX('ICRS',1.0,1.0,0.0,0.0))
 table_fields:
 - :id: global_object_id
   :name: global_object_id

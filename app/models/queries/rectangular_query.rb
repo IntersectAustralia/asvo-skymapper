@@ -6,8 +6,8 @@ SELECT
     *
     FROM <table_name>
     WHERE
-        (<ra_field> >= <ra_min> AND <ra_field> <= <ra_max>) AND
-        (<dec_field> >= <dec_min> AND <dec_field> <= <dec_max>)
+        1=CONTAINS(POINT('ICRS',<ra_field>,<dec_field>),
+                   BOX('ICRS',<ra_box_center>,<dec_box_center>,<box_width>,<box_height>))
   END_ADQL
 
   attr_accessor :table_name, :ra_field, :dec_field, :ra_min, :ra_max, :dec_min, :dec_max
@@ -33,10 +33,10 @@ SELECT
         table_name: table_name,
         ra_field: ra_field,
         dec_field: dec_field,
-        ra_min: ra_min,
-        ra_max: ra_max,
-        dec_min: dec_min,
-        dec_max: dec_max
+        ra_box_center: ((ra_min.to_f + ra_max.to_f) * 0.5).to_s,
+        dec_box_center: ((dec_min.to_f + dec_max.to_f) * 0.5).to_s,
+        box_width: (ra_max.to_f - ra_min.to_f).to_s,
+        box_height: (dec_max.to_f - dec_min.to_f).to_s
     }
     args
   end

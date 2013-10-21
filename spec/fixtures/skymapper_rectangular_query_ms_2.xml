@@ -8,8 +8,8 @@
     *
     FROM public.ms_distilled
     WHERE
-        (ra &gt;= 1 AND ra &lt;= 1) AND
-        (dcl &gt;= 1 AND dcl &lt;= 1)
+        1=CONTAINS(POINT('ICRS',ra,dcl),
+                   BOX('ICRS',1.0,1.0,0.0,0.0))
 " />
 		<TABLE>
 			<FIELD ID="new_object_id" name="new_object_id" ucd="meta.id;meta.main" datatype="long"/>

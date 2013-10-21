@@ -7,8 +7,8 @@ query: |
       *
       FROM public.ms_distilled
       WHERE
-          (ra >= 1 AND ra <= 1) AND
-          (dcl >= 1 AND dcl <= 1)
+          1=CONTAINS(POINT('ICRS',ra,dcl),
+                     BOX('ICRS',1.0,1.0,0.0,0.0))
 table_fields:
 - :id: new_object_id
   :name: new_object_id

@@ -22,7 +22,7 @@
       .row-fluid
         .span6
           %label{ for: :ra }
-            Right Ascension (deg):
+            Right ascension (deg):
           %input#ra{ type: 'text', name: 'ra', 'ng-model' => 'form.ra', required: '', range: '[0, 360)', decimal: 5 }
           .error{ 'ng-show' => '(submitted || radial_search_form.ra.$dirty) && radial_search_form.ra.$invalid' }
             %small.error{ 'ng-show' => 'radial_search_form.ra.$error.required' }

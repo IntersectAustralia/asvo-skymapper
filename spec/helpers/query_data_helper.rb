@@ -110,10 +110,10 @@ def generate_rectangular_query_fixtures
   query_args = {
       dataset: 'skymapper',
       catalogue: 'fs',
-      ra_min: '',
-      ra_max: '',
-      dec_min: '',
-      dec_max: ''
+      ra_min: '1.75',
+      ra_max: '2.25',
+      dec_min: '-2.25',
+      dec_max: '-0.75'
   }
 
   service_args = {
@@ -121,7 +121,7 @@ def generate_rectangular_query_fixtures
       catalogue: 'fs',
   }
 
-  #save_query_fixture('skymapper_rectangular_query_fs_1', query_args, service_args, QueryGenerator.method(:generate_rectangular_query))
+  save_query_fixture('skymapper_rectangular_query_fs_1', query_args, service_args, QueryGenerator.method(:generate_rectangular_query))
 
   query_args = {
       dataset: 'skymapper',
@@ -142,10 +142,10 @@ def generate_rectangular_query_fixtures
   query_args = {
       dataset: 'skymapper',
       catalogue: 'fs',
-      ra_min: '',
-      ra_max: '',
-      dec_min: '',
-      dec_max: ''
+      ra_min: '0',
+      ra_max: '10',
+      dec_min: '-2.25',
+      dec_max: '-0.75'
   }
 
   service_args = {
@@ -153,15 +153,15 @@ def generate_rectangular_query_fixtures
       catalogue: 'fs',
   }
 
-  #save_query_fixture('skymapper_rectangular_query_fs_3', query_args, service_args, QueryGenerator.method(:generate_rectangular_query))
+  save_query_fixture('skymapper_rectangular_query_fs_3', query_args, service_args, QueryGenerator.method(:generate_rectangular_query))
 
   query_args = {
       dataset: 'skymapper',
       catalogue: 'ms',
-      ra_min: '',
-      ra_max: '',
-      dec_min: '',
-      dec_max: ''
+      ra_min: '1.975',
+      ra_max: '2.025',
+      dec_min: '-1.525',
+      dec_max: '-1.475'
   }
 
   service_args = {
@@ -169,7 +169,7 @@ def generate_rectangular_query_fixtures
       catalogue: 'ms',
   }
 
-  #save_query_fixture('skymapper_rectangular_query_ms_1', query_args, service_args, QueryGenerator.method(:generate_rectangular_query))
+  save_query_fixture('skymapper_rectangular_query_ms_1', query_args, service_args, QueryGenerator.method(:generate_rectangular_query))
 
   query_args = {
       dataset: 'skymapper',
@@ -190,10 +190,10 @@ def generate_rectangular_query_fixtures
   query_args = {
       dataset: 'skymapper',
       catalogue: 'ms',
-      ra_min: '',
-      ra_max: '',
-      dec_min: '',
-      dec_max: ''
+      ra_min: '1.75',
+      ra_max: '2.25',
+      dec_min: '-2.25',
+      dec_max: '-0.75'
   }
 
   service_args = {
@@ -201,6 +201,6 @@ def generate_rectangular_query_fixtures
       catalogue: 'ms',
   }
 
-  #save_query_fixture('skymapper_rectangular_query_ms_3', query_args, service_args, QueryGenerator.method(:generate_rectangular_query))
+  save_query_fixture('skymapper_rectangular_query_ms_3', query_args, service_args, QueryGenerator.method(:generate_rectangular_query))
 
 end

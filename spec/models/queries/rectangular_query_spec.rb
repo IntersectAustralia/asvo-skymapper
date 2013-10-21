@@ -107,14 +107,19 @@ describe RectangularQuery do
     query = RectangularQuery.create(args)
     query.valid?.should be_true
 
+    ra_min = args[:ra_min].to_f
+    ra_max = args[:ra_max].to_f
+    dec_min = args[:dec_min].to_f
+    dec_max = args[:dec_max].to_f
+
     adql = <<-END_ADQL
 SELECT
     TOP 1000
     *
     FROM #{catalogue[:table_name]}
     WHERE
-        (#{catalogue[:fields][:ra_field]} >= #{args[:ra_min]} AND #{catalogue[:fields][:ra_field]} <= #{args[:ra_max]}) AND
-        (#{catalogue[:fields][:dec_field]} >= #{args[:dec_min]} AND #{catalogue[:fields][:dec_field]} <= #{args[:dec_max]})
+        1=CONTAINS(POINT('ICRS',#{catalogue[:fields][:ra_field]},#{catalogue[:fields][:dec_field]}),
+                   BOX('ICRS',#{(ra_min + ra_max) * 0.5},#{(dec_min + dec_max) * 0.5},#{(ra_max - ra_min)},#{dec_max - dec_min}))
     END_ADQL
     query.to_adql.should == adql
   end
@@ -136,14 +141,19 @@ SELECT
     query = RectangularQuery.create(args)
     query.valid?.should be_true
 
+    ra_min = args[:ra_min].to_f
+    ra_max = args[:ra_max].to_f
+    dec_min = args[:dec_min].to_f
+    dec_max = args[:dec_max].to_f
+
     adql = <<-END_ADQL
 SELECT
     TOP 1000
     *
     FROM #{catalogue[:table_name]}
     WHERE
-        (#{catalogue[:fields][:ra_field]} >= #{args[:ra_min]} AND #{catalogue[:fields][:ra_field]} <= #{args[:ra_max]}) AND
-        (#{catalogue[:fields][:dec_field]} >= #{args[:dec_min]} AND #{catalogue[:fields][:dec_field]} <= #{args[:dec_max]})
+        1=CONTAINS(POINT('ICRS',#{catalogue[:fields][:ra_field]},#{catalogue[:fields][:dec_field]}),
+                   BOX('ICRS',#{(ra_min + ra_max) * 0.5},#{(dec_min + dec_max) * 0.5},#{(ra_max - ra_min)},#{dec_max - dec_min}))
     END_ADQL
     query.to_adql.should == adql
   end

@@ -9,8 +9,8 @@ And /^I should see radial search parameters with values \("([^"]*)", "([^"]*)", 
 end
 
 And /^I should see rectangular search parameters with values \("([^"]*)", "([^"]*)", "([^"]*)", "([^"]*)"\)$/ do |ra_min, ra_max, dec_min, dec_max|
-  step "I should see search parameter \"Right Ascension min\" as \"#{ra_min}\""
-  step "I should see search parameter \"Right Ascension max\" as \"#{ra_max}\""
+  step "I should see search parameter \"Right ascension min\" as \"#{ra_min}\""
+  step "I should see search parameter \"Right ascension max\" as \"#{ra_max}\""
   step "I should see search parameter \"Declination min\" as \"#{dec_min}\""
   step "I should see search parameter \"Declination max\" as \"#{dec_max}\""
 end
@@ -42,6 +42,8 @@ end
 
 And /^I should see results for catalogue "([^"]*)" as "([^"]*)" in page "([^"]*)" with limit "([^"]*)"$/ do |catalogue, file, page, limit|
   step "I should see results for catalogue \"#{catalogue}\" with headers"
+
+  return unless ENV['SKIP_STEP'].blank?
 
   fields = SearchController.new.search_fields(catalogue)
 

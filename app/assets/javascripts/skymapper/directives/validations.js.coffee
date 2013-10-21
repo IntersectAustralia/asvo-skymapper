@@ -18,7 +18,8 @@ window.skymapper_app.directive 'range', ->
       ctrl.$formatters.unshift validate
 
       if attr.dependentOn
-        scope.$watch attr.dependentOn, validate
+        scope.$watch attr.dependentOn, ->
+          validate(elem.val())
   }
 
 window.skymapper_app.directive 'decimal', ->
@@ -42,5 +43,6 @@ window.skymapper_app.directive 'decimal', ->
       ctrl.$formatters.unshift validate
 
       if attr.dependentOn
-        scope.$watch attr.dependentOn, validate
+        scope.$watch attr.dependentOn, ->
+          validate(elem.val())
   }

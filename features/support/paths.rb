@@ -49,6 +49,9 @@ module NavigationHelpers
     when /^the radial search results page$/
       radial_search_path
 
+    when /^the rectangular search results page$/
+      rectangular_search_path
+
 # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
