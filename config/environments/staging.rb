@@ -1,3 +1,5 @@
+require 'uglifier'
+
 AsvoSkymapper::Application.configure do
 
   # TODO: set your own correct URL for action mailer
