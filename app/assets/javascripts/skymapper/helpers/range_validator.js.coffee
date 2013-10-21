@@ -10,6 +10,7 @@ class @RangeValidator
   validate: (value) ->
     return false unless typeof @range == 'string'
     return false unless typeof value == 'string'
+    return false if isNaN(Number(@clean(value)))
 
     number = parseFloat(@clean(value))
     return false unless typeof number == 'number'

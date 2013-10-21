@@ -10,7 +10,7 @@ describe 'FormatValidator', ->
     expect(formatValidator.validate('10.12345')).toEqual true
     expect(formatValidator.validate('.12345')).toEqual true
     expect(formatValidator.validate('10.123456')).toEqual false
-    expect(formatValidator.validate('abc')).toEqual false
+    expect(formatValidator.validate('7a')).toEqual false
     expect(formatValidator.validate('.')).toEqual false
     expect(formatValidator.validate('1.')).toEqual false
 
@@ -22,6 +22,6 @@ describe 'FormatValidator', ->
     expect(formatValidator.validate('10.12345'  )).toEqual true
     expect(formatValidator.validate('  .12345  ')).toEqual true
     expect(formatValidator.validate('  10.123456')).toEqual false
-    expect(formatValidator.validate('abc  ')).toEqual false
+    expect(formatValidator.validate('7a  ')).toEqual false
     expect(formatValidator.validate('.  ')).toEqual false
     expect(formatValidator.validate('  1.  ')).toEqual false

@@ -13,7 +13,7 @@ describe 'RangeValidator', ->
     expect(validator.validate('20.1')).toEqual false
     expect(validator.validate(undefined)).toEqual false
     expect(validator.validate('')).toEqual false
-    expect(validator.validate('abc')).toEqual false
+    expect(validator.validate('12a')).toEqual false
     expect(validator.validate('.')).toEqual false
 
   it 'can validate left inclusive range', ->
@@ -27,7 +27,7 @@ describe 'RangeValidator', ->
     expect(validator.validate('20.1')).toEqual false
     expect(validator.validate(undefined)).toEqual false
     expect(validator.validate('')).toEqual false
-    expect(validator.validate('abc')).toEqual false
+    expect(validator.validate('12a')).toEqual false
     expect(validator.validate('.')).toEqual false
 
   it 'can validate right inclusive range', ->
@@ -41,7 +41,7 @@ describe 'RangeValidator', ->
     expect(validator.validate('20.1')).toEqual false
     expect(validator.validate(undefined)).toEqual false
     expect(validator.validate('')).toEqual false
-    expect(validator.validate('abc')).toEqual false
+    expect(validator.validate('12a')).toEqual false
     expect(validator.validate('.')).toEqual false
 
   it 'can validate non inclusive range', ->
@@ -55,7 +55,7 @@ describe 'RangeValidator', ->
     expect(validator.validate('20.1')).toEqual false
     expect(validator.validate(undefined)).toEqual false
     expect(validator.validate('')).toEqual false
-    expect(validator.validate('abc')).toEqual false
+    expect(validator.validate('12a')).toEqual false
     expect(validator.validate('.')).toEqual false
 
   it 'cannot validate undefined range and value', ->
@@ -69,7 +69,7 @@ describe 'RangeValidator', ->
     expect(validator.validate('20.1')).toEqual false
     expect(validator.validate(undefined)).toEqual false
     expect(validator.validate('')).toEqual false
-    expect(validator.validate('abc')).toEqual false
+    expect(validator.validate('12a')).toEqual false
     expect(validator.validate('.')).toEqual false
 
   it 'cannot validate malformed range and defined value', ->
@@ -83,7 +83,7 @@ describe 'RangeValidator', ->
     expect(validator.validate('20.1')).toEqual false
     expect(validator.validate(undefined)).toEqual false
     expect(validator.validate('')).toEqual false
-    expect(validator.validate('abc')).toEqual false
+    expect(validator.validate('12a')).toEqual false
     expect(validator.validate('.')).toEqual false
 
   it 'ignores white spaces', ->
@@ -97,7 +97,7 @@ describe 'RangeValidator', ->
     expect(validator.validate('  20.1')).toEqual false
     expect(validator.validate(undefined)).toEqual false
     expect(validator.validate('   ')).toEqual false
-    expect(validator.validate('  abc')).toEqual false
+    expect(validator.validate('  12a')).toEqual false
     expect(validator.validate('  .')).toEqual false
 
   it 'allows negative ranges', ->
@@ -111,5 +111,5 @@ describe 'RangeValidator', ->
     expect(validator.validate('  -  20.1  ')).toEqual false
     expect(validator.validate(undefined)).toEqual false
     expect(validator.validate('')).toEqual false
-    expect(validator.validate('abc')).toEqual false
+    expect(validator.validate('12a')).toEqual false
     expect(validator.validate('.')).toEqual false
