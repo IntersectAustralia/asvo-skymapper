@@ -16,6 +16,7 @@ Feature: Radial search
     And I fake search request for catalogue "<catalogue>" with "<results>"
     And I press "Search SkyMapper"
     Then I should be on the radial search results page
+    And I wait for "Fetching results..."
     And I should see radial search parameters with values ("<ra>", "<dec>", "<sr>")
     And I should see "Query returned <count> objects."
     And I should see results for catalogue "<catalogue>" as "<results>" in all pages with limit "50"
