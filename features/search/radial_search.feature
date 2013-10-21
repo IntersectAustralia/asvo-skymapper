@@ -91,16 +91,16 @@ Feature: Radial search
     | Right ascension (deg) | -1       | This field should be a number greater than or equal to 0 and less than 360.              |
     | Right ascension (deg) | 360      | This field should be a number greater than or equal to 0 and less than 360.              |
     | Right ascension (deg) | 1.123456 | This field should be a number with 5 decimal places.                                     |
-    | Right ascension (deg) | 7abc       | This field should be a number greater than or equal to 0 and less than 360.              |
-    | Right ascension (deg) | 7abc       | This field should be a number with 5 decimal places.                                     |
+    | Right ascension (deg) | 7abc     | This field should be a number greater than or equal to 0 and less than 360.              |
+    | Right ascension (deg) | 7abc     | This field should be a number with 5 decimal places.                                     |
     | Declination (deg)     | -91      | This field should be a number greater than or equal to -90 and less than or equal to 90. |
     | Declination (deg)     | 91       | This field should be a number greater than or equal to -90 and less than or equal to 90. |
     | Declination (deg)     | 1.123456 | This field should be a number with 5 decimal places.                                     |
-    | Declination (deg)     | 7abc       | This field should be a number greater than or equal to -90 and less than or equal to 90. |
-    | Declination (deg)     | 7abc       | This field should be a number with 5 decimal places.                                     |
+    | Declination (deg)     | 7abc     | This field should be a number greater than or equal to -90 and less than or equal to 90. |
+    | Declination (deg)     | 7abc     | This field should be a number with 5 decimal places.                                     |
     | Search Radius (deg)   | 0        | This field should be a number greater than 0 and less than or equal to 10.               |
     | Search Radius (deg)   | 11       | This field should be a number greater than 0 and less than or equal to 10.               |
-    | Search Radius (deg)   | 7abc       | This field should be a number greater than 0 and less than or equal to 10.               |
+    | Search Radius (deg)   | 7abc     | This field should be a number greater than 0 and less than or equal to 10.               |
 
   @javascript
   Scenario Outline: I cannot submit radial search if form has errors (required errors)
