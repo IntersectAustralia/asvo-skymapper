@@ -41,36 +41,43 @@ And /^I goto the next page$/ do
 end
 
 And /^I should see results for catalogue "([^"]*)" as "([^"]*)" in page "([^"]*)" with limit "([^"]*)"$/ do |catalogue, file, page, limit|
-  step "I should see results for catalogue \"#{catalogue}\" with headers"
+  if ENV['SKIP_STEP'].blank?
 
-  return unless ENV['SKIP_STEP'].blank?
+    step "I should see results for catalogue \"#{catalogue}\" with headers"
 
-  fields = SearchController.new.search_fields(catalogue)
+    fields = SearchController.new.search_fields(catalogue)
 
-  results_table = YAML.load(File.read(Rails.root.join("spec/fixtures/#{file}.vo")))
+    results_table = YAML.load(File.read(Rails.root.join("spec/fixtures/#{file}.vo")))
 
-  table_rows = all('tbody tr')
-  table_rows.each_with_index do |row, row_index|
+    table_rows = all('tbody tr')
+    table_rows.each_with_index do |row, row_index|
 
-    within(row) do
+      within(row) do
 
-      table_fields = all('td')
-      fields.each_with_index do |field, field_index|
-        table_fields[field_index].text.should == results_table.table_data[(page.to_i - 1) * limit.to_i + row_index][field[:field]]
+        table_fields = all('td')
+        fields.each_with_index do |field, field_index|
+          table_fields[field_index].text.should == results_table.table_data[(page.to_i - 1) * limit.to_i + row_index][field[:field]]
+        end
+
       end
 
     end
 
   end
+
 end
 
 And /^I should see results for catalogue "([^"]*)" as "([^"]*)" in all pages with limit "([^"]*)"$/ do |catalogue, file, limit|
-  results_table = YAML.load(File.read(Rails.root.join("spec/fixtures/#{file}.vo")))
+  if ENV['SKIP_STEP'].blank?
 
-  pages = (results_table.table_data.length / limit.to_i).ceil
-  (1..pages).each do |page|
-    step "I should see results for catalogue \"#{catalogue}\" as \"#{file}\" in page \"#{page}\" with limit \"#{limit}\""
-    step 'I goto the next page'
+    results_table = YAML.load(File.read(Rails.root.join("spec/fixtures/#{file}.vo")))
+
+    pages = (results_table.table_data.length / limit.to_i).ceil
+    (1..pages).each do |page|
+      step "I should see results for catalogue \"#{catalogue}\" as \"#{file}\" in page \"#{page}\" with limit \"#{limit}\""
+      step 'I goto the next page'
+    end
+
   end
 end
 
