@@ -111,5 +111,5 @@ describe 'RangeValidator', ->
     expect(validator.validate('  -  20.1  ')).toEqual false
     expect(validator.validate(undefined)).toEqual false
     expect(validator.validate('')).toEqual false
-    expect(validator.validate('12a')).toEqual false
+    expect(validator.validate('-12a')).toEqual false
     expect(validator.validate('.')).toEqual false
