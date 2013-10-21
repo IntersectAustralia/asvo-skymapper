@@ -3,7 +3,7 @@
 %p
   The system currently supports a maximum search radius of 10°.
 
-.form-container
+.form-container{ 'ng-controller' => 'SearchController' }
   %form#radial_search_form.cancel{ name: 'radial_search_form', 'ng-submit' => "submit('radial_search_form', '#{radial_search_path}')", novalidate: '' }
     %fieldset
       .row-fluid
