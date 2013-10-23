@@ -1,5 +1,10 @@
+html, body
+  height: auto
+
 body
-  margin: 20px 60px 0 60px
+  margin: 0 60px
+  padding: 40px 0 0 0
+  height: auto
   background: #EFEFEF
   -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.2)
   -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.2)
@@ -10,6 +15,7 @@ body
   margin: 0
   .navbar-inner
     padding: 20px 50px
+    height: 40px
     background-color: #333
     background-image: none
     background-image: none
@@ -30,11 +36,18 @@ body
       color: #EEE
       text-decoration: none
       text-shadow: none
+      &:hover
+        color: #2ba6cb
 
+    .brand
+      margin-left: 0px
     .brand.logo
+      display: inline-block
       margin: -35px 20px 0 0
       padding: 0
-      height: 75px
+      height: 40px
+      width: 180px
+      clear:both
 
 .main_content.container-fluid
   padding: 20px 60px 80px 60px
@@ -97,3 +110,16 @@ body
         cursor: pointer
         color: #3c3c3c
         text-decoration: underline
+
+.error
+  color: #FC4040
+
+.aside
+  .well
+    h4
+      margin: 0 0 10px 0
+    ul
+      margin: 0
+      padding: 0
+      li
+        list-style: none

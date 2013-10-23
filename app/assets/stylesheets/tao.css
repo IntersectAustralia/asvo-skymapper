@@ -3,7 +3,6 @@
     padding: 0;
 }
 
-body { padding-top: 0px; }
 #body { padding-top: 120px; }
 
 a.ui-tabs-anchor:focus {
@@ -599,10 +598,6 @@ footer {
 
 .push {
     height: 26px;
-}
-
-html, body {
-    height: 100%;
 }
 
 #max_job_size {
