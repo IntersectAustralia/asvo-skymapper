@@ -5,6 +5,5 @@
       %ul
         - @parameters.each do |param|
           %li.search-parameter
-            = param[:name]
-            %span.pull-right.search-value
-              = "#{param[:value]}°"
+            %label= param[:name]
+            .search-value= "#{param[:value]}°"
