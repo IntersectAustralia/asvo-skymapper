@@ -1,8 +1,8 @@
 .row-fluid
   .span12.well
     %h4 Search Parameters
-    %ul
-      - if @parameters
+    - if @parameters
+      %ul
         - @parameters.each do |param|
           %li.search-parameter
             = param[:name]

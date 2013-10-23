@@ -99,14 +99,14 @@ end
 
 Then /^I should not see any errors for "([^"]*)"$/ do |field|
   within(:xpath, "//label[contains(text(), '#{field}')]/..") do
-    page.should_not have_css('div.error', visible: true)
+    page.should_not have_css('ul.error', visible: true)
   end
 end
 
 Then /^I should see error "([^"]*)" for "([^"]*)"$/ do |error, field|
   within(:xpath, "//label[contains(text(), '#{field}')]/..") do
-    page.should have_css('div.error', visible: true)
-    page.should have_xpath(".//small[contains(text(), '#{error}')]", visible: true)
+    page.should have_css('ul.error', visible: true)
+    page.should have_xpath(".//li[contains(text(), '#{error}')]", visible: true)
   end
 end
 
