@@ -1,8 +1,9 @@
-.span12
-  %h5 Search Parameters
-  %ul
-    - @parameters.each do |param|
-      %li.search-parameter
-        = param[:name]
-        %span.pull-right.search-value
-          = "#{param[:value]}°"
+.row-fluid
+  .span12.well
+    %h4 Search Parameters
+    %ul
+      - @parameters.each do |param|
+        %li.search-parameter
+          = param[:name]
+          %span.pull-right.search-value
+            = "#{param[:value]}°"
