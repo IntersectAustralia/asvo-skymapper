@@ -74,19 +74,19 @@ Feature: Rectangular search
     And I fill in "<value>" for "<field>"
     Then I should not see any errors for "<field>"
   Examples:
-    | field                     | value     |
-    | Right ascension min (deg) | 0         |
-    | Right ascension min (deg) | 359.99999 |
-    | Right ascension min (deg) | 123.45678 |
-    | Right ascension max (deg) | 0         |
-    | Right ascension max (deg) | 359.99999 |
-    | Right ascension max (deg) | 123.45678 |
-    | Declination min (deg)     | -90       |
-    | Declination min (deg)     | 90        |
-    | Declination min (deg)     | 12.34567  |
-    | Declination max (deg)     | -90       |
-    | Declination max (deg)     | 90        |
-    | Declination max (deg)     | 12.34567  |
+    | field                     | value        |
+    | Right ascension min (deg) | 0            |
+    | Right ascension min (deg) | 359.99999999 |
+    | Right ascension min (deg) | 123.12345678 |
+    | Right ascension max (deg) | 0            |
+    | Right ascension max (deg) | 359.99999999 |
+    | Right ascension max (deg) | 123.12345678 |
+    | Declination min (deg)     | -90          |
+    | Declination min (deg)     | 90           |
+    | Declination min (deg)     | 12.12345678  |
+    | Declination max (deg)     | -90          |
+    | Declination max (deg)     | 90           |
+    | Declination max (deg)     | 12.12345678  |
 
   @javascript
   Scenario Outline: I cannot submit rectangular search if form has errors
@@ -94,27 +94,27 @@ Feature: Rectangular search
     And I fill in "<value>" for "<field>"
     Then I should see error "<error>" for "<field>"
   Examples:
-    | field                     | value    | error                                                                                    |
-    | Right ascension min (deg) | -1       | This field should be a number greater than or equal to 0 and less than 360.              |
-    | Right ascension min (deg) | 360      | This field should be a number greater than or equal to 0 and less than 360.              |
-    | Right ascension min (deg) | 1.123456 | This field should be a number with 5 decimal places.                                     |
-    | Right ascension min (deg) | 7abc     | This field should be a number greater than or equal to 0 and less than 360.              |
-    | Right ascension min (deg) | 7abc     | This field should be a number with 5 decimal places.                                     |
-    | Right ascension max (deg) | -1       | This field should be a number greater than or equal to 0 and less than 360.              |
-    | Right ascension max (deg) | 360      | This field should be a number greater than or equal to 0 and less than 360.              |
-    | Right ascension max (deg) | 1.123456 | This field should be a number with 5 decimal places.                                     |
-    | Right ascension max (deg) | 7abc     | This field should be a number greater than or equal to 0 and less than 360.              |
-    | Right ascension max (deg) | 7abc     | This field should be a number with 5 decimal places.                                     |
-    | Declination min (deg)     | -91      | This field should be a number greater than or equal to -90 and less than or equal to 90. |
-    | Declination min (deg)     | 91       | This field should be a number greater than or equal to -90 and less than or equal to 90. |
-    | Declination min (deg)     | 1.123456 | This field should be a number with 5 decimal places.                                     |
-    | Declination min (deg)     | 7abc     | This field should be a number greater than or equal to -90 and less than or equal to 90. |
-    | Declination min (deg)     | 7abc     | This field should be a number with 5 decimal places.                                     |
-    | Declination max (deg)     | -91      | This field should be a number greater than or equal to -90 and less than or equal to 90. |
-    | Declination max (deg)     | 91       | This field should be a number greater than or equal to -90 and less than or equal to 90. |
-    | Declination max (deg)     | 1.123456 | This field should be a number with 5 decimal places.                                     |
-    | Declination max (deg)     | 7abc     | This field should be a number greater than or equal to -90 and less than or equal to 90. |
-    | Declination max (deg)     | 7abc     | This field should be a number with 5 decimal places.                                     |
+    | field                     | value       | error                                                                                    |
+    | Right ascension min (deg) | -1          | This field should be a number greater than or equal to 0 and less than 360.              |
+    | Right ascension min (deg) | 360         | This field should be a number greater than or equal to 0 and less than 360.              |
+    | Right ascension min (deg) | 1.123456789 | This field should be a number with 8 decimal places.                                     |
+    | Right ascension min (deg) | 7abc        | This field should be a number greater than or equal to 0 and less than 360.              |
+    | Right ascension min (deg) | 7abc        | This field should be a number with 8 decimal places.                                     |
+    | Right ascension max (deg) | -1          | This field should be a number greater than or equal to 0 and less than 360.              |
+    | Right ascension max (deg) | 360         | This field should be a number greater than or equal to 0 and less than 360.              |
+    | Right ascension max (deg) | 1.123456789 | This field should be a number with 8 decimal places.                                     |
+    | Right ascension max (deg) | 7abc        | This field should be a number greater than or equal to 0 and less than 360.              |
+    | Right ascension max (deg) | 7abc        | This field should be a number with 8 decimal places.                                     |
+    | Declination min (deg)     | -91         | This field should be a number greater than or equal to -90 and less than or equal to 90. |
+    | Declination min (deg)     | 91          | This field should be a number greater than or equal to -90 and less than or equal to 90. |
+    | Declination min (deg)     | 1.123456789 | This field should be a number with 8 decimal places.                                     |
+    | Declination min (deg)     | 7abc        | This field should be a number greater than or equal to -90 and less than or equal to 90. |
+    | Declination min (deg)     | 7abc        | This field should be a number with 8 decimal places.                                     |
+    | Declination max (deg)     | -91         | This field should be a number greater than or equal to -90 and less than or equal to 90. |
+    | Declination max (deg)     | 91          | This field should be a number greater than or equal to -90 and less than or equal to 90. |
+    | Declination max (deg)     | 1.123456789 | This field should be a number with 8 decimal places.                                     |
+    | Declination max (deg)     | 7abc        | This field should be a number greater than or equal to -90 and less than or equal to 90. |
+    | Declination max (deg)     | 7abc        | This field should be a number with 8 decimal places.                                     |
 
   @javascript
   Scenario Outline: max fields should not display errors if min fields are less than or not a number
