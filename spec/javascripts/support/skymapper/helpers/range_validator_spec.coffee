@@ -73,7 +73,7 @@ describe 'RangeValidator', ->
     expect(validator.validate('.')).toEqual false
 
   it 'cannot validate malformed range and defined value', ->
-    range = '(12],2]'
+    range = '(12]2]'
     validator = new RangeValidator(range)
 
     expect(validator.validate('10')).toEqual false
@@ -113,3 +113,30 @@ describe 'RangeValidator', ->
     expect(validator.validate('')).toEqual true
     expect(validator.validate('-12a')).toEqual false
     expect(validator.validate('.')).toEqual false
+
+  it 'allows not number min ranges', ->
+    range = '[  10abc   , 20    ]'
+    validator = new RangeValidator(range)
+
+    expect(validator.validate('  10  ')).toEqual true
+    expect(validator.validate('  20  ')).toEqual true
+    expect(validator.validate('  -10  ')).toEqual true
+    expect(validator.validate('  20.1  ')).toEqual false
+    expect(validator.validate(undefined)).toEqual true
+    expect(validator.validate('')).toEqual true
+    expect(validator.validate('-12a')).toEqual false
+    expect(validator.validate('.')).toEqual false
+
+  it 'allows not number max ranges', ->
+    range = '[  10   , 20abc    ]'
+    validator = new RangeValidator(range)
+
+    expect(validator.validate('  10  ')).toEqual true
+    expect(validator.validate('  20  ')).toEqual true
+    expect(validator.validate('  30  ')).toEqual true
+    expect(validator.validate('  9.9  ')).toEqual false
+    expect(validator.validate(undefined)).toEqual true
+    expect(validator.validate('')).toEqual true
+    expect(validator.validate('-12a')).toEqual false
+    expect(validator.validate('.')).toEqual false
+

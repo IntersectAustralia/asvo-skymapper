@@ -24,7 +24,7 @@ And /^I should see search parameter "([^"]*)" as "([^"]*)"/ do |parameter, value
 end
 
 And /^I should not see any results$/ do
-  page.should have_css('table', visible: false)
+  page.should_not have_css('table', visible: true)
 end
 
 And /^I should see results for catalogue "([^"]*)" with headers$/ do |catalogue|
@@ -99,7 +99,7 @@ end
 
 Then /^I should not see any errors for "([^"]*)"$/ do |field|
   within(:xpath, "//label[contains(text(), '#{field}')]/..") do
-    page.should have_css('div.error', visible: false)
+    page.should_not have_css('div.error', visible: true)
   end
 end
 

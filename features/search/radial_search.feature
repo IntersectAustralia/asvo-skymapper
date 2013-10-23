@@ -149,52 +149,53 @@ Feature: Radial search
     And I fill in "<value>" for "<field>"
     Then I should not see any errors for "<field>"
   Examples:
-    | field                 | value      |
-    | Right ascension (deg) | 0          |
-    | Right ascension (deg) | 359.99999  |
-    | Right ascension (deg) | 123.45678  |
-    | Declination (deg)     | -90        |
-    | Declination (deg)     | 90         |
-    | Declination (deg)     | 12.34567   |
-    | Search radius (deg)   | 0.00001    |
-    | Search radius (deg)   | 10         |
-    | Search radius (deg)   | 1.23456    |
-    | U min                 | -100000000 |
-    | U min                 | 000000000  |
-    | U min                 | 1.23456789 |
-    | U max                 | -100000000 |
-    | U max                 | 000000000  |
-    | U max                 | 1.23456789 |
-    | V min                 | -100000000 |
-    | V min                 | 000000000  |
-    | V min                 | 1.23456789 |
-    | V max                 | -100000000 |
-    | V max                 | 000000000  |
-    | V max                 | 1.23456789 |
-    | G min                 | -100000000 |
-    | G min                 | 000000000  |
-    | G min                 | 1.23456789 |
-    | G max                 | -100000000 |
-    | G max                 | 000000000  |
-    | G max                 | 1.23456789 |
-    | R min                 | -100000000 |
-    | R min                 | 000000000  |
-    | R min                 | 1.23456789 |
-    | R max                 | -100000000 |
-    | R max                 | 000000000  |
-    | R max                 | 1.23456789 |
-    | I min                 | -100000000 |
-    | I min                 | 000000000  |
-    | I min                 | 1.23456789 |
-    | I max                 | -100000000 |
-    | I max                 | 000000000  |
-    | I max                 | 1.23456789 |
-    | Z min                 | -100000000 |
-    | Z min                 | 000000000  |
-    | Z min                 | 1.23456789 |
-    | Z max                 | -100000000 |
-    | Z max                 | 000000000  |
-    | Z max                 | 1.23456789 |
+    | field                 | value        |
+    | Right ascension (deg) | 0            |
+    | Right ascension (deg) | 359.99999999 |
+    | Right ascension (deg) | 123.12345678 |
+    | Declination (deg)     | -90          |
+    | Declination (deg)     | 90           |
+    | Declination (deg)     | 12.12345678  |
+    | Search radius (deg)   | 0.00000001   |
+    | Search radius (deg)   | 10           |
+    | Search radius (deg)   | 1.23456      |
+    | Search radius (deg)   | 1.12345678   |
+    | U min                 | -100000000   |
+    | U min                 | 000000000    |
+    | U min                 | 1.12345678   |
+    | U max                 | -100000000   |
+    | U max                 | 000000000    |
+    | U max                 | 1.12345678   |
+    | V min                 | -100000000   |
+    | V min                 | 000000000    |
+    | V min                 | 1.12345678   |
+    | V max                 | -100000000   |
+    | V max                 | 000000000    |
+    | V max                 | 1.12345678   |
+    | G min                 | -100000000   |
+    | G min                 | 000000000    |
+    | G min                 | 1.12345678   |
+    | G max                 | -100000000   |
+    | G max                 | 000000000    |
+    | G max                 | 1.12345678   |
+    | R min                 | -100000000   |
+    | R min                 | 000000000    |
+    | R min                 | 1.12345678   |
+    | R max                 | -100000000   |
+    | R max                 | 000000000    |
+    | R max                 | 1.12345678   |
+    | I min                 | -100000000   |
+    | I min                 | 000000000    |
+    | I min                 | 1.12345678   |
+    | I max                 | -100000000   |
+    | I max                 | 000000000    |
+    | I max                 | 1.12345678   |
+    | Z min                 | -100000000   |
+    | Z min                 | 000000000    |
+    | Z min                 | 1.12345678   |
+    | Z max                 | -100000000   |
+    | Z max                 | 000000000    |
+    | Z max                 | 1.12345678   |
 
   @javascript
   Scenario Outline: I cannot submit radial search if form has errors
@@ -205,16 +206,17 @@ Feature: Radial search
     | field                 | value       | error                                                                                    |
     | Right ascension (deg) | -1          | This field should be a number greater than or equal to 0 and less than 360.              |
     | Right ascension (deg) | 360         | This field should be a number greater than or equal to 0 and less than 360.              |
-    | Right ascension (deg) | 1.123456    | This field should be a number with 5 decimal places.                                     |
+    | Right ascension (deg) | 1.123456789 | This field should be a number with 8 decimal places.                                     |
     | Right ascension (deg) | 7abc        | This field should be a number greater than or equal to 0 and less than 360.              |
-    | Right ascension (deg) | 7abc        | This field should be a number with 5 decimal places.                                     |
+    | Right ascension (deg) | 7abc        | This field should be a number with 8 decimal places.                                     |
     | Declination (deg)     | -91         | This field should be a number greater than or equal to -90 and less than or equal to 90. |
     | Declination (deg)     | 91          | This field should be a number greater than or equal to -90 and less than or equal to 90. |
-    | Declination (deg)     | 1.123456    | This field should be a number with 5 decimal places.                                     |
+    | Declination (deg)     | 1.123456789 | This field should be a number with 8 decimal places.                                     |
     | Declination (deg)     | 7abc        | This field should be a number greater than or equal to -90 and less than or equal to 90. |
-    | Declination (deg)     | 7abc        | This field should be a number with 5 decimal places.                                     |
+    | Declination (deg)     | 7abc        | This field should be a number with 8 decimal places.                                     |
     | Search radius (deg)   | 0           | This field should be a number greater than 0 and less than or equal to 10.               |
     | Search radius (deg)   | 11          | This field should be a number greater than 0 and less than or equal to 10.               |
+    | Search radius (deg)   | 1.123456789 | This field should be a number with 8 decimal places.                                     |
     | Search radius (deg)   | 7abc        | This field should be a number greater than 0 and less than or equal to 10.               |
     | U min                 | 1.123456789 | This field should be a number with 8 decimal places.                                     |
     | U min                 | 7abc        | This field should be a number with 8 decimal places.                                     |
@@ -242,7 +244,7 @@ Feature: Radial search
     | Z max                 | 7abc        | This field should be a number with 8 decimal places.                                     |
 
   @javascript
-  Scenario Outline: Max fields should display not display errors if min fields are less than
+  Scenario Outline: Max fields should not display errors if min fields are less than or not a number
     And I select the "Radial" tab
     And I fill in "<min>" for "<min_field>"
     And I fill in "<max>" for "<max_field>"
@@ -252,21 +254,27 @@ Feature: Radial search
     | U min     | U max     | 0.12345678 | 0.12345679 |
     | U min     | U max     | 500        | 1000       |
     | U min     | U max     | -1000      | -500       |
+    | U min     | U max     | 7abc       | -500       |
     | V min     | V max     | 0.12345678 | 0.12345679 |
     | V min     | V max     | 500        | 1000       |
     | V min     | V max     | -1000      | -500       |
+    | V min     | V max     | 7abc       | -500       |
     | G min     | G max     | 0.12345678 | 0.12345679 |
     | G min     | G max     | 500        | 1000       |
     | G min     | G max     | -1000      | -500       |
+    | G min     | G max     | 7abc       | -500       |
     | R min     | R max     | 0.12345678 | 0.12345679 |
     | R min     | R max     | 500        | 1000       |
     | R min     | R max     | -1000      | -500       |
+    | R min     | R max     | 7abc       | -500       |
     | I min     | I max     | 0.12345678 | 0.12345679 |
     | I min     | I max     | 500        | 1000       |
     | I min     | I max     | -1000      | -500       |
+    | I min     | I max     | 7abc       | -500       |
     | Z min     | Z max     | 0.12345678 | 0.12345679 |
     | Z min     | Z max     | 500        | 1000       |
     | Z min     | Z max     | -1000      | -500       |
+    | Z min     | Z max     | 7abc       | -500       |
 
   @javascript
   Scenario Outline: Max fields should display error if min fields are greater than or equal to
