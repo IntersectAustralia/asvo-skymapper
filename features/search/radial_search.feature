@@ -242,7 +242,7 @@ Feature: Radial search
     | Z max                 | 7abc        | This field should be a number with 8 decimal places.                                     |
 
   @javascript
-  Scenario Outline: Max fields should display not display errors if min fields are less than
+  Scenario Outline: Max fields should not display errors if min fields are less than or not a number
     And I select the "Radial" tab
     And I fill in "<min>" for "<min_field>"
     And I fill in "<max>" for "<max_field>"
@@ -252,21 +252,27 @@ Feature: Radial search
     | U min     | U max     | 0.12345678 | 0.12345679 |
     | U min     | U max     | 500        | 1000       |
     | U min     | U max     | -1000      | -500       |
+    | U min     | U max     | 7abc       | -500       |
     | V min     | V max     | 0.12345678 | 0.12345679 |
     | V min     | V max     | 500        | 1000       |
     | V min     | V max     | -1000      | -500       |
+    | V min     | V max     | 7abc       | -500       |
     | G min     | G max     | 0.12345678 | 0.12345679 |
     | G min     | G max     | 500        | 1000       |
     | G min     | G max     | -1000      | -500       |
+    | G min     | G max     | 7abc       | -500       |
     | R min     | R max     | 0.12345678 | 0.12345679 |
     | R min     | R max     | 500        | 1000       |
     | R min     | R max     | -1000      | -500       |
+    | R min     | R max     | 7abc       | -500       |
     | I min     | I max     | 0.12345678 | 0.12345679 |
     | I min     | I max     | 500        | 1000       |
     | I min     | I max     | -1000      | -500       |
+    | I min     | I max     | 7abc       | -500       |
     | Z min     | Z max     | 0.12345678 | 0.12345679 |
     | Z min     | Z max     | 500        | 1000       |
     | Z min     | Z max     | -1000      | -500       |
+    | Z min     | Z max     | 7abc       | -500       |
 
   @javascript
   Scenario Outline: Max fields should display error if min fields are greater than or equal to
