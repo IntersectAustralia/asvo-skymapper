@@ -151,6 +151,26 @@ def generate_point_query_filter_fixtures
 
   end
 
+  query_args = {
+      dataset: 'skymapper',
+      catalogue: 'fs',
+      ra: '178.83871',
+      dec: '-1.18844',
+      sr: '0.5'
+  }
+
+  ['u', 'v', 'g', 'r', 'i', 'z'].each do |filter|
+    query_args["#{filter}_min".to_sym] = 50
+    query_args["#{filter}_max".to_sym] = 1000
+  end
+
+  service_args = {
+      dataset: 'skymapper',
+      catalogue: 'fs',
+  }
+
+  save_query_fixture("skymapper_point_query_filter_all", query_args, service_args, QueryGenerator.method(:generate_point_query))
+
 end
 
 def generate_rectangular_query_fixtures

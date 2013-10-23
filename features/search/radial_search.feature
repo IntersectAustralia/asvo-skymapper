@@ -17,8 +17,8 @@ Feature: Radial search
     And I press "Search SkyMapper"
     Then I should be on the radial search results page
     And I wait for "Fetching results..."
-    And I should see radial search parameters with values ("<ra>", "<dec>", "<sr>")
     And I should see "Query returned <count> objects."
+    And I should see radial search parameters with values ("<ra>", "<dec>", "<sr>")
     And I should see results for catalogue "<catalogue>" as "<results>" in all pages with limit "50"
   Examples:
     | survey             | catalogue | ra        | dec      | sr   | results                    | count |
@@ -39,10 +39,11 @@ Feature: Radial search
     And I fake search request for catalogue "fs" with "<results>"
     And I press "Search SkyMapper"
     Then I should be on the radial search results page
+    And I wait for "Fetching results..."
+    And I should see "Query returned <count> objects."
     And I should see radial search parameters with values ("178.83871", "-1.18844", "0.5")
     And I should see search parameter "<min_filter_field>" as "<min_filter>"
     And I should see search parameter "<max_filter_field>" as "<max_filter>"
-    And I should see "Query returned <count> objects."
     And I should see results for catalogue "fs" as "<results>" in all pages with limit "50"
   Examples:
     | min_filter_field | max_filter_field | min_filter | max_filter | results                          | count |
@@ -66,6 +67,45 @@ Feature: Radial search
     | Z min            | Z max            | 50         | 1000       | skymapper_point_query_Z_filter_3 | 185   |
 
   @javascript
+  Scenario: I perform radial search using all filters
+    And I select the "Radial" tab
+    And I select "Five-Second Survey" from "SkyMapper survey"
+    And I fill in "178.83871" for "Right ascension (deg)"
+    And I fill in "-1.18844" for "Declination (deg)"
+    And I fill in "0.5" for "Search radius (deg)"
+    And I fill in "50" for "U min"
+    And I fill in "1000" for "U max"
+    And I fill in "50" for "V min"
+    And I fill in "1000" for "V max"
+    And I fill in "50" for "G min"
+    And I fill in "1000" for "G max"
+    And I fill in "50" for "R min"
+    And I fill in "1000" for "R max"
+    And I fill in "50" for "I min"
+    And I fill in "1000" for "I max"
+    And I fill in "50" for "Z min"
+    And I fill in "1000" for "Z max"
+    And I fake search request for catalogue "fs" with "skymapper_point_query_filter_all"
+    And I press "Search SkyMapper"
+    Then I should be on the radial search results page
+    And I wait for "Fetching results..."
+    And I should see "Query returned 26 objects."
+    And I should see radial search parameters with values ("178.83871", "-1.18844", "0.5")
+    And I should see search parameter "U min" as "50"
+    And I should see search parameter "U max" as "1000"
+    And I should see search parameter "V min" as "50"
+    And I should see search parameter "V max" as "1000"
+    And I should see search parameter "G min" as "50"
+    And I should see search parameter "G max" as "1000"
+    And I should see search parameter "R min" as "50"
+    And I should see search parameter "R max" as "1000"
+    And I should see search parameter "I min" as "50"
+    And I should see search parameter "I max" as "1000"
+    And I should see search parameter "Z min" as "50"
+    And I should see search parameter "Z max" as "1000"
+    And I should see results for catalogue "fs" as "skymapper_point_query_filter_all" in all pages with limit "50"
+
+  @javascript
   Scenario Outline: I perform radial search returns empty
     And I select the "Radial" tab
     And I select "<survey>" from "SkyMapper survey"
@@ -75,9 +115,9 @@ Feature: Radial search
     And I fake search request for catalogue "<catalogue>" with "<results>"
     And I press "Search SkyMapper"
     Then I should be on the radial search results page
-    And I should see radial search parameters with values ("<ra>", "<dec>", "<sr>")
     And I wait for "Fetching results..."
     And I should see "Query returned <count> objects."
+    And I should see radial search parameters with values ("<ra>", "<dec>", "<sr>")
     And I should not see any results
   Examples:
     | survey             | catalogue | ra | dec | sr | results                    | count |
@@ -94,9 +134,9 @@ Feature: Radial search
     And I fake search request for catalogue "<catalogue>" returns error
     And I press "Search SkyMapper"
     Then I should be on the radial search results page
-    And I should see radial search parameters with values ("<ra>", "<dec>", "<sr>")
     And I wait for "Fetching results..."
     And I should see "There was an error fetching the results."
+    And I should see radial search parameters with values ("<ra>", "<dec>", "<sr>")
     And I should not see any results
   Examples:
     | survey             | catalogue | ra        | dec      | sr  |

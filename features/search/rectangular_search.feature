@@ -16,10 +16,10 @@ Feature: Rectangular search
     And I fill in "<dec_max>" for "Declination max (deg)"
     And I fake search request for catalogue "<catalogue>" with "<results>"
     And I press "Search SkyMapper"
-    And I should see rectangular search parameters with values ("<ra_min>", "<ra_max>", "<dec_min>", "<dec_max>")
     Then I should be on the rectangular search results page
     And I wait for "Fetching results..."
     And I should see "Query returned <count> objects."
+    And I should see rectangular search parameters with values ("<ra_min>", "<ra_max>", "<dec_min>", "<dec_max>")
     And I should see results for catalogue "<catalogue>" as "<results>" in all pages with limit "50"
   Examples:
     | survey             | catalogue | ra_min | ra_max | dec_min | dec_max | results                          | count |
@@ -38,10 +38,10 @@ Feature: Rectangular search
     And I fill in "<dec_max>" for "Declination max (deg)"
     And I fake search request for catalogue "<catalogue>" with "<results>"
     And I press "Search SkyMapper"
-    And I should see rectangular search parameters with values ("<ra_min>", "<ra_max>", "<dec_min>", "<dec_max>")
     Then I should be on the rectangular search results page
     And I wait for "Fetching results..."
     And I should see "Query returned <count> objects."
+    And I should see rectangular search parameters with values ("<ra_min>", "<ra_max>", "<dec_min>", "<dec_max>")
     And I should not see any results
   Examples:
     | survey             | catalogue | ra_min | ra_max | dec_min | dec_max | results                          | count |
@@ -59,9 +59,9 @@ Feature: Rectangular search
     And I fake search request for catalogue "<catalogue>" returns error
     And I press "Search SkyMapper"
     Then I should be on the rectangular search results page
-    And I should see rectangular search parameters with values ("<ra_min>", "<ra_max>", "<dec_min>", "<dec_max>")
     And I wait for "Fetching results..."
     And I should see "There was an error fetching the results."
+    And I should see rectangular search parameters with values ("<ra_min>", "<ra_max>", "<dec_min>", "<dec_max>")
     And I should not see any results
   Examples:
     | survey             | catalogue | ra_min | ra_max | dec_min | dec_max |
