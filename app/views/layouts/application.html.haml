@@ -34,6 +34,7 @@
           %div{:class => "alert alert-#{name == :notice ? "success" : "error"}"}
             %a.close{"data-dismiss" => "alert"} ×
             = msg
+      .js-flash
 
       %h1= yield :title
 

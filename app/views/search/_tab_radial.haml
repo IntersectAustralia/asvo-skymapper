@@ -9,7 +9,7 @@
       .row-fluid
         .span6
           %label{ for: :catalogue }
-            SkyMapper Survey:
+            SkyMapper survey:
           %select#catalogue{ 'ng-model' => 'form.catalogue', name: 'catalogue', required: '' }
             %option{ value: :fs }
               Five-Second Survey
@@ -46,13 +46,20 @@
       .row-fluid
         .span6
           %label{ for: :sr }
-            Search Radius (deg):
+            Search radius (deg):
           %input#sr{ type: 'text', name: 'sr', 'ng-model' => 'form.sr', required: '', range: '(0, 10]', 'ng-init' => "form.sr='0.05'" }
           .error{ 'ng-show' => '(submitted || radial_search_form.sr.$dirty) && radial_search_form.sr.$invalid' }
             %small.error{ 'ng-show' => 'radial_search_form.sr.$error.required' }
               This field is required.
             %small.error{ 'ng-show' => 'radial_search_form.sr.$error.range' }
               This field should be a number greater than 0 and less than or equal to 10.
+
+      = render partial: 'search_filter', locals: { filter: 'u' }
+      = render partial: 'search_filter', locals: { filter: 'v' }
+      = render partial: 'search_filter', locals: { filter: 'g' }
+      = render partial: 'search_filter', locals: { filter: 'r' }
+      = render partial: 'search_filter', locals: { filter: 'i' }
+      = render partial: 'search_filter', locals: { filter: 'z' }
 
     .form-actions
       %input#submit.btn.btn-primary{ type: 'submit', value: 'Search SkyMapper', 'ng-disabled' => 'searching' }

@@ -46,3 +46,27 @@ window.skymapper_app.directive 'decimal', ->
         scope.$watch attr.dependentOn, ->
           validate(elem.val())
   }
+
+window.skymapper_app.directive 'minMax', ->
+
+  {
+  restrict: 'A',
+  require: 'ngModel',
+  link: (scope, elem, attr, ctrl) ->
+
+    validate = (value) ->
+      minMaxValidator = new MinMaxValidator(attr.minMax)
+
+      valid = minMaxValidator.validate(value)
+      ctrl.$setValidity('minMax', valid)
+
+      value
+
+    ctrl.$parsers.unshift validate
+
+    ctrl.$formatters.unshift validate
+
+    if attr.dependentOn
+      scope.$watch attr.dependentOn, ->
+        validate(elem.val())
+  }
