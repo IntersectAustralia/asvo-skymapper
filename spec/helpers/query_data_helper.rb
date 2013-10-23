@@ -7,6 +7,7 @@ def save_query_fixture(filename, query_args, service_args, factory)
   xml.close
   vo = File.new(Rails.root.join("spec/fixtures/#{filename}.vo"), 'w')
   vo_table = VOTableParser.parse_xml(File.read(Rails.root.join("spec/fixtures/#{filename}.xml")))
+  puts "#{filename} contains #{vo_table.table_data ? vo_table.table_data.size : 0} objects"
   YAML.dump(vo_table, vo)
   vo.close
 end
@@ -102,6 +103,73 @@ def generate_point_query_fixtures
   }
 
   save_query_fixture('skymapper_point_query_ms_3', query_args, service_args, QueryGenerator.method(:generate_point_query))
+
+end
+
+def generate_point_query_filter_fixtures
+
+  ['u', 'v', 'g', 'r', 'i', 'z'].each do |filter|
+
+    query_args = {
+        dataset: 'skymapper',
+        catalogue: 'fs',
+        ra: '178.83871',
+        dec: '-1.18844',
+        sr: '0.5'
+    }
+    query_args["#{filter}_min".to_sym] = 50
+
+    service_args = {
+        dataset: 'skymapper',
+        catalogue: 'fs',
+    }
+
+    save_query_fixture("skymapper_point_query_#{filter}_filter_1", query_args, service_args, QueryGenerator.method(:generate_point_query))
+
+    query_args = {
+        dataset: 'skymapper',
+        catalogue: 'fs',
+        ra: '178.83871',
+        dec: '-1.18844',
+        sr: '0.5'
+    }
+    query_args["#{filter}_max".to_sym] = 1000
+
+    save_query_fixture("skymapper_point_query_#{filter}_filter_2", query_args, service_args, QueryGenerator.method(:generate_point_query))
+
+    query_args = {
+        dataset: 'skymapper',
+        catalogue: 'fs',
+        ra: '178.83871',
+        dec: '-1.18844',
+        sr: '0.5'
+    }
+    query_args["#{filter}_min".to_sym] = 50
+    query_args["#{filter}_max".to_sym] = 1000
+
+    save_query_fixture("skymapper_point_query_#{filter}_filter_3", query_args, service_args, QueryGenerator.method(:generate_point_query))
+
+  end
+
+  query_args = {
+      dataset: 'skymapper',
+      catalogue: 'fs',
+      ra: '178.83871',
+      dec: '-1.18844',
+      sr: '0.5'
+  }
+
+  ['u', 'v', 'g', 'r', 'i', 'z'].each do |filter|
+    query_args["#{filter}_min".to_sym] = 50
+    query_args["#{filter}_max".to_sym] = 1000
+  end
+
+  service_args = {
+      dataset: 'skymapper',
+      catalogue: 'fs',
+  }
+
+  save_query_fixture("skymapper_point_query_filter_all", query_args, service_args, QueryGenerator.method(:generate_point_query))
 
 end
 

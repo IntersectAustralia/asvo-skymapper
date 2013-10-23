@@ -9,17 +9,17 @@ Feature: Rectangular search
   @javascript
   Scenario Outline: I perform rectangular search
     And I select the "Rectangular" tab
-    And I select "<survey>" from "SkyMapper Survey"
+    And I select "<survey>" from "SkyMapper survey"
     And I fill in "<ra_min>" for "Right ascension min (deg)"
     And I fill in "<ra_max>" for "Right ascension max (deg)"
     And I fill in "<dec_min>" for "Declination min (deg)"
     And I fill in "<dec_max>" for "Declination max (deg)"
     And I fake search request for catalogue "<catalogue>" with "<results>"
     And I press "Search SkyMapper"
-    And I should see rectangular search parameters with values ("<ra_min>", "<ra_max>", "<dec_min>", "<dec_max>")
     Then I should be on the rectangular search results page
     And I wait for "Fetching results..."
     And I should see "Query returned <count> objects."
+    And I should see rectangular search parameters with values ("<ra_min>", "<ra_max>", "<dec_min>", "<dec_max>")
     And I should see results for catalogue "<catalogue>" as "<results>" in all pages with limit "50"
   Examples:
     | survey             | catalogue | ra_min | ra_max | dec_min | dec_max | results                          | count |
@@ -31,17 +31,17 @@ Feature: Rectangular search
   @javascript
   Scenario Outline: I perform rectangular search returns empty
     And I select the "Rectangular" tab
-    And I select "<survey>" from "SkyMapper Survey"
+    And I select "<survey>" from "SkyMapper survey"
     And I fill in "<ra_min>" for "Right ascension min (deg)"
     And I fill in "<ra_max>" for "Right ascension max (deg)"
     And I fill in "<dec_min>" for "Declination min (deg)"
     And I fill in "<dec_max>" for "Declination max (deg)"
     And I fake search request for catalogue "<catalogue>" with "<results>"
     And I press "Search SkyMapper"
-    And I should see rectangular search parameters with values ("<ra_min>", "<ra_max>", "<dec_min>", "<dec_max>")
     Then I should be on the rectangular search results page
     And I wait for "Fetching results..."
     And I should see "Query returned <count> objects."
+    And I should see rectangular search parameters with values ("<ra_min>", "<ra_max>", "<dec_min>", "<dec_max>")
     And I should not see any results
   Examples:
     | survey             | catalogue | ra_min | ra_max | dec_min | dec_max | results                          | count |
@@ -51,7 +51,7 @@ Feature: Rectangular search
   @javascript
   Scenario Outline: I cannot perform rectangular search if request error
     And I select the "Rectangular" tab
-    And I select "<survey>" from "SkyMapper Survey"
+    And I select "<survey>" from "SkyMapper survey"
     And I fill in "<ra_min>" for "Right ascension min (deg)"
     And I fill in "<ra_max>" for "Right ascension max (deg)"
     And I fill in "<dec_min>" for "Declination min (deg)"
@@ -59,9 +59,9 @@ Feature: Rectangular search
     And I fake search request for catalogue "<catalogue>" returns error
     And I press "Search SkyMapper"
     Then I should be on the rectangular search results page
-    And I should see rectangular search parameters with values ("<ra_min>", "<ra_max>", "<dec_min>", "<dec_max>")
     And I wait for "Fetching results..."
     And I should see "There was an error fetching the results."
+    And I should see rectangular search parameters with values ("<ra_min>", "<ra_max>", "<dec_min>", "<dec_max>")
     And I should not see any results
   Examples:
     | survey             | catalogue | ra_min | ra_max | dec_min | dec_max |
@@ -117,7 +117,7 @@ Feature: Rectangular search
     | Declination max (deg)     | 7abc     | This field should be a number with 5 decimal places.                                     |
 
   @javascript
-  Scenario Outline: max fields should display not display errors if min fields are less than or equal to
+  Scenario Outline: max fields should display not display errors if min fields are less than
     And I select the "Rectangular" tab
     And I fill in "<min>" for "<min_field>"
     And I fill in "<max>" for "<max_field>"
@@ -130,7 +130,7 @@ Feature: Rectangular search
     | Declination min (deg)     | Declination max (deg)     | -45.12345 | -45.12346 |
 
   @javascript
-  Scenario Outline: max fields should display error if min fields are greater than
+  Scenario Outline: max fields should display error if min fields are greater than or equal to
     And I select the "Rectangular" tab
     And I fill in "<min>" for "<min_field>"
     And I fill in "<max>" for "<max_field>"
@@ -160,5 +160,5 @@ Feature: Rectangular search
   Scenario: I submit perform rectangular search if form has errors (select required errors)
     And I select the "Rectangular" tab
     And I press "Search SkyMapper"
-    Then I should see error "This field is required." for "SkyMapper Survey"
+    Then I should see error "This field is required." for "SkyMapper survey"
 

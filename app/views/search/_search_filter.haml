@@ -1,0 +1,17 @@
+.row-fluid
+  .span6
+    %label{ for: "#{filter}_min" }
+      = "#{filter.upcase} min:"
+    %input{ type: 'text', id: "#{filter}_min", name: "#{filter}_min", 'ng-model' => "form.#{filter}_min", decimal: 8 }
+    .error{ 'ng-show' => "(submitted || radial_search_form.#{filter}_min.$dirty) && radial_search_form.#{filter}_min.$invalid" }
+      %small.error{ 'ng-show' => "radial_search_form.#{filter}_min.$error.decimal" }
+        This field should be a number with 8 decimal places.
+  .span6
+    %label{ for: "#{filter}_max" }
+      = "#{filter.upcase} max:"
+    %input{ type: 'text', id: "#{filter}_max", name: "#{filter}_max", 'ng-model' => "form.#{filter}_max", decimal: 8, 'min-max' => "{{form.#{filter}_min}}", 'dependent-on' => "form.#{filter}_min" }
+    .error{ 'ng-show' => "(submitted || radial_search_form.#{filter}_max.$dirty) && radial_search_form.#{filter}_max.$invalid" }
+      %small.error{ 'ng-show' => "radial_search_form.#{filter}_max.$error.decimal" }
+        This field should be a number with 8 decimal places.
+      %small.error{ 'ng-show' => "radial_search_form.#{filter}_max.$error.minMax" }
+        = "This field should be a number greater than {{form.#{filter}_min}}."

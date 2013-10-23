@@ -16,8 +16,10 @@ And /^I should see rectangular search parameters with values \("([^"]*)", "([^"]
 end
 
 And /^I should see search parameter "([^"]*)" as "([^"]*)"/ do |parameter, value|
-  within(find('.search-parameter', text: parameter)) do
-    find('.search-value').text.should == "#{value}°"
+  unless value.blank?
+    within(find('.search-parameter', text: parameter)) do
+      find('.search-value').text.should == "#{value}°"
+    end
   end
 end
 

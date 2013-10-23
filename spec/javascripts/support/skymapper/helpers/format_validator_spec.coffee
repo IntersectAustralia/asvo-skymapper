@@ -25,3 +25,10 @@ describe 'FormatValidator', ->
     expect(formatValidator.validate('7abc  ')).toEqual false
     expect(formatValidator.validate('.  ')).toEqual false
     expect(formatValidator.validate('  1.  ')).toEqual false
+
+  it 'allows undefined and empty values', ->
+    format = '^-?\\d*(\\.\\d{1,5})?$'
+    formatValidator = new FormatValidator(format)
+
+    expect(formatValidator.validate(undefined)).toEqual true
+    expect(formatValidator.validate('       ')).toEqual true

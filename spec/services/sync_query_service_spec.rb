@@ -294,4 +294,133 @@ describe SyncQueryService do
     service.fetch_results(point_query).should be_empty
   end
 
+  describe 'should return filtered results' do
+
+    it "Fetch point query results for skymapper using all filters" do
+      query_args = {
+          dataset: 'skymapper',
+          catalogue: 'fs',
+          ra: '178.83871',
+          dec: '-1.18844',
+          sr: '0.5'
+      }
+
+      ['u', 'v', 'g', 'r', 'i', 'z'].each do |filter|
+        query_args["#{filter}_min".to_sym] = 50
+        query_args["#{filter}_max".to_sym] = 1000
+      end
+
+      service_args = {
+          dataset: 'skymapper',
+          catalogue: 'fs',
+      }
+
+      mock_service_run("skymapper_point_query_filter_all", query_args, service_args, QueryGenerator.method(:generate_point_query))
+
+      catalogue = Rails.application.config.asvo_registry.find_catalogue('skymapper', 'fs')
+      fields = catalogue[:fields]
+
+      filtered_results_table = YAML.load(File.read(Rails.root.join("spec/fixtures/skymapper_point_query_filter_all.vo")))
+      ['u', 'v', 'g', 'r', 'i', 'z'].each do |filter|
+        filtered_results_table.table_data.each do |obj|
+          obj[fields["#{filter}_field".to_sym]].to_f.should >= query_args["#{filter}_min".to_sym].to_f
+          obj[fields["#{filter}_field".to_sym]].to_f.should <= query_args["#{filter}_max".to_sym].to_f
+        end
+      end
+
+    end
+
+    ['u', 'v', 'g', 'r', 'i', 'z'].each do |filter|
+
+      it "Fetch point query results for skymapper using #{filter} min filter" do
+        query_args = {
+            dataset: 'skymapper',
+            catalogue: 'fs',
+            ra: '178.83871',
+            dec: '-1.18844',
+            sr: '0.5'
+        }
+        filter_min = "#{filter}_min".to_sym
+        query_args[filter_min] = 50
+
+        service_args = {
+            dataset: 'skymapper',
+            catalogue: 'fs',
+        }
+
+        mock_service_run("skymapper_point_query_#{filter}_filter_1", query_args, service_args, QueryGenerator.method(:generate_point_query))
+
+        catalogue = Rails.application.config.asvo_registry.find_catalogue('skymapper', 'fs')
+        fields = catalogue[:fields]
+
+        filtered_results_table = YAML.load(File.read(Rails.root.join("spec/fixtures/skymapper_point_query_#{filter}_filter_1.vo")))
+        filtered_results_table.table_data.each do |obj|
+          obj[fields["#{filter}_field".to_sym]].to_f.should >= query_args[filter_min].to_f
+        end
+
+      end
+
+      it "Fetch point query results for skymapper using #{filter} max filter" do
+        query_args = {
+            dataset: 'skymapper',
+            catalogue: 'fs',
+            ra: '178.83871',
+            dec: '-1.18844',
+            sr: '0.5'
+        }
+        filter_max = "#{filter}_max".to_sym
+        query_args[filter_max] = 1000
+
+        service_args = {
+            dataset: 'skymapper',
+            catalogue: 'fs',
+        }
+
+        mock_service_run("skymapper_point_query_#{filter}_filter_2", query_args, service_args, QueryGenerator.method(:generate_point_query))
+
+        catalogue = Rails.application.config.asvo_registry.find_catalogue('skymapper', 'fs')
+        fields = catalogue[:fields]
+
+        filtered_results_table = YAML.load(File.read(Rails.root.join("spec/fixtures/skymapper_point_query_#{filter}_filter_2.vo")))
+        filtered_results_table.table_data.each do |obj|
+          obj[fields["#{filter}_field".to_sym]].to_f.should <= query_args[filter_max].to_f
+        end
+
+      end
+
+      it "Fetch point query results for skymapper using #{filter} min and max filter" do
+        query_args = {
+            dataset: 'skymapper',
+            catalogue: 'fs',
+            ra: '178.83871',
+            dec: '-1.18844',
+            sr: '0.5'
+        }
+        filter_min = "#{filter}_min".to_sym
+        filter_max = "#{filter}_max".to_sym
+        query_args[filter_min] = 50
+        query_args[filter_max] = 1000
+
+        service_args = {
+            dataset: 'skymapper',
+            catalogue: 'fs',
+        }
+
+        mock_service_run("skymapper_point_query_#{filter}_filter_2", query_args, service_args, QueryGenerator.method(:generate_point_query))
+
+        catalogue = Rails.application.config.asvo_registry.find_catalogue('skymapper', 'fs')
+        fields = catalogue[:fields]
+
+        filtered_results_table = YAML.load(File.read(Rails.root.join("spec/fixtures/skymapper_point_query_#{filter}_filter_3.vo")))
+        filtered_results_table.table_data.each do |obj|
+          obj[fields["#{filter}_field".to_sym]].to_f.should >= query_args[filter_min].to_f
+          obj[fields["#{filter}_field".to_sym]].to_f.should <= query_args[filter_max].to_f
+        end
+
+      end
+
+    end
+
+  end
+
 end

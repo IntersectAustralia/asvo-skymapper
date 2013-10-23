@@ -9,10 +9,10 @@ Feature: Pagination
   @javascript
   Scenario Outline: I perform radial search
     And I select the "Radial" tab
-    And I select "<survey>" from "SkyMapper Survey"
+    And I select "<survey>" from "SkyMapper survey"
     And I fill in "<ra>" for "Right ascension (deg)"
     And I fill in "<dec>" for "Declination (deg)"
-    And I fill in "<sr>" for "Search Radius (deg)"
+    And I fill in "<sr>" for "Search radius (deg)"
     And I fake search request for catalogue "<catalogue>" with "<results>"
     And I press "Search SkyMapper"
     Then I should be on the radial search results page

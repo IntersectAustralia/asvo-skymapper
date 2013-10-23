@@ -21,9 +21,13 @@ class SearchController < ApplicationController
       { name: 'Declination:', value: params[:dec] },
       { name: 'Radius:', value: params[:sr] }
     ]
+    add_parameters(@parameters, params)
 
     @fields = search_fields(params[:catalogue])
 
+  rescue StandardError
+    flash.now[:error] = 'The search parameters contain some errors.'
+  ensure
     render 'search_results'
   end
 
@@ -39,10 +43,28 @@ class SearchController < ApplicationController
 
     @fields = search_fields(params[:catalogue])
 
+  rescue StandardError
+    flash.now[:error] = 'The search parameters contain some errors.'
+  ensure
     render 'search_results'
   end
 
   # HELPERS
+
+  def add_parameters(parameters, params)
+    add_parameter(parameters, params, 'U min:', :u_min)
+    add_parameter(parameters, params, 'U max:', :u_max)
+    add_parameter(parameters, params, 'V min:', :v_min)
+    add_parameter(parameters, params, 'V max:', :v_max)
+    add_parameter(parameters, params, 'G min:', :g_min)
+    add_parameter(parameters, params, 'G max:', :g_max)
+    add_parameter(parameters, params, 'R min:', :r_min)
+    add_parameter(parameters, params, 'R max:', :r_max)
+    add_parameter(parameters, params, 'I min:', :i_min)
+    add_parameter(parameters, params, 'I max:', :i_max)
+    add_parameter(parameters, params, 'Z min:', :z_min)
+    add_parameter(parameters, params, 'Z max:', :z_max)
+  end
 
   def radial_search_results
     args = params[:query]
@@ -116,6 +138,10 @@ class SearchController < ApplicationController
   end
 
   protected
+
+  def add_parameter(parameters, params, name, field)
+    parameters.push({ name: name, value: params[field] }) if params[field]
+  end
 
   def query_fields(dataset, catalogue)
     Rails.application.config.asvo_registry.find_catalogue(dataset, catalogue)[:fields]
