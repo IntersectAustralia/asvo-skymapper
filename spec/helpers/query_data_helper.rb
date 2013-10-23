@@ -124,7 +124,7 @@ def generate_point_query_filter_fixtures
         catalogue: 'fs',
     }
 
-    save_query_fixture("skymapper_point_query_#{filter}_filter_1", query_args, service_args, QueryGenerator.method(:generate_point_query))
+    save_query_fixture("skymapper_point_query_fs_#{filter}_filter_1", query_args, service_args, QueryGenerator.method(:generate_point_query))
 
     query_args = {
         dataset: 'skymapper',
@@ -135,7 +135,7 @@ def generate_point_query_filter_fixtures
     }
     query_args["#{filter}_max".to_sym] = 1000
 
-    save_query_fixture("skymapper_point_query_#{filter}_filter_2", query_args, service_args, QueryGenerator.method(:generate_point_query))
+    save_query_fixture("skymapper_point_query_fs_#{filter}_filter_2", query_args, service_args, QueryGenerator.method(:generate_point_query))
 
     query_args = {
         dataset: 'skymapper',
@@ -147,7 +147,46 @@ def generate_point_query_filter_fixtures
     query_args["#{filter}_min".to_sym] = 50
     query_args["#{filter}_max".to_sym] = 1000
 
-    save_query_fixture("skymapper_point_query_#{filter}_filter_3", query_args, service_args, QueryGenerator.method(:generate_point_query))
+    save_query_fixture("skymapper_point_query_fs_#{filter}_filter_3", query_args, service_args, QueryGenerator.method(:generate_point_query))
+
+    query_args = {
+        dataset: 'skymapper',
+        catalogue: 'ms',
+        ra: '178.83871',
+        dec: '-1.18844',
+        sr: '0.15'
+    }
+    query_args["#{filter}_min".to_sym] = 0.1
+
+    service_args = {
+        dataset: 'skymapper',
+        catalogue: 'ms',
+    }
+
+    save_query_fixture("skymapper_point_query_ms_#{filter}_filter_1", query_args, service_args, QueryGenerator.method(:generate_point_query))
+
+    query_args = {
+        dataset: 'skymapper',
+        catalogue: 'ms',
+        ra: '178.83871',
+        dec: '-1.18844',
+        sr: '0.15'
+    }
+    query_args["#{filter}_max".to_sym] = 1
+
+    save_query_fixture("skymapper_point_query_ms_#{filter}_filter_2", query_args, service_args, QueryGenerator.method(:generate_point_query))
+
+    query_args = {
+        dataset: 'skymapper',
+        catalogue: 'ms',
+        ra: '178.83871',
+        dec: '-1.18844',
+        sr: '0.15'
+    }
+    query_args["#{filter}_min".to_sym] = 0.1
+    query_args["#{filter}_max".to_sym] = 1
+
+    save_query_fixture("skymapper_point_query_ms_#{filter}_filter_3", query_args, service_args, QueryGenerator.method(:generate_point_query))
 
   end
 
@@ -169,7 +208,27 @@ def generate_point_query_filter_fixtures
       catalogue: 'fs',
   }
 
-  save_query_fixture("skymapper_point_query_filter_all", query_args, service_args, QueryGenerator.method(:generate_point_query))
+  save_query_fixture("skymapper_point_query_fs_filter_all", query_args, service_args, QueryGenerator.method(:generate_point_query))
+
+  query_args = {
+      dataset: 'skymapper',
+      catalogue: 'ms',
+      ra: '178.83871',
+      dec: '-1.18844',
+      sr: '0.15'
+  }
+
+  ['u', 'v', 'g', 'r', 'i', 'z'].each do |filter|
+    query_args["#{filter}_min".to_sym] = 0.1
+    query_args["#{filter}_max".to_sym] = 1
+  end
+
+  service_args = {
+      dataset: 'skymapper',
+      catalogue: 'ms',
+  }
+
+  save_query_fixture("skymapper_point_query_ms_filter_all", query_args, service_args, QueryGenerator.method(:generate_point_query))
 
 end
 

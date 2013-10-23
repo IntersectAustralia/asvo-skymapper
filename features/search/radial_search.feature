@@ -28,7 +28,7 @@ Feature: Radial search
     | Main Survey        | ms        | 178.83871 | -1.18844 | 0.5  | skymapper_point_query_ms_3 | 1000  |
 
   @javascript
-  Scenario Outline: I perform radial search using filters
+  Scenario Outline: I perform radial search using filters (FS)
     And I select the "Radial" tab
     And I select "Five-Second Survey" from "SkyMapper survey"
     And I fill in "178.83871" for "Right ascension (deg)"
@@ -46,64 +46,107 @@ Feature: Radial search
     And I should see search parameter "<max_filter_field>" as "<max_filter>"
     And I should see results for catalogue "fs" as "<results>" in all pages with limit "50"
   Examples:
-    | min_filter_field | max_filter_field | min_filter | max_filter | results                          | count |
-    | U min            | U max            | 50         |            | skymapper_point_query_u_filter_1 | 96    |
-    | U min            | U max            |            | 1000       | skymapper_point_query_u_filter_2 | 248   |
-    | U min            | U max            | 50         | 1000       | skymapper_point_query_u_filter_3 | 72    |
-    | V min            | V max            | 50         |            | skymapper_point_query_v_filter_1 | 96    |
-    | V min            | V max            |            | 1000       | skymapper_point_query_v_filter_2 | 248   |
-    | V min            | V max            | 50         | 1000       | skymapper_point_query_v_filter_3 | 72    |
-    | G min            | G max            | 50         |            | skymapper_point_query_g_filter_1 | 170   |
-    | G min            | G max            |            | 1000       | skymapper_point_query_g_filter_2 | 221   |
-    | G min            | G max            | 50         | 1000       | skymapper_point_query_g_filter_3 | 119   |
-    | R min            | R max            | 50         |            | skymapper_point_query_r_filter_1 | 237   |
-    | R min            | R max            |            | 1000       | skymapper_point_query_r_filter_2 | 202   |
-    | R min            | R max            | 50         | 1000       | skymapper_point_query_r_filter_3 | 167   |
-    | I min            | I max            | 50         |            | skymapper_point_query_i_filter_1 | 265   |
-    | I min            | I max            |            | 1000       | skymapper_point_query_i_filter_2 | 195   |
-    | I min            | I max            | 50         | 1000       | skymapper_point_query_i_filter_3 | 188   |
-    | Z min            | Z max            | 50         |            | skymapper_point_query_Z_filter_1 | 268   |
-    | Z min            | Z max            |            | 1000       | skymapper_point_query_Z_filter_2 | 189   |
-    | Z min            | Z max            | 50         | 1000       | skymapper_point_query_Z_filter_3 | 185   |
+    | min_filter_field | max_filter_field | min_filter | max_filter | results                             | count |
+    | U min            | U max            | 50         |            | skymapper_point_query_fs_u_filter_1 | 96    |
+    | U min            | U max            |            | 1000       | skymapper_point_query_fs_u_filter_2 | 248   |
+    | U min            | U max            | 50         | 1000       | skymapper_point_query_fs_u_filter_3 | 72    |
+    | V min            | V max            | 50         |            | skymapper_point_query_fs_v_filter_1 | 96    |
+    | V min            | V max            |            | 1000       | skymapper_point_query_fs_v_filter_2 | 248   |
+    | V min            | V max            | 50         | 1000       | skymapper_point_query_fs_v_filter_3 | 72    |
+    | G min            | G max            | 50         |            | skymapper_point_query_fs_g_filter_1 | 170   |
+    | G min            | G max            |            | 1000       | skymapper_point_query_fs_g_filter_2 | 221   |
+    | G min            | G max            | 50         | 1000       | skymapper_point_query_fs_g_filter_3 | 119   |
+    | R min            | R max            | 50         |            | skymapper_point_query_fs_r_filter_1 | 237   |
+    | R min            | R max            |            | 1000       | skymapper_point_query_fs_r_filter_2 | 202   |
+    | R min            | R max            | 50         | 1000       | skymapper_point_query_fs_r_filter_3 | 167   |
+    | I min            | I max            | 50         |            | skymapper_point_query_fs_i_filter_1 | 265   |
+    | I min            | I max            |            | 1000       | skymapper_point_query_fs_i_filter_2 | 195   |
+    | I min            | I max            | 50         | 1000       | skymapper_point_query_fs_i_filter_3 | 188   |
+    | Z min            | Z max            | 50         |            | skymapper_point_query_fs_z_filter_1 | 268   |
+    | Z min            | Z max            |            | 1000       | skymapper_point_query_fs_z_filter_2 | 189   |
+    | Z min            | Z max            | 50         | 1000       | skymapper_point_query_fs_z_filter_3 | 185   |
 
   @javascript
-  Scenario: I perform radial search using all filters
+  Scenario Outline: I perform radial search using filters (MS)
     And I select the "Radial" tab
-    And I select "Five-Second Survey" from "SkyMapper survey"
+    And I select "Main Survey" from "SkyMapper survey"
     And I fill in "178.83871" for "Right ascension (deg)"
     And I fill in "-1.18844" for "Declination (deg)"
-    And I fill in "0.5" for "Search radius (deg)"
-    And I fill in "50" for "U min"
-    And I fill in "1000" for "U max"
-    And I fill in "50" for "V min"
-    And I fill in "1000" for "V max"
-    And I fill in "50" for "G min"
-    And I fill in "1000" for "G max"
-    And I fill in "50" for "R min"
-    And I fill in "1000" for "R max"
-    And I fill in "50" for "I min"
-    And I fill in "1000" for "I max"
-    And I fill in "50" for "Z min"
-    And I fill in "1000" for "Z max"
-    And I fake search request for catalogue "fs" with "skymapper_point_query_filter_all"
+    And I fill in "0.15" for "Search radius (deg)"
+    And I fill in "<min_filter>" for "<min_filter_field>"
+    And I fill in "<max_filter>" for "<max_filter_field>"
+    And I fake search request for catalogue "ms" with "<results>"
     And I press "Search SkyMapper"
     Then I should be on the radial search results page
     And I wait for "Fetching results..."
-    And I should see "Query returned 26 objects."
-    And I should see radial search parameters with values ("178.83871", "-1.18844", "0.5")
-    And I should see search parameter "U min" as "50"
-    And I should see search parameter "U max" as "1000"
-    And I should see search parameter "V min" as "50"
-    And I should see search parameter "V max" as "1000"
-    And I should see search parameter "G min" as "50"
-    And I should see search parameter "G max" as "1000"
-    And I should see search parameter "R min" as "50"
-    And I should see search parameter "R max" as "1000"
-    And I should see search parameter "I min" as "50"
-    And I should see search parameter "I max" as "1000"
-    And I should see search parameter "Z min" as "50"
-    And I should see search parameter "Z max" as "1000"
-    And I should see results for catalogue "fs" as "skymapper_point_query_filter_all" in all pages with limit "50"
+    And I should see "Query returned <count> objects."
+    And I should see radial search parameters with values ("178.83871", "-1.18844", "0.15")
+    And I should see search parameter "<min_filter_field>" as "<min_filter>"
+    And I should see search parameter "<max_filter_field>" as "<max_filter>"
+    And I should see results for catalogue "ms" as "<results>" in all pages with limit "50"
+  Examples:
+    | min_filter_field | max_filter_field | min_filter | max_filter | results                             | count |
+    | U min            | U max            | 0.1        |            | skymapper_point_query_ms_u_filter_1 | 372   |
+    | U min            | U max            |            | 1          | skymapper_point_query_ms_u_filter_2 | 365   |
+    | U min            | U max            | 0.1        | 1          | skymapper_point_query_ms_u_filter_3 | 249   |
+    | V min            | V max            | 0.1        |            | skymapper_point_query_ms_v_filter_1 | 372   |
+    | V min            | V max            |            | 1          | skymapper_point_query_ms_v_filter_2 | 365   |
+    | V min            | V max            | 0.1        | 1          | skymapper_point_query_ms_v_filter_3 | 249   |
+    | G min            | G max            | 0.1        |            | skymapper_point_query_ms_g_filter_1 | 438   |
+    | G min            | G max            |            | 1          | skymapper_point_query_ms_g_filter_2 | 274   |
+    | G min            | G max            | 0.1        | 1          | skymapper_point_query_ms_g_filter_3 | 224   |
+    | R min            | R max            | 0.1        |            | skymapper_point_query_ms_r_filter_1 | 454   |
+    | R min            | R max            |            | 1          | skymapper_point_query_ms_r_filter_2 | 131   |
+    | R min            | R max            | 0.1        | 1          | skymapper_point_query_ms_r_filter_3 | 97    |
+    | I min            | I max            | 0.1        |            | skymapper_point_query_ms_i_filter_1 | 466   |
+    | I min            | I max            |            | 1          | skymapper_point_query_ms_i_filter_2 | 70    |
+    | I min            | I max            | 0.1        | 1          | skymapper_point_query_ms_i_filter_3 | 48    |
+    | Z min            | Z max            | 0.1        |            | skymapper_point_query_ms_z_filter_1 | 446   |
+    | Z min            | Z max            |            | 1          | skymapper_point_query_ms_z_filter_2 | 72    |
+    | Z min            | Z max            | 0.1        | 1          | skymapper_point_query_ms_z_filter_3 | 30    |
+
+  @javascript
+  Scenario Outline: I perform radial search using all filters
+    And I select the "Radial" tab
+    And I select "<survey>" from "SkyMapper survey"
+    And I fill in "<ra>" for "Right ascension (deg)"
+    And I fill in "<dec>" for "Declination (deg)"
+    And I fill in "<sr>" for "Search radius (deg)"
+    And I fill in "<filter_min>" for "U min"
+    And I fill in "<filter_max>" for "U max"
+    And I fill in "<filter_min>" for "V min"
+    And I fill in "<filter_max>" for "V max"
+    And I fill in "<filter_min>" for "G min"
+    And I fill in "<filter_max>" for "G max"
+    And I fill in "<filter_min>" for "R min"
+    And I fill in "<filter_max>" for "R max"
+    And I fill in "<filter_min>" for "I min"
+    And I fill in "<filter_max>" for "I max"
+    And I fill in "<filter_min>" for "Z min"
+    And I fill in "<filter_max>" for "Z max"
+    And I fake search request for catalogue "<catalogue>" with "<results>"
+    And I press "Search SkyMapper"
+    Then I should be on the radial search results page
+    And I wait for "Fetching results..."
+    And I should see "Query returned <count> objects."
+    And I should see radial search parameters with values ("<ra>", "<dec>", "<sr>")
+    And I should see search parameter "U min" as "<filter_min>"
+    And I should see search parameter "U max" as "<filter_max>"
+    And I should see search parameter "V min" as "<filter_min>"
+    And I should see search parameter "V max" as "<filter_max>"
+    And I should see search parameter "G min" as "<filter_min>"
+    And I should see search parameter "G max" as "<filter_max>"
+    And I should see search parameter "R min" as "<filter_min>"
+    And I should see search parameter "R max" as "<filter_max>"
+    And I should see search parameter "I min" as "<filter_min>"
+    And I should see search parameter "I max" as "<filter_max>"
+    And I should see search parameter "Z min" as "<filter_min>"
+    And I should see search parameter "Z max" as "<filter_max>"
+    And I should see results for catalogue "<catalogue>" as "<results>" in all pages with limit "50"
+  Examples:
+    | survey             | catalogue | ra        | dec      | sr   | filter_min | filter_max | results                             | count |
+    | Five-Second Survey | fs        | 178.83871 | -1.18844 | 0.5  | 50         | 1000       | skymapper_point_query_fs_filter_all | 26    |
+    | Main Survey        | ms        | 178.83871 | -1.18844 | 0.15 | 0.1        | 1          | skymapper_point_query_ms_filter_all | 3     |
 
   @javascript
   Scenario Outline: I perform radial search returns empty

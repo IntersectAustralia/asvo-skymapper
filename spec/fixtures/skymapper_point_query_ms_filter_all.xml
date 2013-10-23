@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VOTABLE version="1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ivoa.net/xml/VOTable/v1.2" xmlns="http://www.ivoa.net/xml/VOTable/v1.2">
+	<RESOURCE type="results">
+		<INFO name="QUERY_STATUS" value="OK" />
+		<INFO name="PROVIDER" value="ASOV">TAP for SkyMapperPublic</INFO>
+		<INFO name="QUERY" value="SELECT
+    TOP 1000
+    *
+    FROM public.ms_distilled
+    WHERE
+        1=CONTAINS(POINT('ICRS', ra, dcl),
+                   CIRCLE('ICRS', 178.83871, -1.18844, 0.15))
+AND mean_u &gt;= 0.1
+AND mean_u &lt;= 1
+AND mean_v &gt;= 0.1
+AND mean_v &lt;= 1
+AND mean_g &gt;= 0.1
+AND mean_g &lt;= 1
+AND mean_r &gt;= 0.1
+AND mean_r &lt;= 1
+AND mean_i &gt;= 0.1
+AND mean_i &lt;= 1
+AND mean_z &gt;= 0.1
+AND mean_z &lt;= 1
+
+" />
+		<TABLE>
+			<FIELD ID="new_object_id" name="new_object_id" ucd="meta.id;meta.main" datatype="long"/>
+			<FIELD ID="mean_epoch" name="mean_epoch" datatype="integer"/>
+			<FIELD ID="ra" name="ra" ucd="pos.eq.ra;meta.main" datatype="double" unit="deg"/>
+			<FIELD ID="dcl" name="dcl" ucd="pos.eq.dec;meta.main" datatype="double" unit="deg"/>
+			<FIELD ID="pi" name="pi" datatype="double"/>
+			<FIELD ID="sigma_pi" name="sigma_pi" datatype="double"/>
+			<FIELD ID="mu_x" name="mu_x" datatype="double"/>
+			<FIELD ID="mu_y" name="mu_y" datatype="double"/>
+			<FIELD ID="sigma_mu_x" name="sigma_mu_x" datatype="double"/>
+			<FIELD ID="sigma_mu_y" name="sigma_mu_y" datatype="double"/>
+			<FIELD ID="mean_u" name="mean_u" datatype="double"/>
+			<FIELD ID="mean_v" name="mean_v" datatype="double"/>
+			<FIELD ID="mean_g" name="mean_g" datatype="double"/>
+			<FIELD ID="mean_r" name="mean_r" datatype="double"/>
+			<FIELD ID="mean_i" name="mean_i" datatype="double"/>
+			<FIELD ID="mean_z" name="mean_z" datatype="double"/>
+			<FIELD ID="sigma_u" name="sigma_u" datatype="double"/>
+			<FIELD ID="sigma_v" name="sigma_v" datatype="double"/>
+			<FIELD ID="sigma_g" name="sigma_g" datatype="double"/>
+			<FIELD ID="sigma_r" name="sigma_r" datatype="double"/>
+			<FIELD ID="sigma_i" name="sigma_i" datatype="double"/>
+			<FIELD ID="sigma_z" name="sigma_z" datatype="double"/>
+			<FIELD ID="petro_u" name="petro_u" datatype="double"/>
+			<FIELD ID="petro_v" name="petro_v" datatype="double"/>
+			<FIELD ID="petro_g" name="petro_g" datatype="double"/>
+			<FIELD ID="petro_r" name="petro_r" datatype="double"/>
+			<FIELD ID="petro_i" name="petro_i" datatype="double"/>
+			<FIELD ID="petro_z" name="petro_z" datatype="double"/>
+			<FIELD ID="petro_sigma_u" name="petro_sigma_u" datatype="double"/>
+			<FIELD ID="petro_sigma_v" name="petro_sigma_v" datatype="double"/>
+			<FIELD ID="petro_sigma_g" name="petro_sigma_g" datatype="double"/>
+			<FIELD ID="petro_sigma_r" name="petro_sigma_r" datatype="double"/>
+			<FIELD ID="petro_sigma_i" name="petro_sigma_i" datatype="double"/>
+			<FIELD ID="petro_sigma_z" name="petro_sigma_z" datatype="double"/>
+			<FIELD ID="variability" name="variability" datatype="double"/>
+			<FIELD ID="transient" name="transient" datatype="boolean"/>
+			<FIELD ID="a" name="a" datatype="double"/>
+			<FIELD ID="b" name="b" datatype="double"/>
+			<FIELD ID="theta" name="theta" datatype="double"/>
+			<FIELD ID="sigma_a" name="sigma_a" datatype="double"/>
+			<FIELD ID="sigma_b" name="sigma_b" datatype="double"/>
+			<FIELD ID="sigma_theta" name="sigma_theta" datatype="double"/>
+			<FIELD ID="radius_frac_20" name="radius_frac_20" datatype="double"/>
+			<FIELD ID="radius_frac_90" name="radius_frac_90" datatype="double"/>
+			<FIELD ID="class_star" name="class_star" datatype="double"/>
+			<FIELD ID="class_desc" name="class_desc" datatype="char" arraysize="*"/>
+			<FIELD ID="field_id_1" name="field_id_1" datatype="integer"/>
+			<FIELD ID="object_id_1" name="object_id_1" datatype="integer"/>
+			<FIELD ID="field_id_2" name="field_id_2" datatype="integer"/>
+			<FIELD ID="object_id_2" name="object_id_2" datatype="integer"/>
+			<FIELD ID="field_id_3" name="field_id_3" datatype="integer"/>
+			<FIELD ID="object_id_3" name="object_id_3" datatype="integer"/>
+			<FIELD ID="field_id_4" name="field_id_4" datatype="integer"/>
+			<FIELD ID="object_id_4" name="object_id_4" datatype="integer"/>
+			<DATA>
+				<TABLEDATA>
+					<TR>
+						<TD>10925589</TD>
+						<TD>1</TD>
+						<TD>178.802808926305</TD>
+						<TD>-1.32471769</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>0.0099999998</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>0.0099999998</TD>
+						<TD>0.0099999998</TD>
+						<TD>0.540106</TD>
+						<TD>0.540106</TD>
+						<TD>0.62640899</TD>
+						<TD>0.394072</TD>
+						<TD>0.83430302</TD>
+						<TD>0.55994701</TD>
+						<TD>0.25377238</TD>
+						<TD>0.25377238</TD>
+						<TD>0.098983735</TD>
+						<TD>0.14994118</TD>
+						<TD>0.21666761</TD>
+						<TD>0.47921181</TD>
+						<TD>-1.014606</TD>
+						<TD>-1.014606</TD>
+						<TD>2.217654</TD>
+						<TD>1.0021141</TD>
+						<TD>1.259331</TD>
+						<TD>2.727263</TD>
+						<TD>1.2708921</TD>
+						<TD>1.2708921</TD>
+						<TD>0.34645879</TD>
+						<TD>0.83388424</TD>
+						<TD>1.2363603</TD>
+						<TD>4.4756284</TD>
+						<TD>1.2226329E-40</TD>
+						<TD>false</TD>
+						<TD>0.66414952</TD>
+						<TD>13.28299</TD>
+						<TD>31.843163</TD>
+						<TD>-223.6068</TD>
+						<TD>-4472.1357</TD>
+						<TD>5.0</TD>
+						<TD>1.444591</TD>
+						<TD>2.385515</TD>
+						<TD>0.0099999998</TD>
+						<TD> 'Galaxy' </TD>
+						<TD>1</TD>
+						<TD>18449</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+					</TR>
+					<TR>
+						<TD>12286692</TD>
+						<TD>1</TD>
+						<TD>178.773724507178</TD>
+						<TD>-1.3191406</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>0.0099999998</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>0.0099999998</TD>
+						<TD>0.0099999998</TD>
+						<TD>0.316845</TD>
+						<TD>0.316845</TD>
+						<TD>0.87346703</TD>
+						<TD>0.86746103</TD>
+						<TD>0.41240001</TD>
+						<TD>0.14119001</TD>
+						<TD>0.37412646</TD>
+						<TD>0.37412646</TD>
+						<TD>0.14568675</TD>
+						<TD>0.25865299</TD>
+						<TD>0.40038261</TD>
+						<TD>1.4770807</TD>
+						<TD>2.3470991</TD>
+						<TD>2.3470991</TD>
+						<TD>1.141847</TD>
+						<TD>0.26026601</TD>
+						<TD>0.64914101</TD>
+						<TD>-2.8650761</TD>
+						<TD>0.95923978</TD>
+						<TD>0.95923978</TD>
+						<TD>0.39794835</TD>
+						<TD>0.72358954</TD>
+						<TD>1.1782168</TD>
+						<TD>4.3095441</TD>
+						<TD>1.2226329E-40</TD>
+						<TD>false</TD>
+						<TD>0.42825261</TD>
+						<TD>2.5720568</TD>
+						<TD>43.658627</TD>
+						<TD>0.20539717</TD>
+						<TD>1.2336019</TD>
+						<TD>5.0</TD>
+						<TD>0.48368499</TD>
+						<TD>0.56656897</TD>
+						<TD>0.99000001</TD>
+						<TD> 'Star'   </TD>
+						<TD>1</TD>
+						<TD>42328</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+					</TR>
+					<TR>
+						<TD>12494742</TD>
+						<TD>1</TD>
+						<TD>178.723652688102</TD>
+						<TD>-1.144606763</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>0.0099999998</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>0.0099999998</TD>
+						<TD>0.0099999998</TD>
+						<TD>0.38581401</TD>
+						<TD>0.38581401</TD>
+						<TD>0.879049</TD>
+						<TD>0.92537498</TD>
+						<TD>0.99947</TD>
+						<TD>0.92209297</TD>
+						<TD>0.37592083</TD>
+						<TD>0.37592083</TD>
+						<TD>0.14575775</TD>
+						<TD>0.25515753</TD>
+						<TD>0.56292403</TD>
+						<TD>1.5378102</TD>
+						<TD>0.78578502</TD>
+						<TD>0.78578502</TD>
+						<TD>0.60526299</TD>
+						<TD>1.4162641</TD>
+						<TD>2.2143321</TD>
+						<TD>4.805243</TD>
+						<TD>1.0487782</TD>
+						<TD>1.0487782</TD>
+						<TD>0.27373129</TD>
+						<TD>0.57139444</TD>
+						<TD>0.96469027</TD>
+						<TD>3.2794466</TD>
+						<TD>1.5498715E-10</TD>
+						<TD>false</TD>
+						<TD>6.1622725</TD>
+						<TD>20.754332</TD>
+						<TD>76.916451</TD>
+						<TD>-544.89905</TD>
+						<TD>-1835.2023</TD>
+						<TD>5.0</TD>
+						<TD>1.2329201</TD>
+						<TD>2.7485271</TD>
+						<TD>0.99000001</TD>
+						<TD> 'Star'   </TD>
+						<TD>1</TD>
+						<TD>45978</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+					</TR>
+				</TABLEDATA>
+			</DATA>
+		</TABLE>
+	</RESOURCE>
+</VOTABLE>
