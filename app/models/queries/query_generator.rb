@@ -29,6 +29,7 @@ class QueryGenerator
       dec_max: args[:dec_max]
     }
     query = RectangularQuery.new(query_args)
+    query.filters = generate_query_filters(catalogue[:fields], args)
     query
   end
 

@@ -112,4 +112,120 @@ describe QueryGenerator do
     point_query.valid?.should be_true
   end
 
+  it 'Generates rectangular query for dataset skymapper and catalogue fs' do
+    args = {
+        dataset: 'skymapper',
+        catalogue: 'fs',
+        ra_min: '178.83871',
+        ra_max: '300',
+        dec_min: '-1.18844',
+        dec_max: '1.8844'
+    }
+    rectangular_query = QueryGenerator.generate_rectangular_query(args)
+    rectangular_query.valid?.should be_true
+  end
+
+  it 'Generates rectangular query for dataset skymapper and catalogue ms' do
+    args = {
+        dataset: 'skymapper',
+        catalogue: 'ms',
+        ra_min: '178.83871',
+        ra_max: '300',
+        dec_min: '-1.18844',
+        dec_max: '1.8844'
+    }
+    rectangular_query = QueryGenerator.generate_rectangular_query(args)
+    rectangular_query.valid?.should be_true
+  end
+
+  it 'Generates rectangular query for dataset skymapper and catalogue fs all filters' do
+    args = {
+        dataset: 'skymapper',
+        catalogue: 'fs',
+        ra_min: '178.83871',
+        ra_max: '300',
+        dec_min: '-1.18844',
+        dec_max: '1.8844',
+        u_min: '1.1',
+        u_max: '2.2',
+        v_min: '1.1',
+        v_max: '2.2',
+        g_min: '1.1',
+        g_max: '2.2',
+        r_min: '1.1',
+        r_max: '2.2',
+        i_min: '1.1',
+        i_max: '2.2',
+        z_min: '1.1',
+        z_max: '2.2',
+    }
+    rectangular_query = QueryGenerator.generate_rectangular_query(args)
+    rectangular_query.filters.size.should == 6
+    rectangular_query.valid?.should be_true
+  end
+
+  it 'Generates rectangular query for dataset skymapper and catalogue ms all filters' do
+    args = {
+        dataset: 'skymapper',
+        catalogue: 'fs',
+        ra_min: '178.83871',
+        ra_max: '300',
+        dec_min: '-1.18844',
+        dec_max: '1.8844',
+        u_min: '1.1',
+        u_max: '2.2',
+        v_min: '1.1',
+        v_max: '2.2',
+        g_min: '1.1',
+        g_max: '2.2',
+        r_min: '1.1',
+        r_max: '2.2',
+        i_min: '1.1',
+        i_max: '2.2',
+        z_min: '1.1',
+        z_max: '2.2',
+    }
+    rectangular_query = QueryGenerator.generate_rectangular_query(args)
+    rectangular_query.filters.size.should == 6
+    rectangular_query.valid?.should be_true
+  end
+
+  it 'Generates rectangular query for dataset skymapper and catalogue fs some filters' do
+    args = {
+        dataset: 'skymapper',
+        catalogue: 'fs',
+        ra_min: '178.83871',
+        ra_max: '300',
+        dec_min: '-1.18844',
+        dec_max: '1.8844',
+        u_min: '1.1',
+        u_max: '2.2',
+        i_max: '2.2',
+        z_min: '1.1',
+        z_max: '2.2',
+    }
+    rectangular_query = QueryGenerator.generate_rectangular_query(args)
+    rectangular_query.filters.size.should == 3
+    rectangular_query.valid?.should be_true
+  end
+
+  it 'Generates rectangular query for dataset skymapper and catalogue ms some filters' do
+    args = {
+        dataset: 'skymapper',
+        catalogue: 'fs',
+        ra_min: '178.83871',
+        ra_max: '300',
+        dec_min: '-1.18844',
+        dec_max: '1.8844',
+        u_min: '1.1',
+        u_max: '2.2',
+        i_max: '2.2',
+        z_min: '1.1',
+        z_max: '2.2',
+    }
+    rectangular_query = QueryGenerator.generate_rectangular_query(args)
+    rectangular_query.filters.size.should == 3
+    rectangular_query.valid?.should be_true
+  end
+
 end
