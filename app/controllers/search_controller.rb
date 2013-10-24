@@ -75,7 +75,19 @@ class SearchController < ApplicationController
         catalogue: args[:catalogue],
         ra: args[:ra],
         dec: args[:dec],
-        sr: args[:sr]
+        sr: args[:sr],
+        u_min: args[:u_min],
+        u_max: args[:u_max],
+        v_min: args[:v_min],
+        v_max: args[:v_max],
+        g_min: args[:g_min],
+        g_max: args[:g_max],
+        r_min: args[:r_min],
+        r_max: args[:r_max],
+        i_min: args[:i_min],
+        i_max: args[:i_max],
+        z_min: args[:z_min],
+        z_max: args[:z_max]
     }
 
     fetch_search_results(query_args, QueryGenerator.method(:generate_point_query))
