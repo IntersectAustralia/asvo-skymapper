@@ -18,40 +18,20 @@ class PointQuery < Query
   before_validation :clean_values
 
   def to_adql
-    args = to_args
-
-    if filters
-      filter_adql = ''
-      filters.each do |filter|
-        filter_adql += "AND #{filter.field} >= #{filter.min}\n" unless filter.min.blank?
-        filter_adql += "AND #{filter.field} <= #{filter.max}\n" unless filter.max.blank?
-      end
-
-    end
-
     <<-END_ADQL
 SELECT
     TOP 1000
     *
-    FROM #{args[:table_name]}
+    FROM #{table_name}
     WHERE
-        1=CONTAINS(POINT('ICRS', #{args[:ra_field]}, #{args[:dec_field]}),
-                   CIRCLE('ICRS', #{args[:ra]}, #{args[:dec]}, #{args[:sr]}))
-#{filter_adql}
+        1=CONTAINS(POINT('ICRS', #{ra_field}, #{dec_field}),
+                   CIRCLE('ICRS', #{ra}, #{dec}, #{sr}))
+#{construct_filter_adql}
     END_ADQL
   end
 
   def all_fields
     PARAMETER_FIELDS.concat(TABLE_FIELDS)
-  end
-
-  def filters_valid
-    return unless filters
-    filters.each do |filter|
-      unless filter.valid?
-        errors.add(:filters, "Invalid filter #{filter.field}")
-      end
-    end
   end
 
 end

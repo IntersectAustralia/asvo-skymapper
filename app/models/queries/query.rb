@@ -30,6 +30,26 @@ class Query
     []
   end
 
+  def construct_filter_adql
+    filter_adql = ''
+    if filters
+      filters.each do |filter|
+        filter_adql += "AND #{filter.field} >= #{filter.min}\n" unless filter.min.blank?
+        filter_adql += "AND #{filter.field} <= #{filter.max}\n" unless filter.max.blank?
+      end
+    end
+    filter_adql
+  end
+
+  def filters_valid
+    return unless filters
+    filters.each do |filter|
+      unless filter.valid?
+        errors.add(:filters, "Invalid filter #{filter.field}")
+      end
+    end
+  end
+
   protected
 
   def clean(value)
