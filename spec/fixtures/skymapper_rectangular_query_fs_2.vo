@@ -1,14 +1,15 @@
 --- !ruby/object:VOTable
 query_status: OK
 provider: TAP for SkyMapperPublic
-query: |
+query: |+
   SELECT
       TOP 1000
       *
       FROM public.fs_distilled
       WHERE
-          1=CONTAINS(POINT('ICRS',mean_ra,mean_dcl),
-                     BOX('ICRS',1.0,1.0,0.0,0.0))
+          1=CONTAINS(POINT('ICRS', mean_ra, mean_dcl),
+                     BOX('ICRS', 1.05, 1.05, 0.10000000000000009, 0.10000000000000009))
+
 table_fields:
 - :id: global_object_id
   :name: global_object_id

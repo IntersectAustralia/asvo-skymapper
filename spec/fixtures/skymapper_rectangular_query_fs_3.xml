@@ -8,8 +8,9 @@
     *
     FROM public.fs_distilled
     WHERE
-        1=CONTAINS(POINT('ICRS',mean_ra,mean_dcl),
-                   BOX('ICRS',5.0,-1.5,10.0,1.5))
+        1=CONTAINS(POINT('ICRS', mean_ra, mean_dcl),
+                   BOX('ICRS', 5.0, -1.5, 10.0, 1.5))
+
 " />
 		<TABLE>
 			<FIELD ID="global_object_id" name="global_object_id" ucd="meta.id;meta.main" datatype="integer"/>

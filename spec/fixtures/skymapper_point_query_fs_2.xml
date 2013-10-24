@@ -9,7 +9,8 @@
     FROM public.fs_distilled
     WHERE
         1=CONTAINS(POINT('ICRS', mean_ra, mean_dcl),
-                   CIRCLE('ICRS', 1, 1, 1 ))
+                   CIRCLE('ICRS', 1, 1, 1))
+
 " />
 		<TABLE>
 			<FIELD ID="global_object_id" name="global_object_id" ucd="meta.id;meta.main" datatype="integer"/>

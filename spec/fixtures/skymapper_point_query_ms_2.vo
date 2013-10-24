@@ -1,14 +1,15 @@
 --- !ruby/object:VOTable
 query_status: OK
 provider: TAP for SkyMapperPublic
-query: |
+query: |+
   SELECT
       TOP 1000
       *
       FROM public.ms_distilled
       WHERE
           1=CONTAINS(POINT('ICRS', ra, dcl),
-                     CIRCLE('ICRS', 1, 1, 1 ))
+                     CIRCLE('ICRS', 1, 1, 1))
+
 table_fields:
 - :id: new_object_id
   :name: new_object_id
