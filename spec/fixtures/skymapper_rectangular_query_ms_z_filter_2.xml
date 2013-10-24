@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VOTABLE version="1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ivoa.net/xml/VOTable/v1.2" xmlns="http://www.ivoa.net/xml/VOTable/v1.2">
+	<RESOURCE type="results">
+		<INFO name="QUERY_STATUS" value="OK" />
+		<INFO name="PROVIDER" value="ASOV">TAP for SkyMapperPublic</INFO>
+		<INFO name="QUERY" value="SELECT
+    TOP 1000
+    *
+    FROM public.ms_distilled
+    WHERE
+        1=CONTAINS(POINT('ICRS', ra, dcl),
+                   BOX('ICRS', 2.0, -1.5, 0.04999999999999982, 0.04999999999999982))
+AND mean_z &lt;= 1
+
+" />
+		<TABLE>
+			<FIELD ID="new_object_id" name="new_object_id" ucd="meta.id;meta.main" datatype="long"/>
+			<FIELD ID="mean_epoch" name="mean_epoch" datatype="integer"/>
+			<FIELD ID="ra" name="ra" ucd="pos.eq.ra;meta.main" datatype="double" unit="deg"/>
+			<FIELD ID="dcl" name="dcl" ucd="pos.eq.dec;meta.main" datatype="double" unit="deg"/>
+			<FIELD ID="pi" name="pi" datatype="double"/>
+			<FIELD ID="sigma_pi" name="sigma_pi" datatype="double"/>
+			<FIELD ID="mu_x" name="mu_x" datatype="double"/>
+			<FIELD ID="mu_y" name="mu_y" datatype="double"/>
+			<FIELD ID="sigma_mu_x" name="sigma_mu_x" datatype="double"/>
+			<FIELD ID="sigma_mu_y" name="sigma_mu_y" datatype="double"/>
+			<FIELD ID="mean_u" name="mean_u" datatype="double"/>
+			<FIELD ID="mean_v" name="mean_v" datatype="double"/>
+			<FIELD ID="mean_g" name="mean_g" datatype="double"/>
+			<FIELD ID="mean_r" name="mean_r" datatype="double"/>
+			<FIELD ID="mean_i" name="mean_i" datatype="double"/>
+			<FIELD ID="mean_z" name="mean_z" datatype="double"/>
+			<FIELD ID="sigma_u" name="sigma_u" datatype="double"/>
+			<FIELD ID="sigma_v" name="sigma_v" datatype="double"/>
+			<FIELD ID="sigma_g" name="sigma_g" datatype="double"/>
+			<FIELD ID="sigma_r" name="sigma_r" datatype="double"/>
+			<FIELD ID="sigma_i" name="sigma_i" datatype="double"/>
+			<FIELD ID="sigma_z" name="sigma_z" datatype="double"/>
+			<FIELD ID="petro_u" name="petro_u" datatype="double"/>
+			<FIELD ID="petro_v" name="petro_v" datatype="double"/>
+			<FIELD ID="petro_g" name="petro_g" datatype="double"/>
+			<FIELD ID="petro_r" name="petro_r" datatype="double"/>
+			<FIELD ID="petro_i" name="petro_i" datatype="double"/>
+			<FIELD ID="petro_z" name="petro_z" datatype="double"/>
+			<FIELD ID="petro_sigma_u" name="petro_sigma_u" datatype="double"/>
+			<FIELD ID="petro_sigma_v" name="petro_sigma_v" datatype="double"/>
+			<FIELD ID="petro_sigma_g" name="petro_sigma_g" datatype="double"/>
+			<FIELD ID="petro_sigma_r" name="petro_sigma_r" datatype="double"/>
+			<FIELD ID="petro_sigma_i" name="petro_sigma_i" datatype="double"/>
+			<FIELD ID="petro_sigma_z" name="petro_sigma_z" datatype="double"/>
+			<FIELD ID="variability" name="variability" datatype="double"/>
+			<FIELD ID="transient" name="transient" datatype="boolean"/>
+			<FIELD ID="a" name="a" datatype="double"/>
+			<FIELD ID="b" name="b" datatype="double"/>
+			<FIELD ID="theta" name="theta" datatype="double"/>
+			<FIELD ID="sigma_a" name="sigma_a" datatype="double"/>
+			<FIELD ID="sigma_b" name="sigma_b" datatype="double"/>
+			<FIELD ID="sigma_theta" name="sigma_theta" datatype="double"/>
+			<FIELD ID="radius_frac_20" name="radius_frac_20" datatype="double"/>
+			<FIELD ID="radius_frac_90" name="radius_frac_90" datatype="double"/>
+			<FIELD ID="class_star" name="class_star" datatype="double"/>
+			<FIELD ID="class_desc" name="class_desc" datatype="char" arraysize="*"/>
+			<FIELD ID="field_id_1" name="field_id_1" datatype="integer"/>
+			<FIELD ID="object_id_1" name="object_id_1" datatype="integer"/>
+			<FIELD ID="field_id_2" name="field_id_2" datatype="integer"/>
+			<FIELD ID="object_id_2" name="object_id_2" datatype="integer"/>
+			<FIELD ID="field_id_3" name="field_id_3" datatype="integer"/>
+			<FIELD ID="object_id_3" name="object_id_3" datatype="integer"/>
+			<FIELD ID="field_id_4" name="field_id_4" datatype="integer"/>
+			<FIELD ID="object_id_4" name="object_id_4" datatype="integer"/>
+			<DATA>
+				<TABLEDATA>
+					<TR>
+						<TD>6555741</TD>
+						<TD>1</TD>
+						<TD>1.99675876393405</TD>
+						<TD>-1.51863689</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>0.0099999998</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>0.0099999998</TD>
+						<TD>0.0099999998</TD>
+						<TD>0.771303</TD>
+						<TD>0.771303</TD>
+						<TD>0.010966</TD>
+						<TD>0.36160201</TD>
+						<TD>0.168071</TD>
+						<TD>0.78016502</TD>
+						<TD>0.77155787</TD>
+						<TD>0.77155787</TD>
+						<TD>0.11270151</TD>
+						<TD>0.19149691</TD>
+						<TD>0.2894851</TD>
+						<TD>0.66579181</TD>
+						<TD>0.90804201</TD>
+						<TD>0.90804201</TD>
+						<TD>6.9111452E-4</TD>
+						<TD>0.32428199</TD>
+						<TD>0.228727</TD>
+						<TD>1.1660661</TD>
+						<TD>0.66626972</TD>
+						<TD>0.66626972</TD>
+						<TD>0.42434782</TD>
+						<TD>0.77261251</TD>
+						<TD>1.3200483</TD>
+						<TD>2.920645</TD>
+						<TD>1.2226329E-40</TD>
+						<TD>false</TD>
+						<TD>0.66408312</TD>
+						<TD>13.281663</TD>
+						<TD>-10.944393</TD>
+						<TD>-223.6068</TD>
+						<TD>-4472.1357</TD>
+						<TD>5.0</TD>
+						<TD>0.63198</TD>
+						<TD>1.043624</TD>
+						<TD>0.99000001</TD>
+						<TD> 'Star'   </TD>
+						<TD>1</TD>
+						<TD>115013</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+					</TR>
+					<TR>
+						<TD>8897187</TD>
+						<TD>1</TD>
+						<TD>1.99889385804581</TD>
+						<TD>-1.50304813</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>0.0099999998</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>0.0099999998</TD>
+						<TD>0.0099999998</TD>
+						<TD>-0.160327</TD>
+						<TD>-0.160327</TD>
+						<TD>0.843292</TD>
+						<TD>0.30315199</TD>
+						<TD>0.48409301</TD>
+						<TD>-0.208406</TD>
+						<TD>0.24212904</TD>
+						<TD>0.24212904</TD>
+						<TD>0.10892864</TD>
+						<TD>0.12400495</TD>
+						<TD>0.18526846</TD>
+						<TD>0.8225075</TD>
+						<TD>0.25390601</TD>
+						<TD>0.25390601</TD>
+						<TD>0.766837</TD>
+						<TD>0.232484</TD>
+						<TD>-0.58672702</TD>
+						<TD>-2.7329941</TD>
+						<TD>0.60849464</TD>
+						<TD>0.60849464</TD>
+						<TD>0.25879088</TD>
+						<TD>0.461418</TD>
+						<TD>0.79491156</TD>
+						<TD>2.1586795</TD>
+						<TD>9.3037278E-10</TD>
+						<TD>false</TD>
+						<TD>0.66409856</TD>
+						<TD>13.281971</TD>
+						<TD>114.53626</TD>
+						<TD>-223.6068</TD>
+						<TD>-4472.1357</TD>
+						<TD>5.0</TD>
+						<TD>0.574305</TD>
+						<TD>0.840886</TD>
+						<TD>0.0099999998</TD>
+						<TD> 'Galaxy' </TD>
+						<TD>1</TD>
+						<TD>156091</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+					</TR>
+					<TR>
+						<TD>6153891</TD>
+						<TD>1</TD>
+						<TD>1.99683946449857</TD>
+						<TD>-1.50655097</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>0.0099999998</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>0.0099999998</TD>
+						<TD>0.0099999998</TD>
+						<TD>0.057716001</TD>
+						<TD>0.057716001</TD>
+						<TD>0.42800501</TD>
+						<TD>0.18383101</TD>
+						<TD>0.45146999</TD>
+						<TD>-0.72013998</TD>
+						<TD>0.15291381</TD>
+						<TD>0.15291381</TD>
+						<TD>0.086211897</TD>
+						<TD>0.11886096</TD>
+						<TD>0.15756673</TD>
+						<TD>0.48545447</TD>
+						<TD>-0.309488</TD>
+						<TD>-0.309488</TD>
+						<TD>-0.41542301</TD>
+						<TD>0.176525</TD>
+						<TD>-0.81517202</TD>
+						<TD>0.27101901</TD>
+						<TD>0.57095307</TD>
+						<TD>0.57095307</TD>
+						<TD>0.31216887</TD>
+						<TD>0.47764441</TD>
+						<TD>0.70383853</TD>
+						<TD>2.1622393</TD>
+						<TD>1.2226329E-40</TD>
+						<TD>false</TD>
+						<TD>0.86290443</TD>
+						<TD>10.221443</TD>
+						<TD>26.316719</TD>
+						<TD>-290.55292</TD>
+						<TD>-3441.7139</TD>
+						<TD>5.0</TD>
+						<TD>0.362896</TD>
+						<TD>2.5864151</TD>
+						<TD>0.99000001</TD>
+						<TD> 'Star'   </TD>
+						<TD>1</TD>
+						<TD>107963</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+					</TR>
+					<TR>
+						<TD>1702704</TD>
+						<TD>1</TD>
+						<TD>2.01460417544838</TD>
+						<TD>-1.49035854</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>0.0099999998</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>0.0099999998</TD>
+						<TD>0.0099999998</TD>
+						<TD>0.37334901</TD>
+						<TD>0.37334901</TD>
+						<TD>0.035397001</TD>
+						<TD>0.319695</TD>
+						<TD>1.069106</TD>
+						<TD>0.77903801</TD>
+						<TD>0.25175285</TD>
+						<TD>0.25175285</TD>
+						<TD>0.10531411</TD>
+						<TD>0.12390827</TD>
+						<TD>0.18888755</TD>
+						<TD>0.83449173</TD>
+						<TD>1.841671</TD>
+						<TD>1.841671</TD>
+						<TD>-0.15815</TD>
+						<TD>-0.069340996</TD>
+						<TD>1.104215</TD>
+						<TD>0.33293501</TD>
+						<TD>0.79862118</TD>
+						<TD>0.79862118</TD>
+						<TD>0.33987159</TD>
+						<TD>0.51786447</TD>
+						<TD>0.78405643</TD>
+						<TD>2.8207202</TD>
+						<TD>1.2226329E-40</TD>
+						<TD>false</TD>
+						<TD>0.66409856</TD>
+						<TD>13.281971</TD>
+						<TD>119.61622</TD>
+						<TD>-223.6068</TD>
+						<TD>-4472.1357</TD>
+						<TD>5.0</TD>
+						<TD>-9999.0</TD>
+						<TD>-9999.0</TD>
+						<TD>0.0099999998</TD>
+						<TD> 'Galaxy' </TD>
+						<TD>1</TD>
+						<TD>29872</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+					</TR>
+					<TR>
+						<TD>9706245</TD>
+						<TD>1</TD>
+						<TD>1.99897437099693</TD>
+						<TD>-1.50295753</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>0.0099999998</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>0.0099999998</TD>
+						<TD>0.0099999998</TD>
+						<TD>0.425309</TD>
+						<TD>0.425309</TD>
+						<TD>0.34307399</TD>
+						<TD>0.66205102</TD>
+						<TD>0.132166</TD>
+						<TD>0.77040201</TD>
+						<TD>0.1602446</TD>
+						<TD>0.1602446</TD>
+						<TD>0.08563792</TD>
+						<TD>0.1213432</TD>
+						<TD>0.15620683</TD>
+						<TD>0.49588078</TD>
+						<TD>0.88559097</TD>
+						<TD>0.88559097</TD>
+						<TD>0.177984</TD>
+						<TD>0.415638</TD>
+						<TD>-1.2108639</TD>
+						<TD>2.114907</TD>
+						<TD>0.57649297</TD>
+						<TD>0.57649297</TD>
+						<TD>0.31311294</TD>
+						<TD>0.47797352</TD>
+						<TD>0.70371598</TD>
+						<TD>2.1663349</TD>
+						<TD>1.2226329E-40</TD>
+						<TD>false</TD>
+						<TD>0.66408312</TD>
+						<TD>13.281663</TD>
+						<TD>54.406216</TD>
+						<TD>-223.6068</TD>
+						<TD>-4472.1357</TD>
+						<TD>5.0</TD>
+						<TD>0.50313997</TD>
+						<TD>0.72409499</TD>
+						<TD>0.0099999998</TD>
+						<TD> 'Galaxy' </TD>
+						<TD>1</TD>
+						<TD>170285</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+					</TR>
+					<TR>
+						<TD>5786013</TD>
+						<TD>1</TD>
+						<TD>1.9804845342507</TD>
+						<TD>-1.48305148</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>0.0099999998</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>0.0099999998</TD>
+						<TD>0.0099999998</TD>
+						<TD>0.044178002</TD>
+						<TD>0.044178002</TD>
+						<TD>0.77371699</TD>
+						<TD>1.476891</TD>
+						<TD>1.926422</TD>
+						<TD>0.71957397</TD>
+						<TD>0.1711257</TD>
+						<TD>0.1711257</TD>
+						<TD>0.089373164</TD>
+						<TD>0.12681933</TD>
+						<TD>0.16855328</TD>
+						<TD>1.6301396</TD>
+						<TD>-0.131258</TD>
+						<TD>-0.131258</TD>
+						<TD>0.282814</TD>
+						<TD>1.2926511</TD>
+						<TD>2.78128</TD>
+						<TD>0.125882</TD>
+						<TD>0.31488815</TD>
+						<TD>0.31488815</TD>
+						<TD>0.23097542</TD>
+						<TD>0.26898667</TD>
+						<TD>0.47190925</TD>
+						<TD>1.1889572</TD>
+						<TD>1.2226329E-40</TD>
+						<TD>false</TD>
+						<TD>1.0541563</TD>
+						<TD>1.5000275</TD>
+						<TD>71.040909</TD>
+						<TD>0.12311539</TD>
+						<TD>0.17518888</TD>
+						<TD>5.0</TD>
+						<TD>0.59320003</TD>
+						<TD>1.036792</TD>
+						<TD>0.0099999998</TD>
+						<TD> 'Galaxy' </TD>
+						<TD>1</TD>
+						<TD>101509</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+					</TR>
+					<TR>
+						<TD>5814114</TD>
+						<TD>1</TD>
+						<TD>2.01198584281845</TD>
+						<TD>-1.51317233</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>0.0099999998</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>0.0099999998</TD>
+						<TD>0.0099999998</TD>
+						<TD>-0.032435</TD>
+						<TD>-0.032435</TD>
+						<TD>0.27907401</TD>
+						<TD>0.68786901</TD>
+						<TD>0.22150999</TD>
+						<TD>0.59773898</TD>
+						<TD>0.15111323</TD>
+						<TD>0.15111323</TD>
+						<TD>0.084902197</TD>
+						<TD>0.12109786</TD>
+						<TD>0.15557142</TD>
+						<TD>0.49372074</TD>
+						<TD>0.011206</TD>
+						<TD>0.011206</TD>
+						<TD>0.45201999</TD>
+						<TD>0.879556</TD>
+						<TD>-0.80130798</TD>
+						<TD>-0.208877</TD>
+						<TD>0.57329017</TD>
+						<TD>0.57329017</TD>
+						<TD>0.3135967</TD>
+						<TD>0.4783704</TD>
+						<TD>0.70348805</TD>
+						<TD>2.1618702</TD>
+						<TD>1.2226329E-40</TD>
+						<TD>false</TD>
+						<TD>0.66408312</TD>
+						<TD>13.281663</TD>
+						<TD>27.176311</TD>
+						<TD>-223.6068</TD>
+						<TD>-4472.1357</TD>
+						<TD>5.0</TD>
+						<TD>0.90078902</TD>
+						<TD>2.0052071</TD>
+						<TD>0.0099999998</TD>
+						<TD> 'Galaxy' </TD>
+						<TD>1</TD>
+						<TD>102002</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+					</TR>
+					<TR>
+						<TD>5880690</TD>
+						<TD>1</TD>
+						<TD>1.98217629789495</TD>
+						<TD>-1.48064632</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>0.0099999998</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>9.9999997E-5</TD>
+						<TD>0.0099999998</TD>
+						<TD>0.0099999998</TD>
+						<TD>-0.087881997</TD>
+						<TD>-0.087881997</TD>
+						<TD>0.277372</TD>
+						<TD>0.96942401</TD>
+						<TD>0.57871503</TD>
+						<TD>0.87623203</TD>
+						<TD>0.15162323</TD>
+						<TD>0.15162323</TD>
+						<TD>0.085647896</TD>
+						<TD>0.12366815</TD>
+						<TD>0.16037866</TD>
+						<TD>0.49844071</TD>
+						<TD>0.018642999</TD>
+						<TD>0.018642999</TD>
+						<TD>0.057788</TD>
+						<TD>0.866081</TD>
+						<TD>0.0047646598</TD>
+						<TD>1.3585221</TD>
+						<TD>0.41863078</TD>
+						<TD>0.41863078</TD>
+						<TD>0.17781319</TD>
+						<TD>0.29664394</TD>
+						<TD>0.49940923</TD>
+						<TD>1.2428834</TD>
+						<TD>1.2226329E-40</TD>
+						<TD>false</TD>
+						<TD>0.28966898</TD>
+						<TD>5.7933793</TD>
+						<TD>52.143085</TD>
+						<TD>0.086316027</TD>
+						<TD>1.7263205</TD>
+						<TD>5.0</TD>
+						<TD>0.58878201</TD>
+						<TD>1.271278</TD>
+						<TD>0.0099999998</TD>
+						<TD> 'Galaxy' </TD>
+						<TD>1</TD>
+						<TD>103170</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+						<TD>0</TD>
+					</TR>
+				</TABLEDATA>
+			</DATA>
+		</TABLE>
+	</RESOURCE>
+</VOTABLE>

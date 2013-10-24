@@ -1,0 +1,558 @@
+--- !ruby/object:VOTable
+query_status: OK
+provider: TAP for SkyMapperPublic
+query: |+
+  SELECT
+      TOP 1000
+      *
+      FROM public.fs_distilled
+      WHERE
+          1=CONTAINS(POINT('ICRS', mean_ra, mean_dcl),
+                     BOX('ICRS', 2.0, -1.5, 0.5, 1.5))
+  AND flux_u >= 50
+  AND flux_u <= 500
+  AND flux_v >= 50
+  AND flux_v <= 500
+  AND flux_g >= 50
+  AND flux_g <= 500
+  AND flux_r >= 50
+  AND flux_r <= 500
+  AND flux_i >= 50
+  AND flux_i <= 500
+  AND flux_z >= 50
+  AND flux_z <= 500
+
+table_fields:
+- :id: global_object_id
+  :name: global_object_id
+  :ucd: meta.id;meta.main
+  :datatype: integer
+  :unit: 
+- :id: field_id
+  :name: field_id
+  :ucd: 
+  :datatype: integer
+  :unit: 
+- :id: mean_ra
+  :name: mean_ra
+  :ucd: pos.eq.ra;meta.main
+  :datatype: double
+  :unit: deg
+- :id: mean_dcl
+  :name: mean_dcl
+  :ucd: pos.eq.dec;meta.main
+  :datatype: double
+  :unit: deg
+- :id: sigma_ra
+  :name: sigma_ra
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: sigma_dcl
+  :name: sigma_dcl
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: n_epochs
+  :name: n_epochs
+  :ucd: 
+  :datatype: integer
+  :unit: 
+- :id: flux_u
+  :name: flux_u
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: sigma_flux_u
+  :name: sigma_flux_u
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: flux_v
+  :name: flux_v
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: sigma_flux_v
+  :name: sigma_flux_v
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: flux_g
+  :name: flux_g
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: sigma_flux_g
+  :name: sigma_flux_g
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: flux_r
+  :name: flux_r
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: sigma_flux_r
+  :name: sigma_flux_r
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: flux_i
+  :name: flux_i
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: sigma_flux_i
+  :name: sigma_flux_i
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: flux_z
+  :name: flux_z
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: sigma_flux_z
+  :name: sigma_flux_z
+  :ucd: 
+  :datatype: double
+  :unit: 
+table_data:
+- global_object_id: '248640'
+  field_id: '1'
+  mean_ra: '1.85778231431711'
+  mean_dcl: '-0.85532493'
+  sigma_ra: '0.0014145203'
+  sigma_dcl: '0.0013926207'
+  n_epochs: '3'
+  flux_u: '90.321152'
+  sigma_flux_u: '1.8340474'
+  flux_v: '90.321152'
+  sigma_flux_v: '1.8340474'
+  flux_g: '278.05466'
+  sigma_flux_g: '6.3949027'
+  flux_r: '427.72302'
+  sigma_flux_r: '7.2276149'
+  flux_i: '479.04471'
+  sigma_flux_i: '6.6363559'
+  flux_z: '499.46747'
+  sigma_flux_z: '6.272336'
+- global_object_id: '432256'
+  field_id: '1'
+  mean_ra: '1.79836485527279'
+  mean_dcl: '-1.33305948'
+  sigma_ra: '0.0017443881'
+  sigma_dcl: '0.0016601282'
+  n_epochs: '3'
+  flux_u: '64.482811'
+  sigma_flux_u: '1.3622802'
+  flux_v: '64.482811'
+  sigma_flux_v: '1.3622802'
+  flux_g: '150.3902'
+  sigma_flux_g: '2.4268985'
+  flux_r: '195.35277'
+  sigma_flux_r: '2.8795733'
+  flux_i: '222.52437'
+  sigma_flux_i: '4.247788'
+  flux_z: '222.52171'
+  sigma_flux_z: '3.7492385'
+- global_object_id: '315200'
+  field_id: '1'
+  mean_ra: '2.04332596467248'
+  mean_dcl: '-1.73540512'
+  sigma_ra: '0.0017065376'
+  sigma_dcl: '0.0015671595'
+  n_epochs: '3'
+  flux_u: '63.865036'
+  sigma_flux_u: '1.1480414'
+  flux_v: '63.865036'
+  sigma_flux_v: '1.1480414'
+  flux_g: '190.39299'
+  sigma_flux_g: '3.1285613'
+  flux_r: '297.28076'
+  sigma_flux_r: '4.7200804'
+  flux_i: '344.01703'
+  sigma_flux_i: '3.6656113'
+  flux_z: '359.85574'
+  sigma_flux_z: '4.0637312'
+- global_object_id: '325824'
+  field_id: '1'
+  mean_ra: '2.12751758575821'
+  mean_dcl: '-1.89267555'
+  sigma_ra: '0.0016292732'
+  sigma_dcl: '0.0014927364'
+  n_epochs: '3'
+  flux_u: '58.068115'
+  sigma_flux_u: '1.0543152'
+  flux_v: '58.068115'
+  sigma_flux_v: '1.0543152'
+  flux_g: '183.96194'
+  sigma_flux_g: '3.0242827'
+  flux_r: '303.46085'
+  sigma_flux_r: '4.8171659'
+  flux_i: '358.54932'
+  sigma_flux_i: '3.8233721'
+  flux_z: '387.9599'
+  sigma_flux_z: '4.3384457'
+- global_object_id: '27776'
+  field_id: '1'
+  mean_ra: '1.8268853621191'
+  mean_dcl: '-1.82503716'
+  sigma_ra: '0.0017891758'
+  sigma_dcl: '0.0016364255'
+  n_epochs: '3'
+  flux_u: '50.746071'
+  sigma_flux_u: '1.089723'
+  flux_v: '50.746071'
+  sigma_flux_v: '1.089723'
+  flux_g: '124.87411'
+  sigma_flux_g: '1.7657485'
+  flux_r: '169.1974'
+  sigma_flux_r: '2.6579206'
+  flux_i: '195.57376'
+  sigma_flux_i: '4.8919792'
+  flux_z: '200.25162'
+  sigma_flux_z: '2.3029435'
+- global_object_id: '269952'
+  field_id: '1'
+  mean_ra: '1.77463819245522'
+  mean_dcl: '-1.82786766'
+  sigma_ra: '0.0014610036'
+  sigma_dcl: '0.0013630587'
+  n_epochs: '3'
+  flux_u: '87.761391'
+  sigma_flux_u: '1.4888901'
+  flux_v: '87.761391'
+  sigma_flux_v: '1.4888901'
+  flux_g: '253.77708'
+  sigma_flux_g: '4.1561813'
+  flux_r: '396.71048'
+  sigma_flux_r: '6.286325'
+  flux_i: '438.02353'
+  sigma_flux_i: '4.6541338'
+  flux_z: '489.401'
+  sigma_flux_z: '5.3252544'
+- global_object_id: '30016'
+  field_id: '1'
+  mean_ra: '1.77475912269338'
+  mean_dcl: '-1.82788292'
+  sigma_ra: '0.0010381429'
+  sigma_dcl: '9.5364713E-4'
+  n_epochs: '3'
+  flux_u: '85.664108'
+  sigma_flux_u: '0.96594959'
+  flux_v: '85.664108'
+  sigma_flux_v: '0.96594959'
+  flux_g: '267.05884'
+  sigma_flux_g: '6.0909967'
+  flux_r: '391.73138'
+  sigma_flux_r: '5.6996021'
+  flux_i: '451.20792'
+  sigma_flux_i: '8.4681931'
+  flux_z: '452.34052'
+  sigma_flux_z: '5.5873766'
+- global_object_id: '455296'
+  field_id: '1'
+  mean_ra: '2.2476818252015'
+  mean_dcl: '-1.84315697'
+  sigma_ra: '0.0017271616'
+  sigma_dcl: '0.0015814849'
+  n_epochs: '3'
+  flux_u: '54.131432'
+  sigma_flux_u: '1.0064662'
+  flux_v: '54.131432'
+  sigma_flux_v: '1.0064662'
+  flux_g: '168.48773'
+  sigma_flux_g: '2.7724774'
+  flux_r: '275.1221'
+  sigma_flux_r: '4.3710237'
+  flux_i: '315.34549'
+  sigma_flux_i: '3.364944'
+  flux_z: '334.05319'
+  sigma_flux_z: '3.8338385'
+- global_object_id: '94336'
+  field_id: '1'
+  mean_ra: '1.85778231431711'
+  mean_dcl: '-0.85532684'
+  sigma_ra: '0.0014540353'
+  sigma_dcl: '0.0014879003'
+  n_epochs: '3'
+  flux_u: '88.627289'
+  sigma_flux_u: '2.6361651'
+  flux_v: '88.627289'
+  sigma_flux_v: '2.6361651'
+  flux_g: '272.71179'
+  sigma_flux_g: '4.8507123'
+  flux_r: '418.72021'
+  sigma_flux_r: '11.069023'
+  flux_i: '470.74939'
+  sigma_flux_i: '6.0640593'
+  flux_z: '487.84979'
+  sigma_flux_z: '6.2804952'
+- global_object_id: '458432'
+  field_id: '1'
+  mean_ra: '2.15019691016343'
+  mean_dcl: '-1.64798755'
+  sigma_ra: '0.0019424642'
+  sigma_dcl: '0.0018161944'
+  n_epochs: '3'
+  flux_u: '59.947231'
+  sigma_flux_u: '1.3370011'
+  flux_v: '59.947231'
+  sigma_flux_v: '1.3370011'
+  flux_g: '189.64819'
+  sigma_flux_g: '4.9972525'
+  flux_r: '291.15866'
+  sigma_flux_r: '3.9075022'
+  flux_i: '332.26483'
+  sigma_flux_i: '5.2394094'
+  flux_z: '349.49542'
+  sigma_flux_z: '6.2242808'
+- global_object_id: '338944'
+  field_id: '1'
+  mean_ra: '1.7665413340891'
+  mean_dcl: '-1.89567581'
+  sigma_ra: '0.0025181239'
+  sigma_dcl: '0.002363265'
+  n_epochs: '3'
+  flux_u: '50.067974'
+  sigma_flux_u: '1.1187096'
+  flux_v: '50.067974'
+  sigma_flux_v: '1.1187096'
+  flux_g: '119.11838'
+  sigma_flux_g: '2.281714'
+  flux_r: '147.80457'
+  sigma_flux_r: '2.1586242'
+  flux_i: '161.80963'
+  sigma_flux_i: '4.5207696'
+  flux_z: '160.64928'
+  sigma_flux_z: '2.134901'
+- global_object_id: '37440'
+  field_id: '1'
+  mean_ra: '2.04340663843508'
+  mean_dcl: '-1.7354118'
+  sigma_ra: '0.001146891'
+  sigma_dcl: '0.0010743996'
+  n_epochs: '3'
+  flux_u: '65.981979'
+  sigma_flux_u: '1.3936514'
+  flux_v: '65.981979'
+  sigma_flux_v: '1.3936514'
+  flux_g: '192.49106'
+  sigma_flux_g: '2.7039177'
+  flux_r: '300.82425'
+  sigma_flux_r: '4.6951981'
+  flux_i: '342.57596'
+  sigma_flux_i: '8.5435762'
+  flux_z: '368.10233'
+  sigma_flux_z: '3.8366592'
+- global_object_id: '40512'
+  field_id: '1'
+  mean_ra: '2.12759809870932'
+  mean_dcl: '-1.89266602'
+  sigma_ra: '0.0011287541'
+  sigma_dcl: '0.0010588646'
+  n_epochs: '3'
+  flux_u: '57.563019'
+  sigma_flux_u: '1.2349256'
+  flux_v: '57.563019'
+  sigma_flux_v: '1.2349256'
+  flux_g: '183.26587'
+  sigma_flux_g: '2.5771825'
+  flux_r: '299.59402'
+  sigma_flux_r: '4.6739178'
+  flux_i: '362.40359'
+  sigma_flux_i: '9.0347099'
+  flux_z: '385.75598'
+  sigma_flux_z: '3.9887834'
+- global_object_id: '401792'
+  field_id: '1'
+  mean_ra: '2.0976275278836'
+  mean_dcl: '-2.17368332'
+  sigma_ra: '0.0013142236'
+  sigma_dcl: '0.0013093281'
+  n_epochs: '3'
+  flux_u: '67.079376'
+  sigma_flux_u: '1.4029082'
+  flux_v: '67.079376'
+  sigma_flux_v: '1.4029082'
+  flux_g: '209.6209'
+  sigma_flux_g: '2.9122357'
+  flux_r: '318.01706'
+  sigma_flux_r: '3.1429453'
+  flux_i: '368.38397'
+  sigma_flux_i: '6.1156645'
+  flux_z: '388.34567'
+  sigma_flux_z: '6.0756884'
+- global_object_id: '225728'
+  field_id: '1'
+  mean_ra: '2.09766778435916'
+  mean_dcl: '-2.1736919'
+  sigma_ra: '0.0010792813'
+  sigma_dcl: '0.0010022406'
+  n_epochs: '3'
+  flux_u: '70.379463'
+  sigma_flux_u: '1.2125809'
+  flux_v: '70.379463'
+  sigma_flux_v: '1.2125809'
+  flux_g: '214.75919'
+  sigma_flux_g: '4.5471458'
+  flux_r: '321.26813'
+  sigma_flux_r: '4.6562524'
+  flux_i: '370.46564'
+  sigma_flux_i: '7.310379'
+  flux_z: '387.19025'
+  sigma_flux_z: '7.6136494'
+- global_object_id: '50624'
+  field_id: '1'
+  mean_ra: '2.03329561619536'
+  mean_dcl: '-1.82825104'
+  sigma_ra: '0.0013227625'
+  sigma_dcl: '0.0010889015'
+  n_epochs: '3'
+  flux_u: '113.70232'
+  sigma_flux_u: '2.3947237'
+  flux_v: '113.70232'
+  sigma_flux_v: '2.3947237'
+  flux_g: '250.13811'
+  sigma_flux_g: '4.0128942'
+  flux_r: '282.07056'
+  sigma_flux_r: '5.5627713'
+  flux_i: '298.94717'
+  sigma_flux_i: '8.1408501'
+  flux_z: '317.82401'
+  sigma_flux_z: '4.63694'
+- global_object_id: '476416'
+  field_id: '1'
+  mean_ra: '1.79824408584612'
+  mean_dcl: '-1.33307188'
+  sigma_ra: '0.0015780816'
+  sigma_dcl: '0.0016617646'
+  n_epochs: '3'
+  flux_u: '66.872536'
+  sigma_flux_u: '1.8429618'
+  flux_v: '66.872536'
+  sigma_flux_v: '1.8429618'
+  flux_g: '147.56584'
+  sigma_flux_g: '2.419946'
+  flux_r: '198.35445'
+  sigma_flux_r: '2.4080591'
+  flux_i: '216.01881'
+  sigma_flux_i: '2.9212055'
+  flux_z: '220.95073'
+  sigma_flux_z: '3.5895596'
+- global_object_id: '233984'
+  field_id: '1'
+  mean_ra: '1.82684510564355'
+  mean_dcl: '-1.82502953'
+  sigma_ra: '0.0023212438'
+  sigma_dcl: '0.0021499682'
+  n_epochs: '3'
+  flux_u: '50.412666'
+  sigma_flux_u: '0.96090168'
+  flux_v: '50.412666'
+  sigma_flux_v: '0.96090168'
+  flux_g: '122.97121'
+  sigma_flux_g: '2.0302529'
+  flux_r: '172.70149'
+  sigma_flux_r: '2.7607882'
+  flux_i: '186.7361'
+  sigma_flux_i: '2.0306756'
+  flux_z: '193.59479'
+  sigma_flux_z: '2.4761426'
+- global_object_id: '58944'
+  field_id: '1'
+  mean_ra: '1.83047052021028'
+  mean_dcl: '-1.50638122'
+  sigma_ra: '0.001066908'
+  sigma_dcl: '0.0010378167'
+  n_epochs: '3'
+  flux_u: '95.156631'
+  sigma_flux_u: '1.9244403'
+  flux_v: '95.156631'
+  sigma_flux_v: '1.9244403'
+  flux_g: '271.98477'
+  sigma_flux_g: '4.3614926'
+  flux_r: '376.76834'
+  sigma_flux_r: '5.5130944'
+  flux_i: '425.19836'
+  sigma_flux_i: '8.0705547'
+  flux_z: '426.17795'
+  sigma_flux_z: '6.7970614'
+- global_object_id: '302080'
+  field_id: '1'
+  mean_ra: '1.83039000725916'
+  mean_dcl: '-1.50638503'
+  sigma_ra: '0.0011752911'
+  sigma_dcl: '0.0011791593'
+  n_epochs: '3'
+  flux_u: '104.56976'
+  sigma_flux_u: '3.5924771'
+  flux_v: '104.56976'
+  sigma_flux_v: '3.5924771'
+  flux_g: '265.08212'
+  sigma_flux_g: '7.5262465'
+  flux_r: '378.74573'
+  sigma_flux_r: '6.1545744'
+  flux_i: '429.12064'
+  sigma_flux_i: '6.1516623'
+  flux_z: '441.59143'
+  sigma_flux_z: '9.7617903'
+- global_object_id: '302976'
+  field_id: '1'
+  mean_ra: '2.03309417300609'
+  mean_dcl: '-1.8282415'
+  sigma_ra: '0.0019160465'
+  sigma_dcl: '0.0015137999'
+  n_epochs: '3'
+  flux_u: '116.31651'
+  sigma_flux_u: '1.8813752'
+  flux_v: '116.31651'
+  sigma_flux_v: '1.8813752'
+  flux_g: '289.8129'
+  sigma_flux_g: '4.7855105'
+  flux_r: '351.28244'
+  sigma_flux_r: '5.5766802'
+  flux_i: '354.2872'
+  sigma_flux_i: '3.7974806'
+  flux_z: '350.50504'
+  sigma_flux_z: '3.9716015'
+- global_object_id: '364288'
+  field_id: '1'
+  mean_ra: '2.24776233815261'
+  mean_dcl: '-1.8431522'
+  sigma_ra: '0.0012055654'
+  sigma_dcl: '0.0011524651'
+  n_epochs: '3'
+  flux_u: '55.832382'
+  sigma_flux_u: '1.1523781'
+  flux_v: '55.832382'
+  sigma_flux_v: '1.1523781'
+  flux_g: '170.56006'
+  sigma_flux_g: '2.5713568'
+  flux_r: '262.91037'
+  sigma_flux_r: '3.1684303'
+  flux_i: '317.99765'
+  sigma_flux_i: '6.4524188'
+  flux_z: '332.24664'
+  sigma_flux_z: '6.0669603'
+- global_object_id: '489216'
+  field_id: '1'
+  mean_ra: '2.1502371934409'
+  mean_dcl: '-1.64799899'
+  sigma_ra: '0.0017202343'
+  sigma_dcl: '0.0015940089'
+  n_epochs: '3'
+  flux_u: '58.52195'
+  sigma_flux_u: '0.92601442'
+  flux_v: '58.52195'
+  sigma_flux_v: '0.92601442'
+  flux_g: '189.4001'
+  sigma_flux_g: '1.8075323'
+  flux_r: '290.53296'
+  sigma_flux_r: '3.2534306'
+  flux_i: '338.20071'
+  sigma_flux_i: '4.1262817'
+  flux_z: '355.59549'
+  sigma_flux_z: '4.474956'
