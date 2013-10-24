@@ -1,2 +1,2 @@
 default: --require features --format progress --tags ~@wip features SKIP_STEP=true
-jenkins: --require features --no-color --format progress --tags ~@not-jenkins features
+jenkins: --require features --no-color --format progress --tags ~@not-jenkins features SKIP_STEP=true
