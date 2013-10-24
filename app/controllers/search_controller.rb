@@ -143,9 +143,9 @@ class SearchController < ApplicationController
         { name: 'u', field: catalogue_fields[:u_field] },
         { name: 'v', field: catalogue_fields[:v_field] },
         { name: 'g', field: catalogue_fields[:g_field] },
-        { name: 'r', field: catalogue_fields[:i_field] },
-        { name: 'i', field: catalogue_fields[:r_field] },
-        { name: 'z', field: catalogue_fields[:z_field] },
+        { name: 'r', field: catalogue_fields[:r_field] },
+        { name: 'i', field: catalogue_fields[:i_field] },
+        { name: 'z', field: catalogue_fields[:z_field] }
     ]
   end
 
