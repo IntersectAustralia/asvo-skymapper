@@ -116,7 +116,7 @@ class SearchController < ApplicationController
         catalogue: query_args[:catalogue]
     }
 
-    service = SyncQueryService.new(service_args)
+    service = SyncTapService.new(service_args)
     results_table = service.fetch_results(query)
     raise SearchError.new 'Search request failed' unless results_table
 
@@ -169,7 +169,7 @@ class SearchController < ApplicationController
   end
 
   def query_fields(dataset, catalogue)
-    Rails.application.config.asvo_registry.find_catalogue(dataset, catalogue)[:fields]
+    Rails.application.config.asvo_registry.find_service(dataset, catalogue, 'tap')[:fields]
   end
 
   def handle_error(error)

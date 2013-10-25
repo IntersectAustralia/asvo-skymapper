@@ -11,7 +11,7 @@ def save_query_fixture(data)
   }
 
   query = QueryGenerator.method(data[:method]).call(query_args)
-  service = SyncQueryService.new(service_args)
+  service = SyncTapService.new(service_args)
   res = service.fetch_query_response(query)
   xml = File.new(Rails.root.join("spec/fixtures/#{data[:filename]}.xml"), 'w')
   xml.write(res.body)
@@ -41,7 +41,7 @@ def generate_query_fixtures
       { dataset: 'skymapper', catalogue: 'ms', params: { ra_min: '1.75', ra_max: '2.25', dec_min: '-2.25', dec_max: '-0.75' }, filename: 'skymapper_rectangular_query_ms_3', method: :generate_rectangular_query }
   ]
 
-  ['u', 'v', 'g', 'r', 'i', 'z'].each do |filter|
+  %w[u v g r i z].each do |filter|
 
     filter_query_data = [
         { dataset: 'skymapper', catalogue: 'fs', params: { ra: '178.83871', dec: '-1.18844', sr: '0.5', "#{filter}_min" => '50' }.symbolize_keys, filename: "skymapper_point_query_fs_#{filter}_filter_1", method: :generate_point_query },
@@ -70,7 +70,7 @@ def generate_query_fixtures
       { dataset: 'skymapper', catalogue: 'ms', params: { ra_min: '1.975', ra_max: '2.025', dec_min: '-1.525', dec_max: '-1.475' }, filename: 'skymapper_rectangular_query_ms_filter_all', method: :generate_rectangular_query }
   ]
 
-  ['u', 'v', 'g', 'r', 'i', 'z'].each do |filter|
+  %w[u v g r i z].each do |filter|
     filter_all_query_data[0][:params]["#{filter}_min".to_sym] = 50
     filter_all_query_data[0][:params]["#{filter}_max".to_sym] = 1000
     filter_all_query_data[1][:params]["#{filter}_min".to_sym] = 0.1

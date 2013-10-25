@@ -1,18 +1,11 @@
-require 'net/http'
-
-class SyncQueryService
+class SiapService
 
   def initialize(args)
     @dataset = args[:dataset]
-    @catalogue = args[:catalogue]
   end
 
   def request
     registry = Rails.application.config.asvo_registry
-    catalogue = registry.find_catalogue(@dataset, @catalogue)
-
-    uri = URI("#{catalogue[:service_end_point]}/sync")
-    uri
   end
 
   def fetch_results(query)

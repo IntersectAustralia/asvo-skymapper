@@ -85,14 +85,14 @@ end
 
 And /^I fake search request for catalogue "([^"]*)" with "([^"]*)"$/ do |catalogue, file|
   service_args = {dataset:SearchController::DEFAULT_DATASET, catalogue: catalogue}
-  service = SyncQueryService.new(service_args)
+  service = SyncTapService.new(service_args)
 
   FakeWeb.register_uri(:post, service.request, body: File.read(Rails.root.join("spec/fixtures/#{file}.xml")) )
 end
 
 And /^I fake search request for catalogue "([^"]*)" returns error$/ do |catalogue|
   service_args = {dataset:SearchController::DEFAULT_DATASET, catalogue: catalogue}
-  service = SyncQueryService.new(service_args)
+  service = SyncTapService.new(service_args)
 
   FakeWeb.register_uri(:post, service.request, exception: Exception )
 end

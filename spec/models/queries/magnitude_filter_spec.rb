@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe MagnitudeFilter do
 
-  # Validate Field
-  it { should allow_value('test').for(:field) }
-  it { should_not allow_value('    ').for(:field) }
+  # Validate name
+  it { should allow_value('test').for(:name) }
+  it { should_not allow_value('    ').for(:name) }
 
   # Validate min
   it { should allow_value('0').for(:min) }

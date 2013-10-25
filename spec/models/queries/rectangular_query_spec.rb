@@ -2,21 +2,6 @@ require 'spec_helper'
 
 describe RectangularQuery do
 
-  # Validate Table Name
-  it { should allow_value('public.fs_distilled').for(:table_name) }
-  it { should_not allow_value(nil).for(:table_name) }
-  it { should_not allow_value('').for(:table_name) }
-
-  # Validate Right Ascension Field
-  it { should allow_value('mean_ra').for(:ra_field) }
-  it { should_not allow_value(nil).for(:ra_field) }
-  it { should_not allow_value('').for(:table_name) }
-
-  # Validate Declination Field
-  it { should allow_value('mean_dcl').for(:dec_field) }
-  it { should_not allow_value(nil).for(:dec_field) }
-  it { should_not allow_value('').for(:table_name) }
-
   # Validate Right Ascension min (RA)
   it { should allow_value('0').for(:ra_min) }
   it { should allow_value('359.99999999').for(:ra_min) }
@@ -138,12 +123,12 @@ describe RectangularQuery do
     )
     query.valid?.should be_true
 
-    u = MagnitudeFilter.new(field: 'test', min:'1.0', max:'2.0')
-    v = MagnitudeFilter.new(field: 'test', min:'1.0', max:'1.0')
-    g = MagnitudeFilter.new(field: 'test', min:'1.0', max:'2.0')
-    r = MagnitudeFilter.new(field: 'test', min:'1.0', max:'1.0')
-    i = MagnitudeFilter.new(field: 'test', min:'1.0', max:'2.0')
-    z = MagnitudeFilter.new(field: 'test', min:'1.0', max:'1.0')
+    u = MagnitudeFilter.new(name: 'test', min:'1.0', max:'2.0')
+    v = MagnitudeFilter.new(name: 'test', min:'1.0', max:'1.0')
+    g = MagnitudeFilter.new(name: 'test', min:'1.0', max:'2.0')
+    r = MagnitudeFilter.new(name: 'test', min:'1.0', max:'1.0')
+    i = MagnitudeFilter.new(name: 'test', min:'1.0', max:'2.0')
+    z = MagnitudeFilter.new(name: 'test', min:'1.0', max:'1.0')
 
     query.filters = []
     query.valid?.should be_true
@@ -159,14 +144,11 @@ describe RectangularQuery do
 
   end
 
-  it 'Create rectangular query for skymapper catalogue fs' do
+  it 'Create rectangular query for skymapper service fs' do
     registry = Rails.application.config.asvo_registry
-    catalogue = registry.find_catalogue('skymapper', 'fs')
+    service = registry.find_service('skymapper', 'fs', 'tap')
 
     args = {
-        table_name: catalogue[:table_name],
-        ra_field: catalogue[:fields][:ra_field],
-        dec_field: catalogue[:fields][:dec_field],
         ra_min: '178.83871',
         ra_max: '300',
         dec_min: '-1.18844',
@@ -185,23 +167,20 @@ describe RectangularQuery do
 SELECT
     TOP 1000
     *
-    FROM #{catalogue[:table_name]}
+    FROM #{service[:table_name]}
     WHERE
-        1=CONTAINS(POINT('ICRS', #{catalogue[:fields][:ra_field]}, #{catalogue[:fields][:dec_field]}),
+        1=CONTAINS(POINT('ICRS', #{service[:fields][:ra_field]}, #{service[:fields][:dec_field]}),
                    BOX('ICRS', #{(ra_min + ra_max) * 0.5}, #{(dec_min + dec_max) * 0.5}, #{(ra_max - ra_min)}, #{dec_max - dec_min}))
 
     END_ADQL
-    query.to_adql.should == adql
+    query.to_adql(service).should == adql
   end
 
-  it 'Create rectangular query for skymapper catalogue ms' do
+  it 'Create rectangular query for skymapper service ms' do
     registry = Rails.application.config.asvo_registry
-    catalogue = registry.find_catalogue('skymapper', 'ms')
+    service = registry.find_service('skymapper', 'ms', 'tap')
 
     args = {
-        table_name: catalogue[:table_name],
-        ra_field: catalogue[:fields][:ra_field],
-        dec_field: catalogue[:fields][:dec_field],
         ra_min: '178.83871',
         ra_max: '300',
         dec_min: '-1.18844',
@@ -220,23 +199,20 @@ SELECT
 SELECT
     TOP 1000
     *
-    FROM #{catalogue[:table_name]}
+    FROM #{service[:table_name]}
     WHERE
-        1=CONTAINS(POINT('ICRS', #{catalogue[:fields][:ra_field]}, #{catalogue[:fields][:dec_field]}),
+        1=CONTAINS(POINT('ICRS', #{service[:fields][:ra_field]}, #{service[:fields][:dec_field]}),
                    BOX('ICRS', #{(ra_min + ra_max) * 0.5}, #{(dec_min + dec_max) * 0.5}, #{(ra_max - ra_min)}, #{dec_max - dec_min}))
 
     END_ADQL
-    query.to_adql.should == adql
+    query.to_adql(service).should == adql
   end
 
   it 'Create rectangular query for skymapper using all filters' do
     registry = Rails.application.config.asvo_registry
-    catalogue = registry.find_catalogue('skymapper', 'fs')
+    service = registry.find_service('skymapper', 'fs', 'tap')
 
     args = {
-        table_name: catalogue[:table_name],
-        ra_field: catalogue[:fields][:ra_field],
-        dec_field: catalogue[:fields][:dec_field],
         ra_min: '178.83871',
         ra_max: '300',
         dec_min: '-1.18844',
@@ -245,12 +221,12 @@ SELECT
 
     query = RectangularQuery.new(args)
 
-    u = MagnitudeFilter.new(field: catalogue[:fields][:u_field], min:'1.0', max:'2.0')
-    v = MagnitudeFilter.new(field: catalogue[:fields][:v_field], min:'2.0', max:'3.0')
-    g = MagnitudeFilter.new(field: catalogue[:fields][:g_field], min:'3.0', max:'4.0')
-    r = MagnitudeFilter.new(field: catalogue[:fields][:r_field], min:'4.0', max:'5.0')
-    i = MagnitudeFilter.new(field: catalogue[:fields][:i_field], min:'5.0', max:'6.0')
-    z = MagnitudeFilter.new(field: catalogue[:fields][:z_field], min:'6.0', max:'7.0')
+    u = MagnitudeFilter.new(name: 'u', min:'1.0', max:'2.0')
+    v = MagnitudeFilter.new(name: 'v', min:'2.0', max:'3.0')
+    g = MagnitudeFilter.new(name: 'g', min:'3.0', max:'4.0')
+    r = MagnitudeFilter.new(name: 'r', min:'4.0', max:'5.0')
+    i = MagnitudeFilter.new(name: 'i', min:'5.0', max:'6.0')
+    z = MagnitudeFilter.new(name: 'z', min:'6.0', max:'7.0')
 
     query.filters = [u, v, g, r, i, z]
 
@@ -265,35 +241,32 @@ SELECT
 SELECT
     TOP 1000
     *
-    FROM #{catalogue[:table_name]}
+    FROM #{service[:table_name]}
     WHERE
-        1=CONTAINS(POINT('ICRS', #{catalogue[:fields][:ra_field]}, #{catalogue[:fields][:dec_field]}),
+        1=CONTAINS(POINT('ICRS', #{service[:fields][:ra_field]}, #{service[:fields][:dec_field]}),
                    BOX('ICRS', #{(ra_min + ra_max) * 0.5}, #{(dec_min + dec_max) * 0.5}, #{(ra_max - ra_min)}, #{dec_max - dec_min}))
-AND #{catalogue[:fields][:u_field]} >= #{u.min}
-AND #{catalogue[:fields][:u_field]} <= #{u.max}
-AND #{catalogue[:fields][:v_field]} >= #{v.min}
-AND #{catalogue[:fields][:v_field]} <= #{v.max}
-AND #{catalogue[:fields][:g_field]} >= #{g.min}
-AND #{catalogue[:fields][:g_field]} <= #{g.max}
-AND #{catalogue[:fields][:r_field]} >= #{r.min}
-AND #{catalogue[:fields][:r_field]} <= #{r.max}
-AND #{catalogue[:fields][:i_field]} >= #{i.min}
-AND #{catalogue[:fields][:i_field]} <= #{i.max}
-AND #{catalogue[:fields][:z_field]} >= #{z.min}
-AND #{catalogue[:fields][:z_field]} <= #{z.max}
+AND #{service[:fields][:u_field]} >= #{u.min}
+AND #{service[:fields][:u_field]} <= #{u.max}
+AND #{service[:fields][:v_field]} >= #{v.min}
+AND #{service[:fields][:v_field]} <= #{v.max}
+AND #{service[:fields][:g_field]} >= #{g.min}
+AND #{service[:fields][:g_field]} <= #{g.max}
+AND #{service[:fields][:r_field]} >= #{r.min}
+AND #{service[:fields][:r_field]} <= #{r.max}
+AND #{service[:fields][:i_field]} >= #{i.min}
+AND #{service[:fields][:i_field]} <= #{i.max}
+AND #{service[:fields][:z_field]} >= #{z.min}
+AND #{service[:fields][:z_field]} <= #{z.max}
 
     END_ADQL
-    query.to_adql.should == adql
+    query.to_adql(service).should == adql
   end
 
-  it 'Create rectangular query for skymapper catalogue some filters' do
+  it 'Create rectangular query for skymapper service some filters' do
     registry = Rails.application.config.asvo_registry
-    catalogue = registry.find_catalogue('skymapper', 'fs')
+    service = registry.find_service('skymapper', 'fs', 'tap')
 
     args = {
-        table_name: catalogue[:table_name],
-        ra_field: catalogue[:fields][:ra_field],
-        dec_field: catalogue[:fields][:dec_field],
         ra_min: '178.83871',
         ra_max: '300',
         dec_min: '-1.18844',
@@ -302,12 +275,12 @@ AND #{catalogue[:fields][:z_field]} <= #{z.max}
 
     query = RectangularQuery.new(args)
 
-    u = MagnitudeFilter.new(field: catalogue[:fields][:u_field], min:'1.0')
-    v = MagnitudeFilter.new(field: catalogue[:fields][:v_field], max:'3.0')
-    g = MagnitudeFilter.new(field: catalogue[:fields][:g_field], min:'3.0')
-    r = MagnitudeFilter.new(field: catalogue[:fields][:r_field], max:'5.0')
-    i = MagnitudeFilter.new(field: catalogue[:fields][:i_field], min:'5.0')
-    z = MagnitudeFilter.new(field: catalogue[:fields][:z_field], max:'7.0')
+    u = MagnitudeFilter.new(name: 'u', min:'1.0')
+    v = MagnitudeFilter.new(name: 'v', max:'3.0')
+    g = MagnitudeFilter.new(name: 'g', min:'3.0')
+    r = MagnitudeFilter.new(name: 'r', max:'5.0')
+    i = MagnitudeFilter.new(name: 'i', min:'5.0')
+    z = MagnitudeFilter.new(name: 'z', max:'7.0')
 
     query.filters = [u, v, g, r, i, z]
 
@@ -322,19 +295,19 @@ AND #{catalogue[:fields][:z_field]} <= #{z.max}
 SELECT
     TOP 1000
     *
-    FROM #{catalogue[:table_name]}
+    FROM #{service[:table_name]}
     WHERE
-        1=CONTAINS(POINT('ICRS', #{catalogue[:fields][:ra_field]}, #{catalogue[:fields][:dec_field]}),
+        1=CONTAINS(POINT('ICRS', #{service[:fields][:ra_field]}, #{service[:fields][:dec_field]}),
                    BOX('ICRS', #{(ra_min + ra_max) * 0.5}, #{(dec_min + dec_max) * 0.5}, #{(ra_max - ra_min)}, #{dec_max - dec_min}))
-AND #{catalogue[:fields][:u_field]} >= #{u.min}
-AND #{catalogue[:fields][:v_field]} <= #{v.max}
-AND #{catalogue[:fields][:g_field]} >= #{g.min}
-AND #{catalogue[:fields][:r_field]} <= #{r.max}
-AND #{catalogue[:fields][:i_field]} >= #{i.min}
-AND #{catalogue[:fields][:z_field]} <= #{z.max}
+AND #{service[:fields][:u_field]} >= #{u.min}
+AND #{service[:fields][:v_field]} <= #{v.max}
+AND #{service[:fields][:g_field]} >= #{g.min}
+AND #{service[:fields][:r_field]} <= #{r.max}
+AND #{service[:fields][:i_field]} >= #{i.min}
+AND #{service[:fields][:z_field]} <= #{z.max}
 
     END_ADQL
-    query.to_adql.should == adql
+    query.to_adql(service).should == adql
   end
 
 end

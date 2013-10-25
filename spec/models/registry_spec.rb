@@ -24,9 +24,10 @@ describe Registry do
     fs_catalogue = registry.find_catalogue('skymapper', 'fs')
     fs_catalogue.should_not be_nil
 
-    fs_catalogue[:service].should == 'TAP'
-    fs_catalogue[:service_end_point].should == 'http://astroa.anu.edu.au:8080/skymapperpublic-asov-tap/tap'
-    fs_catalogue[:table_name].should == 'public.fs_distilled'
+    tap_service = registry.find_service('skymapper', 'fs', 'tap')
+    tap_service[:service].should == 'TAP'
+    tap_service[:service_end_point].should == 'http://astroa.anu.edu.au:8080/skymapperpublic-asov-tap/tap'
+    tap_service[:table_name].should == 'public.fs_distilled'
    end
 
   it 'Registry includes main survey catalogue survey in skymapper dataset' do
@@ -35,15 +36,16 @@ describe Registry do
     ms_catalogue = registry.find_catalogue('skymapper', 'ms')
     ms_catalogue.should_not be_nil
 
-    ms_catalogue[:service].should == 'TAP'
-    ms_catalogue[:service_end_point].should == 'http://astroa.anu.edu.au:8080/skymapperpublic-asov-tap/tap'
-    ms_catalogue[:table_name].should == 'public.ms_distilled'
+    tap_service = registry.find_service('skymapper', 'ms', 'tap')
+    tap_service[:service].should == 'TAP'
+    tap_service[:service_end_point].should == 'http://astroa.anu.edu.au:8080/skymapperpublic-asov-tap/tap'
+    tap_service[:table_name].should == 'public.ms_distilled'
   end
   
   it 'Registry includes fields for five second survey catalogue in skymapper dataset' do
     registry = Registry.new(ASVO_REGISTRY_FILEPATH)
-    fs_catalogue = registry.find_catalogue('skymapper', 'fs')
-    fields = fs_catalogue[:fields]
+    tap_service = registry.find_service('skymapper', 'fs', 'tap')
+    fields = tap_service[:fields]
 
     fields[:ra_field].should == 'mean_ra'
     fields[:dec_field].should == 'mean_dcl'
@@ -58,8 +60,8 @@ describe Registry do
 
   it 'Registry includes fields for main survey catalogue in skymapper dataset' do
     registry = Registry.new(ASVO_REGISTRY_FILEPATH)
-    ms_catalogue = registry.find_catalogue('skymapper', 'ms')
-    fields = ms_catalogue[:fields]
+    tap_service = registry.find_service('skymapper', 'ms', 'tap')
+    fields = tap_service[:fields]
 
     fields[:ra_field].should == 'ra'
     fields[:dec_field].should == 'dcl'
@@ -70,6 +72,17 @@ describe Registry do
     fields[:r_field].should == 'mean_r'
     fields[:i_field].should == 'mean_i'
     fields[:z_field].should == 'mean_z'
+  end
+
+  it 'Registry includes image catalogue survey in skymapper dataset' do
+    registry = Registry.new(ASVO_REGISTRY_FILEPATH)
+
+    image_catalogue = registry.find_catalogue('skymapper', 'image')
+    image_catalogue.should_not be_nil
+
+    siap_service = registry.find_service('skymapper', 'image', 'siap')
+    siap_service[:service].should == 'SIAP'
+    siap_service[:service_end_point].should == 'http://astroa.anu.edu.au/skymapper/image_siap/siap'
   end
 
 end

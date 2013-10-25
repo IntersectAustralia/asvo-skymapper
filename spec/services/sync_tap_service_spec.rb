@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe SyncQueryService do
+describe SyncTapService do
 
   def mock_service_run(data)
     query_args = {
@@ -22,7 +22,7 @@ describe SyncQueryService do
     Net::HTTP.stub(:post_form).and_return(mock_res)
 
     point_query = QueryGenerator.method(data[:method]).call(query_args)
-    service = SyncQueryService.new(service_args)
+    service = SyncTapService.new(service_args)
 
     mock_results_table = YAML.load(File.read(Rails.root.join("spec/fixtures/#{data[:filename]}.vo")))
 
@@ -31,8 +31,8 @@ describe SyncQueryService do
   end
 
   def mock_filter_run(data)
-    catalogue = Rails.application.config.asvo_registry.find_catalogue(data[:dataset], data[:catalogue])
-    fields = catalogue[:fields]
+    service = Rails.application.config.asvo_registry.find_service(data[:dataset], data[:catalogue], 'tap')
+    fields = service[:fields]
 
     filtered_results_table = YAML.load(File.read(Rails.root.join("spec/fixtures/#{data[:filename]}.vo")))
     filtered_results_table.table_data.each do |obj|
@@ -58,7 +58,7 @@ describe SyncQueryService do
         catalogue: 'fs',
     }
 
-    service = SyncQueryService.new(service_args)
+    service = SyncTapService.new(service_args)
     service.request == URI("#{catalogue[:service_end_point]}/sync")
   end
 
@@ -71,7 +71,7 @@ describe SyncQueryService do
         catalogue: 'fs',
     }
 
-    service = SyncQueryService.new(service_args)
+    service = SyncTapService.new(service_args)
 
     query_args = {
         dataset: 'skymapper',
@@ -99,7 +99,7 @@ describe SyncQueryService do
         catalogue: 'fs',
     }
 
-    service = SyncQueryService.new(service_args)
+    service = SyncTapService.new(service_args)
 
     query_args = {
         dataset: 'skymapper',
@@ -145,7 +145,7 @@ describe SyncQueryService do
   describe 'Fetch results using' do
     filter_query_data = []
 
-    ['u', 'v', 'g', 'r', 'i', 'z'].each do |filter|
+    %w[u v g r i z].each do |filter|
 
       filter_query_data = filter_query_data.concat [
           { type: 'point', message: "min filter #{filter}", filters: [filter], dataset: 'skymapper', catalogue: 'fs', params: { ra: '178.83871', dec: '-1.18844', sr: '0.5', "#{filter}_min" => '50' }.symbolize_keys, filename: "skymapper_point_query_fs_#{filter}_filter_1", method: :generate_point_query },
@@ -179,13 +179,13 @@ describe SyncQueryService do
   describe 'Fetch query results for skymapper catalogue using all filters' do
 
     filter_all_query_data = [
-        { type: 'point', filters: ['u', 'v', 'g', 'r', 'i', 'z'], dataset: 'skymapper', catalogue: 'fs', params: { ra: '178.83871', dec: '-1.18844', sr: '0.5' }, filename: 'skymapper_point_query_fs_filter_all', method: :generate_point_query },
-        { type: 'point', filters: ['u', 'v', 'g', 'r', 'i', 'z'], dataset: 'skymapper', catalogue: 'ms', params: { ra: '178.83871', dec: '-1.18844', sr: '0.15' }, filename: 'skymapper_point_query_ms_filter_all', method: :generate_point_query },
-        { type: 'rectangular', filters: ['u', 'v', 'g', 'r', 'i', 'z'], dataset: 'skymapper', catalogue: 'fs', params: { ra_min: '1.75', ra_max: '2.25', dec_min: '-2.25', dec_max: '-0.75' }, filename: 'skymapper_rectangular_query_fs_filter_all', method: :generate_rectangular_query },
-        { type: 'rectangular', filters: ['u', 'v', 'g', 'r', 'i', 'z'], dataset: 'skymapper', catalogue: 'ms', params: { ra_min: '1.975', ra_max: '2.025', dec_min: '-1.525', dec_max: '-1.475' }, filename: 'skymapper_rectangular_query_ms_filter_all', method: :generate_rectangular_query }
+        { type: 'point', filters: %w[u v g r i z], dataset: 'skymapper', catalogue: 'fs', params: { ra: '178.83871', dec: '-1.18844', sr: '0.5' }, filename: 'skymapper_point_query_fs_filter_all', method: :generate_point_query },
+        { type: 'point', filters: %w[u v g r i z], dataset: 'skymapper', catalogue: 'ms', params: { ra: '178.83871', dec: '-1.18844', sr: '0.15' }, filename: 'skymapper_point_query_ms_filter_all', method: :generate_point_query },
+        { type: 'rectangular', filters: %w[u v g r i z], dataset: 'skymapper', catalogue: 'fs', params: { ra_min: '1.75', ra_max: '2.25', dec_min: '-2.25', dec_max: '-0.75' }, filename: 'skymapper_rectangular_query_fs_filter_all', method: :generate_rectangular_query },
+        { type: 'rectangular', filters: %w[u v g r i z], dataset: 'skymapper', catalogue: 'ms', params: { ra_min: '1.975', ra_max: '2.025', dec_min: '-1.525', dec_max: '-1.475' }, filename: 'skymapper_rectangular_query_ms_filter_all', method: :generate_rectangular_query }
     ]
 
-    ['u', 'v', 'g', 'r', 'i', 'z'].each do |filter|
+    %w[u v g r i z].each do |filter|
       filter_all_query_data[0][:params]["#{filter}_min".to_sym] = 50
       filter_all_query_data[0][:params]["#{filter}_max".to_sym] = 1000
       filter_all_query_data[1][:params]["#{filter}_min".to_sym] = 0.1
