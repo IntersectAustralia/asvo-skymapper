@@ -27,7 +27,6 @@ describe Registry do
     fs_catalogue[:service].should == 'TAP'
     fs_catalogue[:service_end_point].should == 'http://astroa.anu.edu.au:8080/skymapperpublic-asov-tap/tap'
     fs_catalogue[:table_name].should == 'public.fs_distilled'
-
    end
 
   it 'Registry includes main survey catalogue survey in skymapper dataset' do
@@ -41,7 +40,7 @@ describe Registry do
     ms_catalogue[:table_name].should == 'public.ms_distilled'
   end
   
-  it 'Registry includes fields for five second survey catalogue in skymaper dataset' do
+  it 'Registry includes fields for five second survey catalogue in skymapper dataset' do
     registry = Registry.new(ASVO_REGISTRY_FILEPATH)
     fs_catalogue = registry.find_catalogue('skymapper', 'fs')
     fields = fs_catalogue[:fields]
@@ -57,7 +56,7 @@ describe Registry do
     fields[:z_field].should == 'flux_z'
   end
 
-  it 'Registry includes fields for main survey catalogue in skymaper dataset' do
+  it 'Registry includes fields for main survey catalogue in skymapper dataset' do
     registry = Registry.new(ASVO_REGISTRY_FILEPATH)
     ms_catalogue = registry.find_catalogue('skymapper', 'ms')
     fields = ms_catalogue[:fields]
