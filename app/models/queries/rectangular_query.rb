@@ -12,8 +12,10 @@ class RectangularQuery < Query
   validates :dec_field, presence: true
   validates :ra_min, presence: true, numericality: { greater_than_or_equal_to: 0, less_than: 360 }, format: { with: /^-?\d*(\.\d{1,8})?$/ }
   validates :ra_max, presence: true, numericality: { greater_than_or_equal_to: 0, less_than: 360 }, format: { with: /^-?\d*(\.\d{1,8})?$/ }
+  validates :ra_max, numericality: { greater_than: Proc.new { |q| q.ra_min.to_f } }, if: 'ra_min'
   validates :dec_min, presence: true, numericality: { greater_than_or_equal_to: -90, less_than_or_equal_to: 90 }, format: { with: /^-?\d*(\.\d{1,8})?$/ }
   validates :dec_max, presence: true, numericality: { greater_than_or_equal_to: -90, less_than_or_equal_to: 90 }, format: { with: /^-?\d*(\.\d{1,8})?$/ }
+  validates :dec_max, numericality: { greater_than: Proc.new { |q| q.dec_min.to_f } }, if: 'dec_min'
   validate :filters, :filters_valid
 
   before_validation :clean_values

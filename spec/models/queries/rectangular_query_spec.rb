@@ -95,6 +95,36 @@ describe RectangularQuery do
   it { should_not allow_value('.').for(:dec_max) }
   it { should_not allow_value(' -  1.  ').for(:dec_max) }
 
+  # Validate RA max > min
+  it 'ra max must be greater than ra min' do
+    q = RectangularQuery.new
+    q.ra_min = 0
+    q.ra_max = 0
+    q.valid?
+    q.errors[:ra_max].should_not be_empty
+    q.ra_max = '-1'
+    q.valid?
+    q.errors[:ra_max].should_not be_empty
+    q.ra_max = '2'
+    q.valid?
+    q.errors[:ra_max].should be_empty
+  end
+
+  # Validate DEC max > min
+  it 'dec max must be greater than dec min' do
+    q = RectangularQuery.new
+    q.dec_min = 0
+    q.dec_max = 0
+    q.valid?
+    q.errors[:dec_max].should_not be_empty
+    q.dec_max = '-1'
+    q.valid?
+    q.errors[:dec_max].should_not be_empty
+    q.dec_max = '2'
+    q.valid?
+    q.errors[:dec_max].should be_empty
+  end
+
   it 'Validate magnitude filters' do
 
     query = RectangularQuery.new(
