@@ -56,12 +56,12 @@
             %li.error{ 'ng-show' => 'radial_search_form.sr.$error.decimal' }
               This field should be a number with 8 decimal places.
 
-      = render partial: 'search_filter', locals: { filter: 'u' }
-      = render partial: 'search_filter', locals: { filter: 'v' }
-      = render partial: 'search_filter', locals: { filter: 'g' }
-      = render partial: 'search_filter', locals: { filter: 'r' }
-      = render partial: 'search_filter', locals: { filter: 'i' }
-      = render partial: 'search_filter', locals: { filter: 'z' }
+      = render partial: 'search_filter', locals: { form: 'radial_search_form', filter: 'u' }
+      = render partial: 'search_filter', locals: { form: 'radial_search_form', filter: 'v' }
+      = render partial: 'search_filter', locals: { form: 'radial_search_form', filter: 'g' }
+      = render partial: 'search_filter', locals: { form: 'radial_search_form', filter: 'r' }
+      = render partial: 'search_filter', locals: { form: 'radial_search_form', filter: 'i' }
+      = render partial: 'search_filter', locals: { form: 'radial_search_form', filter: 'z' }
 
     .form-actions
       %input#submit.btn.btn-primary{ type: 'submit', value: 'Search SkyMapper', 'ng-disabled' => 'searching' }

@@ -67,6 +67,13 @@
             %li.error{ 'ng-show' => 'rectangular_search_form.dec_max.$error.decimal' }
               This field should be a number with 8 decimal places.
 
+      = render partial: 'search_filter', locals: { form: 'rectangular_search_form', filter: 'u' }
+      = render partial: 'search_filter', locals: { form: 'rectangular_search_form', filter: 'v' }
+      = render partial: 'search_filter', locals: { form: 'rectangular_search_form', filter: 'g' }
+      = render partial: 'search_filter', locals: { form: 'rectangular_search_form', filter: 'r' }
+      = render partial: 'search_filter', locals: { form: 'rectangular_search_form', filter: 'i' }
+      = render partial: 'search_filter', locals: { form: 'rectangular_search_form', filter: 'z' }
+
     .form-actions
       %input.btn.btn-primary{ type: 'submit', value: 'Search SkyMapper' }
 

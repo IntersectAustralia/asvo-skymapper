@@ -40,6 +40,7 @@ class SearchController < ApplicationController
         { name: 'Declination min:', value: params[:dec_min] },
         { name: 'Declination max:', value: params[:dec_max] }
     ]
+    add_parameters(@parameters, params)
 
     @fields = search_fields(params[:catalogue])
 
@@ -47,23 +48,6 @@ class SearchController < ApplicationController
     flash.now[:error] = 'The search parameters contain some errors.'
   ensure
     render 'search_results'
-  end
-
-  # HELPERS
-
-  def add_parameters(parameters, params)
-    add_parameter(parameters, params, 'U min:', :u_min)
-    add_parameter(parameters, params, 'U max:', :u_max)
-    add_parameter(parameters, params, 'V min:', :v_min)
-    add_parameter(parameters, params, 'V max:', :v_max)
-    add_parameter(parameters, params, 'G min:', :g_min)
-    add_parameter(parameters, params, 'G max:', :g_max)
-    add_parameter(parameters, params, 'R min:', :r_min)
-    add_parameter(parameters, params, 'R max:', :r_max)
-    add_parameter(parameters, params, 'I min:', :i_min)
-    add_parameter(parameters, params, 'I max:', :i_max)
-    add_parameter(parameters, params, 'Z min:', :z_min)
-    add_parameter(parameters, params, 'Z max:', :z_max)
   end
 
   def radial_search_results
@@ -103,11 +87,25 @@ class SearchController < ApplicationController
         ra_min: args[:ra_min],
         ra_max: args[:ra_max],
         dec_min: args[:dec_min],
-        dec_max: args[:dec_max]
+        dec_max: args[:dec_max],
+        u_min: args[:u_min],
+        u_max: args[:u_max],
+        v_min: args[:v_min],
+        v_max: args[:v_max],
+        g_min: args[:g_min],
+        g_max: args[:g_max],
+        r_min: args[:r_min],
+        r_max: args[:r_max],
+        i_min: args[:i_min],
+        i_max: args[:i_max],
+        z_min: args[:z_min],
+        z_max: args[:z_max]
     }
 
     fetch_search_results(query_args, QueryGenerator.method(:generate_rectangular_query))
   end
+
+  # HELPERS
 
   def fetch_search_results(query_args, query_factory)
     query = query_factory.call(query_args)
@@ -147,6 +145,21 @@ class SearchController < ApplicationController
         { name: 'i', field: catalogue_fields[:i_field] },
         { name: 'z', field: catalogue_fields[:z_field] }
     ]
+  end
+
+  def add_parameters(parameters, params)
+    add_parameter(parameters, params, 'U min:', :u_min)
+    add_parameter(parameters, params, 'U max:', :u_max)
+    add_parameter(parameters, params, 'V min:', :v_min)
+    add_parameter(parameters, params, 'V max:', :v_max)
+    add_parameter(parameters, params, 'G min:', :g_min)
+    add_parameter(parameters, params, 'G max:', :g_max)
+    add_parameter(parameters, params, 'R min:', :r_min)
+    add_parameter(parameters, params, 'R max:', :r_max)
+    add_parameter(parameters, params, 'I min:', :i_min)
+    add_parameter(parameters, params, 'I max:', :i_max)
+    add_parameter(parameters, params, 'Z min:', :z_min)
+    add_parameter(parameters, params, 'Z max:', :z_max)
   end
 
   protected

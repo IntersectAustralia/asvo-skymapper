@@ -182,7 +182,7 @@ describe SyncQueryService do
         { type: 'point', filters: ['u', 'v', 'g', 'r', 'i', 'z'], dataset: 'skymapper', catalogue: 'fs', params: { ra: '178.83871', dec: '-1.18844', sr: '0.5' }, filename: 'skymapper_point_query_fs_filter_all', method: :generate_point_query },
         { type: 'point', filters: ['u', 'v', 'g', 'r', 'i', 'z'], dataset: 'skymapper', catalogue: 'ms', params: { ra: '178.83871', dec: '-1.18844', sr: '0.15' }, filename: 'skymapper_point_query_ms_filter_all', method: :generate_point_query },
         { type: 'rectangular', filters: ['u', 'v', 'g', 'r', 'i', 'z'], dataset: 'skymapper', catalogue: 'fs', params: { ra_min: '1.75', ra_max: '2.25', dec_min: '-2.25', dec_max: '-0.75' }, filename: 'skymapper_rectangular_query_fs_filter_all', method: :generate_rectangular_query },
-        { type: 'rectangular', filters: ['u', 'v', 'g', 'r', 'i', 'z'], dataset: 'skymapper', catalogue: 'ms', params: { ra_min: '1.75', ra_max: '2.25', dec_min: '-2.25', dec_max: '-0.75' }, filename: 'skymapper_rectangular_query_ms_filter_all', method: :generate_rectangular_query }
+        { type: 'rectangular', filters: ['u', 'v', 'g', 'r', 'i', 'z'], dataset: 'skymapper', catalogue: 'ms', params: { ra_min: '1.975', ra_max: '2.025', dec_min: '-1.525', dec_max: '-1.475' }, filename: 'skymapper_rectangular_query_ms_filter_all', method: :generate_rectangular_query }
     ]
 
     ['u', 'v', 'g', 'r', 'i', 'z'].each do |filter|
