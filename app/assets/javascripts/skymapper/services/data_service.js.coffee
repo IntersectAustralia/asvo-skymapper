@@ -1,4 +1,4 @@
-angular.module('SkyMapper.DataService', []).service '$dataService', ['$http', '$q',
+angular.module('SkyMapper.DataService', []).service 'dataService', ['$http', '$q',
 
   class DataService
 

@@ -1,8 +1,8 @@
-window.skymapper_app.controller 'SearchResultsController', ['$scope', '$window', '$dataService',
+window.skymapper_app.controller 'SearchResultsController', ['$scope', '$window', 'dataService',
 
   class SearchResultsController
 
-    constructor: ($scope, $window, $dataService) ->
+    constructor: ($scope, $window, dataService) ->
 
       $scope.objects = undefined
       $scope.searching = false
@@ -13,7 +13,7 @@ window.skymapper_app.controller 'SearchResultsController', ['$scope', '$window',
         $scope.searching = true
 
         args = decodeQueryParams($window.location.search.substring(1))
-        results_promise = $dataService.fetchObjects(url, args)
+        results_promise = dataService.fetchObjects(url, args)
         results_promise.then(
             (data) ->
               $scope.objects = data.objects
