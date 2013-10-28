@@ -106,6 +106,30 @@ Feature: Radial search
     | Z min            | Z max            | 0.1        | 1          | skymapper_point_query_ms_z_filter_3 | 30    |
 
   @javascript
+  Scenario Outline: I perform radial search should allow spaces in filters
+    And I select the "Radial" tab
+    And I select "Five-Second Survey" from "SkyMapper survey"
+    And I fill in "178.83871" for "Right ascension (deg)"
+    And I fill in "-1.18844" for "Declination (deg)"
+    And I fill in "0.5" for "Search radius (deg)"
+    And I fill in "<min_filter>" for "<min_filter_field>"
+    And I fill in "<max_filter>" for "<max_filter_field>"
+    And I fake search request for catalogue "fs" with "<results>"
+    And I press "Search SkyMapper"
+    Then I should be on the radial search results page
+    And I wait for "Fetching results..."
+    And I should see "Query returned <count> objects."
+    And I should see radial search parameters with values ("178.83871", "-1.18844", "0.5")
+    And I should see search parameter "<min_filter_field>" as "<clean_min_filter>"
+    And I should see search parameter "<max_filter_field>" as "<clean_max_fitler>"
+    And I should see results for catalogue "fs" as "<results>" in all pages with limit "50"
+  Examples:
+    | min_filter_field | max_filter_field | min_filter | max_filter | results                             | count | clean_min_filter | clean_max_fitler |
+    | U min            | U max            | 5 0        |            | skymapper_point_query_fs_u_filter_1 | 96    | 50               |                  |
+    | U min            | U max            |            | 1 00 0     | skymapper_point_query_fs_u_filter_2 | 248   |                  | 1000             |
+    | U min            | U max            | 5   0      | 10   00    | skymapper_point_query_fs_u_filter_3 | 72    | 50               | 1000             |
+
+  @javascript
   Scenario Outline: I perform radial search using all filters
     And I select the "Radial" tab
     And I select "<survey>" from "SkyMapper survey"

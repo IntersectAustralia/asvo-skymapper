@@ -21,6 +21,9 @@
 
   args
 
+@encodeQueryParams = (params) ->
+  jQuery.param(params).replace(/\+/g, '%20')
+
 @clean = (value) ->
   value = value.replace(/\s+/g, '') if typeof value == 'string'
   value

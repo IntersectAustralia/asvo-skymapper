@@ -17,7 +17,8 @@ class Query
   def from_args(args)
     all_fields.each do |field|
      self.method("#{field}=".to_sym).call(args[field]) if args[field]
-   end
+    end
+    clean_values
   end
 
   def clean_values

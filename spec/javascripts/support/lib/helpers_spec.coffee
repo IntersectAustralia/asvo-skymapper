@@ -11,7 +11,7 @@ describe 'Helpers', ->
       }
     }
 
-    result = decodeQueryParams(jQuery.param(params))
+    result = decodeQueryParams(encodeQueryParams(params))
     expect(result['query[ra]']).toBe '178.83871'
     expect(result['query[dec]']).toBe '-1.18844'
     expect(result['query[sr]']).toBe '0.5'

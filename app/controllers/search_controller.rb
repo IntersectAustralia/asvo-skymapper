@@ -22,6 +22,7 @@ class SearchController < ApplicationController
       { name: 'Radius:', value: params[:sr] }
     ]
     add_parameters(@parameters, params)
+    clean_parameters(@parameters)
 
     @fields = search_fields(params[:catalogue])
 
@@ -41,6 +42,7 @@ class SearchController < ApplicationController
         { name: 'Declination max:', value: params[:dec_max] }
     ]
     add_parameters(@parameters, params)
+    clean_parameters(@parameters)
 
     @fields = search_fields(params[:catalogue])
 
@@ -160,6 +162,12 @@ class SearchController < ApplicationController
     add_parameter(parameters, params, 'I max:', :i_max)
     add_parameter(parameters, params, 'Z min:', :z_min)
     add_parameter(parameters, params, 'Z max:', :z_max)
+  end
+
+  def clean_parameters(parameters)
+    parameters.each do |p|
+      p[:value] = p[:value].gsub(/\s/, '') if p[:value]
+    end
   end
 
   protected

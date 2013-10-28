@@ -5,7 +5,7 @@ angular.module('SkyMapper.DataService', []).service 'dataService', ['$http', '$q
     constructor: (@$http, @$q) ->
 
     generateURL: (url, args) ->
-      "#{url}?#{jQuery.param({query:args})}"
+      "#{url}?#{encodeQueryParams({query:args})}"
 
     fetchObjects: (url, args) ->
       deferred_results = @$q.defer()
