@@ -1,9 +1,5 @@
 def save_query_fixture(data)
-  query_args = {
-      dataset: data[:dataset],
-      catalogue: data[:catalogue]
-  }
-  query_args.merge!(data[:params])
+  query_args = data.params
 
   service_args = {
       dataset: data[:dataset],

@@ -2,10 +2,15 @@ class SiapService
 
   def initialize(args)
     @dataset = args[:dataset]
+    @catalogue = args[:catalogue]
   end
 
   def request
     registry = Rails.application.config.asvo_registry
+    service = registry.find_service(@dataset, @catalogue, 'siap')
+
+    uri = URI("#{service[:service_end_point]}")
+    uri
   end
 
   def fetch_results(query)
@@ -22,12 +27,11 @@ class SiapService
 
   def fetch_query_response(query)
     form = {
-        request: 'doQuery',
-        lang: 'ADQL',
-        query: query.to_adql
+        POS: "#{query.ra},#{query.dec}",
+        SIZE: '0'
     }
 
-    res = Net::HTTP.post_form(request, form)
+    res = Net::HTTP.get(request, form)
     res
   end
 

@@ -228,4 +228,15 @@ describe QueryGenerator do
     rectangular_query.valid?.should be_true
   end
 
+  it 'Generates image query for dataset skymapper and catalogue image' do
+    args = {
+        dataset: 'skymapper',
+        catalogue: 'image',
+        ra: '178.83871',
+        dec: '-1.18844'
+    }
+    image_query = QueryGenerator.generate_image_query(args)
+    image_query.valid?.should be_true
+  end
+
 end

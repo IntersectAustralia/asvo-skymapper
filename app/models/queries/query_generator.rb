@@ -23,6 +23,15 @@ class QueryGenerator
     query
   end
 
+  def self.generate_image_query(args)
+    query_args = {
+        ra: args[:ra],
+        dec: args[:dec]
+    }
+    query = ImageQuery.new(query_args)
+    query
+  end
+
   protected
 
   def self.generate_query_filters(args)

@@ -22,11 +22,11 @@ describe SyncTapService do
     Net::HTTP.stub(:post_form).and_return(mock_res)
 
     point_query = QueryGenerator.method(data[:method]).call(query_args)
-    service = SyncTapService.new(service_args)
+    tap_service = SyncTapService.new(service_args)
 
     mock_results_table = YAML.load(File.read(Rails.root.join("spec/fixtures/#{data[:filename]}.vo")))
 
-    results_table = service.fetch_results(point_query)
+    results_table = tap_service.fetch_results(point_query)
     results_table.eql?(mock_results_table).should be_true
   end
 
@@ -49,17 +49,17 @@ describe SyncTapService do
     end
   end
 
-  it 'Fetch results uses synchronous request' do
+  it 'Fetch request is valid' do
     registry = Rails.application.config.asvo_registry
-    catalogue = registry.find_catalogue('skymapper', 'fs')
+    service = registry.find_service('skymapper', 'fs', 'tap')
 
     service_args = {
         dataset: 'skymapper',
         catalogue: 'fs',
     }
 
-    service = SyncTapService.new(service_args)
-    service.request == URI("#{catalogue[:service_end_point]}/sync")
+    tap_service = SyncTapService.new(service_args)
+    tap_service.request == URI("#{service[:service_end_point]}/sync")
   end
 
   it 'Raises error if failed to get response' do
@@ -71,11 +71,9 @@ describe SyncTapService do
         catalogue: 'fs',
     }
 
-    service = SyncTapService.new(service_args)
+    tap_service = SyncTapService.new(service_args)
 
     query_args = {
-        dataset: 'skymapper',
-        catalogue: 'fs',
         ra: '178.83871',
         dec: '-1.18844',
         sr: '0.5'
@@ -83,7 +81,7 @@ describe SyncTapService do
 
     point_query = QueryGenerator.generate_point_query(query_args)
 
-    service.fetch_results(point_query).should be_nil
+    tap_service.fetch_results(point_query).should be_nil
   end
 
   it 'Raises error if response is garbage' do
@@ -99,11 +97,9 @@ describe SyncTapService do
         catalogue: 'fs',
     }
 
-    service = SyncTapService.new(service_args)
+    tap_service = SyncTapService.new(service_args)
 
     query_args = {
-        dataset: 'skymapper',
-        catalogue: 'fs',
         ra: '178.83871',
         dec: '-1.18844',
         sr: '0.5'
@@ -111,7 +107,7 @@ describe SyncTapService do
 
     point_query = QueryGenerator.generate_point_query(query_args)
 
-    service.fetch_results(point_query).should be_empty
+    tap_service.fetch_results(point_query).should be_empty
   end
 
   describe 'Fetch results using' do
