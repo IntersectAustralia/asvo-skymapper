@@ -8,6 +8,11 @@ And /^I should see radial search parameters with values \("([^"]*)", "([^"]*)", 
   step "I should see search parameter \"Radius\" as \"#{sr}\""
 end
 
+And /^I should see raw image search parameters with values \("([^"]*)", "([^"]*)"\)$/ do |ra, dec|
+  step "I should see search parameter \"Right ascension\" as \"#{ra}\""
+  step "I should see search parameter \"Declination\" as \"#{dec}\""
+end
+
 And /^I should see rectangular search parameters with values \("([^"]*)", "([^"]*)", "([^"]*)", "([^"]*)"\)$/ do |ra_min, ra_max, dec_min, dec_max|
   step "I should see search parameter \"Right ascension min\" as \"#{ra_min}\""
   step "I should see search parameter \"Right ascension max\" as \"#{ra_max}\""

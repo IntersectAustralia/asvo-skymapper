@@ -1,5 +1,6 @@
 --- !ruby/object:VOTable
 query_status: OK
+pos: 178.83871,-1.18844
 table_fields:
 - :id: OBJECT_ID
   :name: image_id
