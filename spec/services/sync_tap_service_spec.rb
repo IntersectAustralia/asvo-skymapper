@@ -21,12 +21,12 @@ describe SyncTapService do
     # stub network post
     Net::HTTP.stub(:post_form).and_return(mock_res)
 
-    point_query = QueryGenerator.method(data[:method]).call(query_args)
+    query = QueryGenerator.method(data[:method]).call(query_args)
     tap_service = SyncTapService.new(service_args)
 
     mock_results_table = YAML.load(File.read(Rails.root.join("spec/fixtures/#{data[:filename]}.vo")))
 
-    results_table = tap_service.fetch_results(point_query)
+    results_table = tap_service.fetch_results(query)
     results_table.eql?(mock_results_table).should be_true
   end
 
@@ -130,7 +130,7 @@ describe SyncTapService do
 
     query_data.each do |data|
 
-      it "#{data[:type]} query for #{data[:dataset]} #{data[:catalogue]} returns #{data[:message]} objects" do
+      it "#{data[:type]} query for dataset #{data[:dataset]} catalogue #{data[:catalogue]} returns #{data[:message]} objects" do
         mock_service_run(data)
       end
 
@@ -163,7 +163,7 @@ describe SyncTapService do
 
     filter_query_data.each do |data|
 
-      it "#{data[:type]} query for #{data[:dataset]} #{data[:catalogue]} with #{data[:message]}" do
+      it "#{data[:type]} query for dataset #{data[:dataset]} catalogue #{data[:catalogue]} with #{data[:message]}" do
         mock_service_run(data)
         mock_filter_run(data)
       end
@@ -194,7 +194,7 @@ describe SyncTapService do
 
     filter_all_query_data.each do |data|
 
-      it "#{data[:type]} query for #{data[:dataset]} #{data[:catalogue]} with all filters" do
+      it "#{data[:type]} query for dataset #{data[:dataset]} catalogue #{data[:catalogue]} with all filters" do
         mock_service_run(data)
         mock_filter_run(data)
       end

@@ -17,7 +17,7 @@ class SiapService
     begin
       res = fetch_query_response(query)
 
-      results_table = VOTableParser.parse_xml(res.body)
+      results_table = VOTableParser.parse_xml(res)
     rescue Exception
       puts $!.inspect, $@ unless Rails.env == 'test'
     end
@@ -31,7 +31,10 @@ class SiapService
         SIZE: '0'
     }
 
-    res = Net::HTTP.get(request, form)
+    uri = request
+    uri.query = URI.encode_www_form(form)
+
+    res = Net::HTTP.get(uri)
     res
   end
 

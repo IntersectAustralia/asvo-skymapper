@@ -11,6 +11,10 @@ class VOTableParser
         doc.xpath('//info[@name="PROVIDER"]').empty?
     vo_table.query = doc.xpath('//info[@name="QUERY"]').attr('value').value unless
         doc.xpath('//info[@name="QUERY"]').empty?
+
+    vo_table.pos = doc.xpath('//param[@name="POS"]').attr('value').value unless
+        doc.xpath('//param[@name="POS"]').empty?
+
     vo_table.table_fields = parse_fields(doc)
     vo_table.table_data = parse_data(vo_table.table_fields, doc)
 

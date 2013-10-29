@@ -1,0 +1,109 @@
+--- !ruby/object:VOTable
+query_status: OK
+table_fields:
+- :id: OBJECT_ID
+  :name: image_id
+  :ucd: ID_MAIN
+  :datatype: char
+  :unit: '---'
+- :id: TITLE
+  :name: Obs Title
+  :ucd: VOX:Image_Title
+  :datatype: char
+  :unit: '---'
+- :id: NIGHT_ID
+  :name: night_id
+  :ucd: meta.id;obs
+  :datatype: int
+  :unit: '---'
+- :id: COMBINED_ID
+  :name: combined_id
+  :ucd: meta.id;obs
+  :datatype: int
+  :unit: '---'
+- :id: DATE
+  :name: date
+  :ucd: time.epoch
+  :datatype: double
+  :unit: mjd
+- :id: POINTRA_DEG
+  :name: RA (degrees)
+  :ucd: POS_EQ_RA_MAIN
+  :datatype: double
+  :unit: deg
+- :id: POINTDEC_DEG
+  :name: DEC (degrees)
+  :ucd: POS_EQ_DEC_MAIN
+  :datatype: double
+  :unit: deg
+- :id: NAXES
+  :name: Axes
+  :ucd: VOX:Image_Naxes
+  :datatype: int
+  :unit: '---'
+- :id: NAXIS
+  :name: Axis Length
+  :ucd: VOX:Image_Naxis
+  :datatype: int
+  :unit: '---'
+- :id: SCALE
+  :name: Axis Scale
+  :ucd: VOX:Image_Scale
+  :datatype: double
+  :unit: deg/pix
+- :id: FORMAT
+  :name: Observation format
+  :ucd: VOX:Image_Format
+  :datatype: char
+  :unit: '---'
+- :id: ACCESSURL
+  :name: Image URL
+  :ucd: VOX:Image_AccessReference
+  :datatype: char
+  :unit: '---'
+- :id: FIELD_ID
+  :name: field_id
+  :ucd: obs.field
+  :datatype: int
+  :unit: '---'
+- :id: EXP_TIME
+  :name: exp_time
+  :ucd: time.expo
+  :datatype: double
+  :unit: s
+- :id: AIRMASS
+  :name: airmass
+  :ucd: obs.air.mass
+  :datatype: double
+  :unit: '---'
+- :id: FILTER
+  :name: filter
+  :ucd: obs.air.mass
+  :datatype: char
+  :unit: '---'
+- :id: ROTATOR_POS
+  :name: rotator_pos
+  :ucd: instr.tel
+  :datatype: double
+  :unit: mm
+- :id: OBJECT
+  :name: object
+  :ucd: meta.id
+  :datatype: char
+  :unit: '---'
+- :id: IMAGE_TYPE
+  :name: image_type
+  :ucd: meta.id
+  :datatype: char
+  :unit: '---'
+- :id: BINNING
+  :name: binning
+  :ucd: meta.number
+  :datatype: int
+  :unit: '---'
+- :id: QA_STATUS
+  :name: qa_status
+  :ucd: meta.number
+  :datatype: int
+  :unit: '---'
+table_data: []

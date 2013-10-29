@@ -1,6 +1,8 @@
 class VOTable
 
-  attr_accessor :query_status, :provider, :query, :table_fields, :table_data
+  attr_accessor :query_status, :provider, :query # radial and rectangular fields
+  attr_accessor :pos # image fields
+  attr_accessor :table_fields, :table_data # common fields
 
   def empty?
     self.to_array.select { |x| !nil_or_empty? x }.empty?
@@ -12,9 +14,6 @@ class VOTable
 
   def to_array
     [
-        self.query_status,
-        self.provider,
-        self.query,
         self.table_fields,
         self.table_data
     ]

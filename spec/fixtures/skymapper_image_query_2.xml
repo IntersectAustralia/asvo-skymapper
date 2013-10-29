@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<VOTABLE ID='VOTABLE' version='1.1' xmlns='http://www.ivoa.net/xml/VOTable/v1.1' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.ivoa.net/xml/VOTable/v1.1'>
+<DESCRIPTION/>
+<COOSYS ID='J2000' epoch='J2000' equinox='J2000' system='TNX or ZPN'/>
+<INFO/>
+<PARAM arraysize='256' name='POS' value='178.83871,-1.18844' ID='POS' datatype='char'/>
+<PARAM arraysize='256' name='SIZE' value='0' ID='SIZE' datatype='char'/>
+
+<RESOURCE ID='RESULTS' name='results' type='results'>
+<DESCRIPTION/>
+<INFO ID='SEARCH_QUERY_STATUS' name='QUERY_STATUS' value='OK'/>
+<PARAM name='INPUT:POS' value='' datatype='float' >
+<DESCRIPTION>Search position in the form RA,DEC in decimal degrees</DESCRIPTION>
+</PARAM>
+<PARAM name='INPUT:SIZE' value='' datatype='float' >
+<DESCRIPTION>Search region size in the RA,DEC directions in decimal degrees</DESCRIPTION>
+</PARAM>
+<PARAM name='INPUT:FORMAT' value='' datatype='char' arraysize='*'>
+<DESCRIPTION>SIA format parameter</DESCRIPTION>
+</PARAM>
+<PARAM name='INPUT:LIMIT' value='' datatype='int' >
+<DESCRIPTION>Maximum rows returned from the database</DESCRIPTION>
+</PARAM>
+<PARAM name='INPUT:RENDERER' value='' datatype='char' arraysize='*'>
+<DESCRIPTION>Format to render the results of the query</DESCRIPTION>
+</PARAM>
+
+<INFO ID='RESULT_COUNT' datatype='int' name='Result count' value='0'/>
+<TABLE ID='METADATA' name='metadata data table'>
+<DESCRIPTION/>
+<FIELD  ucd="ID_MAIN" name="image_id" datatype="char" ID="OBJECT_ID" unit="---" arraysize="*">
+<DESCRIPTION>image_id</DESCRIPTION>
+</FIELD>
+<FIELD  width="15" ucd="VOX:Image_Title" name="Obs Title" datatype="char" ID="TITLE" unit="---" arraysize="*">
+<DESCRIPTION>Short description of observation</DESCRIPTION>
+</FIELD>
+<FIELD  width="6" ucd="meta.id;obs" name="night_id" datatype="int" ID="NIGHT_ID" unit="---">
+<DESCRIPTION>night_id</DESCRIPTION>
+</FIELD>
+<FIELD  width="6" ucd="meta.id;obs" name="combined_id" datatype="int" ID="COMBINED_ID" unit="---">
+<DESCRIPTION>combined_id</DESCRIPTION>
+</FIELD>
+<FIELD  width="12" ucd="time.epoch" name="date" datatype="double" precision="6" unit="mjd" ID="DATE">
+<DESCRIPTION>date</DESCRIPTION>
+</FIELD>
+<FIELD  name="RA (degrees)" datatype="double" precision="3" width="6" ucd="POS_EQ_RA_MAIN" ref="J2000" ID="POINTRA_DEG" unit="deg">
+<DESCRIPTION>ra</DESCRIPTION>
+</FIELD>
+<FIELD  name="DEC (degrees)" datatype="double" precision="3" width="6" ucd="POS_EQ_DEC_MAIN" ref="J2000" ID="POINTDEC_DEG" unit="deg">
+<DESCRIPTION>dcl</DESCRIPTION>
+</FIELD>
+<FIELD  width="6" ucd="VOX:Image_Naxes" name="Axes" datatype="int" ID="NAXES" unit="---">
+<DESCRIPTION>Number of Image Axes</DESCRIPTION>
+</FIELD>
+<FIELD  width="6" ucd="VOX:Image_Naxis" name="Axis Length" datatype="int" ID="NAXIS" unit="---" arraysize="*">
+<DESCRIPTION>Length in pixels of each image axis</DESCRIPTION>
+</FIELD>
+<FIELD  width="6" ucd="VOX:Image_Scale" name="Axis Scale" datatype="double" ID="SCALE" unit="deg/pix" arraysize="*">
+<DESCRIPTION>Image scaling factor, in degrees per pixel, of each image axis</DESCRIPTION>
+</FIELD>
+<FIELD  width="15" ucd="VOX:Image_Format" name="Observation format" datatype="char" ID="FORMAT" unit="---" arraysize="*">
+<DESCRIPTION>Image file format</DESCRIPTION>
+</FIELD>
+<FIELD  width="256" ucd="VOX:Image_AccessReference" name="Image URL" datatype="char" ID="ACCESSURL" unit="---" arraysize="*">
+<DESCRIPTION>URL to be used to access image file for this image</DESCRIPTION>
+</FIELD>
+<FIELD  width="6" ucd="obs.field" name="field_id" datatype="int" ID="FIELD_ID" unit="---">
+<DESCRIPTION>field_id</DESCRIPTION>
+</FIELD>
+<FIELD  width="3" ucd="time.expo" name="exp_time" datatype="double" precision="0" unit="s" ID="EXP_TIME">
+<DESCRIPTION>exp_time</DESCRIPTION>
+</FIELD>
+<FIELD  width="8" ucd="obs.air.mass" name="airmass" datatype="double" precision="6" unit="---" ID="AIRMASS">
+<DESCRIPTION>airmass</DESCRIPTION>
+</FIELD>
+<FIELD  width="50" ucd="obs.air.mass" name="filter" datatype="char" ID="FILTER" unit="---" arraysize="250">
+<DESCRIPTION>filter</DESCRIPTION>
+</FIELD>
+<FIELD  width="5" ucd="instr.tel" name="rotator_pos" datatype="double" precision="3" unit="mm" ID="ROTATOR_POS">
+<DESCRIPTION>rotator_pos</DESCRIPTION>
+</FIELD>
+<FIELD  width="50" ucd="meta.id" name="object" datatype="char" ID="OBJECT" unit="---" arraysize="250">
+<DESCRIPTION>object</DESCRIPTION>
+</FIELD>
+<FIELD  width="50" ucd="meta.id" name="image_type" datatype="char" ID="IMAGE_TYPE" unit="---" arraysize="250">
+<DESCRIPTION>image_type</DESCRIPTION>
+</FIELD>
+<FIELD  width="5" ucd="meta.number" name="binning" datatype="int" ID="BINNING" unit="---">
+<DESCRIPTION>binning</DESCRIPTION>
+</FIELD>
+<FIELD  width="5" ucd="meta.number" name="qa_status" datatype="int" ID="QA_STATUS" unit="---">
+<DESCRIPTION>qa_status</DESCRIPTION>
+</FIELD>
+<DATA>
+<TABLEDATA>
+</TABLEDATA>
+</DATA>
+</TABLE>
+</RESOURCE>
+</VOTABLE>

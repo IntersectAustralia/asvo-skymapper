@@ -21,4 +21,11 @@ describe VOTableParser do
     vo_table.eql?(result_table).should be_true
   end
 
+  it 'Parses image query results for skymapper catalogue image' do
+    vo_table = VOTableParser.parse_xml(File.read(Rails.root.join('spec/fixtures/skymapper_image_query_1.xml')))
+    result_table = YAML.load(File.read(Rails.root.join('spec/fixtures/skymapper_image_query_1.vo')))
+
+    vo_table.eql?(result_table).should be_true
+  end
+
 end

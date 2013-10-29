@@ -1,5 +1,5 @@
 def save_query_fixture(data)
-  query_args = data.params
+  query_args = data[:params]
 
   service_args = {
       dataset: data[:dataset],
@@ -11,6 +11,27 @@ def save_query_fixture(data)
   res = service.fetch_query_response(query)
   xml = File.new(Rails.root.join("spec/fixtures/#{data[:filename]}.xml"), 'w')
   xml.write(res.body)
+  xml.close
+  vo = File.new(Rails.root.join("spec/fixtures/#{data[:filename]}.vo"), 'w')
+  vo_table = VOTableParser.parse_xml(File.read(Rails.root.join("spec/fixtures/#{data[:filename]}.xml")))
+  puts "#{data[:filename]} contains #{vo_table.table_data ? vo_table.table_data.size : 0} objects"
+  YAML.dump(vo_table, vo)
+  vo.close
+end
+
+def save_image_query_fixture(data)
+  query_args = data[:params]
+
+  service_args = {
+      dataset: data[:dataset],
+      catalogue: data[:catalogue]
+  }
+
+  query = QueryGenerator.method(data[:method]).call(query_args)
+  service = SiapService.new(service_args)
+  res = service.fetch_query_response(query)
+  xml = File.new(Rails.root.join("spec/fixtures/#{data[:filename]}.xml"), 'w')
+  xml.write(res)
   xml.close
   vo = File.new(Rails.root.join("spec/fixtures/#{data[:filename]}.vo"), 'w')
   vo_table = VOTableParser.parse_xml(File.read(Rails.root.join("spec/fixtures/#{data[:filename]}.xml")))
@@ -81,6 +102,19 @@ def generate_query_fixtures
 
   query_data.each do |data|
     save_query_fixture(data)
+  end
+
+end
+
+def generate_image_query_fixtures
+
+  query_data = [
+      { dataset: 'skymapper', catalogue: 'image', params: { ra: '181.16129', dec: '-1.18844' }, filename: 'skymapper_image_query_1', method: :generate_image_query },
+      { dataset: 'skymapper', catalogue: 'image', params: { ra: '178.83871', dec: '-1.18844' }, filename: 'skymapper_image_query_2', method: :generate_image_query }
+  ]
+
+  query_data.each do |data|
+    save_image_query_fixture(data)
   end
 
 end
