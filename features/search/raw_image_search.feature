@@ -11,7 +11,7 @@ Feature: Raw image search
     And I select the "Raw Image" tab
     And I fill in "<ra>" for "Right ascension (deg)"
     And I fill in "<dec>" for "Declination (deg)"
-    And I fake search request for catalogue "<catalogue>" with "<results>"
+    And I fake siap search request for catalogue "<catalogue>" with "<results>"
     And I press "Search SkyMapper"
     Then I should be on the raw image search results page
     And I wait for "Fetching results..."
@@ -27,7 +27,7 @@ Feature: Raw image search
     And I select the "Raw Image" tab
     And I fill in "<ra>" for "Right ascension (deg)"
     And I fill in "<dec>" for "Declination (deg)"
-    And I fake search request for catalogue "<catalogue>" with "<results>"
+    And I fake siap search request for catalogue "<catalogue>" with "<results>"
     And I press "Search SkyMapper"
     Then I should be on the raw image search results page
     And I wait for "Fetching results..."

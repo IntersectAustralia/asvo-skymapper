@@ -13,7 +13,7 @@ Feature: Pagination
     And I fill in "<ra>" for "Right ascension (deg)"
     And I fill in "<dec>" for "Declination (deg)"
     And I fill in "<sr>" for "Search radius (deg)"
-    And I fake search request for catalogue "<catalogue>" with "<results>"
+    And I fake tap search request for catalogue "<catalogue>" with "<results>"
     And I press "Search SkyMapper"
     Then I should be on the radial search results page
     And I should see radial search parameters with values ("<ra>", "<dec>", "<sr>")

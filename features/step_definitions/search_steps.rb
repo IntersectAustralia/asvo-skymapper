@@ -88,18 +88,32 @@ And /^I should see results for catalogue "([^"]*)" as "([^"]*)" in all pages wit
   end
 end
 
-And /^I fake search request for catalogue "([^"]*)" with "([^"]*)"$/ do |catalogue, file|
+And /^I fake tap search request for catalogue "([^"]*)" with "([^"]*)"$/ do |catalogue, file|
   service_args = {dataset:SearchController::DEFAULT_DATASET, catalogue: catalogue}
   service = SyncTapService.new(service_args)
 
   FakeWeb.register_uri(:post, service.request, body: File.read(Rails.root.join("spec/fixtures/#{file}.xml")) )
 end
 
-And /^I fake search request for catalogue "([^"]*)" returns error$/ do |catalogue|
+And /^I fake tap search request for catalogue "([^"]*)" returns error$/ do |catalogue|
   service_args = {dataset:SearchController::DEFAULT_DATASET, catalogue: catalogue}
   service = SyncTapService.new(service_args)
 
   FakeWeb.register_uri(:post, service.request, exception: Exception )
+end
+
+And /^I fake siap search request for catalogue "([^"]*)" with "([^"]*)"$/ do |catalogue, file|
+  service_args = {dataset:SearchController::DEFAULT_DATASET, catalogue: catalogue}
+  service = SiapService.new(service_args)
+
+  FakeWeb.register_uri(:get, service.request, response: File.read(Rails.root.join("spec/fixtures/#{file}.xml")) )
+end
+
+And /^I fake siap search request for catalogue "([^"]*)" returns error$/ do |catalogue|
+  service_args = {dataset:SearchController::DEFAULT_DATASET, catalogue: catalogue}
+  service = SiapService.new(service_args)
+
+  FakeWeb.register_uri(:get, service.request, exception: Exception )
 end
 
 Then /^I should not see any errors for "([^"]*)"$/ do |field|

@@ -14,7 +14,7 @@ Feature: Rectangular search
     And I fill in "<ra_max>" for "Right ascension max (deg)"
     And I fill in "<dec_min>" for "Declination min (deg)"
     And I fill in "<dec_max>" for "Declination max (deg)"
-    And I fake search request for catalogue "<catalogue>" with "<results>"
+    And I fake tap search request for catalogue "<catalogue>" with "<results>"
     And I press "Search SkyMapper"
     Then I should be on the rectangular search results page
     And I wait for "Fetching results..."
@@ -38,7 +38,7 @@ Feature: Rectangular search
     And I fill in "-0.75" for "Declination max (deg)"
     And I fill in "<min_filter>" for "<min_filter_field>"
     And I fill in "<max_filter>" for "<max_filter_field>"
-    And I fake search request for catalogue "fs" with "<results>"
+    And I fake tap search request for catalogue "fs" with "<results>"
     And I press "Search SkyMapper"
     Then I should be on the rectangular search results page
     And I wait for "Fetching results..."
@@ -78,7 +78,7 @@ Feature: Rectangular search
     And I fill in "-1.475" for "Declination max (deg)"
     And I fill in "<min_filter>" for "<min_filter_field>"
     And I fill in "<max_filter>" for "<max_filter_field>"
-    And I fake search request for catalogue "ms" with "<results>"
+    And I fake tap search request for catalogue "ms" with "<results>"
     And I press "Search SkyMapper"
     Then I should be on the rectangular search results page
     And I wait for "Fetching results..."
@@ -118,7 +118,7 @@ Feature: Rectangular search
     And I fill in "-0.75" for "Declination max (deg)"
     And I fill in "<min_filter>" for "<min_filter_field>"
     And I fill in "<max_filter>" for "<max_filter_field>"
-    And I fake search request for catalogue "fs" with "<results>"
+    And I fake tap search request for catalogue "fs" with "<results>"
     And I press "Search SkyMapper"
     Then I should be on the rectangular search results page
     And I wait for "Fetching results..."
@@ -153,7 +153,7 @@ Feature: Rectangular search
     And I fill in "<filter_max>" for "I max"
     And I fill in "<filter_min>" for "Z min"
     And I fill in "<filter_max>" for "Z max"
-    And I fake search request for catalogue "<catalogue>" with "<results>"
+    And I fake tap search request for catalogue "<catalogue>" with "<results>"
     And I press "Search SkyMapper"
     Then I should be on the rectangular search results page
     And I wait for "Fetching results..."
@@ -185,7 +185,7 @@ Feature: Rectangular search
     And I fill in "<ra_max>" for "Right ascension max (deg)"
     And I fill in "<dec_min>" for "Declination min (deg)"
     And I fill in "<dec_max>" for "Declination max (deg)"
-    And I fake search request for catalogue "<catalogue>" with "<results>"
+    And I fake tap search request for catalogue "<catalogue>" with "<results>"
     And I press "Search SkyMapper"
     Then I should be on the rectangular search results page
     And I wait for "Fetching results..."
@@ -205,7 +205,7 @@ Feature: Rectangular search
     And I fill in "<ra_max>" for "Right ascension max (deg)"
     And I fill in "<dec_min>" for "Declination min (deg)"
     And I fill in "<dec_max>" for "Declination max (deg)"
-    And I fake search request for catalogue "<catalogue>" returns error
+    And I fake tap search request for catalogue "<catalogue>" returns error
     And I press "Search SkyMapper"
     Then I should be on the rectangular search results page
     And I wait for "Fetching results..."

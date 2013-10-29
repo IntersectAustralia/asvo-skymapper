@@ -21,7 +21,7 @@ class SearchController < ApplicationController
       { name: 'Declination:', value: params[:dec] },
       { name: 'Radius:', value: params[:sr] }
     ]
-    add_parameters(@parameters, params)
+    add_filter_parameters(@parameters, params)
     clean_parameters(@parameters)
 
     @fields = search_fields(params[:catalogue])
@@ -41,10 +41,27 @@ class SearchController < ApplicationController
         { name: 'Declination min:', value: params[:dec_min] },
         { name: 'Declination max:', value: params[:dec_max] }
     ]
-    add_parameters(@parameters, params)
+    add_filter_parameters(@parameters, params)
     clean_parameters(@parameters)
 
     @fields = search_fields(params[:catalogue])
+
+  rescue StandardError
+    flash.now[:error] = 'The search parameters contain some errors.'
+  ensure
+    render 'search_results'
+  end
+
+  def raw_image_search
+    @results_path = raw_image_search_results_path
+
+    @parameters = [
+        { name: 'Right ascension:', value: params[:ra] },
+        { name: 'Declination:', value: params[:dec] }
+    ]
+    clean_parameters(@parameters)
+
+    @fields = image_search_fields('image')
 
   rescue StandardError
     flash.now[:error] = 'The search parameters contain some errors.'
@@ -76,7 +93,7 @@ class SearchController < ApplicationController
         z_max: args[:z_max]
     }
 
-    fetch_search_results(query_args, QueryGenerator.method(:generate_point_query))
+    fetch_search_results(SyncTapService, query_args, QueryGenerator.method(:generate_point_query))
   end
 
   def rectangular_search_results
@@ -104,12 +121,26 @@ class SearchController < ApplicationController
         z_max: args[:z_max]
     }
 
-    fetch_search_results(query_args, QueryGenerator.method(:generate_rectangular_query))
+    fetch_search_results(SyncTapService, query_args, QueryGenerator.method(:generate_rectangular_query))
+  end
+
+  def raw_image_search_results
+    args = params[:query]
+    raise SearchError.new 'Invalid search arguments' unless args
+
+    query_args = {
+        dataset: DEFAULT_DATASET,
+        catalogue: 'image',
+        ra: args[:ra],
+        dec: args[:dec]
+    }
+
+    fetch_search_results(SiapService, query_args, QueryGenerator.method(:generate_image_query))
   end
 
   # HELPERS
 
-  def fetch_search_results(query_args, query_factory)
+  def fetch_search_results(service, query_args, query_factory)
     query = query_factory.call(query_args)
     raise SearchError.new 'Invalid search arguments' unless query and query.valid?
 
@@ -118,7 +149,7 @@ class SearchController < ApplicationController
         catalogue: query_args[:catalogue]
     }
 
-    service = SyncTapService.new(service_args)
+    service = service.new(service_args)
     results_table = service.fetch_results(query)
     raise SearchError.new 'Search request failed' unless results_table
 
@@ -134,8 +165,8 @@ class SearchController < ApplicationController
     raise error
   end
 
-  def search_fields(catagloue)
-    catalogue_fields = query_fields(DEFAULT_DATASET, catagloue)
+  def search_fields(catalogue)
+    catalogue_fields = query_fields(DEFAULT_DATASET, catalogue, 'tap')
     [
         { name: 'Object Id', field: catalogue_fields[:object_id_field] },
         { name: 'Right ascension', field: catalogue_fields[:ra_field] },
@@ -149,7 +180,18 @@ class SearchController < ApplicationController
     ]
   end
 
-  def add_parameters(parameters, params)
+  def image_search_fields(catalogue)
+    catalogue_fields = query_fields(DEFAULT_DATASET, catalogue, 'siap')
+    [
+        { name: 'Right ascension', field: catalogue_fields[:ra_field] },
+        { name: 'Declination', field: catalogue_fields[:dec_field] },
+        { name: 'Filter', field: catalogue_fields[:filter_field] },
+        { name: 'Survey', field: catalogue_fields[:survey_field] },
+        { name: 'Observation Date (UTC)', field: catalogue_fields[:observation_date_field] }
+    ]
+  end
+
+  def add_filter_parameters(parameters, params)
     add_parameter(parameters, params, 'U min:', :u_min)
     add_parameter(parameters, params, 'U max:', :u_max)
     add_parameter(parameters, params, 'V min:', :v_min)
@@ -176,8 +218,8 @@ class SearchController < ApplicationController
     parameters.push({ name: name, value: params[field] }) if params[field]
   end
 
-  def query_fields(dataset, catalogue)
-    Rails.application.config.asvo_registry.find_service(dataset, catalogue, 'tap')[:fields]
+  def query_fields(dataset, catalogue, service)
+    Rails.application.config.asvo_registry.find_service(dataset, catalogue, service)[:fields]
   end
 
   def handle_error(error)

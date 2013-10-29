@@ -13,7 +13,7 @@ Feature: Radial search
     And I fill in "<ra>" for "Right ascension (deg)"
     And I fill in "<dec>" for "Declination (deg)"
     And I fill in "<sr>" for "Search radius (deg)"
-    And I fake search request for catalogue "<catalogue>" with "<results>"
+    And I fake tap search request for catalogue "<catalogue>" with "<results>"
     And I press "Search SkyMapper"
     Then I should be on the radial search results page
     And I wait for "Fetching results..."
@@ -36,7 +36,7 @@ Feature: Radial search
     And I fill in "0.5" for "Search radius (deg)"
     And I fill in "<min_filter>" for "<min_filter_field>"
     And I fill in "<max_filter>" for "<max_filter_field>"
-    And I fake search request for catalogue "fs" with "<results>"
+    And I fake tap search request for catalogue "fs" with "<results>"
     And I press "Search SkyMapper"
     Then I should be on the radial search results page
     And I wait for "Fetching results..."
@@ -75,7 +75,7 @@ Feature: Radial search
     And I fill in "0.15" for "Search radius (deg)"
     And I fill in "<min_filter>" for "<min_filter_field>"
     And I fill in "<max_filter>" for "<max_filter_field>"
-    And I fake search request for catalogue "ms" with "<results>"
+    And I fake tap search request for catalogue "ms" with "<results>"
     And I press "Search SkyMapper"
     Then I should be on the radial search results page
     And I wait for "Fetching results..."
@@ -114,7 +114,7 @@ Feature: Radial search
     And I fill in "0.5" for "Search radius (deg)"
     And I fill in "<min_filter>" for "<min_filter_field>"
     And I fill in "<max_filter>" for "<max_filter_field>"
-    And I fake search request for catalogue "fs" with "<results>"
+    And I fake tap search request for catalogue "fs" with "<results>"
     And I press "Search SkyMapper"
     Then I should be on the radial search results page
     And I wait for "Fetching results..."
@@ -148,7 +148,7 @@ Feature: Radial search
     And I fill in "<filter_max>" for "I max"
     And I fill in "<filter_min>" for "Z min"
     And I fill in "<filter_max>" for "Z max"
-    And I fake search request for catalogue "<catalogue>" with "<results>"
+    And I fake tap search request for catalogue "<catalogue>" with "<results>"
     And I press "Search SkyMapper"
     Then I should be on the radial search results page
     And I wait for "Fetching results..."
@@ -179,7 +179,7 @@ Feature: Radial search
     And I fill in "<ra>" for "Right ascension (deg)"
     And I fill in "<dec>" for "Declination (deg)"
     And I fill in "<sr>" for "Search radius (deg)"
-    And I fake search request for catalogue "<catalogue>" with "<results>"
+    And I fake tap search request for catalogue "<catalogue>" with "<results>"
     And I press "Search SkyMapper"
     Then I should be on the radial search results page
     And I wait for "Fetching results..."
@@ -198,7 +198,7 @@ Feature: Radial search
     And I fill in "<ra>" for "Right ascension (deg)"
     And I fill in "<dec>" for "Declination (deg)"
     And I fill in "<sr>" for "Search radius (deg)"
-    And I fake search request for catalogue "<catalogue>" returns error
+    And I fake tap search request for catalogue "<catalogue>" returns error
     And I press "Search SkyMapper"
     Then I should be on the radial search results page
     And I wait for "Fetching results..."

@@ -42,5 +42,11 @@
           - :service: SIAP
             :description: TODO
             :service_end_point: http://astroa.anu.edu.au/skymapper/image_siap/siap
+            :fields:
+              :ra_field: POINTRA_DEG
+              :dec_field: POINTDEC_DEG
+              :filter_field: FILTER
+              :survey_field: IMAGE_TYPE
+              :observation_date_field: DATE
   - :dataset: wigglez
     :description: TODO

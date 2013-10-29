@@ -85,4 +85,16 @@ describe Registry do
     siap_service[:service_end_point].should == 'http://astroa.anu.edu.au/skymapper/image_siap/siap'
   end
 
+  it 'Registry includes fields for image catalogue in skymapper dataset' do
+    registry = Registry.new(ASVO_REGISTRY_FILEPATH)
+    siap_service = registry.find_service('skymapper', 'image', 'siap')
+    fields = siap_service[:fields]
+
+    fields[:ra_field].should == 'POINTRA_DEG'
+    fields[:dec_field].should == 'POINTDEC_DEG'
+    fields[:filter_field].should == 'FILTER'
+    fields[:survey_field].should == 'IMAGE_TYPE'
+    fields[:observation_date_field].should == 'DATE'
+  end
+
 end

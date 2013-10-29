@@ -31,4 +31,16 @@ describe SearchController do
     ]
   end
 
+  it 'search fields are in order' do
+    ctrl = SearchController.new
+    fields = ctrl.image_search_fields('image')
+    fields.should == [
+        { name: 'Right ascension', field: 'POINTRA_DEG' },
+        { name: 'Declination', field: 'POINTDEC_DEG' },
+        { name: 'Filter', field: 'FILTER' },
+        { name: 'Survey', field: 'IMAGE_TYPE' },
+        { name: 'Observation Date (UTC)', field: 'DATE' }
+    ]
+  end
+
 end
