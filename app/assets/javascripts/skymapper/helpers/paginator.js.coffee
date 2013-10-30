@@ -62,3 +62,6 @@ class @Paginator
   lastPage: ->
     @selectPage(@totalPages - 1) unless @isLastPage()
 
+  range: ->
+    [(@currentPage * @itemsPerPage)..((@currentPage + 1) * @itemsPerPage)]
+

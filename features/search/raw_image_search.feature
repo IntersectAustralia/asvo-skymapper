@@ -18,9 +18,11 @@ Feature: Raw image search
     And I should see "Query returned <count> objects."
     And I should see raw image search parameters with values ("<ra>", "<dec>")
     And I should see results for catalogue "<catalogue>" as "<results>" in all pages with limit "50"
+    And I should see raw image results as "<results>" in all pages with limit "50" in proper order
   Examples:
     | catalogue | ra        | dec      | results                 | count |
     | image     | 181.16129 | -1.18844 | skymapper_image_query_1 | 36    |
+    | image     | 7.01299   | -8.2162  | skymapper_image_query_3 | 1000  |
 
   @javascript
   Scenario Outline: I perform raw image search returns empty

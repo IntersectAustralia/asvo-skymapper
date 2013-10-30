@@ -1,3 +1,7 @@
+Before do
+  FakeWeb.clean_registry
+end
+
 And /^I select the "([^"]*)" tab$/ do |tab|
   click_on(tab)
 end
@@ -92,28 +96,28 @@ And /^I fake tap search request for catalogue "([^"]*)" with "([^"]*)"$/ do |cat
   service_args = {dataset:SearchController::DEFAULT_DATASET, catalogue: catalogue}
   service = SyncTapService.new(service_args)
 
-  FakeWeb.register_uri(:post, service.request, body: File.read(Rails.root.join("spec/fixtures/#{file}.xml")) )
+  FakeWeb.register_uri(:any, %r|#{service.request}.*|, body: File.read(Rails.root.join("spec/fixtures/#{file}.xml")) )
 end
 
 And /^I fake tap search request for catalogue "([^"]*)" returns error$/ do |catalogue|
   service_args = {dataset:SearchController::DEFAULT_DATASET, catalogue: catalogue}
   service = SyncTapService.new(service_args)
 
-  FakeWeb.register_uri(:post, service.request, exception: Exception )
+  FakeWeb.register_uri(:any, %r|#{service.request}.*|, exception: Exception )
 end
 
 And /^I fake siap search request for catalogue "([^"]*)" with "([^"]*)"$/ do |catalogue, file|
   service_args = {dataset:SearchController::DEFAULT_DATASET, catalogue: catalogue}
   service = SiapService.new(service_args)
 
-  FakeWeb.register_uri(:get, service.request, response: File.read(Rails.root.join("spec/fixtures/#{file}.xml")) )
+  FakeWeb.register_uri(:any, %r|#{service.request}.*|, body: File.read(Rails.root.join("spec/fixtures/#{file}.xml")) )
 end
 
 And /^I fake siap search request for catalogue "([^"]*)" returns error$/ do |catalogue|
   service_args = {dataset:SearchController::DEFAULT_DATASET, catalogue: catalogue}
   service = SiapService.new(service_args)
 
-  FakeWeb.register_uri(:get, service.request, exception: Exception )
+  FakeWeb.register_uri(:any, %r|#{service.request}.*|, exception: Exception )
 end
 
 Then /^I should not see any errors for "([^"]*)"$/ do |field|
@@ -138,10 +142,6 @@ And /^I wait for "([^"]*)"$/ do |message|
     break unless page.has_content?(message)
     sleep(1)
   end
-end
-
-Before do
-  FakeWeb.clean_registry
 end
 
 And /^I can(not)? see page "([^"]*)"$/ do |cannot, page|
@@ -175,4 +175,57 @@ Then /^I should see pages "([^"]*)" to "([^"]*)" with page "([^"]*)" selected gi
   step "I can press pages \"#{min_page}\" to \"#{max_page}\" except \"#{page}\""
   step "I can#{page == total ? 'not' : nil} press page \"›\""
   step "I can#{page == total ? 'not' : nil} press page \"»\""
+end
+
+And /^I should see raw image results as "([^"]*)" in all pages with limit "([^"]*)" in proper order$/ do |file, limit|
+  if ENV['SKIP_STEP'].blank?
+
+    results_table = YAML.load(File.read(Rails.root.join("spec/fixtures/#{file}.vo")))
+
+    pages = (results_table.table_data.length / limit.to_i).ceil
+    pages.times.each do
+      step 'I should see raw image results on page in proper order'
+      step 'I goto the next page'
+    end
+
+  end
+end
+
+And /^I should see raw image results on page in proper order$/ do
+  if ENV['SKIP_STEP'].blank?
+    filters = %w[u v g r i z]
+
+    table_rows = all('tbody tr')
+    table_rows.each_with_index do |row, row_index|
+      next if row_index == 0
+      last_row = table_rows[row_index - 1]
+
+      last_field_values = last_row.all('td')
+      field_values = row.all('td')
+
+      # order on ra, dec, filters (u, v, g, r, i, z) and date
+
+      ra = field_values[0].text.to_f
+      last_ra = last_field_values[0].text.to_f
+      ra.should >= last_ra
+
+      if ra == last_ra
+        dec = field_values[1].text.to_f
+        last_dec = last_field_values[1].text.to_f
+        dec.should >= last_dec
+
+        if dec == last_dec
+          filter = filters.index(field_values[2].text.downcase)
+          last_filter = filters.index(last_field_values[2].text.downcase)
+          filter.should >= last_filter
+
+          if filter == last_filter
+            date = field_values[4].text.to_f
+            last_date = last_field_values[4].text.to_f
+            date.should >= last_date
+          end
+        end
+      end
+    end
+  end
 end

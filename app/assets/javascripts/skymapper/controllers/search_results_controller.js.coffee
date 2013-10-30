@@ -27,5 +27,4 @@ window.skymapper_app.controller 'SearchResultsController', ['$scope', '$window',
             undefined
           )
         flash('notice', 'Fetching results...')
-
 ]

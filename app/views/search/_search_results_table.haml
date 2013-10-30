@@ -11,8 +11,11 @@
               - @fields.each do |field|
                 %th
                   = field[:name]
+                  %span.hide
+                    = field[:field]
           %tbody
-            %tr{ 'ng-repeat' => 'obj in pagination.pageItems' }
+            - filters = @filters ? @filters.map { |filter| "| #{filter} " }.join : nil
+            %tr{ 'ng-repeat' => "obj in objects #{filters} | page:pagination.range()" }
               - @fields.each do |field|
                 %td
                   = "{{obj['#{field[:field]}']}}"

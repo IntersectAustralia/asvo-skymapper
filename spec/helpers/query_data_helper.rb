@@ -118,3 +118,49 @@ def generate_image_query_fixtures
   end
 
 end
+
+def create_image_query_fixture(filename, params, size = 500)
+  doc = File.read(Rails.root.join('spec/fixtures/skymapper_image_query_2.xml'))
+
+  filters = %w[u v g r i z]
+  surveys = %w[fs ms]
+  num_of_fields = 20
+
+  xml = '<TABLEDATA>'
+
+  size.times.each do
+    xml += '<TR>'
+
+    values = { 4 => rand(1.year.ago..Time.now).to_date.mjd, 5 => params[:ra].to_f + rand - 0.5, 6 => params[:dec].to_f + rand - 0.5, 15 => filters.sample, 18 => surveys.sample }
+    num_of_fields.times.each do |index|
+
+      if values[index].blank?
+        xml += '<TD/>'
+      else
+        xml += "<TD>#{values[index]}</TD>"
+      end
+
+    end
+
+    xml += '</TR>'
+  end
+
+  xml += '</TABLEDATA>'
+
+  replace = <<-EOF
+<TABLEDATA>
+</TABLEDATA>
+  EOF
+
+  doc.gsub!(replace, xml)
+
+  vo = File.new(Rails.root.join("spec/fixtures/#{filename}.xml"), 'w')
+  vo.write doc
+  vo.close
+
+  vo = File.new(Rails.root.join("spec/fixtures/#{filename}.vo"), 'w')
+  vo_table = VOTableParser.parse_xml(File.read(Rails.root.join("spec/fixtures/#{filename}.xml")))
+  puts "#{filename} contains #{vo_table.table_data ? vo_table.table_data.size : 0} objects"
+  YAML.dump(vo_table, vo)
+  vo.close
+end

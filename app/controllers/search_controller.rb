@@ -63,6 +63,7 @@ class SearchController < ApplicationController
 
     @fields = image_search_fields('image')
 
+    @filters = ["rawImageOrder:[#{@fields.map { |x| "'#{x[:field]}',"}.join[0..-2]}]"]
   rescue StandardError
     flash.now[:error] = 'The search parameters contain some errors.'
   ensure
@@ -187,7 +188,7 @@ class SearchController < ApplicationController
         { name: 'Declination', field: catalogue_fields[:dec_field] },
         { name: 'Filter', field: catalogue_fields[:filter_field] },
         { name: 'Survey', field: catalogue_fields[:survey_field] },
-        { name: 'Observation Date (UTC)', field: catalogue_fields[:observation_date_field] }
+        { name: 'Observation Date (MJD)', field: catalogue_fields[:observation_date_field] } # changing the labels here can effect angular code
     ]
   end
 
