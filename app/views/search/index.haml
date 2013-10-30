@@ -4,6 +4,8 @@
     %h3 Search
 
     %ul#search-tabs.nav.nav-tabs
+      %span.hide
+        = session[:search] ? session[:search][:type] : nil
       %li
         %a{ href: '#tab-name', 'data-toggle' => 'tab'}
           Name
@@ -17,7 +19,7 @@
         %a{ href: '#tab-adql', 'data-toggle' => 'tab'}
           ADQL
       %li
-        %a{ href: '#tab-raw', 'data-toggle' => 'tab'}
+        %a{ href: '#tab-raw-image', 'data-toggle' => 'tab'}
           Raw Image
 
     .tab-content
@@ -29,7 +31,7 @@
         = render partial: 'tab_rectangular'
       #tab-adql.tab-pane
         = render partial: 'tab_adql'
-      #tab-raw.tab-pane
+      #tab-raw-image.tab-pane
         = render partial: 'tab_raw_image'
 
   .aside.span3

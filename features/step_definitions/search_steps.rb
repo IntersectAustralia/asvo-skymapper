@@ -6,6 +6,10 @@ And /^I select the "([^"]*)" tab$/ do |tab|
   click_on(tab)
 end
 
+And /^I should see the "([^"]*)" tab$/ do |tab|
+  find('#search-tabs li.active').find(:xpath, ".//a[contains(text(), '#{tab}')]")
+end
+
 And /^I should see radial search parameters with values \("([^"]*)", "([^"]*)", "([^"]*)"\)$/ do |ra, dec, sr|
   step "I should see search parameter \"Right ascension\" as \"#{ra}\""
   step "I should see search parameter \"Declination\" as \"#{dec}\""

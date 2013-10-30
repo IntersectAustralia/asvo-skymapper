@@ -10,10 +10,11 @@ class SearchController < ApplicationController
   rescue_from SearchError, with: :handle_error
 
   def index
-
   end
 
   def radial_search
+    session[:search] = { type: 'radial', params: params }
+
     @results_path = radial_search_results_path
 
     @parameters = [
@@ -33,6 +34,8 @@ class SearchController < ApplicationController
   end
 
   def rectangular_search
+    session[:search] = { type: 'rectangular', params: params }
+
     @results_path = rectangular_search_results_path
 
     @parameters = [
@@ -53,6 +56,8 @@ class SearchController < ApplicationController
   end
 
   def raw_image_search
+    session[:search] = { type: 'raw-image', params: params }
+
     @results_path = raw_image_search_results_path
 
     @parameters = [
