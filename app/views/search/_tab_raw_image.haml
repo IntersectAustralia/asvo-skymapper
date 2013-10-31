@@ -8,7 +8,8 @@
         .span6
           %label{ for: :ra }
             Right ascension (deg):
-          %input#ra{ type: 'text', name: 'ra', 'ng-model' => 'form.ra', required: '', range: '[0, 360)', decimal: 8 }
+          %input#ra{ type: 'text', name: 'ra', 'ng-model' => 'form.ra', required: '', range: '[0, 360)', decimal: 8,
+            'ng-init' => "setInput('ra', '#{session_param('raw-image', :ra)}')" }
           %ul.error{ 'ng-show' => '(submitted || raw_image_search_form.ra.$dirty) && raw_image_search_form.ra.$invalid' }
             %li.error{ 'ng-show' => 'raw_image_search_form.ra.$error.required' }
               This field is required.
@@ -19,7 +20,8 @@
         .span6
           %label{ for: :dec }
             Declination (deg):
-          %input#dec{ type: 'text', name: 'dec', 'ng-model' => 'form.dec', required: '', range: '[-90, 90]', decimal: 8 }
+          %input#dec{ type: 'text', name: 'dec', 'ng-model' => 'form.dec', required: '', range: '[-90, 90]', decimal: 8,
+            'ng-init' => "setInput('dec', '#{session_param('raw-image', :dec)}')" }
           %ul.error{ 'ng-show' => '(submitted || raw_image_search_form.dec.$dirty) && raw_image_search_form.dec.$invalid' }
             %li.error{ 'ng-show' => 'raw_image_search_form.dec.$error.required' }
               This field is required.

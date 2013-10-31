@@ -20,6 +20,12 @@ Feature: Radial search
     And I should see "Query returned <count> objects."
     And I should see radial search parameters with values ("<ra>", "<dec>", "<sr>")
     And I should see results for catalogue "<catalogue>" as "<results>" in all pages with limit "50"
+    Then I follow "Back"
+    And I should see the "Radial" tab
+    And I should see search field "SkyMapper survey" with value "<catalogue>"
+    And I should see search field "Right ascension (deg)" with value "<ra>"
+    And I should see search field "Declination (deg)" with value "<dec>"
+    And I should see search field "Search radius (deg)" with value "<sr>"
   Examples:
     | survey             | catalogue | ra        | dec      | sr   | results                    | count |
     | Five-Second Survey | fs        | 178.83871 | -1.18844 | 0.5  | skymapper_point_query_fs_1 | 272   |
@@ -45,6 +51,14 @@ Feature: Radial search
     And I should see search parameter "<min_filter_field>" as "<min_filter>"
     And I should see search parameter "<max_filter_field>" as "<max_filter>"
     And I should see results for catalogue "fs" as "<results>" in all pages with limit "50"
+    Then I follow "Back"
+    And I should see the "Radial" tab
+    And I should see search field "SkyMapper survey" with value "fs"
+    And I should see search field "Right ascension (deg)" with value "178.83871"
+    And I should see search field "Declination (deg)" with value "-1.18844"
+    And I should see search field "Search radius (deg)" with value "0.5"
+    And I should see search field "<min_filter_field>" with value "<min_filter>"
+    And I should see search field "<max_filter_field>" with value "<max_filter>"
   Examples:
     | min_filter_field | max_filter_field | min_filter | max_filter | results                             | count |
     | U min            | U max            | 50         |            | skymapper_point_query_fs_u_filter_1 | 96    |
@@ -84,6 +98,14 @@ Feature: Radial search
     And I should see search parameter "<min_filter_field>" as "<min_filter>"
     And I should see search parameter "<max_filter_field>" as "<max_filter>"
     And I should see results for catalogue "ms" as "<results>" in all pages with limit "50"
+    Then I follow "Back"
+    And I should see the "Radial" tab
+    And I should see search field "SkyMapper survey" with value "ms"
+    And I should see search field "Right ascension (deg)" with value "178.83871"
+    And I should see search field "Declination (deg)" with value "-1.18844"
+    And I should see search field "Search radius (deg)" with value "0.15"
+    And I should see search field "<min_filter_field>" with value "<min_filter>"
+    And I should see search field "<max_filter_field>" with value "<max_filter>"
   Examples:
     | min_filter_field | max_filter_field | min_filter | max_filter | results                             | count |
     | U min            | U max            | 0.1        |            | skymapper_point_query_ms_u_filter_1 | 372   |
@@ -123,6 +145,14 @@ Feature: Radial search
     And I should see search parameter "<min_filter_field>" as "<clean_min_filter>"
     And I should see search parameter "<max_filter_field>" as "<clean_max_fitler>"
     And I should see results for catalogue "fs" as "<results>" in all pages with limit "50"
+    Then I follow "Back"
+    And I should see the "Radial" tab
+    And I should see search field "SkyMapper survey" with value "fs"
+    And I should see search field "Right ascension (deg)" with value "178.83871"
+    And I should see search field "Declination (deg)" with value "-1.18844"
+    And I should see search field "Search radius (deg)" with value "0.5"
+    And I should see search field "<min_filter_field>" with value "<min_filter>"
+    And I should see search field "<max_filter_field>" with value "<max_filter>"
   Examples:
     | min_filter_field | max_filter_field | min_filter | max_filter | results                             | count | clean_min_filter | clean_max_fitler |
     | U min            | U max            | 5 0        |            | skymapper_point_query_fs_u_filter_1 | 96    | 50               |                  |
@@ -136,39 +166,57 @@ Feature: Radial search
     And I fill in "<ra>" for "Right ascension (deg)"
     And I fill in "<dec>" for "Declination (deg)"
     And I fill in "<sr>" for "Search radius (deg)"
-    And I fill in "<filter_min>" for "U min"
-    And I fill in "<filter_max>" for "U max"
-    And I fill in "<filter_min>" for "V min"
-    And I fill in "<filter_max>" for "V max"
-    And I fill in "<filter_min>" for "G min"
-    And I fill in "<filter_max>" for "G max"
-    And I fill in "<filter_min>" for "R min"
-    And I fill in "<filter_max>" for "R max"
-    And I fill in "<filter_min>" for "I min"
-    And I fill in "<filter_max>" for "I max"
-    And I fill in "<filter_min>" for "Z min"
-    And I fill in "<filter_max>" for "Z max"
+    And I fill in "<min_filter>" for "U min"
+    And I fill in "<max_filter>" for "U max"
+    And I fill in "<min_filter>" for "V min"
+    And I fill in "<max_filter>" for "V max"
+    And I fill in "<min_filter>" for "G min"
+    And I fill in "<max_filter>" for "G max"
+    And I fill in "<min_filter>" for "R min"
+    And I fill in "<max_filter>" for "R max"
+    And I fill in "<min_filter>" for "I min"
+    And I fill in "<max_filter>" for "I max"
+    And I fill in "<min_filter>" for "Z min"
+    And I fill in "<max_filter>" for "Z max"
     And I fake tap search request for catalogue "<catalogue>" with "<results>"
     And I press "Search SkyMapper"
     Then I should be on the radial search results page
     And I wait for "Fetching results..."
     And I should see "Query returned <count> objects."
     And I should see radial search parameters with values ("<ra>", "<dec>", "<sr>")
-    And I should see search parameter "U min" as "<filter_min>"
-    And I should see search parameter "U max" as "<filter_max>"
-    And I should see search parameter "V min" as "<filter_min>"
-    And I should see search parameter "V max" as "<filter_max>"
-    And I should see search parameter "G min" as "<filter_min>"
-    And I should see search parameter "G max" as "<filter_max>"
-    And I should see search parameter "R min" as "<filter_min>"
-    And I should see search parameter "R max" as "<filter_max>"
-    And I should see search parameter "I min" as "<filter_min>"
-    And I should see search parameter "I max" as "<filter_max>"
-    And I should see search parameter "Z min" as "<filter_min>"
-    And I should see search parameter "Z max" as "<filter_max>"
+    And I should see search parameter "U min" as "<min_filter>"
+    And I should see search parameter "U max" as "<max_filter>"
+    And I should see search parameter "V min" as "<min_filter>"
+    And I should see search parameter "V max" as "<max_filter>"
+    And I should see search parameter "G min" as "<min_filter>"
+    And I should see search parameter "G max" as "<max_filter>"
+    And I should see search parameter "R min" as "<min_filter>"
+    And I should see search parameter "R max" as "<max_filter>"
+    And I should see search parameter "I min" as "<min_filter>"
+    And I should see search parameter "I max" as "<max_filter>"
+    And I should see search parameter "Z min" as "<min_filter>"
+    And I should see search parameter "Z max" as "<max_filter>"
     And I should see results for catalogue "<catalogue>" as "<results>" in all pages with limit "50"
+    Then I follow "Back"
+    And I should see the "Radial" tab
+    And I should see search field "SkyMapper survey" with value "<catalogue>"
+    And I should see search field "Right ascension (deg)" with value "<ra>"
+    And I should see search field "Declination (deg)" with value "<dec>"
+    And I should see search field "Search radius (deg)" with value "<sr>"
+    And I should see search field "U min" with value "<min_filter>"
+    And I should see search field "U max" with value "<max_filter>"
+    And I should see search field "V min" with value "<min_filter>"
+    And I should see search field "V max" with value "<max_filter>"
+    And I should see search field "G min" with value "<min_filter>"
+    And I should see search field "G max" with value "<max_filter>"
+    And I should see search field "R min" with value "<min_filter>"
+    And I should see search field "R max" with value "<max_filter>"
+    And I should see search field "I min" with value "<min_filter>"
+    And I should see search field "I max" with value "<max_filter>"
+    And I should see search field "Z min" with value "<min_filter>"
+    And I should see search field "Z max" with value "<max_filter>"
   Examples:
-    | survey             | catalogue | ra        | dec      | sr   | filter_min | filter_max | results                             | count |
+    | survey             | catalogue | ra        | dec      | sr   | min_filter | max_filter | results                             | count |
     | Five-Second Survey | fs        | 178.83871 | -1.18844 | 0.5  | 50         | 1000       | skymapper_point_query_fs_filter_all | 26    |
     | Main Survey        | ms        | 178.83871 | -1.18844 | 0.15 | 0.1        | 1          | skymapper_point_query_ms_filter_all | 3     |
 

@@ -21,6 +21,13 @@ Feature: Rectangular search
     And I should see "Query returned <count> objects."
     And I should see rectangular search parameters with values ("<ra_min>", "<ra_max>", "<dec_min>", "<dec_max>")
     And I should see results for catalogue "<catalogue>" as "<results>" in all pages with limit "50"
+    Then I follow "Back"
+    And I should see the "Rectangular" tab
+    And I should see search field "SkyMapper survey" with value "<catalogue>"
+    And I should see search field "Right ascension min (deg)" with value "<ra_min>"
+    And I should see search field "Right ascension max (deg)" with value "<ra_max>"
+    And I should see search field "Declination min (deg)" with value "<dec_min>"
+    And I should see search field "Declination max (deg)" with value "<dec_max>"
   Examples:
     | survey             | catalogue | ra_min | ra_max | dec_min | dec_max | results                          | count |
     | Five-Second Survey | fs        | 1.75   | 2.25   | -2.25   | -0.75   | skymapper_rectangular_query_fs_1 | 547   |
@@ -47,6 +54,15 @@ Feature: Rectangular search
     And I should see search parameter "<min_filter_field>" as "<min_filter>"
     And I should see search parameter "<max_filter_field>" as "<max_filter>"
     And I should see results for catalogue "fs" as "<results>" in all pages with limit "50"
+    Then I follow "Back"
+    And I should see the "Rectangular" tab
+    And I should see search field "SkyMapper survey" with value "fs"
+    And I should see search field "Right ascension min (deg)" with value "1.75"
+    And I should see search field "Right ascension max (deg)" with value "2.25"
+    And I should see search field "Declination min (deg)" with value "-2.25"
+    And I should see search field "Declination max (deg)" with value "-0.75"
+    And I should see search field "<min_filter_field>" with value "<min_filter>"
+    And I should see search field "<max_filter_field>" with value "<max_filter>"
   Examples:
     | min_filter_field | max_filter_field | min_filter | max_filter | results                                   | count |
     | U min            | U max            | 50         |            | skymapper_rectangular_query_fs_u_filter_1 | 156   |
@@ -87,6 +103,15 @@ Feature: Rectangular search
     And I should see search parameter "<min_filter_field>" as "<min_filter>"
     And I should see search parameter "<max_filter_field>" as "<max_filter>"
     And I should see results for catalogue "ms" as "<results>" in all pages with limit "50"
+    Then I follow "Back"
+    And I should see the "Rectangular" tab
+    And I should see search field "SkyMapper survey" with value "ms"
+    And I should see search field "Right ascension min (deg)" with value "1.975"
+    And I should see search field "Right ascension max (deg)" with value "2.025"
+    And I should see search field "Declination min (deg)" with value "-1.525"
+    And I should see search field "Declination max (deg)" with value "-1.475"
+    And I should see search field "<min_filter_field>" with value "<min_filter>"
+    And I should see search field "<max_filter_field>" with value "<max_filter>"
   Examples:
     | min_filter_field | max_filter_field | min_filter | max_filter | results                                   | count |
     | U min            | U max            | 0.1        |            | skymapper_rectangular_query_ms_u_filter_1 | 29    |
@@ -127,6 +152,15 @@ Feature: Rectangular search
     And I should see search parameter "<min_filter_field>" as "<clean_min_filter>"
     And I should see search parameter "<max_filter_field>" as "<clean_max_filter>"
     And I should see results for catalogue "fs" as "<results>" in all pages with limit "50"
+    Then I follow "Back"
+    And I should see the "Rectangular" tab
+    And I should see search field "SkyMapper survey" with value "fs"
+    And I should see search field "Right ascension min (deg)" with value "1.75"
+    And I should see search field "Right ascension max (deg)" with value "2.25"
+    And I should see search field "Declination min (deg)" with value "-2.25"
+    And I should see search field "Declination max (deg)" with value "-0.75"
+    And I should see search field "<min_filter_field>" with value "<min_filter>"
+    And I should see search field "<max_filter_field>" with value "<max_filter>"
   Examples:
     | min_filter_field | max_filter_field | min_filter | max_filter | results                                   | count | clean_min_filter | clean_max_filter |
     | U min            | U max            | 5  0       |            | skymapper_rectangular_query_fs_u_filter_1 | 156   | 50               |                  |
@@ -141,39 +175,58 @@ Feature: Rectangular search
     And I fill in "<ra_max>" for "Right ascension max (deg)"
     And I fill in "<dec_min>" for "Declination min (deg)"
     And I fill in "<dec_max>" for "Declination max (deg)"
-    And I fill in "<filter_min>" for "U min"
-    And I fill in "<filter_max>" for "U max"
-    And I fill in "<filter_min>" for "V min"
-    And I fill in "<filter_max>" for "V max"
-    And I fill in "<filter_min>" for "G min"
-    And I fill in "<filter_max>" for "G max"
-    And I fill in "<filter_min>" for "R min"
-    And I fill in "<filter_max>" for "R max"
-    And I fill in "<filter_min>" for "I min"
-    And I fill in "<filter_max>" for "I max"
-    And I fill in "<filter_min>" for "Z min"
-    And I fill in "<filter_max>" for "Z max"
+    And I fill in "<min_filter>" for "U min"
+    And I fill in "<max_filter>" for "U max"
+    And I fill in "<min_filter>" for "V min"
+    And I fill in "<max_filter>" for "V max"
+    And I fill in "<min_filter>" for "G min"
+    And I fill in "<max_filter>" for "G max"
+    And I fill in "<min_filter>" for "R min"
+    And I fill in "<max_filter>" for "R max"
+    And I fill in "<min_filter>" for "I min"
+    And I fill in "<max_filter>" for "I max"
+    And I fill in "<min_filter>" for "Z min"
+    And I fill in "<max_filter>" for "Z max"
     And I fake tap search request for catalogue "<catalogue>" with "<results>"
     And I press "Search SkyMapper"
     Then I should be on the rectangular search results page
     And I wait for "Fetching results..."
     And I should see "Query returned <count> objects."
     And I should see rectangular search parameters with values ("<ra_min>", "<ra_max>", "<dec_min>", "<dec_max>")
-    And I should see search parameter "U min" as "<filter_min>"
-    And I should see search parameter "U max" as "<filter_max>"
-    And I should see search parameter "V min" as "<filter_min>"
-    And I should see search parameter "V max" as "<filter_max>"
-    And I should see search parameter "G min" as "<filter_min>"
-    And I should see search parameter "G max" as "<filter_max>"
-    And I should see search parameter "R min" as "<filter_min>"
-    And I should see search parameter "R max" as "<filter_max>"
-    And I should see search parameter "I min" as "<filter_min>"
-    And I should see search parameter "I max" as "<filter_max>"
-    And I should see search parameter "Z min" as "<filter_min>"
-    And I should see search parameter "Z max" as "<filter_max>"
+    And I should see search parameter "U min" as "<min_filter>"
+    And I should see search parameter "U max" as "<max_filter>"
+    And I should see search parameter "V min" as "<min_filter>"
+    And I should see search parameter "V max" as "<max_filter>"
+    And I should see search parameter "G min" as "<min_filter>"
+    And I should see search parameter "G max" as "<max_filter>"
+    And I should see search parameter "R min" as "<min_filter>"
+    And I should see search parameter "R max" as "<max_filter>"
+    And I should see search parameter "I min" as "<min_filter>"
+    And I should see search parameter "I max" as "<max_filter>"
+    And I should see search parameter "Z min" as "<min_filter>"
+    And I should see search parameter "Z max" as "<max_filter>"
     And I should see results for catalogue "<catalogue>" as "<results>" in all pages with limit "50"
+    Then I follow "Back"
+    And I should see the "Rectangular" tab
+    And I should see search field "SkyMapper survey" with value "<catalogue>"
+    And I should see search field "Right ascension min (deg)" with value "<ra_min>"
+    And I should see search field "Right ascension max (deg)" with value "<ra_max>"
+    And I should see search field "Declination min (deg)" with value "<dec_min>"
+    And I should see search field "Declination max (deg)" with value "<dec_max>"
+    And I should see search field "U min" with value "<min_filter>"
+    And I should see search field "U max" with value "<max_filter>"
+    And I should see search field "V min" with value "<min_filter>"
+    And I should see search field "V max" with value "<max_filter>"
+    And I should see search field "G min" with value "<min_filter>"
+    And I should see search field "G max" with value "<max_filter>"
+    And I should see search field "R min" with value "<min_filter>"
+    And I should see search field "R max" with value "<max_filter>"
+    And I should see search field "I min" with value "<min_filter>"
+    And I should see search field "I max" with value "<max_filter>"
+    And I should see search field "Z min" with value "<min_filter>"
+    And I should see search field "Z max" with value "<max_filter>"
   Examples:
-    | survey             | catalogue | ra_min | ra_max | dec_min | dec_max | filter_min | filter_max | results                                   | count |
+    | survey             | catalogue | ra_min | ra_max | dec_min | dec_max | min_filter | max_filter | results                                   | count |
     | Five-Second Survey | fs        | 1.75   | 2.25   | -2.25   | -0.75   | 50         | 500        | skymapper_rectangular_query_fs_filter_all | 23    |
     | Main Survey        | ms        | 1.975  | 2.025  | -1.525  | -1.475  | 0.1        | 1          | skymapper_rectangular_query_ms_filter_all | 1     |
 

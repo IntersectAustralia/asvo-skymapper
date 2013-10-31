@@ -19,6 +19,10 @@ Feature: Raw image search
     And I should see raw image search parameters with values ("<ra>", "<dec>")
     And I should see results for catalogue "<catalogue>" as "<results>" in all pages with limit "50"
     And I should see raw image results as "<results>" in all pages with limit "50" in proper order
+    Then I follow "Back"
+    And I should see the "Raw Image" tab
+    And I should see search field "Right ascension (deg)" with value "<ra>"
+    And I should see search field "Declination (deg)" with value "<dec>"
   Examples:
     | catalogue | ra        | dec      | results                 | count |
     | image     | 181.16129 | -1.18844 | skymapper_image_query_1 | 36    |

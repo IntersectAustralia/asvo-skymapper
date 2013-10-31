@@ -252,3 +252,7 @@ end
 And /^I download the image file$/ do
   page.driver.browser.switch_to.alert.accept
 end
+
+And /^I should see search field "([^"]*)" with value "([^"]*)"$/ do |field, value|
+  find_field(field).value.should == value
+end

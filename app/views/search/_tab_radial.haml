@@ -10,7 +10,8 @@
         .span6
           %label{ for: :catalogue }
             SkyMapper survey:
-          %select#catalogue{ 'ng-model' => 'form.catalogue', name: 'catalogue', required: '' }
+          %select#catalogue{ 'ng-model' => 'form.catalogue', name: 'catalogue', required: '',
+            'ng-init' => "setInput('catalogue', '#{session_param('radial', :catalogue)}')" }
             %option{ value: :fs }
               Five-Second Survey
             %option{ value: :ms }
@@ -23,7 +24,8 @@
         .span6
           %label{ for: :ra }
             Right ascension (deg):
-          %input#ra{ type: 'text', name: 'ra', 'ng-model' => 'form.ra', required: '', range: '[0, 360)', decimal: 8 }
+          %input#ra{ type: 'text', name: 'ra', 'ng-model' => 'form.ra', required: '', range: '[0, 360)', decimal: 8,
+            'ng-init' => "setInput('ra', '#{session_param('radial', :ra)}')" }
           %ul.error{ 'ng-show' => '(submitted || radial_search_form.ra.$dirty) && radial_search_form.ra.$invalid' }
             %li.error{ 'ng-show' => 'radial_search_form.ra.$error.required' }
               This field is required.
@@ -34,7 +36,8 @@
         .span6
           %label{ for: :dec }
             Declination (deg):
-          %input#dec{ type: 'text', name: 'dec', 'ng-model' => 'form.dec', required: '', range: '[-90, 90]', decimal: 8 }
+          %input#dec{ type: 'text', name: 'dec', 'ng-model' => 'form.dec', required: '', range: '[-90, 90]', decimal: 8,
+            'ng-init' => "setInput('dec', '#{session_param('radial', :dec)}')" }
           %ul.error{ 'ng-show' => '(submitted || radial_search_form.dec.$dirty) && radial_search_form.dec.$invalid' }
             %li.error{ 'ng-show' => 'radial_search_form.dec.$error.required' }
               This field is required.
@@ -47,7 +50,8 @@
         .span6
           %label{ for: :sr }
             Search radius (deg):
-          %input#sr{ type: 'text', name: 'sr', 'ng-model' => 'form.sr', required: '', range: '(0, 10]', decimal: 8, 'ng-init' => "form.sr='0.05'" }
+          %input#sr{ type: 'text', name: 'sr', 'ng-model' => 'form.sr', required: '', range: '(0, 10]', decimal: 8,
+            'ng-init' => "setInput('sr', '#{session_param('radial', :sr, 0.05)}')" }
           %ul.error{ 'ng-show' => '(submitted || radial_search_form.sr.$dirty) && radial_search_form.sr.$invalid' }
             %li.error{ 'ng-show' => 'radial_search_form.sr.$error.required' }
               This field is required.
@@ -56,12 +60,12 @@
             %li.error{ 'ng-show' => 'radial_search_form.sr.$error.decimal' }
               This field should be a number with 8 decimal places.
 
-      = render partial: 'search_filter', locals: { form: 'radial_search_form', filter: 'u' }
-      = render partial: 'search_filter', locals: { form: 'radial_search_form', filter: 'v' }
-      = render partial: 'search_filter', locals: { form: 'radial_search_form', filter: 'g' }
-      = render partial: 'search_filter', locals: { form: 'radial_search_form', filter: 'r' }
-      = render partial: 'search_filter', locals: { form: 'radial_search_form', filter: 'i' }
-      = render partial: 'search_filter', locals: { form: 'radial_search_form', filter: 'z' }
+      = render partial: 'search_filter', locals: { form: 'radial_search_form', filter: 'u', type: 'radial' }
+      = render partial: 'search_filter', locals: { form: 'radial_search_form', filter: 'v', type: 'radial' }
+      = render partial: 'search_filter', locals: { form: 'radial_search_form', filter: 'g', type: 'radial' }
+      = render partial: 'search_filter', locals: { form: 'radial_search_form', filter: 'r', type: 'radial' }
+      = render partial: 'search_filter', locals: { form: 'radial_search_form', filter: 'i', type: 'radial' }
+      = render partial: 'search_filter', locals: { form: 'radial_search_form', filter: 'z', type: 'radial' }
 
     .form-actions
       %input#submit.btn.btn-primary{ type: 'submit', value: 'Search SkyMapper', 'ng-disabled' => 'searching' }
