@@ -8,7 +8,7 @@ Feature: Raw image search
 
   @javascript
   Scenario Outline: I perform raw image search
-    And I select the "Raw Image" tab
+    Given I select the "Raw Image" tab
     And I fill in "<ra>" for "Right ascension (deg)"
     And I fill in "<dec>" for "Declination (deg)"
     And I fake siap search request for catalogue "<catalogue>" with "<results>"
@@ -26,7 +26,7 @@ Feature: Raw image search
 
   @javascript
   Scenario Outline: I perform raw image search returns empty
-    And I select the "Raw Image" tab
+    Given I select the "Raw Image" tab
     And I fill in "<ra>" for "Right ascension (deg)"
     And I fill in "<dec>" for "Declination (deg)"
     And I fake siap search request for catalogue "<catalogue>" with "<results>"
@@ -42,7 +42,7 @@ Feature: Raw image search
 
   @javascript
   Scenario Outline: I can submit raw image search with the follow values
-    And I select the "Raw Image" tab
+    Given I select the "Raw Image" tab
     And I fill in "<value>" for "<field>"
     Then I should not see any errors for "<field>"
   Examples:
@@ -56,7 +56,7 @@ Feature: Raw image search
 
   @javascript
   Scenario Outline: I cannot submit raw image search if form has errors
-    And I select the "Raw Image" tab
+    Given I select the "Raw Image" tab
     And I fill in "<value>" for "<field>"
     Then I should see error "<error>" for "<field>"
   Examples:
@@ -74,7 +74,7 @@ Feature: Raw image search
 
   @javascript
   Scenario Outline: I cannot submit raw image search if form has errors (required errors)
-    And I select the "Raw Image" tab
+    Given I select the "Raw Image" tab
     And I press "Search SkyMapper"
     And I fill in "" for "<field>"
     And I press "Search SkyMapper"
@@ -83,3 +83,23 @@ Feature: Raw image search
     | field                 | error                   |
     | Right ascension (deg) | This field is required. |
     | Declination (deg)     | This field is required. |
+
+  @javascript
+  Scenario Outline: I can download an image file
+    Given I select the "Raw Image" tab
+    And I fill in "<ra>" for "Right ascension (deg)"
+    And I fill in "<dec>" for "Declination (deg)"
+    And I fake siap search request for catalogue "<catalogue>" with "<results>"
+    And I press "Search SkyMapper"
+    Then I should be on the raw image search results page
+    And I wait for "Fetching results..."
+    And I should see "Query returned <count> objects."
+    And I should see raw image search parameters with values ("<ra>", "<dec>")
+    And I should see results for catalogue "<catalogue>" as "<results>" in all pages with limit "50"
+    Then I fake request for first image link
+    And I click the first image link
+    Then I should see popup with message "You are about to download a large image. Are you sure you want to continue?"
+    And I download the image file
+  Examples:
+  | catalogue | ra        | dec      | results                 | count |
+  | image     | 181.16129 | -1.18844 | skymapper_image_query_1 | 36    |

@@ -8,7 +8,7 @@ Feature: Rectangular search
 
   @javascript
   Scenario Outline: I perform rectangular search
-    And I select the "Rectangular" tab
+    Given I select the "Rectangular" tab
     And I select "<survey>" from "SkyMapper survey"
     And I fill in "<ra_min>" for "Right ascension min (deg)"
     And I fill in "<ra_max>" for "Right ascension max (deg)"
@@ -30,7 +30,7 @@ Feature: Rectangular search
 
   @javascript
   Scenario Outline: I perform rectangular search using filters (FS)
-    And I select the "Rectangular" tab
+    Given I select the "Rectangular" tab
     And I select "Five-Second Survey" from "SkyMapper survey"
     And I fill in "1.75" for "Right ascension min (deg)"
     And I fill in "2.25" for "Right ascension max (deg)"
@@ -70,7 +70,7 @@ Feature: Rectangular search
 
   @javascript
   Scenario Outline: I perform rectangular search using filters (MS)
-    And I select the "Rectangular" tab
+    Given I select the "Rectangular" tab
     And I select "Main Survey" from "SkyMapper survey"
     And I fill in "1.975" for "Right ascension min (deg)"
     And I fill in "2.025" for "Right ascension max (deg)"
@@ -110,7 +110,7 @@ Feature: Rectangular search
 
   @javascript
   Scenario Outline: I perform rectangular search should allow spaces in filters
-    And I select the "Rectangular" tab
+    Given I select the "Rectangular" tab
     And I select "Five-Second Survey" from "SkyMapper survey"
     And I fill in "1.75" for "Right ascension min (deg)"
     And I fill in "2.25" for "Right ascension max (deg)"
@@ -135,7 +135,7 @@ Feature: Rectangular search
 
   @javascript
   Scenario Outline: I perform rectangular search using all filters
-    And I select the "Rectangular" tab
+    Given I select the "Rectangular" tab
     And I select "<survey>" from "SkyMapper survey"
     And I fill in "<ra_min>" for "Right ascension min (deg)"
     And I fill in "<ra_max>" for "Right ascension max (deg)"
@@ -179,7 +179,7 @@ Feature: Rectangular search
 
   @javascript
   Scenario Outline: I perform rectangular search returns empty
-    And I select the "Rectangular" tab
+    Given I select the "Rectangular" tab
     And I select "<survey>" from "SkyMapper survey"
     And I fill in "<ra_min>" for "Right ascension min (deg)"
     And I fill in "<ra_max>" for "Right ascension max (deg)"
@@ -199,7 +199,7 @@ Feature: Rectangular search
 
   @javascript
   Scenario Outline: I cannot perform rectangular search if request error
-    And I select the "Rectangular" tab
+    Given I select the "Rectangular" tab
     And I select "<survey>" from "SkyMapper survey"
     And I fill in "<ra_min>" for "Right ascension min (deg)"
     And I fill in "<ra_max>" for "Right ascension max (deg)"
@@ -219,7 +219,7 @@ Feature: Rectangular search
 
   @javascript
   Scenario Outline: I can submit rectangular search with the follow values
-    And I select the "Rectangular" tab
+    Given I select the "Rectangular" tab
     And I fill in "<value>" for "<field>"
     Then I should not see any errors for "<field>"
   Examples:
@@ -276,7 +276,7 @@ Feature: Rectangular search
 
   @javascript
   Scenario Outline: I cannot submit rectangular search if form has errors
-    And I select the "Rectangular" tab
+    Given I select the "Rectangular" tab
     And I fill in "<value>" for "<field>"
     Then I should see error "<error>" for "<field>"
   Examples:
@@ -328,7 +328,7 @@ Feature: Rectangular search
 
   @javascript
   Scenario Outline: Max fields should not display errors if min fields are less than or not a number
-    And I select the "Rectangular" tab
+    Given I select the "Rectangular" tab
     And I fill in "<min>" for "<min_field>"
     And I fill in "<max>" for "<max_field>"
     Then I should not see any errors for "<max_field>"
@@ -371,7 +371,7 @@ Feature: Rectangular search
 
   @javascript
   Scenario Outline: Max fields should display error if min fields are greater than or equal to
-    And I select the "Rectangular" tab
+    Given I select the "Rectangular" tab
     And I fill in "<min>" for "<min_field>"
     And I fill in "<max>" for "<max_field>"
     Then I should see error "<error>" for "<max_field>"
@@ -412,7 +412,7 @@ Feature: Rectangular search
 
   @javascript
   Scenario Outline: I cannot submit rectangular search if form has errors (required errors)
-    And I select the "Rectangular" tab
+    Given I select the "Rectangular" tab
     And I press "Search SkyMapper"
     Then I should see error "<error>" for "<field>"
   Examples:
@@ -424,7 +424,7 @@ Feature: Rectangular search
 
   @javascript
   Scenario: I submit perform rectangular search if form has errors (select required errors)
-    And I select the "Rectangular" tab
+    Given I select the "Rectangular" tab
     And I press "Search SkyMapper"
     Then I should see error "This field is required." for "SkyMapper survey"
 

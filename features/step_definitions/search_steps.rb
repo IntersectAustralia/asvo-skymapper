@@ -233,3 +233,22 @@ And /^I should see raw image results on page in proper order$/ do
     end
   end
 end
+
+FAKE_IMAGE = 'fake image'
+
+Then /^I fake request for first image link$/ do
+  link = first('.image-link')['data-href']
+  FakeWeb.register_uri(:any, link, response: FAKE_IMAGE )
+end
+
+And /^I click the first image link$/ do
+  first('.image-link').click
+end
+
+Then /^I should see popup with message "([^"]*)"$/ do |message|
+  page.driver.browser.switch_to.alert.text.should == message
+end
+
+And /^I download the image file$/ do
+  page.driver.browser.switch_to.alert.accept
+end

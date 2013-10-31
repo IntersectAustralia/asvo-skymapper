@@ -8,7 +8,7 @@ Feature: Pagination
 
   @javascript
   Scenario Outline: I perform radial search
-    And I select the "Radial" tab
+    Given I select the "Radial" tab
     And I select "<survey>" from "SkyMapper survey"
     And I fill in "<ra>" for "Right ascension (deg)"
     And I fill in "<dec>" for "Declination (deg)"

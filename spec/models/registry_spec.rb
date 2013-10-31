@@ -95,6 +95,7 @@ describe Registry do
     fields[:filter_field].should == 'FILTER'
     fields[:survey_field].should == 'IMAGE_TYPE'
     fields[:observation_date_field].should == 'DATE'
+    fields[:image_url].should == 'ACCESSURL'
   end
 
 end

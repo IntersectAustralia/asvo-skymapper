@@ -48,5 +48,6 @@
               :filter_field: FILTER
               :survey_field: IMAGE_TYPE
               :observation_date_field: DATE
+              :image_url: ACCESSURL
   - :dataset: wigglez
     :description: TODO

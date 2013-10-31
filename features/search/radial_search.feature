@@ -8,7 +8,7 @@ Feature: Radial search
 
   @javascript
   Scenario Outline: I perform radial search
-    And I select the "Radial" tab
+    Given I select the "Radial" tab
     And I select "<survey>" from "SkyMapper survey"
     And I fill in "<ra>" for "Right ascension (deg)"
     And I fill in "<dec>" for "Declination (deg)"
@@ -29,7 +29,7 @@ Feature: Radial search
 
   @javascript
   Scenario Outline: I perform radial search using filters (FS)
-    And I select the "Radial" tab
+    Given I select the "Radial" tab
     And I select "Five-Second Survey" from "SkyMapper survey"
     And I fill in "178.83871" for "Right ascension (deg)"
     And I fill in "-1.18844" for "Declination (deg)"
@@ -68,7 +68,7 @@ Feature: Radial search
 
   @javascript
   Scenario Outline: I perform radial search using filters (MS)
-    And I select the "Radial" tab
+    Given I select the "Radial" tab
     And I select "Main Survey" from "SkyMapper survey"
     And I fill in "178.83871" for "Right ascension (deg)"
     And I fill in "-1.18844" for "Declination (deg)"
@@ -107,7 +107,7 @@ Feature: Radial search
 
   @javascript
   Scenario Outline: I perform radial search should allow spaces in filters
-    And I select the "Radial" tab
+    Given I select the "Radial" tab
     And I select "Five-Second Survey" from "SkyMapper survey"
     And I fill in "178.83871" for "Right ascension (deg)"
     And I fill in "-1.18844" for "Declination (deg)"
@@ -131,7 +131,7 @@ Feature: Radial search
 
   @javascript
   Scenario Outline: I perform radial search using all filters
-    And I select the "Radial" tab
+    Given I select the "Radial" tab
     And I select "<survey>" from "SkyMapper survey"
     And I fill in "<ra>" for "Right ascension (deg)"
     And I fill in "<dec>" for "Declination (deg)"
@@ -174,7 +174,7 @@ Feature: Radial search
 
   @javascript
   Scenario Outline: I perform radial search returns empty
-    And I select the "Radial" tab
+    Given I select the "Radial" tab
     And I select "<survey>" from "SkyMapper survey"
     And I fill in "<ra>" for "Right ascension (deg)"
     And I fill in "<dec>" for "Declination (deg)"
@@ -193,7 +193,7 @@ Feature: Radial search
 
   @javascript
   Scenario Outline: I cannot perform radial search if request error
-    And I select the "Radial" tab
+    Given I select the "Radial" tab
     And I select "<survey>" from "SkyMapper survey"
     And I fill in "<ra>" for "Right ascension (deg)"
     And I fill in "<dec>" for "Declination (deg)"
@@ -212,7 +212,7 @@ Feature: Radial search
 
   @javascript
   Scenario Outline: I can submit radial search with the follow values
-    And I select the "Radial" tab
+    Given I select the "Radial" tab
     And I fill in "<value>" for "<field>"
     Then I should not see any errors for "<field>"
   Examples:
@@ -266,7 +266,7 @@ Feature: Radial search
 
   @javascript
   Scenario Outline: I cannot submit radial search if form has errors
-    And I select the "Radial" tab
+    Given I select the "Radial" tab
     And I fill in "<value>" for "<field>"
     Then I should see error "<error>" for "<field>"
   Examples:
@@ -312,7 +312,7 @@ Feature: Radial search
 
   @javascript
   Scenario Outline: Max fields should not display errors if min fields are less than or not a number
-    And I select the "Radial" tab
+    Given I select the "Radial" tab
     And I fill in "<min>" for "<min_field>"
     And I fill in "<max>" for "<max_field>"
     Then I should not see any errors for "<max_field>"
@@ -345,7 +345,7 @@ Feature: Radial search
 
   @javascript
   Scenario Outline: Max fields should display error if min fields are greater than or equal to
-    And I select the "Radial" tab
+    Given I select the "Radial" tab
     And I fill in "<min>" for "<min_field>"
     And I fill in "<max>" for "<max_field>"
     Then I should see error "<error>" for "<max_field>"
@@ -378,7 +378,7 @@ Feature: Radial search
 
   @javascript
   Scenario Outline: I cannot submit radial search if form has errors (required errors)
-    And I select the "Radial" tab
+    Given I select the "Radial" tab
     And I press "Search SkyMapper"
     And I fill in "" for "<field>"
     And I press "Search SkyMapper"
@@ -391,6 +391,6 @@ Feature: Radial search
 
   @javascript
   Scenario: I submit perform radial search if form has errors (select required errors)
-    And I select the "Radial" tab
+    Given I select the "Radial" tab
     And I press "Search SkyMapper"
     Then I should see error "This field is required." for "SkyMapper survey"

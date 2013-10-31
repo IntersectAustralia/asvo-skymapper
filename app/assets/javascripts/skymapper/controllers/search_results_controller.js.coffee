@@ -27,4 +27,7 @@ window.skymapper_app.controller 'SearchResultsController', ['$scope', '$window',
             undefined
           )
         flash('notice', 'Fetching results...')
+
+      $scope.downloadImage = (url) ->
+        window.location.href = url if confirm('You are about to download a large image. Are you sure you want to continue?')
 ]

@@ -39,7 +39,8 @@ describe SearchController do
         { name: 'Declination', field: 'POINTDEC_DEG' },
         { name: 'Filter', field: 'FILTER' },
         { name: 'Survey', field: 'IMAGE_TYPE' },
-        { name: 'Observation Date (MJD)', field: 'DATE' }
+        { name: 'Observation Date (MJD)', field: 'DATE' },
+        { name: 'Image', field: 'ACCESSURL', type: :link, class: 'image-link' }
     ]
   end
 

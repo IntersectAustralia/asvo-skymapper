@@ -193,7 +193,8 @@ class SearchController < ApplicationController
         { name: 'Declination', field: catalogue_fields[:dec_field] },
         { name: 'Filter', field: catalogue_fields[:filter_field] },
         { name: 'Survey', field: catalogue_fields[:survey_field] },
-        { name: 'Observation Date (MJD)', field: catalogue_fields[:observation_date_field] } # changing the labels here can effect angular code
+        { name: 'Observation Date (MJD)', field: catalogue_fields[:observation_date_field] },
+        { name: 'Image', field: catalogue_fields[:image_url], type: :link, class: 'image-link' }
     ]
   end
 
