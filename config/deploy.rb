@@ -91,6 +91,7 @@ end
 after 'deploy:update' do
   server_setup.logging.rotation
   server_setup.config.apache
+  deploy.new_secret
   deploy.restart
   deploy.additional_symlinks
   deploy.precompile_assets
@@ -99,6 +100,10 @@ after 'deploy:finalize_update' do
    generate_database_yml
 end
 namespace :deploy do
+
+  task :new_secret, :roles => :app do
+    run("cd #{current_path} && bundle exec rake app:generate_secret", :env => {'RAILS_ENV' => "#{stage}"})
+  end
 
   # Passenger specifics: restart by touching the restart.txt file
   task :start, :roles => :app, :except => {:no_release => true} do
