@@ -26,7 +26,7 @@ class SearchController < ApplicationController
     clean_parameters(@parameters)
 
     @fields = search_fields(params[:catalogue])
-
+    @service = radial_query_path
   rescue StandardError
     flash.now[:error] = 'The search parameters contain some errors.'
   ensure
@@ -48,11 +48,96 @@ class SearchController < ApplicationController
     clean_parameters(@parameters)
 
     @fields = search_fields(params[:catalogue])
-
+    @service = rectangular_query_path
   rescue StandardError
     flash.now[:error] = 'The search parameters contain some errors.'
   ensure
     render 'search_results'
+  end
+
+  def rectangular_query
+    args = params[:query]
+    raise SearchError.new 'Invalid search arguments' unless args
+
+    query_args = {
+        dataset: DEFAULT_DATASET,
+        catalogue: args[:catalogue],
+        ra_min: args[:ra_min],
+        ra_max: args[:ra_max],
+        dec_min: args[:dec_min],
+        dec_max: args[:dec_max],
+        u_min: args[:u_min],
+        u_max: args[:u_max],
+        v_min: args[:v_min],
+        v_max: args[:v_max],
+        g_min: args[:g_min],
+        g_max: args[:g_max],
+        r_min: args[:r_min],
+        r_max: args[:r_max],
+        i_min: args[:i_min],
+        i_max: args[:i_max],
+        z_min: args[:z_min],
+        z_max: args[:z_max],
+        limit: false
+    }
+
+    query = QueryGenerator.method(:generate_rectangular_query).call(query_args)
+    raise SearchError.new 'Invalid search arguments' unless query and query.valid?
+
+    service_args = {
+        dataset: DEFAULT_DATASET,
+        catalogue: query_args[:catalogue]
+    }
+
+    service = SyncTapService.new(service_args)
+    request = {
+      url: service.request,
+      query: service.get_raw_query(query)
+    }
+
+    render json: request
+  end
+
+  def radial_query
+    args = params[:query]
+    raise SearchError.new 'Invalid search arguments' unless args
+
+    query_args = {
+        dataset: DEFAULT_DATASET,
+        catalogue: args[:catalogue],
+        ra: args[:ra],
+        dec: args[:dec],
+        sr: args[:sr],
+        u_min: args[:u_min],
+        u_max: args[:u_max],
+        v_min: args[:v_min],
+        v_max: args[:v_max],
+        g_min: args[:g_min],
+        g_max: args[:g_max],
+        r_min: args[:r_min],
+        r_max: args[:r_max],
+        i_min: args[:i_min],
+        i_max: args[:i_max],
+        z_min: args[:z_min],
+        z_max: args[:z_max],
+        limit: false
+    }
+
+    query = QueryGenerator.method(:generate_point_query).call(query_args)
+    raise SearchError.new 'Invalid search arguments' unless query and query.valid?
+
+    service_args = {
+        dataset: DEFAULT_DATASET,
+        catalogue: query_args[:catalogue]
+    }
+
+    service = SyncTapService.new(service_args)
+    request = {
+        url: service.request,
+        query: service.get_raw_query(query)
+    }
+
+    render json: request
   end
 
   def raw_image_search

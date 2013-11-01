@@ -12,10 +12,21 @@ class PointQuery < Query
 
   before_validation :clean_values
 
+  def initialize(args, limit)
+    super(args)
+    if limit
+      @limit = limit
+    elsif limit.nil?
+      @limit = 'TOP 1000'
+    else
+      @limit = nil
+    end
+  end
+
   def to_adql(service)
     <<-END_ADQL
 SELECT
-    TOP 1000
+    #{@limit}
     *
     FROM #{service[:table_name]}
     WHERE

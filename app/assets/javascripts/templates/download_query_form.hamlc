@@ -1,0 +1,4 @@
+%form{ action: @url, method: 'post', id: 'downloadResults' }
+  %input{ type: 'hidden', name: 'request', value: 'doQuery' }
+  %input{ type: 'hidden', name: 'lang', value: 'ADQL' }
+  %input{ type: 'hidden', name: 'query', value: @query }

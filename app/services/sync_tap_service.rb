@@ -41,4 +41,10 @@ class SyncTapService
     res
   end
 
+  def get_raw_query(query)
+    registry = Rails.application.config.asvo_registry
+    service = registry.find_service(@dataset, @catalogue, 'tap')
+    query.to_adql(service)
+  end
+
 end

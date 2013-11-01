@@ -4,6 +4,8 @@
       %pagination{ 'max-page-links' => '10', 'items-per-page' => '50', items: 'objects' }
 
         = render 'pagination'
+        - if @service or not @fields.empty?
+          %a.btn{'data-toggle' => 'modal', href: "#downloadModal", role: "button" } Download Results
 
         %table.table.table-striped.table-bordered.table-fluid
           %thead
@@ -23,3 +25,17 @@
                       download image
                   - else
                     = "{{obj['#{field[:field]}']}}"
+
+#downloadModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "downloadModalLabel", role: "dialog", tabindex: "-1"}
+  .modal-header
+    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
+    %h3#myModalLabel Preparing to download
+  .modal-body
+    = label_tag :download_options, "Select file type:"
+    = select_tag :download_options, options_for_select(Query::FILE_TYPE)
+    %p
+      %i.icon-warning-sign
+      This process may take a while.
+  .modal-footer
+    %button.btn{"aria-hidden" => "true", "data-dismiss" => "modal"} Close
+    %button.btn.btn-primary{ 'ng_click' => "download('#{@service}')" } Download
