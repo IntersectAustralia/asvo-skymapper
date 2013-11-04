@@ -30,4 +30,8 @@ window.skymapper_app.controller 'SearchResultsController', ['$scope', '$window',
 
       $scope.downloadImage = (url) ->
         window.location.href = url if confirm('You are about to download a large image. Are you sure you want to continue?')
+
+      $scope.selectObject = (obj) ->
+        $scope.selectedObject = obj
+
 ]

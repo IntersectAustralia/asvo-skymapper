@@ -6,28 +6,28 @@ describe SearchController do
     ctrl = SearchController.new
     fields = ctrl.search_fields('fs')
     fields.should == [
-        { name: 'Object Id', field: 'global_object_id' },
+        { name: 'Object Id', field: 'global_object_id', type: :show_detail, class: 'detail-link' },
         { name: 'Right ascension', field: 'mean_ra' },
         { name: 'Declination', field: 'mean_dcl' },
-        { name: 'u', field: 'flux_u' },
-        { name: 'v', field: 'flux_v' },
-        { name: 'g', field: 'flux_g' },
-        { name: 'r', field: 'flux_r' },
-        { name: 'i', field: 'flux_i' },
-        { name: 'z', field: 'flux_z' }
+        { name: 'U', field: 'flux_u' },
+        { name: 'V', field: 'flux_v' },
+        { name: 'G', field: 'flux_g' },
+        { name: 'R', field: 'flux_r' },
+        { name: 'I', field: 'flux_i' },
+        { name: 'Z', field: 'flux_z' }
     ]
 
     fields = ctrl.search_fields('ms')
     fields.should == [
-        { name: 'Object Id', field: 'new_object_id' },
+        { name: 'Object Id', field: 'new_object_id', type: :show_detail, class: 'detail-link' },
         { name: 'Right ascension', field: 'ra' },
         { name: 'Declination', field: 'dcl' },
-        { name: 'u', field: 'mean_u' },
-        { name: 'v', field: 'mean_v' },
-        { name: 'g', field: 'mean_g' },
-        { name: 'r', field: 'mean_r' },
-        { name: 'i', field: 'mean_i' },
-        { name: 'z', field: 'mean_z' }
+        { name: 'U', field: 'mean_u' },
+        { name: 'V', field: 'mean_v' },
+        { name: 'G', field: 'mean_g' },
+        { name: 'R', field: 'mean_r' },
+        { name: 'I', field: 'mean_i' },
+        { name: 'Z', field: 'mean_z' }
     ]
   end
 
@@ -40,7 +40,7 @@ describe SearchController do
         { name: 'Filter', field: 'FILTER' },
         { name: 'Survey', field: 'IMAGE_TYPE' },
         { name: 'Observation Date (MJD)', field: 'DATE' },
-        { name: 'Image', field: 'ACCESSURL', type: :link, class: 'image-link' }
+        { name: 'Image URL', field: 'ACCESSURL', type: :download_image, class: 'image-link' }
     ]
   end
 

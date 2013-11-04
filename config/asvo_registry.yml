@@ -10,15 +10,33 @@
             :service_end_point: http://astroa.anu.edu.au:8080/skymapperpublic-asov-tap/tap
             :table_name: public.fs_distilled
             :fields:
-              :ra_field: mean_ra
-              :dec_field: mean_dcl
-              :object_id_field: global_object_id
-              :u_field: flux_u
-              :v_field: flux_v
-              :g_field: flux_g
-              :r_field: flux_r
-              :i_field: flux_i
-              :z_field: flux_z
+              :ra_field:
+                :field: mean_ra
+                :name: Right ascension
+              :dec_field:
+                :field: mean_dcl
+                :name: Declination
+              :object_id_field:
+                :field: global_object_id
+                :name: Object Id
+              :u_field:
+                :field: flux_u
+                :name: U
+              :v_field:
+                :field: flux_v
+                :name: V
+              :g_field:
+                :field: flux_g
+                :name: G
+              :r_field:
+                :field: flux_r
+                :name: R
+              :i_field:
+                :field: flux_i
+                :name: I
+              :z_field:
+                :field: flux_z
+                :name: Z
       - :catalogue: ms
         :description: TODO
         :services:
@@ -27,15 +45,33 @@
             :service_end_point: http://astroa.anu.edu.au:8080/skymapperpublic-asov-tap/tap
             :table_name: public.ms_distilled
             :fields:
-              :ra_field: ra
-              :dec_field: dcl
-              :object_id_field: new_object_id
-              :u_field: mean_u
-              :v_field: mean_v
-              :g_field: mean_g
-              :r_field: mean_r
-              :i_field: mean_i
-              :z_field: mean_z
+              :ra_field:
+                :field: ra
+                :name: Right ascension
+              :dec_field:
+                :field: dcl
+                :name: Declination
+              :object_id_field:
+                :field: new_object_id
+                :name: Object Id
+              :u_field:
+                :field: mean_u
+                :name: U
+              :v_field:
+                :field: mean_v
+                :name: V
+              :g_field:
+                :field: mean_g
+                :name: G
+              :r_field:
+                :field: mean_r
+                :name: R
+              :i_field:
+                :field: mean_i
+                :name: I
+              :z_field:
+                :field: mean_z
+                :name: Z
       - :catalogue: image
         :description: TODO
         :services:
@@ -43,11 +79,23 @@
             :description: TODO
             :service_end_point: http://astroa.anu.edu.au/skymapper/image_siap/siap
             :fields:
-              :ra_field: POINTRA_DEG
-              :dec_field: POINTDEC_DEG
-              :filter_field: FILTER
-              :survey_field: IMAGE_TYPE
-              :observation_date_field: DATE
-              :image_url: ACCESSURL
+              :ra_field:
+                :field: POINTRA_DEG
+                :name: Right ascension
+              :dec_field:
+                :field: POINTDEC_DEG
+                :name: Declination
+              :filter_field:
+                :field: FILTER
+                :name: Filter
+              :survey_field:
+                :field: IMAGE_TYPE
+                :name: Survey
+              :observation_date_field:
+                :field: DATE
+                :name: Observation Date (MJD)
+              :image_url:
+                :field: ACCESSURL
+                :name: Image URL
   - :dataset: wigglez
     :description: TODO

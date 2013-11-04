@@ -30,7 +30,7 @@ class SearchController < ApplicationController
   rescue StandardError
     flash.now[:error] = 'The search parameters contain some errors.'
   ensure
-    render 'search_results'
+    render 'search_results_and_details'
   end
 
   def rectangular_search
@@ -52,7 +52,7 @@ class SearchController < ApplicationController
   rescue StandardError
     flash.now[:error] = 'The search parameters contain some errors.'
   ensure
-    render 'search_results'
+    render 'search_results_and_details'
   end
 
   def raw_image_search
@@ -72,7 +72,7 @@ class SearchController < ApplicationController
   rescue StandardError
     flash.now[:error] = 'The search parameters contain some errors.'
   ensure
-    render 'search_results'
+    render 'search_results_and_details'
   end
 
   def radial_search_results
@@ -144,6 +144,21 @@ class SearchController < ApplicationController
     fetch_search_results(SiapService, query_args, QueryGenerator.method(:generate_image_query))
   end
 
+  def radial_search_details
+    [:action, :id].each { |p| params.delete(p) }
+    redirect_to radial_search_path(params)
+  end
+
+  def rectangular_search_details
+    [:action, :id].each { |p| params.delete(p) }
+    redirect_to rectangular_search_path(params)
+  end
+
+  def raw_image_search_details
+    [:action, :id].each { |p| params.delete(p) }
+    redirect_to raw_image_search_path(params)
+  end
+
   # HELPERS
 
   def fetch_search_results(service, query_args, query_factory)
@@ -174,27 +189,27 @@ class SearchController < ApplicationController
   def search_fields(catalogue)
     catalogue_fields = query_fields(DEFAULT_DATASET, catalogue, 'tap')
     [
-        { name: 'Object Id', field: catalogue_fields[:object_id_field] },
-        { name: 'Right ascension', field: catalogue_fields[:ra_field] },
-        { name: 'Declination', field: catalogue_fields[:dec_field] },
-        { name: 'u', field: catalogue_fields[:u_field] },
-        { name: 'v', field: catalogue_fields[:v_field] },
-        { name: 'g', field: catalogue_fields[:g_field] },
-        { name: 'r', field: catalogue_fields[:r_field] },
-        { name: 'i', field: catalogue_fields[:i_field] },
-        { name: 'z', field: catalogue_fields[:z_field] }
+        { name: catalogue_fields[:object_id_field][:name], field: catalogue_fields[:object_id_field][:field], type: :show_detail, class: 'detail-link' },
+        { name: catalogue_fields[:ra_field][:name], field: catalogue_fields[:ra_field][:field] },
+        { name: catalogue_fields[:dec_field][:name], field: catalogue_fields[:dec_field][:field] },
+        { name: catalogue_fields[:u_field][:name], field: catalogue_fields[:u_field][:field] },
+        { name: catalogue_fields[:v_field][:name], field: catalogue_fields[:v_field][:field] },
+        { name: catalogue_fields[:g_field][:name], field: catalogue_fields[:g_field][:field] },
+        { name: catalogue_fields[:r_field][:name], field: catalogue_fields[:r_field][:field] },
+        { name: catalogue_fields[:i_field][:name], field: catalogue_fields[:i_field][:field] },
+        { name: catalogue_fields[:z_field][:name], field: catalogue_fields[:z_field][:field] }
     ]
   end
 
   def image_search_fields(catalogue)
     catalogue_fields = query_fields(DEFAULT_DATASET, catalogue, 'siap')
     [
-        { name: 'Right ascension', field: catalogue_fields[:ra_field] },
-        { name: 'Declination', field: catalogue_fields[:dec_field] },
-        { name: 'Filter', field: catalogue_fields[:filter_field] },
-        { name: 'Survey', field: catalogue_fields[:survey_field] },
-        { name: 'Observation Date (MJD)', field: catalogue_fields[:observation_date_field] },
-        { name: 'Image', field: catalogue_fields[:image_url], type: :link, class: 'image-link' }
+        { name: catalogue_fields[:ra_field][:name], field: catalogue_fields[:ra_field][:field] },
+        { name: catalogue_fields[:dec_field][:name], field: catalogue_fields[:dec_field][:field] },
+        { name: catalogue_fields[:filter_field][:name], field: catalogue_fields[:filter_field][:field] },
+        { name: catalogue_fields[:survey_field][:name], field: catalogue_fields[:survey_field][:field] },
+        { name: catalogue_fields[:observation_date_field][:name], field: catalogue_fields[:observation_date_field][:field] },
+        { name: catalogue_fields[:image_url][:name], field: catalogue_fields[:image_url][:field], type: :download_image, class: 'image-link' }
     ]
   end
 

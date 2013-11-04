@@ -111,7 +111,7 @@ SELECT
     *
     FROM #{service[:table_name]}
     WHERE
-        1=CONTAINS(POINT('ICRS', #{service[:fields][:ra_field]}, #{service[:fields][:dec_field]}),
+        1=CONTAINS(POINT('ICRS', #{service[:fields][:ra_field][:field]}, #{service[:fields][:dec_field][:field]}),
                    CIRCLE('ICRS', #{args[:ra]}, #{args[:dec]}, #{args[:sr]}))
 
     END_ADQL
@@ -138,7 +138,7 @@ SELECT
     *
     FROM #{service[:table_name]}
     WHERE
-        1=CONTAINS(POINT('ICRS', #{service[:fields][:ra_field]}, #{service[:fields][:dec_field]}),
+        1=CONTAINS(POINT('ICRS', #{service[:fields][:ra_field][:field]}, #{service[:fields][:dec_field][:field]}),
                    CIRCLE('ICRS', #{args[:ra]}, #{args[:dec]}, #{args[:sr]}))
 
     END_ADQL
@@ -174,20 +174,20 @@ SELECT
     *
     FROM #{service[:table_name]}
     WHERE
-        1=CONTAINS(POINT('ICRS', #{service[:fields][:ra_field]}, #{service[:fields][:dec_field]}),
+        1=CONTAINS(POINT('ICRS', #{service[:fields][:ra_field][:field]}, #{service[:fields][:dec_field][:field]}),
                    CIRCLE('ICRS', #{args[:ra]}, #{args[:dec]}, #{args[:sr]}))
-AND #{service[:fields][:u_field]} >= #{u.min}
-AND #{service[:fields][:u_field]} <= #{u.max}
-AND #{service[:fields][:v_field]} >= #{v.min}
-AND #{service[:fields][:v_field]} <= #{v.max}
-AND #{service[:fields][:g_field]} >= #{g.min}
-AND #{service[:fields][:g_field]} <= #{g.max}
-AND #{service[:fields][:r_field]} >= #{r.min}
-AND #{service[:fields][:r_field]} <= #{r.max}
-AND #{service[:fields][:i_field]} >= #{i.min}
-AND #{service[:fields][:i_field]} <= #{i.max}
-AND #{service[:fields][:z_field]} >= #{z.min}
-AND #{service[:fields][:z_field]} <= #{z.max}
+AND #{service[:fields][:u_field][:field]} >= #{u.min}
+AND #{service[:fields][:u_field][:field]} <= #{u.max}
+AND #{service[:fields][:v_field][:field]} >= #{v.min}
+AND #{service[:fields][:v_field][:field]} <= #{v.max}
+AND #{service[:fields][:g_field][:field]} >= #{g.min}
+AND #{service[:fields][:g_field][:field]} <= #{g.max}
+AND #{service[:fields][:r_field][:field]} >= #{r.min}
+AND #{service[:fields][:r_field][:field]} <= #{r.max}
+AND #{service[:fields][:i_field][:field]} >= #{i.min}
+AND #{service[:fields][:i_field][:field]} <= #{i.max}
+AND #{service[:fields][:z_field][:field]} >= #{z.min}
+AND #{service[:fields][:z_field][:field]} <= #{z.max}
 
     END_ADQL
     query.to_adql(service).should == adql
@@ -222,14 +222,14 @@ SELECT
     *
     FROM #{service[:table_name]}
     WHERE
-        1=CONTAINS(POINT('ICRS', #{service[:fields][:ra_field]}, #{service[:fields][:dec_field]}),
+        1=CONTAINS(POINT('ICRS', #{service[:fields][:ra_field][:field]}, #{service[:fields][:dec_field][:field]}),
                    CIRCLE('ICRS', #{args[:ra]}, #{args[:dec]}, #{args[:sr]}))
-AND #{service[:fields][:u_field]} >= #{u.min}
-AND #{service[:fields][:v_field]} <= #{v.max}
-AND #{service[:fields][:g_field]} >= #{g.min}
-AND #{service[:fields][:r_field]} <= #{r.max}
-AND #{service[:fields][:i_field]} >= #{i.min}
-AND #{service[:fields][:z_field]} <= #{z.max}
+AND #{service[:fields][:u_field][:field]} >= #{u.min}
+AND #{service[:fields][:v_field][:field]} <= #{v.max}
+AND #{service[:fields][:g_field][:field]} >= #{g.min}
+AND #{service[:fields][:r_field][:field]} <= #{r.max}
+AND #{service[:fields][:i_field][:field]} >= #{i.min}
+AND #{service[:fields][:z_field][:field]} <= #{z.max}
 
     END_ADQL
     query.to_adql(service).should == adql

@@ -164,3 +164,14 @@ def create_image_query_fixture(filename, params, size = 500)
   YAML.dump(vo_table, vo)
   vo.close
 end
+
+def generate_vo_tables
+  Dir[Rails.root.join('spec/fixtures/*.xml')].each do |file|
+    filename = File.basename(file).gsub(File.extname(file), '')
+    vo_table = VOTableParser.parse_xml(File.read(Rails.root.join("spec/fixtures/#{filename}.xml")))
+    puts "#{filename} contains #{vo_table.table_data ? vo_table.table_data.size : 0} objects"
+    vo = File.new(Rails.root.join("spec/fixtures/#{filename}.vo"), 'w')
+    YAML.dump(vo_table, vo)
+    vo.close
+  end
+end

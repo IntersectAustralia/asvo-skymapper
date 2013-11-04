@@ -18,7 +18,10 @@
             %tr{ 'ng-repeat' => "obj in objects #{filters} | page:pagination.range()" }
               - @fields.each do |field|
                 %td
-                  - if field[:type] == :link
+                  - if field[:type] == :show_detail
+                    %a{ class: field[:class], 'ng-click' => "selectObject(obj)" }
+                      = "{{obj['#{field[:field]}']}}"
+                  - elsif field[:type] == :download_image
                     %a{ class: field[:class], 'ng-click' => "downloadImage(obj['#{field[:field]}'])", 'data-href' => "{{obj['#{field[:field]}']}}" }
                       download image
                   - else

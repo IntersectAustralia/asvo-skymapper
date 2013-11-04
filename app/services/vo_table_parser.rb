@@ -5,6 +5,7 @@ class VOTableParser
 
     vo_table = VOTable.new
 
+    # catalogue fields
     vo_table.query_status = doc.xpath('//info[@name="QUERY_STATUS"]').attr('value').value.upcase unless
         doc.xpath('//info[@name="QUERY_STATUS"]').empty?
     vo_table.provider = doc.xpath('//info[@name="PROVIDER"]').text unless
@@ -12,6 +13,7 @@ class VOTableParser
     vo_table.query = doc.xpath('//info[@name="QUERY"]').attr('value').value unless
         doc.xpath('//info[@name="QUERY"]').empty?
 
+    # siap fields
     vo_table.pos = doc.xpath('//param[@name="POS"]').attr('value').value unless
         doc.xpath('//param[@name="POS"]').empty?
 

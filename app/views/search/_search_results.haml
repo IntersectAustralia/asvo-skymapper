@@ -1,0 +1,13 @@
+%section#search.row-fluid
+
+  .span9
+    %h3 Search Results
+
+    %a.btn{ href: root_path }
+      Back
+
+    = render 'search_results_table'
+
+  .aside.span3
+    = render 'search_parameters'
+    = render 'help'

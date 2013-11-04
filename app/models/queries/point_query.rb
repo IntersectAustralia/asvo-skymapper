@@ -19,7 +19,7 @@ SELECT
     *
     FROM #{service[:table_name]}
     WHERE
-        1=CONTAINS(POINT('ICRS', #{service[:fields][:ra_field]}, #{service[:fields][:dec_field]}),
+        1=CONTAINS(POINT('ICRS', #{service[:fields][:ra_field][:field]}, #{service[:fields][:dec_field][:field]}),
                    CIRCLE('ICRS', #{ra}, #{dec}, #{sr}))
 #{construct_filter_adql(service)}
     END_ADQL

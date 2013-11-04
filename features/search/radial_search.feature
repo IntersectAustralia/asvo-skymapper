@@ -442,3 +442,22 @@ Feature: Radial search
     Given I select the "Radial" tab
     And I press "Search SkyMapper"
     Then I should see error "This field is required." for "SkyMapper survey"
+
+#  @javascript
+#  Scenario: I can see radial search object object details
+#    Given I select the "Radial" tab
+#    And I select "Five-Second Survey" from "SkyMapper survey"
+#    And I fill in "178.83871" for "Right ascension (deg)"
+#    And I fill in "-1.18844" for "Declination (deg)"
+#    And I fill in "0.5" for "Search radius (deg)"
+#    And I fake tap search request for catalogue "fs" with "skymapper_point_query_fs_1"
+#    And I press "Search SkyMapper"
+#    Then I should be on the radial search results page
+#    And I wait for "Fetching results..."
+#    And I should see "Query returned 272 objects."
+#    And I should see radial search parameters with values ("178.83871", "-1.18844", "0.5")
+#    And I should see results for catalogue "fs" as "skymapper_point_query_fs_1" in all pages with limit "50"
+#    Then I click on the first object
+#    And I should see a details
+#      | object id |
+
