@@ -17,11 +17,11 @@ window.skymapper_app.controller 'SearchResultsController', ['$scope', '$window',
         results_promise.then(
             (data) ->
               $scope.objects = data.objects
-              flash('notice', "Query returned #{$scope.objects.length} objects.", 8000)
+              flash('notice', "Query returned #{$scope.objects.length} objects.", 10000)
               $scope.searching = false
             ,
             (error) ->
-              flash('error', 'There was an error fetching the results.', 8000)
+              flash('error', 'There was an error fetching the results.', 10000)
               $scope.searching = false
             ,
             undefined
