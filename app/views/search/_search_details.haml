@@ -3,6 +3,11 @@
   .span9
     %h3 Search Details
 
-    %a.btn{ 'ng-click' => 'selectObject(undefined)' }
+    %a.btn{ href: '', 'ng-click' => 'selectObject(undefined)' }
       Back
 
+    = render 'search_details_table'
+
+  .aside.span3
+    = render 'search_parameters'
+    = render 'help'

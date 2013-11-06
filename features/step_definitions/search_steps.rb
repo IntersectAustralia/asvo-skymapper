@@ -37,22 +37,22 @@ And /^I should see search parameter "([^"]*)" as "([^"]*)"/ do |parameter, value
 end
 
 And /^I should not see any results$/ do
-  page.should_not have_css('table', visible: true)
+  page.should_not have_css('#search-results table', visible: true)
 end
 
 And /^I should see results for catalogue "([^"]*)" with headers$/ do |catalogue|
-  page.should have_css('table', visible: true)
+  page.should have_css('#search-results table', visible: true)
 
-  fields = SearchController.new.search_fields(catalogue)
+  fields = SearchController.new.search_fields(catalogue, catalogue == 'image' ? 'siap' : 'tap')
 
-  table_headers = all('thead th')
+  table_headers = all('#search-results thead th')
   fields.each_with_index do |field, index|
     table_headers[index].text.should == field[:name]
   end
 end
 
 And /^I goto the next page$/ do
-  find('.next-page').click
+  find('#search-results .next-page').click
 end
 
 And /^I should see results for catalogue "([^"]*)" as "([^"]*)" in page "([^"]*)" with limit "([^"]*)"$/ do |catalogue, file, page, limit|
@@ -60,11 +60,11 @@ And /^I should see results for catalogue "([^"]*)" as "([^"]*)" in page "([^"]*)
 
     step "I should see results for catalogue \"#{catalogue}\" with headers"
 
-    fields = SearchController.new.search_fields(catalogue)
+    fields = SearchController.new.search_fields(catalogue, catalogue == 'image' ? 'siap' : 'tap')
 
     results_table = YAML.load(File.read(Rails.root.join("spec/fixtures/#{file}.vo")))
 
-    table_rows = all('tbody tr')
+    table_rows = all('#search-results tbody tr')
     table_rows.each_with_index do |row, row_index|
 
       within(row) do
@@ -199,7 +199,7 @@ And /^I should see raw image results on page in proper order$/ do
   if ENV['SKIP_STEP'].blank?
     filters = %w[u v g r i z]
 
-    table_rows = all('tbody tr')
+    table_rows = all('#search-results tbody tr')
     table_rows.each_with_index do |row, row_index|
       next if row_index == 0
       last_row = table_rows[row_index - 1]
@@ -237,12 +237,12 @@ end
 FAKE_IMAGE = 'fake image'
 
 Then /^I fake request for first image link$/ do
-  link = first('.image-link')['data-href']
+  link = first('#search-results .image-link')['data-href']
   FakeWeb.register_uri(:any, link, response: FAKE_IMAGE )
 end
 
 And /^I click the first image link$/ do
-  first('.image-link').click
+  first('#search-results .image-link').click
 end
 
 Then /^I should see popup with message "([^"]*)"$/ do |message|
@@ -255,4 +255,62 @@ end
 
 And /^I should see search field "([^"]*)" with value "([^"]*)"$/ do |field, value|
   find_field(field).value.should == value
+end
+
+Then /^I should see details for the object in row "([^"]*)" with results "([^"]*)"$/ do |row, file|
+  results_table = YAML.load(File.read(Rails.root.join("spec/fixtures/#{file}.vo")))
+  object = results_table.table_data[row.to_i]
+  object.each do |field, value|
+    find(:xpath, "//span[normalize-space(text())='#{field}']/..").text.should == value.strip
+  end
+end
+
+def compare_filters(filter1, filter2)
+  return false if filter1.blank?
+  return false if filter2.blank?
+
+  filters = %w[u v g r i z]
+  filters.index(filter1.downcase) - filters.index(filter2.downcase)
+end
+
+def compare_numbers(num1, num2)
+  return false if num1.blank?
+  return false if num2.blank?
+
+  num1.to_f - num2.to_f
+end
+
+def rawImageOrder(obj1, obj2)
+  # assume the order of the fields to be ra, dec, filter, survey and date
+
+  order = compare_numbers(obj1['POINTRA_DEG'], obj2['POINTRA_DEG'])
+  return -1 if order < 0 if order
+  return 1 if order > 0 if order
+
+  order = compare_numbers(obj1['POINTDEC_DEG'], obj2['POINTDEC_DEG'])
+  return -1 if order < 0 if order
+  return 1 if order > 0 if order
+
+  order = compare_filters(obj1['FILTER_TYPE'], obj2['FILTER_TYPE'])
+  return -1 if order < 0 if order
+  return 1 if order > 0 if order
+
+  order = compare_numbers(obj1['DATE'], obj2['DATE'])
+  return order if order
+
+  return 0
+end
+
+Then /^I should see details for the object in row "([^"]*)" with image results "([^"]*)"$/ do |row, file|
+  results_table = YAML.load(File.read(Rails.root.join("spec/fixtures/#{file}.vo")))
+  objects = results_table.table_data.sort { |a, b| rawImageOrder(a,b) }
+  object = objects[row.to_i]
+  object.each do |field, value|
+    find(:xpath, "//span[normalize-space(text())='#{field}']/../a")['data-href'].should == value.strip if value.include?('http')
+    find(:xpath, "//span[normalize-space(text())='#{field}']/..").text.should == value.strip unless value.include?('http')
+  end
+end
+
+And /^I click on the object in row "([^"]*)"$/ do |row|
+  all('#search-results td:first-of-type .detail-link')[row.to_i].click
 end

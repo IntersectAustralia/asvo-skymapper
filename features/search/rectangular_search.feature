@@ -481,3 +481,27 @@ Feature: Rectangular search
     And I press "Search SkyMapper"
     Then I should see error "This field is required." for "SkyMapper survey"
 
+  @javascript
+  Scenario Outline: I can see rectangular search object details
+    Given I select the "Rectangular" tab
+    And I select "<survey>" from "SkyMapper survey"
+    And I fill in "<ra_min>" for "Right ascension min (deg)"
+    And I fill in "<ra_max>" for "Right ascension max (deg)"
+    And I fill in "<dec_min>" for "Declination min (deg)"
+    And I fill in "<dec_max>" for "Declination max (deg)"
+    And I fake tap search request for catalogue "<catalogue>" with "<results>"
+    And I press "Search SkyMapper"
+    Then I should be on the rectangular search results page
+    And I wait for "Fetching results..."
+    And I should see "Query returned <count> objects."
+    And I should see rectangular search parameters with values ("<ra_min>", "<ra_max>", "<dec_min>", "<dec_max>")
+    And I should see results for catalogue "<catalogue>" as "<results>" in all pages with limit "50"
+    And I click on the object in row "<row>"
+    Then I should see details for the object in row "<row>" with results "<results>"
+  Examples:
+    | survey             | catalogue | ra_min | ra_max | dec_min | dec_max | results                          | count | row |
+    | Five-Second Survey | fs        | 1.75   | 2.25   | -2.25   | -0.75   | skymapper_rectangular_query_fs_1 | 547   | 1   |
+    | Five-Second Survey | fs        | 0      | 10     | -2.25   | -0.75   | skymapper_rectangular_query_fs_3 | 1000  | 2   |
+    | Main Survey        | ms        | 1.975  | 2.025  | -1.525  | -1.475  | skymapper_rectangular_query_ms_1 | 44    | 1   |
+    | Main Survey        | ms        | 1.75   | 2.25   | -2.25   | -0.75   | skymapper_rectangular_query_ms_3 | 1000  | 2   |
+

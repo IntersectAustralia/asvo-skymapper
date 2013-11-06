@@ -39,11 +39,11 @@ describe SyncTapService do
 
       data[:filters].each do |filter|
 
-        obj[fields["#{filter}_field".to_sym][:field]].should_not be_nil
+        obj[fields[filter.to_sym][:field]].should_not be_nil
         (data[:params]["#{filter}_min".to_sym] or data[:params]["#{filter}_max".to_sym]).should be_true
 
-        obj[fields["#{filter}_field".to_sym][:field]].to_f.should >= data[:params]["#{filter}_min".to_sym].to_f if data[:params]["#{filter}_min".to_sym]
-        obj[fields["#{filter}_field".to_sym][:field]].to_f.should <= data[:params]["#{filter}_max".to_sym].to_f if data[:params]["#{filter}_max".to_sym]
+        obj[fields[filter.to_sym][:field]].to_f.should >= data[:params]["#{filter}_min".to_sym].to_f if data[:params]["#{filter}_min".to_sym]
+        obj[fields[filter.to_sym][:field]].to_f.should <= data[:params]["#{filter}_max".to_sym].to_f if data[:params]["#{filter}_max".to_sym]
 
       end
     end

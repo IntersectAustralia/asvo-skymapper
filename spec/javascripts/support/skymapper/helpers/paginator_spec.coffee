@@ -2,7 +2,7 @@
 
 describe 'Paginator', ->
 
-  it 'it cannot pagniate if max page links undefined', ->
+  it 'it cannot paginate if max page links undefined', ->
     paginator = new Paginator()
     paginator.init(undefined, 50)
     paginator.setItems([])
@@ -12,7 +12,7 @@ describe 'Paginator', ->
     expect(paginator.pageLinks).toEqual(undefined)
     expect(paginator.pageItems).toEqual(undefined)
 
-  it 'it cannot pagniate if items per page is undefined', ->
+  it 'it cannot paginate if items per page is undefined', ->
     paginator = new Paginator()
     paginator.init(10, undefined)
     paginator.setItems([])
@@ -22,7 +22,7 @@ describe 'Paginator', ->
     expect(paginator.pageLinks).toEqual(undefined)
     expect(paginator.pageItems).toEqual(undefined)
 
-  it 'it cannot pagniate items undefined', ->
+  it 'it cannot paginate if items undefined', ->
     paginator = new Paginator()
     paginator.init(10, 50)
     paginator.setItems(undefined)
@@ -42,7 +42,7 @@ describe 'Paginator', ->
     expect(paginator.pageLinks).toEqual([])
     expect(paginator.pageItems).toEqual([])
 
-  it 'it can paginate less pages than max', ->
+  it 'it can paginate if pages less than max', ->
     paginator = new Paginator()
     paginator.init(10, 50)
     paginator.setItems([1..355])
@@ -71,7 +71,7 @@ describe 'Paginator', ->
     expect(paginator.isFirstPage()).toEqual(false)
     expect(paginator.isLastPage()).toEqual(false)
 
-  it 'it can paginate more pages than max', ->
+  it 'it can paginate pages more than max', ->
     paginator = new Paginator()
     paginator.init(10, 10)
     paginator.setItems([1..355])
@@ -100,7 +100,7 @@ describe 'Paginator', ->
     expect(paginator.isFirstPage()).toEqual(false)
     expect(paginator.isLastPage()).toEqual(false)
 
-  it 'it can paginate more pages than odd max', ->
+  it 'it can paginate pages with odd max', ->
     paginator = new Paginator()
     paginator.init(11, 10)
     paginator.setItems([1..355])

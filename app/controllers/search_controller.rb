@@ -25,7 +25,7 @@ class SearchController < ApplicationController
     add_filter_parameters(@parameters, params)
     clean_parameters(@parameters)
 
-    @fields = search_fields(params[:catalogue])
+    @fields = search_fields(params[:catalogue], 'tap')
 
   rescue StandardError
     flash.now[:error] = 'The search parameters contain some errors.'
@@ -47,7 +47,7 @@ class SearchController < ApplicationController
     add_filter_parameters(@parameters, params)
     clean_parameters(@parameters)
 
-    @fields = search_fields(params[:catalogue])
+    @fields = search_fields(params[:catalogue], 'tap')
 
   rescue StandardError
     flash.now[:error] = 'The search parameters contain some errors.'
@@ -66,7 +66,7 @@ class SearchController < ApplicationController
     ]
     clean_parameters(@parameters)
 
-    @fields = image_search_fields('image')
+    @fields = search_fields('image', 'siap')
 
     @filters = ["rawImageOrder:[#{@fields.map { |x| "'#{x[:field]}',"}.join[0..-2]}]"]
   rescue StandardError
@@ -186,31 +186,8 @@ class SearchController < ApplicationController
     raise error
   end
 
-  def search_fields(catalogue)
-    catalogue_fields = query_fields(DEFAULT_DATASET, catalogue, 'tap')
-    [
-        { name: catalogue_fields[:object_id_field][:name], field: catalogue_fields[:object_id_field][:field], type: :show_detail, class: 'detail-link' },
-        { name: catalogue_fields[:ra_field][:name], field: catalogue_fields[:ra_field][:field] },
-        { name: catalogue_fields[:dec_field][:name], field: catalogue_fields[:dec_field][:field] },
-        { name: catalogue_fields[:u_field][:name], field: catalogue_fields[:u_field][:field] },
-        { name: catalogue_fields[:v_field][:name], field: catalogue_fields[:v_field][:field] },
-        { name: catalogue_fields[:g_field][:name], field: catalogue_fields[:g_field][:field] },
-        { name: catalogue_fields[:r_field][:name], field: catalogue_fields[:r_field][:field] },
-        { name: catalogue_fields[:i_field][:name], field: catalogue_fields[:i_field][:field] },
-        { name: catalogue_fields[:z_field][:name], field: catalogue_fields[:z_field][:field] }
-    ]
-  end
-
-  def image_search_fields(catalogue)
-    catalogue_fields = query_fields(DEFAULT_DATASET, catalogue, 'siap')
-    [
-        { name: catalogue_fields[:ra_field][:name], field: catalogue_fields[:ra_field][:field] },
-        { name: catalogue_fields[:dec_field][:name], field: catalogue_fields[:dec_field][:field] },
-        { name: catalogue_fields[:filter_field][:name], field: catalogue_fields[:filter_field][:field] },
-        { name: catalogue_fields[:survey_field][:name], field: catalogue_fields[:survey_field][:field] },
-        { name: catalogue_fields[:observation_date_field][:name], field: catalogue_fields[:observation_date_field][:field] },
-        { name: catalogue_fields[:image_url][:name], field: catalogue_fields[:image_url][:field], type: :download_image, class: 'image-link' }
-    ]
+  def search_fields(catalogue, service)
+    Rails.application.config.asvo_registry.find_service(DEFAULT_DATASET, catalogue, service)[:fields].to_a.map { |field| field.second }
   end
 
   def add_filter_parameters(parameters, params)
@@ -238,10 +215,6 @@ class SearchController < ApplicationController
 
   def add_parameter(parameters, params, name, field)
     parameters.push({ name: name, value: params[field] }) if params[field]
-  end
-
-  def query_fields(dataset, catalogue, service)
-    Rails.application.config.asvo_registry.find_service(dataset, catalogue, service)[:fields]
   end
 
   def handle_error(error)

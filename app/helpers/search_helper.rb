@@ -5,4 +5,14 @@ module SearchHelper
     default
   end
 
+  def split_fields_by_group(fields)
+    table_fields = {}
+    fields.each do |field|
+      group = field[:group] ? field[:group] : 'none'
+      table_fields[group] ||= []
+      table_fields[group] << field
+    end
+    table_fields
+  end
+
 end

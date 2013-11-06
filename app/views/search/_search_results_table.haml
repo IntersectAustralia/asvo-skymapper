@@ -1,5 +1,7 @@
 #search-results.row-fluid{ 'ng-hide' => 'objects == undefined || objects.length == 0' }
+
   .span12
+
     - if @fields
       %pagination{ 'max-page-links' => '10', 'items-per-page' => '50', items: 'objects' }
 
@@ -9,6 +11,7 @@
           %thead
             %tr
               - @fields.each do |field|
+                - next unless field[:options] and field[:options].include?('show-in-list')
                 %th
                   = field[:name]
                   %span.hide
@@ -17,12 +20,13 @@
             - filters = @filters ? @filters.map { |filter| "| #{filter} " }.join : nil
             %tr{ 'ng-repeat' => "obj in objects #{filters} | page:pagination.range()" }
               - @fields.each do |field|
+                - next unless field[:options] and field[:options].include?('show-in-list')
                 %td
-                  - if field[:type] == :show_detail
-                    %a{ class: field[:class], 'ng-click' => "selectObject(obj)" }
+                  - if field[:options].include?('click-for-detail')
+                    %a.detail-link{ 'ng-click' => "selectObject(obj)" }
                       = "{{obj['#{field[:field]}']}}"
-                  - elsif field[:type] == :download_image
-                    %a{ class: field[:class], 'ng-click' => "downloadImage(obj['#{field[:field]}'])", 'data-href' => "{{obj['#{field[:field]}']}}" }
+                  - elsif field[:options].include?('image-link')
+                    %a.image-link{ 'ng-click' => "downloadImage(obj['#{field[:field]}'])", 'data-href' => "{{obj['#{field[:field]}']}}" }
                       download image
                   - else
                     = "{{obj['#{field[:field]}']}}"

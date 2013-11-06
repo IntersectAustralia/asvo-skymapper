@@ -62,9 +62,6 @@ describe PointQuery do
   it 'Validate magnitude filters' do
 
     query = PointQuery.new(
-        table_name: 'test',
-        ra_field: 'test',
-        dec_field: 'test',
         ra: '1',
         dec: '1',
         sr: '1'
@@ -111,7 +108,7 @@ SELECT
     *
     FROM #{service[:table_name]}
     WHERE
-        1=CONTAINS(POINT('ICRS', #{service[:fields][:ra_field][:field]}, #{service[:fields][:dec_field][:field]}),
+        1=CONTAINS(POINT('ICRS', #{service[:fields][:ra][:field]}, #{service[:fields][:dec][:field]}),
                    CIRCLE('ICRS', #{args[:ra]}, #{args[:dec]}, #{args[:sr]}))
 
     END_ADQL
@@ -138,7 +135,7 @@ SELECT
     *
     FROM #{service[:table_name]}
     WHERE
-        1=CONTAINS(POINT('ICRS', #{service[:fields][:ra_field][:field]}, #{service[:fields][:dec_field][:field]}),
+        1=CONTAINS(POINT('ICRS', #{service[:fields][:ra][:field]}, #{service[:fields][:dec][:field]}),
                    CIRCLE('ICRS', #{args[:ra]}, #{args[:dec]}, #{args[:sr]}))
 
     END_ADQL
@@ -174,20 +171,20 @@ SELECT
     *
     FROM #{service[:table_name]}
     WHERE
-        1=CONTAINS(POINT('ICRS', #{service[:fields][:ra_field][:field]}, #{service[:fields][:dec_field][:field]}),
+        1=CONTAINS(POINT('ICRS', #{service[:fields][:ra][:field]}, #{service[:fields][:dec][:field]}),
                    CIRCLE('ICRS', #{args[:ra]}, #{args[:dec]}, #{args[:sr]}))
-AND #{service[:fields][:u_field][:field]} >= #{u.min}
-AND #{service[:fields][:u_field][:field]} <= #{u.max}
-AND #{service[:fields][:v_field][:field]} >= #{v.min}
-AND #{service[:fields][:v_field][:field]} <= #{v.max}
-AND #{service[:fields][:g_field][:field]} >= #{g.min}
-AND #{service[:fields][:g_field][:field]} <= #{g.max}
-AND #{service[:fields][:r_field][:field]} >= #{r.min}
-AND #{service[:fields][:r_field][:field]} <= #{r.max}
-AND #{service[:fields][:i_field][:field]} >= #{i.min}
-AND #{service[:fields][:i_field][:field]} <= #{i.max}
-AND #{service[:fields][:z_field][:field]} >= #{z.min}
-AND #{service[:fields][:z_field][:field]} <= #{z.max}
+AND #{service[:fields][:u][:field]} >= #{u.min}
+AND #{service[:fields][:u][:field]} <= #{u.max}
+AND #{service[:fields][:v][:field]} >= #{v.min}
+AND #{service[:fields][:v][:field]} <= #{v.max}
+AND #{service[:fields][:g][:field]} >= #{g.min}
+AND #{service[:fields][:g][:field]} <= #{g.max}
+AND #{service[:fields][:r][:field]} >= #{r.min}
+AND #{service[:fields][:r][:field]} <= #{r.max}
+AND #{service[:fields][:i][:field]} >= #{i.min}
+AND #{service[:fields][:i][:field]} <= #{i.max}
+AND #{service[:fields][:z][:field]} >= #{z.min}
+AND #{service[:fields][:z][:field]} <= #{z.max}
 
     END_ADQL
     query.to_adql(service).should == adql
@@ -222,14 +219,14 @@ SELECT
     *
     FROM #{service[:table_name]}
     WHERE
-        1=CONTAINS(POINT('ICRS', #{service[:fields][:ra_field][:field]}, #{service[:fields][:dec_field][:field]}),
+        1=CONTAINS(POINT('ICRS', #{service[:fields][:ra][:field]}, #{service[:fields][:dec][:field]}),
                    CIRCLE('ICRS', #{args[:ra]}, #{args[:dec]}, #{args[:sr]}))
-AND #{service[:fields][:u_field][:field]} >= #{u.min}
-AND #{service[:fields][:v_field][:field]} <= #{v.max}
-AND #{service[:fields][:g_field][:field]} >= #{g.min}
-AND #{service[:fields][:r_field][:field]} <= #{r.max}
-AND #{service[:fields][:i_field][:field]} >= #{i.min}
-AND #{service[:fields][:z_field][:field]} <= #{z.max}
+AND #{service[:fields][:u][:field]} >= #{u.min}
+AND #{service[:fields][:v][:field]} <= #{v.max}
+AND #{service[:fields][:g][:field]} >= #{g.min}
+AND #{service[:fields][:r][:field]} <= #{r.max}
+AND #{service[:fields][:i][:field]} >= #{i.min}
+AND #{service[:fields][:z][:field]} <= #{z.max}
 
     END_ADQL
     query.to_adql(service).should == adql

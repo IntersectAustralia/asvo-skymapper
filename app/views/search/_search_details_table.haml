@@ -1,0 +1,20 @@
+#search-details
+  - tables = split_fields_by_group(@fields)
+  - tables.each do |group, fields|
+    %h5= group.titleize
+    %table.table.table-striped.table-bordered.table-fluid
+      %thead
+        %tr
+          - fields.each do |field|
+            %th= field[:name]
+      %tbody
+        %tr
+          - fields.each do |field|
+            %td.field-result
+              - if field[:options] and field[:options].include?('image-link')
+                %a.image-link{ 'ng-click' => "downloadImage(selectedObject['#{field[:field]}'])", 'data-href' => "{{selectedObject['#{field[:field]}']}}" }
+                  download image
+              - else
+                = "{{selectedObject['#{field[:field]}']}}"
+              %span.hide
+                = field[:field]

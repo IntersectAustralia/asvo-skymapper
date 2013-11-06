@@ -47,32 +47,27 @@ describe Registry do
     tap_service = registry.find_service('skymapper', 'fs', 'tap')
     fields = tap_service[:fields]
 
-    fields[:ra_field][:field].should == 'mean_ra'
-    fields[:ra_field][:name].should == 'Right ascension'
-
-    fields[:dec_field][:field].should == 'mean_dcl'
-    fields[:dec_field][:name].should == 'Declination'
-
-    fields[:object_id_field][:field].should == 'global_object_id'
-    fields[:object_id_field][:name].should == 'Object Id'
-
-    fields[:u_field][:field].should == 'flux_u'
-    fields[:u_field][:name].should == 'U'
-
-    fields[:v_field][:field].should == 'flux_v'
-    fields[:v_field][:name].should == 'V'
-
-    fields[:g_field][:field].should == 'flux_g'
-    fields[:g_field][:name].should == 'G'
-
-    fields[:r_field][:field].should == 'flux_r'
-    fields[:r_field][:name].should == 'R'
-
-    fields[:i_field][:field].should == 'flux_i'
-    fields[:i_field][:name].should == 'I'
-
-    fields[:z_field][:field].should == 'flux_z'
-    fields[:z_field][:name].should == 'Z'
+    fields.should == {
+        object_id: { field: 'global_object_id', name: 'Object id', options: 'show-in-list | click-for-detail', group: 'object' },
+        ra: { field: 'mean_ra', name: 'Right ascension', options: 'show-in-list', group: 'object' },
+        dec: { field: 'mean_dcl', name: 'Declination', options: 'show-in-list', group: 'object' },
+        u: { field: 'flux_u', name: 'Flux u', options: 'show-in-list', group: 'filters' },
+        v: { field: 'flux_v', name: 'Flux v', options: 'show-in-list', group: 'filters' },
+        g: { field: 'flux_g', name: 'Flux g', options: 'show-in-list', group: 'filters' },
+        r: { field: 'flux_r', name: 'Flux r', options: 'show-in-list', group: 'filters' },
+        i: { field: 'flux_i', name: 'Flux i', options: 'show-in-list', group: 'filters' },
+        z: { field: 'flux_z', name: 'Flux z', options: 'show-in-list', group: 'filters' },
+        sigma_ra: { field: 'sigma_ra', name: 'Sigma right ascension', group: 'object' },
+        sigma_dec: { field: 'sigma_dcl', name: 'Sigma declination', group: 'object' },
+        field_id: { field: 'field_id', name: 'Field id', group: 'object' },
+        n_epochs: { field: 'n_epochs', name: 'N epochs', group: 'object' },
+        sigma_u: { field: 'sigma_flux_u', name: 'Sigma flux u', group: 'sigma filters' },
+        sigma_v: { field: 'sigma_flux_v', name: 'Sigma flux v', group: 'sigma filters' },
+        sigma_g: { field: 'sigma_flux_g', name: 'Sigma flux g', group: 'sigma filters' },
+        sigma_r: { field: 'sigma_flux_r', name: 'Sigma flux r', group: 'sigma filters' },
+        sigma_i: { field: 'sigma_flux_i', name: 'Sigma flux i', group: 'sigma filters' },
+        sigma_z: { field: 'sigma_flux_z', name: 'Sigma flux z', group: 'sigma filters' }
+    }
   end
 
   it 'Registry includes fields for main survey catalogue in skymapper dataset' do
@@ -80,32 +75,62 @@ describe Registry do
     tap_service = registry.find_service('skymapper', 'ms', 'tap')
     fields = tap_service[:fields]
 
-    fields[:ra_field][:field].should == 'ra'
-    fields[:ra_field][:name].should == 'Right ascension'
-
-    fields[:dec_field][:field].should == 'dcl'
-    fields[:dec_field][:name].should == 'Declination'
-
-    fields[:object_id_field][:field].should == 'new_object_id'
-    fields[:object_id_field][:name].should == 'Object Id'
-
-    fields[:u_field][:field].should == 'mean_u'
-    fields[:u_field][:name].should == 'U'
-
-    fields[:v_field][:field].should == 'mean_v'
-    fields[:v_field][:name].should == 'V'
-
-    fields[:g_field][:field].should == 'mean_g'
-    fields[:g_field][:name].should == 'G'
-
-    fields[:r_field][:field].should == 'mean_r'
-    fields[:r_field][:name].should == 'R'
-
-    fields[:i_field][:field].should == 'mean_i'
-    fields[:i_field][:name].should == 'I'
-
-    fields[:z_field][:field].should == 'mean_z'
-    fields[:z_field][:name].should == 'Z'
+    fields.should == {
+        object_id: { field: 'new_object_id', name: 'Object id', options: 'show-in-list | click-for-detail', group: 'object' },
+        ra: { field: 'ra', name: 'Right ascension', options: 'show-in-list', group: 'object' },
+        dec: { field: 'dcl', name: 'Declination', options: 'show-in-list', group: 'object' },
+        u: { field: 'mean_u', name: 'u', options: 'show-in-list', group: 'filters' },
+        v: { field: 'mean_v', name: 'v', options: 'show-in-list', group: 'filters' },
+        g: { field: 'mean_g', name: 'g', options: 'show-in-list', group: 'filters' },
+        r: { field: 'mean_r', name: 'r', options: 'show-in-list', group: 'filters' },
+        i: { field: 'mean_i', name: 'i', options: 'show-in-list', group: 'filters' },
+        z: { field: 'mean_z', name: 'z', options: 'show-in-list', group: 'filters' },
+        mean_epoch: { field: 'mean_epoch', name: 'Mean epoch', group: 'object' },
+        sigma_u: { field: 'sigma_u', name: 'Sigma u', group: 'sigma filters' },
+        sigma_v: { field: 'sigma_v', name: 'Sigma v', group: 'sigma filters' },
+        sigma_g: { field: 'sigma_g', name: 'Sigma g', group: 'sigma filters' },
+        sigma_r: { field: 'sigma_r', name: 'Sigma r', group: 'sigma filters' },
+        sigma_i: { field: 'sigma_i', name: 'Sigma i', group: 'sigma filters' },
+        sigma_z: { field: 'sigma_z', name: 'Sigma z', group: 'sigma filters' },
+        petro_u: { field: 'petro_u', name: 'Petro u', group: 'petro filters' },
+        petro_v: { field: 'petro_v', name: 'Petro v', group: 'petro filters' },
+        petro_g: { field: 'petro_g', name: 'Petro g', group: 'petro filters' },
+        petro_r: { field: 'petro_r', name: 'Petro r', group: 'petro filters' },
+        petro_i: { field: 'petro_i', name: 'Petro i', group: 'petro filters' },
+        petro_z: { field: 'petro_z', name: 'Petro z', group: 'petro filters' },
+        petro_sigma_u: { field: 'petro_sigma_u', name: 'Petro sigma u', group: 'petro sigma filters' },
+        petro_sigma_v: { field: 'petro_sigma_v', name: 'Petro sigma v', group: 'petro sigma filters' },
+        petro_sigma_g: { field: 'petro_sigma_g', name: 'Petro sigma g', group: 'petro sigma filters' },
+        petro_sigma_r: { field: 'petro_sigma_r', name: 'Petro sigma r', group: 'petro sigma filters' },
+        petro_sigma_i: { field: 'petro_sigma_i', name: 'Petro sigma i', group: 'petro sigma filters' },
+        petro_sigma_z: { field: 'petro_sigma_z', name: 'Petro sigma z', group: 'petro sigma filters' },
+        pi: { field: 'pi', name: 'pi', group: 'todo1' },
+        sigma_pi: { field: 'sigma_pi', name: 'Sigma pi', group: 'todo1' },
+        mu_x: { field: 'mu_x', name: 'mu x', group: 'todo1' },
+        mu_y: { field: 'mu_y', name: 'mu y', group: 'todo1' },
+        sigma_mu_x: { field: 'sigma_mu_x', name: 'Sigma mu x', group: 'todo1' },
+        sigma_mu_y: { field: 'sigma_mu_y', name: 'Sigma mu y', group: 'todo1' },
+        variability: { field: 'variability', name: 'Variability', group: 'todo1' },
+        transient: { field: 'transient', name: 'Transient', group: 'todo1' },
+        a: { field: 'a', name: 'a', group: 'todo2' },
+        b: { field: 'b', name: 'b', group: 'todo2' },
+        theta: { field: 'theta', name: 'Theta', group: 'todo2' },
+        sigma_a: { field: 'sigma_a', name: 'Sigma a', group: 'todo2' },
+        sigma_b: { field: 'sigma_b', name: 'Sigma b', group: 'todo2' },
+        sigma_theta: { field: 'sigma_theta', name: 'Sigma theta', group: 'todo2' },
+        radius_frac_20: { field: 'radius_frac_20', name: 'Radius frac 20', group: 'todo2' },
+        radius_frac_90: { field: 'radius_frac_90', name: 'Radius frac 90', group: 'todo2' },
+        class_star: { field: 'class_star', name: 'Class star', group: 'star' },
+        class_desc: { field: 'class_desc', name: 'Class description', group: 'star' },
+        field_id_1: { field: 'field_id_1', name: 'Field id 1', group: 'extras' },
+        object_id_1: { field: 'object_id_1', name: 'Object id 1', group: 'extras' },
+        field_id_2: { field: 'field_id_2', name: 'Field id 2', group: 'extras' },
+        object_id_2: { field: 'object_id_2', name: 'Object id 2', group: 'extras' },
+        field_id_3: { field: 'field_id_3', name: 'Field id 3', group: 'extras' },
+        object_id_3: { field: 'object_id_3', name: 'Object id 3', group: 'extras' },
+        field_id_4: { field: 'field_id_4', name: 'Field id 4', group: 'extras' },
+        object_id_4: { field: 'object_id_4', name: 'Object id 4', group: 'extras' }
+    }
   end
 
   it 'Registry includes image catalogue survey in skymapper dataset' do
@@ -124,23 +149,29 @@ describe Registry do
     siap_service = registry.find_service('skymapper', 'image', 'siap')
     fields = siap_service[:fields]
 
-    fields[:ra_field][:field].should == 'POINTRA_DEG'
-    fields[:ra_field][:name].should == 'Right ascension'
-
-    fields[:dec_field][:field].should == 'POINTDEC_DEG'
-    fields[:dec_field][:name].should == 'Declination'
-
-    fields[:filter_field][:field].should == 'FILTER'
-    fields[:filter_field][:name].should == 'Filter'
-
-    fields[:survey_field][:field].should == 'IMAGE_TYPE'
-    fields[:survey_field][:name].should == 'Survey'
-
-    fields[:observation_date_field][:field].should == 'DATE'
-    fields[:observation_date_field][:name].should == 'Observation Date (MJD)'
-
-    fields[:image_url][:field].should == 'ACCESSURL'
-    fields[:image_url][:name].should == 'Image URL'
+    fields.should == {
+        ra: { field: 'POINTRA_DEG', name: 'Right ascension', options: 'show-in-list | click-for-detail', group: 'image' },
+        dec: { field: 'POINTDEC_DEG', name: 'Declination', options: 'show-in-list | click-for-detail', group: 'image' },
+        filter: { field: 'FILTER', name: 'Filter', options: 'show-in-list', group: 'image' },
+        image_type: { field: 'IMAGE_TYPE', name: 'Survey', options: 'show-in-list', group: 'image' },
+        observation_date: { field: 'DATE', name: 'Observation Date (MJD)', options: 'show-in-list', group: 'image' },
+        image_url: { field: 'ACCESSURL', name: 'Image URL', options: 'show-in-list | image-link', group: 'image' },
+        object_id: { field: 'OBJECT_ID', name: 'Object id', group: 'todo1' },
+        title: { field: 'TITLE', name: 'Title', group: 'todo1' },
+        night_id: { field: 'NIGHT_ID', name: 'Night id', group: 'todo1' },
+        combined_id: { field: 'COMBINED_ID', name: 'Combined id', group: 'todo1' },
+        naxes: { field: 'NAXES', name: 'N axes', group: 'todo1' },
+        naxis: { field: 'NAXIS', name: 'N axis', group: 'todo1' },
+        scale: { field: 'SCALE', name: 'Scale', group: 'todo1' },
+        format: { field: 'FORMAT', name: 'Format', group: 'todo2' },
+        field_id: { field: 'FIELD_ID', name: 'Field id', group: 'todo2' },
+        exp_time: { field: 'EXP_TIME', name: 'Exp time', group: 'todo2' },
+        air_mass: { field: 'AIRMASS', name: 'Air mass', group: 'todo2' },
+        rotator_pos: { field: 'ROTATOR_POS', name: 'Rotator pos', group: 'todo2' },
+        object: { field: 'OBJECT', name: 'Object', group: 'todo2' },
+        binning: { field: 'BINNING', name: 'Binning', group: 'todo2' },
+        qa_status: { field: 'QA_STATUS', name: 'QA status', group: 'todo2' }
+    }
   end
 
 end

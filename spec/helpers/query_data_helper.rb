@@ -131,7 +131,7 @@ def create_image_query_fixture(filename, params, size = 500)
   size.times.each do
     xml += '<TR>'
 
-    values = { 4 => rand(1.year.ago..Time.now).to_date.mjd, 5 => params[:ra].to_f + rand - 0.5, 6 => params[:dec].to_f + rand - 0.5, 15 => filters.sample, 18 => surveys.sample }
+    values = { 4 => rand(1.year.ago..Time.now).to_date.mjd, 5 => params[:ra].to_f + rand - 0.5, 6 => params[:dec].to_f + rand - 0.5, 15 => filters.sample, 18 => surveys.sample, 11 => 'http://test' }
     num_of_fields.times.each do |index|
 
       if values[index].blank?

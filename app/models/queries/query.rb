@@ -35,8 +35,8 @@ class Query
     filter_adql = ''
     if filters
       filters.each do |filter|
-        filter_adql += "AND #{service[:fields]["#{filter.name}_field".to_sym][:field]} >= #{filter.min}\n" unless filter.min.blank?
-        filter_adql += "AND #{service[:fields]["#{filter.name}_field".to_sym][:field]} <= #{filter.max}\n" unless filter.max.blank?
+        filter_adql += "AND #{service[:fields][filter.name.to_sym][:field]} >= #{filter.min}\n" unless filter.min.blank?
+        filter_adql += "AND #{service[:fields][filter.name.to_sym][:field]} <= #{filter.max}\n" unless filter.max.blank?
       end
     end
     filter_adql
