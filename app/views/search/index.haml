@@ -7,30 +7,20 @@
       %span.hide
         = session[:search] ? session[:search][:type] : nil
       %li
-        %a{ href: '#tab-name', 'data-toggle' => 'tab'}
-          Name
-      %li
         %a{ href: '#tab-radial', 'data-toggle' => 'tab'}
           Radial
       %li
         %a{ href: '#tab-rectangular', 'data-toggle' => 'tab'}
           Rectangular
       %li
-        %a{ href: '#tab-adql', 'data-toggle' => 'tab'}
-          ADQL
-      %li
         %a{ href: '#tab-raw-image', 'data-toggle' => 'tab'}
           Raw Image
 
     .tab-content
-      #tab-name.tab-pane
-        = render partial: 'tab_name'
       #tab-radial.tab-pane
         = render partial: 'tab_radial'
       #tab-rectangular.tab-pane
         = render partial: 'tab_rectangular'
-      #tab-adql.tab-pane
-        = render partial: 'tab_adql'
       #tab-raw-image.tab-pane
         = render partial: 'tab_raw_image'
 
