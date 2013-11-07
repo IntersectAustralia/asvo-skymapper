@@ -4,21 +4,21 @@ describe BulkCatalogueQuery do
 
   # Validate Search Radius (SR)
   it { should allow_value('0.00000001').for(:sr) }
-  it { should allow_value('10').for(:sr) }
-  it { should allow_value('1.12345678').for(:sr) }
-  it { should allow_value('.12345678').for(:sr) }
-  it { should allow_value('   .12345678    ').for(:sr) }
+  it { should allow_value('0.05').for(:sr) }
+  it { should allow_value('0.01234567').for(:sr) }
+  it { should allow_value('.01234567').for(:sr) }
+  it { should allow_value('   .01234567    ').for(:sr) }
 
   it { should_not allow_value('0').for(:sr) }
-  it { should_not allow_value('10.00000001').for(:sr) }
+  it { should_not allow_value('0.06').for(:sr) }
   it { should_not allow_value('1000').for(:sr) }
   it { should_not allow_value('-1000').for(:sr) }
-  it { should_not allow_value('.123456789').for(:sr) }
+  it { should_not allow_value('.012345678').for(:sr) }
   it { should_not allow_value(nil).for(:sr) }
   it { should_not allow_value('').for(:sr) }
   it { should_not allow_value('7abc').for(:sr) }
   it { should_not allow_value('.').for(:sr) }
-  it { should_not allow_value('  1.  ').for(:sr) }
+  it { should_not allow_value('  0.  ').for(:sr) }
 
   # Validate Search File
   it { should_not allow_value(nil).for(:file) }
@@ -137,6 +137,58 @@ describe BulkCatalogueQuery do
     query.errors.messages[:file].include?('Line 15: Declination must be a number with 8 decimal places')
     query.errors.messages[:file].include?('Line 16: Declination is not a number')
     query.errors.messages[:file].include?('Line 16: Declination must be a number with 8 decimal places')
+  end
+
+  it 'Create bulk catalogue query for skymapper service fs' do
+    registry = Rails.application.config.asvo_registry
+    service = registry.find_service('skymapper', 'fs', 'tap')
+
+    args = {
+        file: Rails.root.join('spec/fixtures/skymapper_bulk_catalogue_valid_1.csv'),
+        sr: '0.05'
+    }
+
+    query = BulkCatalogueQuery.new(args)
+    query.valid?.should be_true
+
+    adql = <<-END_ADQL
+SELECT
+    *
+    FROM #{service[:table_name]}
+    WHERE
+1=CONTAINS(POINT('ICRS', #{service[:fields][:ra][:field]}, #{service[:fields][:dec][:field]}), CIRCLE('ICRS', 178.83871, -1.18844, 0.05))
+OR
+1=CONTAINS(POINT('ICRS', #{service[:fields][:ra][:field]}, #{service[:fields][:dec][:field]}), CIRCLE('ICRS', 179.83871, -1.18844, 0.05))
+
+    END_ADQL
+
+    query.to_adql(service).should == adql
+  end
+
+  it 'Create bulk catalogue query for skymapper service ms' do
+    registry = Rails.application.config.asvo_registry
+    service = registry.find_service('skymapper', 'ms', 'tap')
+
+    args = {
+        file: Rails.root.join('spec/fixtures/skymapper_bulk_catalogue_valid_1.csv'),
+        sr: '0.05'
+    }
+
+    query = BulkCatalogueQuery.new(args)
+    query.valid?.should be_true
+
+    adql = <<-END_ADQL
+SELECT
+    *
+    FROM #{service[:table_name]}
+    WHERE
+1=CONTAINS(POINT('ICRS', #{service[:fields][:ra][:field]}, #{service[:fields][:dec][:field]}), CIRCLE('ICRS', 178.83871, -1.18844, 0.05))
+OR
+1=CONTAINS(POINT('ICRS', #{service[:fields][:ra][:field]}, #{service[:fields][:dec][:field]}), CIRCLE('ICRS', 179.83871, -1.18844, 0.05))
+
+    END_ADQL
+
+    query.to_adql(service).should == adql
   end
 
 end

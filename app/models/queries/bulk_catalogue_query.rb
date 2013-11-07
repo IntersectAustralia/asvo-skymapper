@@ -7,7 +7,7 @@ class BulkCatalogueQuery < Query
   attr_accessor *PARAMETER_FIELDS
 
   validates :file, presence: true
-  validates :sr, presence: true, numericality: { greater_than: 0, less_than_or_equal_to: 10 }, format: { with: /^-?\d*(\.\d{1,8})?$/, message: 'must be a number with 8 decimal places' }
+  validates :sr, presence: true, numericality: { greater_than: 0, less_than_or_equal_to: 0.05 }, format: { with: /^-?\d*(\.\d{1,8})?$/, message: 'must be a number with 8 decimal places' }
   validate :file, :valid_search_file
 
   before_validation :clean_values
@@ -32,6 +32,22 @@ class BulkCatalogueQuery < Query
     else
       errors.add(:file, 'must be a file')
     end
+  end
+
+  def to_adql(service)
+    point_queries = ''
+    csv = CSV.parse(File.read(file))
+    csv.each do |row|
+      point_queries += "OR\n" unless point_queries.blank?
+      point_queries += "1=CONTAINS(POINT('ICRS', #{service[:fields][:ra][:field]}, #{service[:fields][:dec][:field]}), CIRCLE('ICRS', #{clean(row[0])}, #{clean(row[1])}, #{clean(sr)}))\n"
+    end
+    <<-END_ADQL
+SELECT
+    *
+    FROM #{service[:table_name]}
+    WHERE
+#{point_queries}
+    END_ADQL
   end
 
   def all_fields
