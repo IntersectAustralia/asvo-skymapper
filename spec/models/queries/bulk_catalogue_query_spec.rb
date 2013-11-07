@@ -30,6 +30,31 @@ describe BulkCatalogueQuery do
     query.errors.messages[:file].should be_nil
   end
 
+  it 'Search file headers are case insensitive' do
+    query = BulkCatalogueQuery.new
+    query.file = Rails.root.join('spec/fixtures/skymapper_bulk_catalogue_valid_2.csv')
+    query.valid?
+    query.errors.messages[:file].should be_nil
+  end
+
+  it 'Search must have valid headers' do
+    query = BulkCatalogueQuery.new
+    # no headers
+    query.file = Rails.root.join('spec/fixtures/skymapper_bulk_catalogue_invalid_5.csv')
+    query.valid?
+    query.errors.messages[:file].should_not be_nil
+
+    # no dec
+    query.file = Rails.root.join('spec/fixtures/skymapper_bulk_catalogue_invalid_6.csv')
+    query.valid?
+    query.errors.messages[:file].should_not be_nil
+
+    # no ra
+    query.file = Rails.root.join('spec/fixtures/skymapper_bulk_catalogue_invalid_7.csv')
+    query.valid?
+    query.errors.messages[:file].should_not be_nil
+  end
+
   it 'Search file cannot be empty' do
     query = BulkCatalogueQuery.new
     query.file = Rails.root.join('spec/fixtures/skymapper_bulk_catalogue_invalid_1.csv')
