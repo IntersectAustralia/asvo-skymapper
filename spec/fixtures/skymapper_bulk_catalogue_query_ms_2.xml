@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VOTABLE version="1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ivoa.net/xml/VOTable/v1.2" xmlns="http://www.ivoa.net/xml/VOTable/v1.2">
+	<RESOURCE type="results">
+		<INFO name="QUERY_STATUS" value="OK" />
+		<INFO name="PROVIDER" value="ASOV">TAP for SkyMapperPublic</INFO>
+		<INFO name="QUERY" value="SELECT
+    *
+    FROM public.ms_distilled
+    WHERE
+1=CONTAINS(POINT('ICRS', ra, dcl), CIRCLE('ICRS', 10, 10, 0.05))
+OR
+1=CONTAINS(POINT('ICRS', ra, dcl), CIRCLE('ICRS', 20, 10, 0.05))
+
+" />
+		<TABLE>
+			<FIELD ID="new_object_id" name="new_object_id" ucd="meta.id;meta.main" datatype="long"/>
+			<FIELD ID="mean_epoch" name="mean_epoch" datatype="integer"/>
+			<FIELD ID="ra" name="ra" ucd="pos.eq.ra;meta.main" datatype="double" unit="deg"/>
+			<FIELD ID="dcl" name="dcl" ucd="pos.eq.dec;meta.main" datatype="double" unit="deg"/>
+			<FIELD ID="pi" name="pi" datatype="double"/>
+			<FIELD ID="sigma_pi" name="sigma_pi" datatype="double"/>
+			<FIELD ID="mu_x" name="mu_x" datatype="double"/>
+			<FIELD ID="mu_y" name="mu_y" datatype="double"/>
+			<FIELD ID="sigma_mu_x" name="sigma_mu_x" datatype="double"/>
+			<FIELD ID="sigma_mu_y" name="sigma_mu_y" datatype="double"/>
+			<FIELD ID="mean_u" name="mean_u" datatype="double"/>
+			<FIELD ID="mean_v" name="mean_v" datatype="double"/>
+			<FIELD ID="mean_g" name="mean_g" datatype="double"/>
+			<FIELD ID="mean_r" name="mean_r" datatype="double"/>
+			<FIELD ID="mean_i" name="mean_i" datatype="double"/>
+			<FIELD ID="mean_z" name="mean_z" datatype="double"/>
+			<FIELD ID="sigma_u" name="sigma_u" datatype="double"/>
+			<FIELD ID="sigma_v" name="sigma_v" datatype="double"/>
+			<FIELD ID="sigma_g" name="sigma_g" datatype="double"/>
+			<FIELD ID="sigma_r" name="sigma_r" datatype="double"/>
+			<FIELD ID="sigma_i" name="sigma_i" datatype="double"/>
+			<FIELD ID="sigma_z" name="sigma_z" datatype="double"/>
+			<FIELD ID="petro_u" name="petro_u" datatype="double"/>
+			<FIELD ID="petro_v" name="petro_v" datatype="double"/>
+			<FIELD ID="petro_g" name="petro_g" datatype="double"/>
+			<FIELD ID="petro_r" name="petro_r" datatype="double"/>
+			<FIELD ID="petro_i" name="petro_i" datatype="double"/>
+			<FIELD ID="petro_z" name="petro_z" datatype="double"/>
+			<FIELD ID="petro_sigma_u" name="petro_sigma_u" datatype="double"/>
+			<FIELD ID="petro_sigma_v" name="petro_sigma_v" datatype="double"/>
+			<FIELD ID="petro_sigma_g" name="petro_sigma_g" datatype="double"/>
+			<FIELD ID="petro_sigma_r" name="petro_sigma_r" datatype="double"/>
+			<FIELD ID="petro_sigma_i" name="petro_sigma_i" datatype="double"/>
+			<FIELD ID="petro_sigma_z" name="petro_sigma_z" datatype="double"/>
+			<FIELD ID="variability" name="variability" datatype="double"/>
+			<FIELD ID="transient" name="transient" datatype="boolean"/>
+			<FIELD ID="a" name="a" datatype="double"/>
+			<FIELD ID="b" name="b" datatype="double"/>
+			<FIELD ID="theta" name="theta" datatype="double"/>
+			<FIELD ID="sigma_a" name="sigma_a" datatype="double"/>
+			<FIELD ID="sigma_b" name="sigma_b" datatype="double"/>
+			<FIELD ID="sigma_theta" name="sigma_theta" datatype="double"/>
+			<FIELD ID="radius_frac_20" name="radius_frac_20" datatype="double"/>
+			<FIELD ID="radius_frac_90" name="radius_frac_90" datatype="double"/>
+			<FIELD ID="class_star" name="class_star" datatype="double"/>
+			<FIELD ID="class_desc" name="class_desc" datatype="char" arraysize="*"/>
+			<FIELD ID="field_id_1" name="field_id_1" datatype="integer"/>
+			<FIELD ID="object_id_1" name="object_id_1" datatype="integer"/>
+			<FIELD ID="field_id_2" name="field_id_2" datatype="integer"/>
+			<FIELD ID="object_id_2" name="object_id_2" datatype="integer"/>
+			<FIELD ID="field_id_3" name="field_id_3" datatype="integer"/>
+			<FIELD ID="object_id_3" name="object_id_3" datatype="integer"/>
+			<FIELD ID="field_id_4" name="field_id_4" datatype="integer"/>
+			<FIELD ID="object_id_4" name="object_id_4" datatype="integer"/>
+			<DATA>
+				<TABLEDATA>
+				</TABLEDATA>
+			</DATA>
+		</TABLE>
+	</RESOURCE>
+</VOTABLE>

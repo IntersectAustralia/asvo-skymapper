@@ -1,0 +1,109 @@
+--- !ruby/object:VOTable
+query_status: OK
+provider: TAP for SkyMapperPublic
+query: |+
+  SELECT
+      *
+      FROM public.fs_distilled
+      WHERE
+  1=CONTAINS(POINT('ICRS', mean_ra, mean_dcl), CIRCLE('ICRS', 10, 10, 0.15))
+  OR
+  1=CONTAINS(POINT('ICRS', mean_ra, mean_dcl), CIRCLE('ICRS', 20, 10, 0.15))
+
+table_fields:
+- :id: global_object_id
+  :name: global_object_id
+  :ucd: meta.id;meta.main
+  :datatype: integer
+  :unit: 
+- :id: field_id
+  :name: field_id
+  :ucd: 
+  :datatype: integer
+  :unit: 
+- :id: mean_ra
+  :name: mean_ra
+  :ucd: pos.eq.ra;meta.main
+  :datatype: double
+  :unit: deg
+- :id: mean_dcl
+  :name: mean_dcl
+  :ucd: pos.eq.dec;meta.main
+  :datatype: double
+  :unit: deg
+- :id: sigma_ra
+  :name: sigma_ra
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: sigma_dcl
+  :name: sigma_dcl
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: n_epochs
+  :name: n_epochs
+  :ucd: 
+  :datatype: integer
+  :unit: 
+- :id: flux_u
+  :name: flux_u
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: sigma_flux_u
+  :name: sigma_flux_u
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: flux_v
+  :name: flux_v
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: sigma_flux_v
+  :name: sigma_flux_v
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: flux_g
+  :name: flux_g
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: sigma_flux_g
+  :name: sigma_flux_g
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: flux_r
+  :name: flux_r
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: sigma_flux_r
+  :name: sigma_flux_r
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: flux_i
+  :name: flux_i
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: sigma_flux_i
+  :name: sigma_flux_i
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: flux_z
+  :name: flux_z
+  :ucd: 
+  :datatype: double
+  :unit: 
+- :id: sigma_flux_z
+  :name: sigma_flux_z
+  :ucd: 
+  :datatype: double
+  :unit: 
+table_data: []
