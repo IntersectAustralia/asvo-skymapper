@@ -32,6 +32,15 @@ class QueryGenerator
     query
   end
 
+  def self.generate_bulk_catalogue_query(args)
+    query_args = {
+        file: args[:file],
+        sr: args[:sr]
+    }
+    query = BulkCatalogueQuery.new(query_args)
+    query
+  end
+
   protected
 
   def self.generate_query_filters(args)
