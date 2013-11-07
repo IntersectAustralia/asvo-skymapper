@@ -26,7 +26,7 @@ class SearchController < ApplicationController
     clean_parameters(@parameters)
 
     @fields = search_fields(params[:catalogue], 'tap')
-
+    @service = radial_query_path
   rescue StandardError
     flash.now[:error] = 'The search parameters contain some errors.'
   ensure
@@ -48,11 +48,97 @@ class SearchController < ApplicationController
     clean_parameters(@parameters)
 
     @fields = search_fields(params[:catalogue], 'tap')
-
+    @service = rectangular_query_path
   rescue StandardError
     flash.now[:error] = 'The search parameters contain some errors.'
   ensure
     render 'search_results_and_details'
+    render 'search_results'
+  end
+
+  def rectangular_query
+    args = params[:query]
+    raise SearchError.new 'Invalid search arguments' unless args
+
+    query_args = {
+        dataset: DEFAULT_DATASET,
+        catalogue: args[:catalogue],
+        ra_min: args[:ra_min],
+        ra_max: args[:ra_max],
+        dec_min: args[:dec_min],
+        dec_max: args[:dec_max],
+        u_min: args[:u_min],
+        u_max: args[:u_max],
+        v_min: args[:v_min],
+        v_max: args[:v_max],
+        g_min: args[:g_min],
+        g_max: args[:g_max],
+        r_min: args[:r_min],
+        r_max: args[:r_max],
+        i_min: args[:i_min],
+        i_max: args[:i_max],
+        z_min: args[:z_min],
+        z_max: args[:z_max],
+        limit: false
+    }
+
+    query = QueryGenerator.method(:generate_rectangular_query).call(query_args)
+    raise SearchError.new 'Invalid search arguments' unless query and query.valid?
+
+    service_args = {
+        dataset: DEFAULT_DATASET,
+        catalogue: query_args[:catalogue]
+    }
+
+    service = SyncTapService.new(service_args)
+    request = {
+      url: service.request,
+      query: service.get_raw_query(query)
+    }
+
+    render json: request
+  end
+
+  def radial_query
+    args = params[:query]
+    raise SearchError.new 'Invalid search arguments' unless args
+
+    query_args = {
+        dataset: DEFAULT_DATASET,
+        catalogue: args[:catalogue],
+        ra: args[:ra],
+        dec: args[:dec],
+        sr: args[:sr],
+        u_min: args[:u_min],
+        u_max: args[:u_max],
+        v_min: args[:v_min],
+        v_max: args[:v_max],
+        g_min: args[:g_min],
+        g_max: args[:g_max],
+        r_min: args[:r_min],
+        r_max: args[:r_max],
+        i_min: args[:i_min],
+        i_max: args[:i_max],
+        z_min: args[:z_min],
+        z_max: args[:z_max],
+        limit: false
+    }
+
+    query = QueryGenerator.method(:generate_point_query).call(query_args)
+    raise SearchError.new 'Invalid search arguments' unless query and query.valid?
+
+    service_args = {
+        dataset: DEFAULT_DATASET,
+        catalogue: query_args[:catalogue]
+    }
+
+    service = SyncTapService.new(service_args)
+    request = {
+        url: service.request,
+        query: service.get_raw_query(query)
+    }
+
+    render json: request
   end
 
   def raw_image_search
@@ -190,6 +276,18 @@ class SearchController < ApplicationController
     Rails.application.config.asvo_registry.find_service(DEFAULT_DATASET, catalogue, service)[:fields].to_a.map { |field| field.second }
   end
 
+  def image_search_fields(catalogue)
+    catalogue_fields = query_fields(DEFAULT_DATASET, catalogue, 'siap')
+    [
+        { name: 'Right ascension', field: catalogue_fields[:ra_field] },
+        { name: 'Declination', field: catalogue_fields[:dec_field] },
+        { name: 'Filter', field: catalogue_fields[:filter_field] },
+        { name: 'Survey', field: catalogue_fields[:survey_field] },
+        { name: 'Observation Date (MJD)', field: catalogue_fields[:observation_date_field] },
+        { name: 'Image', field: catalogue_fields[:image_url], type: :link, class: 'image-link' }
+    ]
+  end
+
   def add_filter_parameters(parameters, params)
     add_parameter(parameters, params, 'U min:', :u_min)
     add_parameter(parameters, params, 'U max:', :u_max)
@@ -217,6 +315,10 @@ class SearchController < ApplicationController
     parameters.push({ name: name, value: params[field] }) if params[field]
   end
 
+  def query_fields(dataset, catalogue, service)
+    Rails.application.config.asvo_registry.find_service(dataset, catalogue, service)[:fields]
+  end
+  
   def handle_error(error)
     respond_with do |format|
       format.html do

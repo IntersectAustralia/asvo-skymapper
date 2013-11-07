@@ -92,8 +92,12 @@ And /^I should see results for catalogue "([^"]*)" as "([^"]*)" in all pages wit
       step "I should see results for catalogue \"#{catalogue}\" as \"#{file}\" in page \"#{page}\" with limit \"#{limit}\""
       step 'I goto the next page'
     end
-
+    results_table = YAML.load(File.read(Rails.root.join("spec/fixtures/#{file}.vo")))
   end
+end
+
+And /^I should see the full list of results in "([^"]*)" compared to "([^"]*)"$/ do |web, file|
+
 end
 
 And /^I fake tap search request for catalogue "([^"]*)" with "([^"]*)"$/ do |catalogue, file|
@@ -122,6 +126,13 @@ And /^I fake siap search request for catalogue "([^"]*)" returns error$/ do |cat
   service = SiapService.new(service_args)
 
   FakeWeb.register_uri(:any, %r|#{service.request}.*|, exception: Exception )
+end
+
+And /^I fake download radial search request for catalogue "([^"]*)" with "([^"]*)"$/ do |catalogue, file|
+  service_args = {dataset:SearchController::DEFAULT_DATASET, catalogue: catalogue}
+  service = SyncTapService.new(service_args)
+
+  FakeWeb.register_uri(:any, %r|#{service.request}.*|, body: File.read(Rails.root.join("spec/fixtures/#{file}.xml")) )
 end
 
 Then /^I should not see any errors for "([^"]*)"$/ do |field|
