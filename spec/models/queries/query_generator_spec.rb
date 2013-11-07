@@ -4,8 +4,6 @@ describe QueryGenerator do
 
   it 'Generates point query for dataset skymapper and catalogue fs' do
     args = {
-        dataset: 'skymapper',
-        catalogue: 'fs',
         ra: '178.83871',
         dec: '-1.18844',
         sr: '0.5'
@@ -16,8 +14,6 @@ describe QueryGenerator do
 
   it 'Generates point query for dataset skymapper and catalogue ms' do
     args = {
-        dataset: 'skymapper',
-        catalogue: 'ms',
         ra: '178.83871',
         dec: '-1.18844',
         sr: '0.5'
@@ -28,8 +24,6 @@ describe QueryGenerator do
 
   it 'Generates point query for dataset skymapper and catalogue fs all filters' do
     args = {
-        dataset: 'skymapper',
-        catalogue: 'fs',
         ra: '178.83871',
         dec: '-1.18844',
         sr: '0.5',
@@ -53,8 +47,6 @@ describe QueryGenerator do
 
   it 'Generates point query for dataset skymapper and catalogue ms all filters' do
     args = {
-        dataset: 'skymapper',
-        catalogue: 'fs',
         ra: '178.83871',
         dec: '-1.18844',
         sr: '0.5',
@@ -78,8 +70,6 @@ describe QueryGenerator do
 
   it 'Generates point query for dataset skymapper and catalogue fs some filters' do
     args = {
-        dataset: 'skymapper',
-        catalogue: 'fs',
         ra: '178.83871',
         dec: '-1.18844',
         sr: '0.5',
@@ -96,8 +86,6 @@ describe QueryGenerator do
 
   it 'Generates point query for dataset skymapper and catalogue ms some filters' do
     args = {
-        dataset: 'skymapper',
-        catalogue: 'fs',
         ra: '178.83871',
         dec: '-1.18844',
         sr: '0.5',
@@ -114,8 +102,6 @@ describe QueryGenerator do
 
   it 'Generates rectangular query for dataset skymapper and catalogue fs' do
     args = {
-        dataset: 'skymapper',
-        catalogue: 'fs',
         ra_min: '178.83871',
         ra_max: '300',
         dec_min: '-1.18844',
@@ -127,8 +113,6 @@ describe QueryGenerator do
 
   it 'Generates rectangular query for dataset skymapper and catalogue ms' do
     args = {
-        dataset: 'skymapper',
-        catalogue: 'ms',
         ra_min: '178.83871',
         ra_max: '300',
         dec_min: '-1.18844',
@@ -140,8 +124,6 @@ describe QueryGenerator do
 
   it 'Generates rectangular query for dataset skymapper and catalogue fs all filters' do
     args = {
-        dataset: 'skymapper',
-        catalogue: 'fs',
         ra_min: '178.83871',
         ra_max: '300',
         dec_min: '-1.18844',
@@ -166,8 +148,6 @@ describe QueryGenerator do
 
   it 'Generates rectangular query for dataset skymapper and catalogue ms all filters' do
     args = {
-        dataset: 'skymapper',
-        catalogue: 'fs',
         ra_min: '178.83871',
         ra_max: '300',
         dec_min: '-1.18844',
@@ -192,8 +172,6 @@ describe QueryGenerator do
 
   it 'Generates rectangular query for dataset skymapper and catalogue fs some filters' do
     args = {
-        dataset: 'skymapper',
-        catalogue: 'fs',
         ra_min: '178.83871',
         ra_max: '300',
         dec_min: '-1.18844',
@@ -211,8 +189,6 @@ describe QueryGenerator do
 
   it 'Generates rectangular query for dataset skymapper and catalogue ms some filters' do
     args = {
-        dataset: 'skymapper',
-        catalogue: 'fs',
         ra_min: '178.83871',
         ra_max: '300',
         dec_min: '-1.18844',
@@ -230,8 +206,6 @@ describe QueryGenerator do
 
   it 'Generates image query for dataset skymapper and catalogue image' do
     args = {
-        dataset: 'skymapper',
-        catalogue: 'image',
         ra: '178.83871',
         dec: '-1.18844'
     }
