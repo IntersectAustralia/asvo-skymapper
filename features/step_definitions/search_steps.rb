@@ -135,6 +135,14 @@ And /^I fake download radial search request for catalogue "([^"]*)" with "([^"]*
   FakeWeb.register_uri(:any, %r|#{service.request}.*|, body: File.read(Rails.root.join("spec/fixtures/#{file}.xml")) )
 end
 
+And /^I fake download rectangular search request for catalogue "([^"]*)" with "([^"]*)"$/ do |catalogue, file|
+  service_args = {dataset:SearchController::DEFAULT_DATASET, catalogue: catalogue}
+  service = SyncTapService.new(service_args)
+
+  FakeWeb.register_uri(:any, %r|#{service.request}.*|, body: File.read(Rails.root.join("spec/fixtures/#{file}.xml")) )
+end
+
+
 Then /^I should not see any errors for "([^"]*)"$/ do |field|
   within(:xpath, "//label[contains(text(), '#{field}')]/..") do
     page.should_not have_css('ul.error', visible: true)
@@ -324,4 +332,10 @@ end
 
 And /^I click on the object in row "([^"]*)"$/ do |row|
   all('#search-results td:first-of-type .detail-link')[row.to_i].click
+end
+
+Then /^the file "([^"]*)" should contain more records than "([^"]*)"$/ do |download, file|
+  download_file = File.read(Rails.root.join("spec/fixtures/#{download}.vo"))
+  web_view = File.read(Rails.root.join("spec/fixtures/#{file}.vo"))
+  download_file.size.should be > web_view.size
 end

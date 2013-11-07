@@ -15,11 +15,11 @@ class RectangularQuery < Query
 
   before_validation :clean_values
 
-  def initialize(args, limit)
+  def initialize(args = {})
     super(args)
-    if limit
-      @limit = limit
-    elsif limit.nil?
+    if args[:limit]
+      @limit = args[:limit]
+    elsif args[:limit].nil?
       @limit = 'TOP 1000'
     else
       @limit = nil

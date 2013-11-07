@@ -4,9 +4,10 @@ class QueryGenerator
     query_args = {
       ra: args[:ra],
       dec: args[:dec],
-      sr: args[:sr]
+      sr: args[:sr],
+      limit: args[:limit]
     }
-    query = PointQuery.new(query_args, args[:limit])
+    query = PointQuery.new(query_args)
     query.filters = generate_query_filters(args)
     query
   end
@@ -16,9 +17,10 @@ class QueryGenerator
       ra_min: args[:ra_min],
       ra_max: args[:ra_max],
       dec_min: args[:dec_min],
-      dec_max: args[:dec_max]
+      dec_max: args[:dec_max],
+      limit: args[:limit]
     }
-    query = RectangularQuery.new(query_args, args[:limit])
+    query = RectangularQuery.new(query_args)
     query.filters = generate_query_filters(args)
     query
   end

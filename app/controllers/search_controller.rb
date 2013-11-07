@@ -53,7 +53,6 @@ class SearchController < ApplicationController
     flash.now[:error] = 'The search parameters contain some errors.'
   ensure
     render 'search_results_and_details'
-    render 'search_results'
   end
 
   def rectangular_query
