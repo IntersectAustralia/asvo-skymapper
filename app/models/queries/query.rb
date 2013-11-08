@@ -2,6 +2,8 @@ class Query
   include ActiveModel::Validations
   include ActiveModel::Validations::Callbacks
 
+  FILE_TYPE = %w(CSV VOTable)
+
   def initialize(args = nil)
     from_args(args) if args
   end

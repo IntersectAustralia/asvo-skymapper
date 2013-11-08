@@ -15,6 +15,18 @@ class RectangularQuery < Query
 
   before_validation :clean_values
 
+  def initialize(args = {})
+    super(args)
+    if args[:limit]
+      @limit = args[:limit]
+    elsif args[:limit].nil?
+      @limit = 'TOP 1000'
+    else
+      @limit = nil
+    end
+  end
+
+
   def to_adql(service)
     ra_box_center = ((ra_min.to_f + ra_max.to_f) * 0.5).to_s
     dec_box_center = ((dec_min.to_f + dec_max.to_f) * 0.5).to_s
@@ -23,7 +35,7 @@ class RectangularQuery < Query
 
     <<-END_ADQL
 SELECT
-    TOP 1000
+    #{@limit}
     *
     FROM #{service[:table_name]}
     WHERE

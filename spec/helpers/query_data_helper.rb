@@ -119,6 +119,20 @@ def generate_image_query_fixtures
 
 end
 
+def generate_download_results
+  query_data = [
+      {dataset: 'skymapper', catalogue: 'fs', params: {ra: '178.83871', dec: '-1.18844', sr: '2'}, filename: 'skymapper_web_view_point_query', method: :generate_point_query},
+      {dataset: 'skymapper', catalogue: 'fs', params: {ra: '178.83871', dec: '-1.18844', sr: '2', limit: false}, filename: 'skymapper_download_point_query', method: :generate_point_query},
+
+      {dataset: 'skymapper', catalogue: 'fs', params: {ra_min: '0', ra_max: '10', dec_min: '-2.25', dec_max: '-0.75'}, filename: 'skymapper_web_view_rectangular_query', method: :generate_rectangular_query},
+      {dataset: 'skymapper', catalogue: 'fs', params: {ra_min: '0', ra_max: '10', dec_min: '-2.25', dec_max: '-0.75', limit: false}, filename: 'skymapper_download_rectangular_query', method: :generate_rectangular_query}
+  ]
+
+  query_data.each do |data|
+    save_query_fixture(data)
+  end
+end
+
 def create_image_query_fixture(filename, params, size = 500)
   doc = File.read(Rails.root.join('spec/fixtures/skymapper_image_query_2.xml'))
 
