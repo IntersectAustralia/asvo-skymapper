@@ -314,3 +314,11 @@ end
 And /^I click on the object in row "([^"]*)"$/ do |row|
   all('#search-results td:first-of-type .detail-link')[row.to_i].click
 end
+
+Then /^I should the following list of file errors$/ do |table|
+  table.hashes.each do |hash|
+
+    page.should have_xpath("//li[contains(text(), \"#{hash[:error]}\")]")
+
+  end
+end

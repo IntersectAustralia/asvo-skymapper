@@ -160,9 +160,24 @@ class SearchController < ApplicationController
   end
 
   def bulk_catalogue_download
-    params.delete(:file)
-    session[:search] = { type: 'bulk-catalogue', params: params }
+    clone_params = params.clone
+    clone_params.delete(:file)
+    session[:search] = { type: 'bulk-catalogue', params: clone_params }
 
+    query_args = {
+        file: params[:file].tempfile.path,
+        sr: params[:sr]
+    }
+
+    query = QueryGenerator.generate_bulk_catalogue_query(query_args)
+    if query.valid?
+
+    else
+      @errors = query.errors.messages[:file]
+    end
+  rescue StandardError
+    flash.now[:error] = 'The search parameters contain some errors.'
+  ensure
     render 'download_results'
   end
 

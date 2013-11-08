@@ -45,10 +45,10 @@ Feature: Bulk catalogue search
   @javascript
   Scenario: I cannot submit bulk catalogue search if csv file has errors
     Given I select the "Bulk Catalogue" tab
-    And I select "File-Second Survey" from "SkyMapper survey"
-    And I attach the file "skymapper_bulk_catalogue_valid_1.csv" to "File"
+    And I select "Five-Second Survey" from "SkyMapper survey"
+    And I attach the file "skymapper_bulk_catalogue_invalid_4.csv" to "File"
     And I select "CSV" from "Download format"
-    And I fill in "0.15" for "Search radius (deg)"
+    And I fill in "0.05" for "Search radius (deg)"
     And I press "Search SkyMapper"
     Then I should the following list of file errors
       | error                                                           |
@@ -59,6 +59,8 @@ Feature: Bulk catalogue search
       | Line 11: Right ascension must be a number with 8 decimal places |
       | Line 12: Right ascension can't be blank                         |
       | Line 12: Right ascension is not a number                        |
+      | Line 13: Right ascension can't be blank                         |
+      | Line 13: Right ascension is not a number                        |
       | Line 14: Right ascension is not a number                        |
       | Line 14: Right ascension must be a number with 8 decimal places |
       | Line 15: Right ascension is not a number                        |

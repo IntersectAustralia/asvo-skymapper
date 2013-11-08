@@ -1,1 +1,18 @@
-%div
+%div#download-results{ 'ng-controller' => 'SearchResultsController' }
+
+  %section.row-fluid
+
+    .span9
+      %h3 Download Results
+
+      %a.btn{ href: root_path }
+        Back
+
+      - if @errors
+        %h5 Found the follow errors in the csv file
+        %ul.error
+          - @errors.each do |error|
+            %li.error= error
+
+    .aside.span3
+      = render 'help'
