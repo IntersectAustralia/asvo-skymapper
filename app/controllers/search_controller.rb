@@ -301,18 +301,6 @@ class SearchController < ApplicationController
     Rails.application.config.asvo_registry.find_service(DEFAULT_DATASET, catalogue, service)[:fields].to_a.map { |field| field.second }
   end
 
-  def image_search_fields(catalogue)
-    catalogue_fields = query_fields(DEFAULT_DATASET, catalogue, 'siap')
-    [
-        { name: 'Right ascension', field: catalogue_fields[:ra_field] },
-        { name: 'Declination', field: catalogue_fields[:dec_field] },
-        { name: 'Filter', field: catalogue_fields[:filter_field] },
-        { name: 'Survey', field: catalogue_fields[:survey_field] },
-        { name: 'Observation Date (MJD)', field: catalogue_fields[:observation_date_field] },
-        { name: 'Image', field: catalogue_fields[:image_url], type: :link, class: 'image-link' }
-    ]
-  end
-
   def add_filter_parameters(parameters, params)
     add_parameter(parameters, params, 'U min:', :u_min)
     add_parameter(parameters, params, 'U max:', :u_max)

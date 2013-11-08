@@ -27,7 +27,7 @@ window.skymapper_app.controller 'SearchResultsController', ['$scope', '$window',
       $scope.download = (url) ->
         args = decodeQueryParams($window.location.search.substring(1))
 
-        form_arg_promise = dataService.fetchDownloadQueryArguments(url, args)
+        form_arg_promise = dataService.get(url, args)
 
         form_arg_promise.then(
           (data) ->

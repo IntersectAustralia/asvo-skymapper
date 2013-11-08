@@ -33,17 +33,4 @@ angular.module('SkyMapper.DataService', []).service 'dataService', ['$http', '$q
 
       deferred_results.promise
 
-    fetchDownloadQueryArguments: (url, args) ->
-      deferred_results = @$q.defer()
-
-      @$http.get(@generateURL(url, args))
-
-      .success (data) ->
-          deferred_results.resolve(data)
-
-      .error (data) ->
-          deferred_results.reject(data.error)
-
-      deferred_results.promise
-
 ]
