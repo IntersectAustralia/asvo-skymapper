@@ -182,9 +182,9 @@ SELECT
     *
     FROM #{service[:table_name]}
     WHERE
-1=CONTAINS(POINT('ICRS', #{service[:fields][:ra][:field]}, #{service[:fields][:dec][:field]}), CIRCLE('ICRS', 178.83871, -1.18844, 0.05))
+1=CONTAINS(POINT('ICRS', #{service[:fields][:ra][:field]}, #{service[:fields][:dec][:field]}), CIRCLE('ICRS', 178.364690, -2.027719, 0.05))
 OR
-1=CONTAINS(POINT('ICRS', #{service[:fields][:ra][:field]}, #{service[:fields][:dec][:field]}), CIRCLE('ICRS', 179.83871, -1.18844, 0.05))
+1=CONTAINS(POINT('ICRS', #{service[:fields][:ra][:field]}, #{service[:fields][:dec][:field]}), CIRCLE('ICRS', 178.218423, -2.180722, 0.05))
 
     END_ADQL
 
@@ -208,9 +208,9 @@ SELECT
     *
     FROM #{service[:table_name]}
     WHERE
-1=CONTAINS(POINT('ICRS', #{service[:fields][:ra][:field]}, #{service[:fields][:dec][:field]}), CIRCLE('ICRS', 178.83871, -1.18844, 0.05))
+1=CONTAINS(POINT('ICRS', #{service[:fields][:ra][:field]}, #{service[:fields][:dec][:field]}), CIRCLE('ICRS', 178.364690, -2.027719, 0.05))
 OR
-1=CONTAINS(POINT('ICRS', #{service[:fields][:ra][:field]}, #{service[:fields][:dec][:field]}), CIRCLE('ICRS', 179.83871, -1.18844, 0.05))
+1=CONTAINS(POINT('ICRS', #{service[:fields][:ra][:field]}, #{service[:fields][:dec][:field]}), CIRCLE('ICRS', 178.218423, -2.180722, 0.05))
 
     END_ADQL
 

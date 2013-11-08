@@ -193,8 +193,8 @@ end
 def generate_bulk_catalogue_query_fixtures
 
   query_data = [
-      {dataset: 'skymapper', catalogue: 'fs', params: {file: Rails.root.join('spec/fixtures/skymapper_bulk_catalogue_valid_1.csv'), sr: 0.15 }, filename: 'skymapper_bulk_catalogue_query_fs_1', method: :generate_bulk_catalogue_query},
-      {dataset: 'skymapper', catalogue: 'fs', params: {file: Rails.root.join('spec/fixtures/skymapper_bulk_catalogue_valid_3.csv'), sr: 0.15 }, filename: 'skymapper_bulk_catalogue_query_fs_2', method: :generate_bulk_catalogue_query},
+      {dataset: 'skymapper', catalogue: 'fs', params: {file: Rails.root.join('spec/fixtures/skymapper_bulk_catalogue_valid_1.csv'), sr: 0.05 }, filename: 'skymapper_bulk_catalogue_query_fs_1', method: :generate_bulk_catalogue_query},
+      {dataset: 'skymapper', catalogue: 'fs', params: {file: Rails.root.join('spec/fixtures/skymapper_bulk_catalogue_valid_3.csv'), sr: 0.05 }, filename: 'skymapper_bulk_catalogue_query_fs_2', method: :generate_bulk_catalogue_query},
       {dataset: 'skymapper', catalogue: 'ms', params: {file: Rails.root.join('spec/fixtures/skymapper_bulk_catalogue_valid_1.csv'), sr: 0.05 }, filename: 'skymapper_bulk_catalogue_query_ms_1', method: :generate_bulk_catalogue_query},
       {dataset: 'skymapper', catalogue: 'ms', params: {file: Rails.root.join('spec/fixtures/skymapper_bulk_catalogue_valid_3.csv'), sr: 0.05 }, filename: 'skymapper_bulk_catalogue_query_ms_2', method: :generate_bulk_catalogue_query},
   ]

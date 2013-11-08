@@ -17,7 +17,15 @@ Feature: Bulk catalogue search
     And I press "Search SkyMapper"
     Then I should be on the bulk catalogue download page
   Examples:
-    | survey | catalogue | file | sr | type | results |
+    | survey             | catalogue | file                                 | sr   | type    | results                             |
+    | Five-Second Survey | fs        | skymapper_bulk_catalogue_valid_1.csv | 0.05 | CSV     | skymapper_bulk_catalogue_query_fs_1 |
+    | Five-Second Survey | fs        | skymapper_bulk_catalogue_valid_1.csv | 0.05 | VOTable | skymapper_bulk_catalogue_query_fs_1 |
+    | Main Survey        | ms        | skymapper_bulk_catalogue_valid_1.csv | 0.05 | CSV     | skymapper_bulk_catalogue_query_ms_1 |
+    | Main Survey        | ms        | skymapper_bulk_catalogue_valid_1.csv | 0.05 | VOTable | skymapper_bulk_catalogue_query_ms_1 |
+    | Five-Second Survey | fs        | skymapper_bulk_catalogue_valid_2.csv | 0.05 | CSV     | skymapper_bulk_catalogue_query_ms_1 |
+    | Five-Second Survey | fs        | skymapper_bulk_catalogue_valid_2.csv | 0.05 | VOTable | skymapper_bulk_catalogue_query_ms_1 |
+    | Main Survey        | ms        | skymapper_bulk_catalogue_valid_2.csv | 0.05 | CSV     | skymapper_bulk_catalogue_query_ms_1 |
+    | Main Survey        | ms        | skymapper_bulk_catalogue_valid_2.csv | 0.05 | VOTable | skymapper_bulk_catalogue_query_ms_1 |
 
   @javascript
   Scenario Outline: I can submit bulk catalogue search with the follow values

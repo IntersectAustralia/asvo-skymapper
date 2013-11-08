@@ -32,10 +32,8 @@
             Download format:
           %select#type{ 'ng-model' => 'form.type', name: 'type', required: '',
             'ng-init' => "setInput('type', '#{session_param('bulk-catalogue', :type)}')" }
-            %option{ value: :csv }
-              CSV
-            %option{ value: :xml }
-              XML
+            - Query::FILE_TYPE.each do |type|
+              %option{ value: type }= type
           %ul.error{ 'ng-show' => '(submitted || bulk_catalogue_search_form.type.$dirty) && bulk_catalogue_search_form.type.$invalid' }
             %li.error{ 'ng-show' => 'bulk_catalogue_search_form.type.$error.required' }
               This field is required.
