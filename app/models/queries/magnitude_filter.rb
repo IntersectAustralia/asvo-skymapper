@@ -5,8 +5,8 @@ class MagnitudeFilter < Query
   attr_accessor *FIELDS
 
   validates :name, presence: true
-  validates :min, numericality: true, format: { with: /^-?\d*(\.\d{1,8})?$/ }, :unless => 'min.blank?'
-  validates :max, format: { with: /^-?\d*(\.\d{1,8})?$/ }, :if => '!max.blank?'.to_s
+  validates :min, numericality: true, format: { with: /^-?\d*(\.\d{1,3})?$/ }, :unless => 'min.blank?'
+  validates :max, format: { with: /^-?\d*(\.\d{1,3})?$/ }, :if => '!max.blank?'.to_s
   validates :max, numericality: { greater_than: Proc.new {|q| q.min.to_f } }, :if => '!min.blank? and !max.blank?'
   validate :min_max_presence
 

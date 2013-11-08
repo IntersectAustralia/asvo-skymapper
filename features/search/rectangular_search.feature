@@ -278,53 +278,53 @@ Feature: Rectangular search
   Examples:
     | field                     | value        |
     | Right ascension min (deg) | 0            |
-    | Right ascension min (deg) | 359.99999999 |
-    | Right ascension min (deg) | 123.12345678 |
+    | Right ascension min (deg) | 359.999999   |
+    | Right ascension min (deg) | 123.123456   |
     | Right ascension max (deg) | 0            |
-    | Right ascension max (deg) | 359.99999999 |
-    | Right ascension max (deg) | 123.12345678 |
+    | Right ascension max (deg) | 359.999999   |
+    | Right ascension max (deg) | 123.123456   |
     | Declination min (deg)     | -90          |
     | Declination min (deg)     | 90           |
-    | Declination min (deg)     | 12.12345678  |
+    | Declination min (deg)     | 12.123456    |
     | Declination max (deg)     | -90          |
     | Declination max (deg)     | 90           |
-    | Declination max (deg)     | 12.12345678  |
+    | Declination max (deg)     | 12.123456    |
     | U min                     | -100000000   |
     | U min                     | 000000000    |
-    | U min                     | 1.12345678   |
+    | U min                     | 1.123        |
     | U max                     | -100000000   |
     | U max                     | 000000000    |
-    | U max                     | 1.12345678   |
+    | U max                     | 1.123        |
     | V min                     | -100000000   |
     | V min                     | 000000000    |
-    | V min                     | 1.12345678   |
+    | V min                     | 1.123        |
     | V max                     | -100000000   |
     | V max                     | 000000000    |
-    | V max                     | 1.12345678   |
+    | V max                     | 1.123        |
     | G min                     | -100000000   |
     | G min                     | 000000000    |
-    | G min                     | 1.12345678   |
+    | G min                     | 1.123        |
     | G max                     | -100000000   |
     | G max                     | 000000000    |
-    | G max                     | 1.12345678   |
+    | G max                     | 1.123        |
     | R min                     | -100000000   |
     | R min                     | 000000000    |
-    | R min                     | 1.12345678   |
+    | R min                     | 1.123        |
     | R max                     | -100000000   |
     | R max                     | 000000000    |
-    | R max                     | 1.12345678   |
+    | R max                     | 1.123        |
     | I min                     | -100000000   |
     | I min                     | 000000000    |
-    | I min                     | 1.12345678   |
+    | I min                     | 1.123        |
     | I max                     | -100000000   |
     | I max                     | 000000000    |
-    | I max                     | 1.12345678   |
+    | I max                     | 1.123        |
     | Z min                     | -100000000   |
     | Z min                     | 000000000    |
-    | Z min                     | 1.12345678   |
+    | Z min                     | 1.123        |
     | Z max                     | -100000000   |
     | Z max                     | 000000000    |
-    | Z max                     | 1.12345678   |
+    | Z max                     | 1.123        |
 
 
   @javascript
@@ -336,48 +336,48 @@ Feature: Rectangular search
     | field                     | value       | error                                                                                    |
     | Right ascension min (deg) | -1          | This field should be a number greater than or equal to 0 and less than 360.              |
     | Right ascension min (deg) | 360         | This field should be a number greater than or equal to 0 and less than 360.              |
-    | Right ascension min (deg) | 1.123456789 | This field should be a number with 8 decimal places.                                     |
+    | Right ascension min (deg) | 1.123456789 | This field should be a number with 6 decimal places.                                     |
     | Right ascension min (deg) | 7abc        | This field should be a number greater than or equal to 0 and less than 360.              |
-    | Right ascension min (deg) | 7abc        | This field should be a number with 8 decimal places.                                     |
+    | Right ascension min (deg) | 7abc        | This field should be a number with 6 decimal places.                                     |
     | Right ascension max (deg) | -1          | This field should be a number greater than or equal to 0 and less than 360.              |
     | Right ascension max (deg) | 360         | This field should be a number greater than or equal to 0 and less than 360.              |
-    | Right ascension max (deg) | 1.123456789 | This field should be a number with 8 decimal places.                                     |
+    | Right ascension max (deg) | 1.123456789 | This field should be a number with 6 decimal places.                                     |
     | Right ascension max (deg) | 7abc        | This field should be a number greater than or equal to 0 and less than 360.              |
-    | Right ascension max (deg) | 7abc        | This field should be a number with 8 decimal places.                                     |
+    | Right ascension max (deg) | 7abc        | This field should be a number with 6 decimal places.                                     |
     | Declination min (deg)     | -91         | This field should be a number greater than or equal to -90 and less than or equal to 90. |
     | Declination min (deg)     | 91          | This field should be a number greater than or equal to -90 and less than or equal to 90. |
-    | Declination min (deg)     | 1.123456789 | This field should be a number with 8 decimal places.                                     |
+    | Declination min (deg)     | 1.123456789 | This field should be a number with 6 decimal places.                                     |
     | Declination min (deg)     | 7abc        | This field should be a number greater than or equal to -90 and less than or equal to 90. |
-    | Declination min (deg)     | 7abc        | This field should be a number with 8 decimal places.                                     |
+    | Declination min (deg)     | 7abc        | This field should be a number with 6 decimal places.                                     |
     | Declination max (deg)     | -91         | This field should be a number greater than or equal to -90 and less than or equal to 90. |
     | Declination max (deg)     | 91          | This field should be a number greater than or equal to -90 and less than or equal to 90. |
-    | Declination max (deg)     | 1.123456789 | This field should be a number with 8 decimal places.                                     |
+    | Declination max (deg)     | 1.123456789 | This field should be a number with 6 decimal places.                                     |
     | Declination max (deg)     | 7abc        | This field should be a number greater than or equal to -90 and less than or equal to 90. |
-    | Declination max (deg)     | 7abc        | This field should be a number with 8 decimal places.                                     |
-    | U min                     | 1.123456789 | This field should be a number with 8 decimal places.                                     |
-    | U min                     | 7abc        | This field should be a number with 8 decimal places.                                     |
-    | U max                     | 1.123456789 | This field should be a number with 8 decimal places.                                     |
-    | U max                     | 7abc        | This field should be a number with 8 decimal places.                                     |
-    | V min                     | 1.123456789 | This field should be a number with 8 decimal places.                                     |
-    | V min                     | 7abc        | This field should be a number with 8 decimal places.                                     |
-    | V max                     | 1.123456789 | This field should be a number with 8 decimal places.                                     |
-    | V max                     | 7abc        | This field should be a number with 8 decimal places.                                     |
-    | G min                     | 1.123456789 | This field should be a number with 8 decimal places.                                     |
-    | G min                     | 7abc        | This field should be a number with 8 decimal places.                                     |
-    | G max                     | 1.123456789 | This field should be a number with 8 decimal places.                                     |
-    | G max                     | 7abc        | This field should be a number with 8 decimal places.                                     |
-    | R min                     | 1.123456789 | This field should be a number with 8 decimal places.                                     |
-    | R min                     | 7abc        | This field should be a number with 8 decimal places.                                     |
-    | R max                     | 1.123456789 | This field should be a number with 8 decimal places.                                     |
-    | R max                     | 7abc        | This field should be a number with 8 decimal places.                                     |
-    | I min                     | 1.123456789 | This field should be a number with 8 decimal places.                                     |
-    | I min                     | 7abc        | This field should be a number with 8 decimal places.                                     |
-    | I max                     | 1.123456789 | This field should be a number with 8 decimal places.                                     |
-    | I max                     | 7abc        | This field should be a number with 8 decimal places.                                     |
-    | Z min                     | 1.123456789 | This field should be a number with 8 decimal places.                                     |
-    | Z min                     | 7abc        | This field should be a number with 8 decimal places.                                     |
-    | Z max                     | 1.123456789 | This field should be a number with 8 decimal places.                                     |
-    | Z max                     | 7abc        | This field should be a number with 8 decimal places.                                     |
+    | Declination max (deg)     | 7abc        | This field should be a number with 6 decimal places.                                     |
+    | U min                     | 1.123456789 | This field should be a number with 3 decimal places.                                     |
+    | U min                     | 7abc        | This field should be a number with 3 decimal places.                                     |
+    | U max                     | 1.123456789 | This field should be a number with 3 decimal places.                                     |
+    | U max                     | 7abc        | This field should be a number with 3 decimal places.                                     |
+    | V min                     | 1.123456789 | This field should be a number with 3 decimal places.                                     |
+    | V min                     | 7abc        | This field should be a number with 3 decimal places.                                     |
+    | V max                     | 1.123456789 | This field should be a number with 3 decimal places.                                     |
+    | V max                     | 7abc        | This field should be a number with 3 decimal places.                                     |
+    | G min                     | 1.123456789 | This field should be a number with 3 decimal places.                                     |
+    | G min                     | 7abc        | This field should be a number with 3 decimal places.                                     |
+    | G max                     | 1.123456789 | This field should be a number with 3 decimal places.                                     |
+    | G max                     | 7abc        | This field should be a number with 3 decimal places.                                     |
+    | R min                     | 1.123456789 | This field should be a number with 3 decimal places.                                     |
+    | R min                     | 7abc        | This field should be a number with 3 decimal places.                                     |
+    | R max                     | 1.123456789 | This field should be a number with 3 decimal places.                                     |
+    | R max                     | 7abc        | This field should be a number with 3 decimal places.                                     |
+    | I min                     | 1.123456789 | This field should be a number with 3 decimal places.                                     |
+    | I min                     | 7abc        | This field should be a number with 3 decimal places.                                     |
+    | I max                     | 1.123456789 | This field should be a number with 3 decimal places.                                     |
+    | I max                     | 7abc        | This field should be a number with 3 decimal places.                                     |
+    | Z min                     | 1.123456789 | This field should be a number with 3 decimal places.                                     |
+    | Z min                     | 7abc        | This field should be a number with 3 decimal places.                                     |
+    | Z max                     | 1.123456789 | This field should be a number with 3 decimal places.                                     |
+    | Z max                     | 7abc        | This field should be a number with 3 decimal places.                                     |
 
   @javascript
   Scenario Outline: Max fields should not display errors if min fields are less than or not a number
@@ -397,27 +397,27 @@ Feature: Rectangular search
     | Declination min (deg)     | Declination max (deg)     | -45.12345abc | -45.12345  |
     | Declination min (deg)     | Declination max (deg)     | 7abc         | 10         |
     | Declination min (deg)     | Declination max (deg)     | 7abc         | 0          |
-    | U min                     | U max                     | 0.12345678   | 0.12345679 |
+    | U min                     | U max                     | 0.123        | 0.124      |
     | U min                     | U max                     | 500          | 1000       |
     | U min                     | U max                     | -1000        | -500       |
     | U min                     | U max                     | 7abc         | -500       |
-    | V min                     | V max                     | 0.12345678   | 0.12345679 |
+    | V min                     | V max                     | 0.123        | 0.124      |
     | V min                     | V max                     | 500          | 1000       |
     | V min                     | V max                     | -1000        | -500       |
     | V min                     | V max                     | 7abc         | -500       |
-    | G min                     | G max                     | 0.12345678   | 0.12345679 |
+    | G min                     | G max                     | 0.123        | 0.124      |
     | G min                     | G max                     | 500          | 1000       |
     | G min                     | G max                     | -1000        | -500       |
     | G min                     | G max                     | 7abc         | -500       |
-    | R min                     | R max                     | 0.12345678   | 0.12345679 |
+    | R min                     | R max                     | 0.123        | 0.124      |
     | R min                     | R max                     | 500          | 1000       |
     | R min                     | R max                     | -1000        | -500       |
     | R min                     | R max                     | 7abc         | -500       |
-    | I min                     | I max                     | 0.12345678   | 0.12345679 |
+    | I min                     | I max                     | 0.123        | 0.124      |
     | I min                     | I max                     | 500          | 1000       |
     | I min                     | I max                     | -1000        | -500       |
     | I min                     | I max                     | 7abc         | -500       |
-    | Z min                     | Z max                     | 0.12345678   | 0.12345679 |
+    | Z min                     | Z max                     | 0.123        | 0.124      |
     | Z min                     | Z max                     | 500          | 1000       |
     | Z min                     | Z max                     | -1000        | -500       |
     | Z min                     | Z max                     | 7abc         | -500       |

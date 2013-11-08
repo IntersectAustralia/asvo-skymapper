@@ -22,7 +22,7 @@
         .span6
           %label{ for: :ra_min }
             Right ascension min (deg):
-          %input#ra_min{ type: 'text', name: 'ra_min', 'ng-model' => 'form.ra_min', required: '', range: '[0, 360)', decimal: 8,
+          %input#ra_min{ type: 'text', name: 'ra_min', 'ng-model' => 'form.ra_min', required: '', range: '[0, 360)', decimal: 6,
             'ng-init' => "setInput('ra_min', '#{session_param('rectangular', :ra_min)}')" }
           %ul.error{ 'ng-show' => '(submitted || rectangular_search_form.ra_min.$dirty) && rectangular_search_form.ra_min.$invalid' }
             %li.error{ 'ng-show' => 'rectangular_search_form.ra_min.$error.required' }
@@ -30,26 +30,26 @@
             %li.error{ 'ng-show' => 'rectangular_search_form.ra_min.$error.range' }
               This field should be a number greater than or equal to 0 and less than 360.
             %li.error{ 'ng-show' => 'rectangular_search_form.ra_min.$error.decimal' }
-              This field should be a number with 8 decimal places.
+              This field should be a number with 6 decimal places.
 
         .span6
           %label{ for: :ra_max }
             Right ascension max (deg):
           %input#ra_max{ type: 'text', name: 'ra_max', 'ng-model' => 'form.ra_max', required: '', range: "{{form.ra_min | isNumber:'('+form.ra_min:'[0'}}, 360)",
-            decimal: 8, 'dependent-on' => 'form.ra_min', 'ng-init' => "setInput('ra_max', '#{session_param('rectangular', :ra_max)}')" }
+            decimal: 6, 'dependent-on' => 'form.ra_min', 'ng-init' => "setInput('ra_max', '#{session_param('rectangular', :ra_max)}')" }
           %ul.error{ 'ng-show' => '(submitted || rectangular_search_form.ra_max.$dirty) && rectangular_search_form.ra_max.$invalid' }
             %li.error{ 'ng-show' => 'rectangular_search_form.ra_max.$error.required' }
               This field is required.
             %li.error{ 'ng-show' => 'rectangular_search_form.ra_max.$error.range' }
               This field should be a number greater than {{form.ra_min | isNumber:form.ra_min:'or equal to 0'}} and less than 360.
             %li.error{ 'ng-show' => 'rectangular_search_form.ra_max.$error.decimal' }
-              This field should be a number with 8 decimal places.
+              This field should be a number with 6 decimal places.
 
       .row-fluid
         .span6
           %label{ for: :dec_min }
             Declination min (deg):
-          %input#dec_min{ type: 'text', name: 'dec_min', 'ng-model' => 'form.dec_min', required: '', range: '[-90, 90]', decimal: 8,
+          %input#dec_min{ type: 'text', name: 'dec_min', 'ng-model' => 'form.dec_min', required: '', range: '[-90, 90]', decimal: 6,
             'ng-init' => "setInput('dec_min', '#{session_param('rectangular', :dec_min)}')" }
           %ul.error{ 'ng-show' => '(submitted || rectangular_search_form.dec_min.$dirty) && rectangular_search_form.dec_min.$invalid' }
             %li.error{ 'ng-show' => 'rectangular_search_form.dec_min.$error.required' }
@@ -57,20 +57,20 @@
             %li.error{ 'ng-show' => 'rectangular_search_form.dec_min.$error.range' }
               This field should be a number greater than or equal to -90 and less than or equal to 90.
             %li.error{ 'ng-show' => 'rectangular_search_form.dec_min.$error.decimal' }
-              This field should be a number with 8 decimal places.
+              This field should be a number with 6 decimal places.
 
         .span6
           %label{ for: :dec_max }
             Declination max (deg):
           %input#dec_max{ type: 'text', name: 'dec_max', 'ng-model' => 'form.dec_max', required: '', range: "{{form.dec_min | isNumber:'('+form.dec_min:'[-90'}}, 90]",
-            decimal: 8, 'dependent-on' => 'form.dec_min', 'ng-init' => "setInput('dec_max', '#{session_param('rectangular', :dec_max)}')" }
+            decimal: 6, 'dependent-on' => 'form.dec_min', 'ng-init' => "setInput('dec_max', '#{session_param('rectangular', :dec_max)}')" }
           %ul.error{ 'ng-show' => '(submitted || rectangular_search_form.dec_max.$dirty) && rectangular_search_form.dec_max.$invalid' }
             %li.error{ 'ng-show' => 'rectangular_search_form.dec_max.$error.required' }
               This field is required.
             %li.error{ 'ng-show' => 'rectangular_search_form.dec_max.$error.range' }
               This field should be a number greater than {{form.dec_min | isNumber:form.dec_min:'or equal to -90'}} and less than or equal to 90.
             %li.error{ 'ng-show' => 'rectangular_search_form.dec_max.$error.decimal' }
-              This field should be a number with 8 decimal places.
+              This field should be a number with 6 decimal places.
 
       = render partial: 'search_filter', locals: { form: 'rectangular_search_form', filter: 'u', type: 'rectangular' }
       = render partial: 'search_filter', locals: { form: 'rectangular_search_form', filter: 'v', type: 'rectangular' }

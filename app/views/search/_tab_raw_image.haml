@@ -8,7 +8,7 @@
         .span6
           %label{ for: :ra }
             Right ascension (deg):
-          %input#ra{ type: 'text', name: 'ra', 'ng-model' => 'form.ra', required: '', range: '[0, 360)', decimal: 8,
+          %input#ra{ type: 'text', name: 'ra', 'ng-model' => 'form.ra', required: '', range: '[0, 360)', decimal: 6,
             'ng-init' => "setInput('ra', '#{session_param('raw-image', :ra)}')" }
           %ul.error{ 'ng-show' => '(submitted || raw_image_search_form.ra.$dirty) && raw_image_search_form.ra.$invalid' }
             %li.error{ 'ng-show' => 'raw_image_search_form.ra.$error.required' }
@@ -16,11 +16,11 @@
             %li.error{ 'ng-show' => 'raw_image_search_form.ra.$error.range' }
               This field should be a number greater than or equal to 0 and less than 360.
             %li.error{ 'ng-show' => 'raw_image_search_form.ra.$error.decimal' }
-              This field should be a number with 8 decimal places.
+              This field should be a number with 6 decimal places.
         .span6
           %label{ for: :dec }
             Declination (deg):
-          %input#dec{ type: 'text', name: 'dec', 'ng-model' => 'form.dec', required: '', range: '[-90, 90]', decimal: 8,
+          %input#dec{ type: 'text', name: 'dec', 'ng-model' => 'form.dec', required: '', range: '[-90, 90]', decimal: 6,
             'ng-init' => "setInput('dec', '#{session_param('raw-image', :dec)}')" }
           %ul.error{ 'ng-show' => '(submitted || raw_image_search_form.dec.$dirty) && raw_image_search_form.dec.$invalid' }
             %li.error{ 'ng-show' => 'raw_image_search_form.dec.$error.required' }
@@ -28,7 +28,7 @@
             %li.error{ 'ng-show' => 'raw_image_search_form.dec.$error.range' }
               This field should be a number greater than or equal to -90 and less than or equal to 90.
             %li.error{ 'ng-show' => 'raw_image_search_form.dec.$error.decimal' }
-              This field should be a number with 8 decimal places.
+              This field should be a number with 6 decimal places.
 
     .form-actions
       %input#submit.btn.btn-primary{ type: 'submit', value: 'Search SkyMapper', 'ng-disabled' => 'searching' }
