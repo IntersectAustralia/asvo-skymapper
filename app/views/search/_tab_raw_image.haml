@@ -2,7 +2,7 @@
   The image search will return SkyMapper images centered on the specified right ascension and declination. All values are in decimal degrees.
   
 .form-container{ 'ng-controller' => 'SearchController' }
-  %form#raw_image_search_form.cancel{ name: 'raw_image_search_form', 'ng-submit' => "submit('raw_image_search_form', '#{raw_image_search_path}')", novalidate: '' }
+  %form#raw_image_search_form.cancel{ name: 'raw_image_search_form', 'ng-submit' => "fetchResults('raw_image_search_form', '#{raw_image_search_path}')", novalidate: '' }
     %fieldset
       .row-fluid
         .span6

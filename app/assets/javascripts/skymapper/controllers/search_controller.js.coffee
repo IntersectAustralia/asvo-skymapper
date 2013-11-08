@@ -6,7 +6,7 @@ window.skymapper_app.controller 'SearchController', ['$scope', '$window',
       $scope.submitted = false
       $scope.form = {}
 
-      $scope.submit = (form, url) ->
+      $scope.fetchResults = (form, url) ->
         $scope.submitted = true
         if $scope[form].$valid
           params = {}
@@ -15,7 +15,7 @@ window.skymapper_app.controller 'SearchController', ['$scope', '$window',
           args = encodeQueryParams(params)
           $window.location.href = "#{url}?#{args}"
 
-      $scope.download = (form, event) ->
+      $scope.submit = (form, event) ->
         $scope.submitted = true
         event.preventDefault() unless $scope[form].$valid
 

@@ -34,16 +34,4 @@
                   - else
                     = "{{obj['#{field[:field]}']}}"
 
-#downloadModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "downloadModalLabel", role: "dialog", tabindex: "-1"}
-  .modal-header
-    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
-    %h3#myModalLabel Download options
-  .modal-body
-    = label_tag :download_options, "Select download format:"
-    = select_tag :download_options, options_for_select(Query::FILE_TYPE)
-    %p
-      %i.icon-warning-sign
-      This process may take a while.
-  .modal-footer
-    %button.btn{"aria-hidden" => "true", "data-dismiss" => "modal"} Cancel
-    %button.btn.btn-primary{ 'ng_click' => "download('#{@service}')" } Download
+  = render 'download_popup'
