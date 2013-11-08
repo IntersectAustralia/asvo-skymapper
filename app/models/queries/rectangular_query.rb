@@ -18,7 +18,7 @@ class RectangularQuery < Query
   def initialize(args = {})
     super(args)
     if args[:limit]
-      @limit = args[:limit]
+      @limit = "TOP args[:limit]"
     elsif args[:limit].nil?
       @limit = 'TOP 1000'
     else
