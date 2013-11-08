@@ -5,33 +5,29 @@ window.skymapper_app.controller 'SearchResultsController', ['$scope', '$window',
     constructor: ($scope, $window, dataService) ->
 
       $scope.objects = undefined
-      $scope.searching = false
 
       $scope.doSearch = (url) ->
 
         $scope.objects = undefined
-        $scope.searching = true
 
         args = decodeQueryParams($window.location.search.substring(1))
-        results_promise = dataService.fetchObjects(url, args)
+        results_promise = dataService.get(url, args)
         results_promise.then(
             (data) ->
               $scope.objects = data.objects
               flash('notice', "Query returned #{$scope.objects.length} objects.", 10000)
-              $scope.searching = false
             ,
             (error) ->
               flash('error', 'There was an error fetching the results.', 10000)
-              $scope.searching = false
             ,
             undefined
           )
         flash('notice', 'Fetching results...')
 
-      $scope.download = (url) ->
+      $scope.doDownload = (url) ->
         args = decodeQueryParams($window.location.search.substring(1))
 
-        form_arg_promise = dataService.fetchDownloadQueryArguments(url, args)
+        form_arg_promise = dataService.get(url, args)
 
         form_arg_promise.then(
           (data) ->

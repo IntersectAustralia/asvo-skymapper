@@ -2,7 +2,7 @@
   The rectangular search will return all objects in the SkyMapper catalogue that fall within the specified right ascension and declination ranges.
 
 .form-container{ 'ng-controller' => 'SearchController' }
-  %form#rectangular_search_form.cancel{ name: 'rectangular_search_form', 'ng-submit' => "submit('rectangular_search_form', '#{rectangular_search_path}')", novalidate: '' }
+  %form#rectangular_search_form.cancel{ name: 'rectangular_search_form', 'ng-submit' => "fetchResults('rectangular_search_form', '#{rectangular_search_path}')", novalidate: '' }
     %fieldset
       .row-fluid
         .span6

@@ -470,16 +470,11 @@ Feature: Rectangular search
     Then I should see error "<error>" for "<field>"
   Examples:
     | field                     | error                   |
+    | SkyMapper survey          | This field is required. |
     | Right ascension min (deg) | This field is required. |
     | Right ascension max (deg) | This field is required. |
     | Declination min (deg)     | This field is required. |
     | Declination max (deg)     | This field is required. |
-
-  @javascript
-  Scenario: I submit perform rectangular search if form has errors (select required errors)
-    Given I select the "Rectangular" tab
-    And I press "Search SkyMapper"
-    Then I should see error "This field is required." for "SkyMapper survey"
 
   @javascript
   Scenario Outline: I can see rectangular search object details

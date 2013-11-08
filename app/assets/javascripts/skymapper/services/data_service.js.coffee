@@ -7,33 +7,29 @@ angular.module('SkyMapper.DataService', []).service 'dataService', ['$http', '$q
     generateURL: (url, args) ->
       "#{url}?#{encodeQueryParams({query:args})}"
 
-    fetchObjects: (url, args) ->
+    get: (url, args) ->
       deferred_results = @$q.defer()
 
       @$http.get(@generateURL(url, args))
 
         .success (data) ->
-          #console.log("success: #{data}")
-
           deferred_results.resolve(data)
 
         .error (data) ->
-          #console.log("error: #{data}")
-
-          deferred_results.reject(data.error)
+          deferred_results.reject(data)
 
       deferred_results.promise
 
-    fetchDownloadQueryArguments: (url, args) ->
+    post: (url, formData) ->
       deferred_results = @$q.defer()
 
-      @$http.get(@generateURL(url, args))
+      @$http.post(url, formData)
 
       .success (data) ->
           deferred_results.resolve(data)
 
       .error (data) ->
-          deferred_results.reject(data.error)
+          deferred_results.reject(data)
 
       deferred_results.promise
 

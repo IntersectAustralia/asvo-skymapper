@@ -20,13 +20,8 @@
             %span.icon-bar
           %a.brand.logo{ :href => root_path }
             %img{:src => "/images/asvo_logo.png"}
-          %a.brand{:href => root_path } SkyMapper
-          .nav-collapse
-            %ul.nav
-              -#%li= link_to "LINK1"
-              -#%li= link_to "LINK2"
-              -#%li= link_to "LINK3"
-          = render 'layouts/user_menu'
+          - if Rails.env == 'test'
+            = render 'layouts/user_menu'
     .container-fluid.main_content
       .flash
         - flash.each do |name, msg|
@@ -39,3 +34,6 @@
       %h1= yield :title
 
       = yield
+
+    %footer Developed by Intersect 2013.
+

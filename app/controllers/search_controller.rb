@@ -244,6 +244,32 @@ class SearchController < ApplicationController
     redirect_to raw_image_search_path(params)
   end
 
+  def bulk_catalogue_download
+    clone_params = params.clone
+    clone_params.delete(:file)
+    session[:search] = { type: 'bulk-catalogue', params: clone_params }
+
+    query_args = {
+        file: params[:file].tempfile.path,
+        sr: params[:sr]
+    }
+
+    query = QueryGenerator.generate_bulk_catalogue_query(query_args)
+    if query.valid?
+
+    else
+      @errors = query.errors.messages[:file]
+    end
+  rescue StandardError
+    flash.now[:error] = 'The search parameters contain some errors.'
+  ensure
+    render 'download_results'
+  end
+
+  def bulk_catalogue_query
+
+  end
+
   # HELPERS
 
   def fetch_search_results(service, query_args, query_factory)
@@ -273,18 +299,6 @@ class SearchController < ApplicationController
 
   def search_fields(catalogue, service)
     Rails.application.config.asvo_registry.find_service(DEFAULT_DATASET, catalogue, service)[:fields].to_a.map { |field| field.second }
-  end
-
-  def image_search_fields(catalogue)
-    catalogue_fields = query_fields(DEFAULT_DATASET, catalogue, 'siap')
-    [
-        { name: 'Right ascension', field: catalogue_fields[:ra_field] },
-        { name: 'Declination', field: catalogue_fields[:dec_field] },
-        { name: 'Filter', field: catalogue_fields[:filter_field] },
-        { name: 'Survey', field: catalogue_fields[:survey_field] },
-        { name: 'Observation Date (MJD)', field: catalogue_fields[:observation_date_field] },
-        { name: 'Image', field: catalogue_fields[:image_url], type: :link, class: 'image-link' }
-    ]
   end
 
   def add_filter_parameters(parameters, params)

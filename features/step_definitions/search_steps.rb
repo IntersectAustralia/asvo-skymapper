@@ -334,6 +334,14 @@ And /^I click on the object in row "([^"]*)"$/ do |row|
   all('#search-results td:first-of-type .detail-link')[row.to_i].click
 end
 
+Then /^I should the following list of file errors$/ do |table|
+  table.hashes.each do |hash|
+
+    page.should have_xpath("//li[contains(text(), \"#{hash[:error]}\")]")
+
+  end
+end
+
 Then /^the file "([^"]*)" should contain more records than "([^"]*)"$/ do |download, file|
   download_file = File.read(Rails.root.join("spec/fixtures/#{download}.vo"))
   web_view = File.read(Rails.root.join("spec/fixtures/#{file}.vo"))

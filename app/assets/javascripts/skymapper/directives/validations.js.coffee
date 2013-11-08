@@ -70,3 +70,27 @@ window.skymapper_app.directive 'minMax', ->
       scope.$watch attr.dependentOn, ->
         validate(elem.val())
   }
+
+window.skymapper_app.directive 'fileRequired', ->
+
+  {
+    restrict: 'A'
+    require:'ngModel',
+    link: (scope, elem, attr, ctrl) ->
+
+      validate = (value) ->
+
+        valid = !isBlank(value)
+        ctrl.$setValidity('fileRequired', valid)
+
+        value
+
+      ctrl.$parsers.unshift validate
+
+      ctrl.$formatters.unshift validate
+
+      elem.bind 'change', ->
+        validate(elem.val())
+        ctrl.$setViewValue(elem.val())
+        scope.$apply()
+  }

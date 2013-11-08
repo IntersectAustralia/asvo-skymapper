@@ -428,20 +428,13 @@ Feature: Radial search
   Scenario Outline: I cannot submit radial search if form has errors (required errors)
     Given I select the "Radial" tab
     And I press "Search SkyMapper"
-    And I fill in "" for "<field>"
-    And I press "Search SkyMapper"
     Then I should see error "<error>" for "<field>"
   Examples:
     | field                 | error                   |
+    | SkyMapper survey      | This field is required. |
     | Right ascension (deg) | This field is required. |
     | Declination (deg)     | This field is required. |
 #| Search radius (deg)   | This field is required. |
-
-  @javascript
-  Scenario: I submit perform radial search if form has errors (select required errors)
-    Given I select the "Radial" tab
-    And I press "Search SkyMapper"
-    Then I should see error "This field is required." for "SkyMapper survey"
 
   @javascript
   Scenario Outline: I can see radial search object details
