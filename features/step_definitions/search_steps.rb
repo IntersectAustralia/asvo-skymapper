@@ -1,5 +1,6 @@
 Before do
   FakeWeb.clean_registry
+  #FileUtils.rm_rf Rails.root.join('tmp/downloads') # clear downloads directory
 end
 
 And /^I select the "([^"]*)" tab$/ do |tab|
@@ -128,20 +129,12 @@ And /^I fake siap search request for catalogue "([^"]*)" returns error$/ do |cat
   FakeWeb.register_uri(:any, %r|#{service.request}.*|, exception: Exception )
 end
 
-And /^I fake download radial search request for catalogue "([^"]*)" with "([^"]*)"$/ do |catalogue, file|
+And /^I fake download request for catalogue "([^"]*)" with "([^"]*)"$/ do |catalogue, file|
   service_args = {dataset:SearchController::DEFAULT_DATASET, catalogue: catalogue}
   service = SyncTapService.new(service_args)
 
   FakeWeb.register_uri(:any, %r|#{service.request}.*|, body: File.read(Rails.root.join("spec/fixtures/#{file}.xml")) )
 end
-
-And /^I fake download rectangular search request for catalogue "([^"]*)" with "([^"]*)"$/ do |catalogue, file|
-  service_args = {dataset:SearchController::DEFAULT_DATASET, catalogue: catalogue}
-  service = SyncTapService.new(service_args)
-
-  FakeWeb.register_uri(:any, %r|#{service.request}.*|, body: File.read(Rails.root.join("spec/fixtures/#{file}.xml")) )
-end
-
 
 Then /^I should not see any errors for "([^"]*)"$/ do |field|
   within(:xpath, "//label[contains(text(), '#{field}')]/..") do
@@ -346,4 +339,8 @@ Then /^the file "([^"]*)" should contain more records than "([^"]*)"$/ do |downl
   download_file = File.read(Rails.root.join("spec/fixtures/#{download}.vo"))
   web_view = File.read(Rails.root.join("spec/fixtures/#{file}.vo"))
   download_file.size.should be > web_view.size
+end
+
+Then /^I should download file "([^"]*)"$/ do |file|
+  page.source.should == File.read(Rails.root.join("spec/fixtures/#{file}.xml"))
 end

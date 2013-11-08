@@ -60,8 +60,6 @@ class SearchController < ApplicationController
     raise SearchError.new 'Invalid search arguments' unless args
 
     query_args = {
-        dataset: DEFAULT_DATASET,
-        catalogue: args[:catalogue],
         ra_min: args[:ra_min],
         ra_max: args[:ra_max],
         dec_min: args[:dec_min],
@@ -86,13 +84,13 @@ class SearchController < ApplicationController
 
     service_args = {
         dataset: DEFAULT_DATASET,
-        catalogue: query_args[:catalogue]
+        catalogue: params[:catalogue]
     }
 
     service = SyncTapService.new(service_args)
     request = {
-      url: service.request,
-      query: service.get_raw_query(query)
+        url: service.request.to_s,
+        query: service.get_raw_query(query)
     }
 
     render json: request
@@ -103,8 +101,6 @@ class SearchController < ApplicationController
     raise SearchError.new 'Invalid search arguments' unless args
 
     query_args = {
-        dataset: DEFAULT_DATASET,
-        catalogue: args[:catalogue],
         ra: args[:ra],
         dec: args[:dec],
         sr: args[:sr],
@@ -128,12 +124,12 @@ class SearchController < ApplicationController
 
     service_args = {
         dataset: DEFAULT_DATASET,
-        catalogue: query_args[:catalogue]
+        catalogue: params[:catalogue]
     }
 
     service = SyncTapService.new(service_args)
     request = {
-        url: service.request,
+        url: service.request.to_s,
         query: service.get_raw_query(query)
     }
 
@@ -165,8 +161,6 @@ class SearchController < ApplicationController
     raise SearchError.new 'Invalid search arguments' unless args
 
     query_args = {
-        dataset: DEFAULT_DATASET,
-        catalogue: args[:catalogue],
         ra: args[:ra],
         dec: args[:dec],
         sr: args[:sr],
@@ -184,7 +178,7 @@ class SearchController < ApplicationController
         z_max: args[:z_max]
     }
 
-    fetch_search_results(SyncTapService, query_args, QueryGenerator.method(:generate_point_query))
+    fetch_search_results(SyncTapService, query_args, QueryGenerator.method(:generate_point_query), params[:catalogue])
   end
 
   def rectangular_search_results
@@ -192,8 +186,6 @@ class SearchController < ApplicationController
     raise SearchError.new 'Invalid search arguments' unless args
 
     query_args = {
-        dataset: DEFAULT_DATASET,
-        catalogue: args[:catalogue],
         ra_min: args[:ra_min],
         ra_max: args[:ra_max],
         dec_min: args[:dec_min],
@@ -212,7 +204,7 @@ class SearchController < ApplicationController
         z_max: args[:z_max]
     }
 
-    fetch_search_results(SyncTapService, query_args, QueryGenerator.method(:generate_rectangular_query))
+    fetch_search_results(SyncTapService, query_args, QueryGenerator.method(:generate_rectangular_query), params[:catalogue])
   end
 
   def raw_image_search_results
@@ -220,13 +212,11 @@ class SearchController < ApplicationController
     raise SearchError.new 'Invalid search arguments' unless args
 
     query_args = {
-        dataset: DEFAULT_DATASET,
-        catalogue: 'image',
         ra: args[:ra],
         dec: args[:dec]
     }
 
-    fetch_search_results(SiapService, query_args, QueryGenerator.method(:generate_image_query))
+    fetch_search_results(SiapService, query_args, QueryGenerator.method(:generate_image_query), 'image')
   end
 
   def radial_search_details
@@ -255,10 +245,24 @@ class SearchController < ApplicationController
     }
 
     query = QueryGenerator.generate_bulk_catalogue_query(query_args)
-    if query.valid?
+    raise SearchError.new 'Invalid search arguments' unless query
 
+    if query.valid?
+      service_args = {
+          dataset: DEFAULT_DATASET,
+          catalogue: params[:catalogue]
+      }
+
+      service = SyncTapService.new(service_args)
+      @request = {
+          url: service.request,
+          query: service.get_raw_query(query),
+          type: params[:type]
+      }
     else
-      @errors = query.errors.messages[:file]
+      raise SearchError.new 'Invalid search arguments' if query.errors.messages[:sr]
+
+      @errors = query.errors.messages[:file] # print file errors to page
     end
   rescue StandardError
     flash.now[:error] = 'The search parameters contain some errors.'
@@ -266,19 +270,15 @@ class SearchController < ApplicationController
     render 'download_results'
   end
 
-  def bulk_catalogue_query
-
-  end
-
   # HELPERS
 
-  def fetch_search_results(service, query_args, query_factory)
+  def fetch_search_results(service, query_args, query_factory, catalogue)
     query = query_factory.call(query_args)
     raise SearchError.new 'Invalid search arguments' unless query and query.valid?
 
     service_args = {
         dataset: DEFAULT_DATASET,
-        catalogue: query_args[:catalogue]
+        catalogue: catalogue
     }
 
     service = service.new(service_args)

@@ -19,6 +19,30 @@ def save_query_fixture(data)
   vo.close
 end
 
+def save_csv_fixture(data)
+  query_args = data[:params]
+
+  service_args = {
+      dataset: data[:dataset],
+      catalogue: data[:catalogue]
+  }
+
+  query = QueryGenerator.method(data[:method]).call(query_args)
+  service = SyncTapService.new(service_args)
+
+  form = {
+      format: 'csv',
+      request: 'doQuery',
+      lang: 'ADQL',
+      query: service.get_raw_query(query)
+  }
+
+  res = Net::HTTP.post_form(service.request, form)
+  csv = File.new(Rails.root.join("spec/fixtures/#{data[:filename]}.csv"), 'w')
+  csv.write(res.body)
+  csv.close
+end
+
 def save_image_query_fixture(data)
   query_args = data[:params]
 
@@ -201,6 +225,7 @@ def generate_bulk_catalogue_query_fixtures
 
   query_data.each do |data|
     save_query_fixture(data)
+    save_csv_fixture(data)
   end
 
 end

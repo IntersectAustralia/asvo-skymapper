@@ -66,3 +66,10 @@ Capybara.match = :prefer_exact
 
 # Use phantomjs for javascript tests (headless javascript driver)
 #Capybara.javascript_driver = :poltergeist
+
+Capybara.register_driver :selenium do |app|
+  profile = Selenium::WebDriver::Firefox::Profile.new
+  profile['browser.download.dir'] = Rails.root.join('tmp/downloads').to_s
+  profile['browser.helperApps.neverAsk.saveToDisk'] = "text/csv" # content-type of file that will be downloaded
+  Capybara::Selenium::Driver.new(app, :browser => :firefox, profile: profile)
+end

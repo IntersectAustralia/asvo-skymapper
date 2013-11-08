@@ -13,6 +13,9 @@
         %ul.error
           - @errors.each do |error|
             %li.error= error
+      - else
+        %pre#query.hide{ 'ng-init' => "downloadResults(\"#{@request[:url]}\", \"#{@request[:type]}\", 'query')" }
+          = @request[:query]
 
     .aside.span3
       = render 'help'

@@ -22,7 +22,7 @@ Feature: Download Results
     And I should see results for catalogue "<catalogue>" as "<results>" in all pages with limit "50"
     Then I follow "Download Results"
     And I select "<file_type>" from "Select download format:"
-    And I fake download radial search request for catalogue "<catalogue>" with "<downloaded_file>"
+    And I fake download request for catalogue "<catalogue>" with "<downloaded_file>"
     Then the file "<downloaded_file>" should contain more records than "<results>"
   Examples:
     | survey             | catalogue | ra        | dec      | sr | results                        | count | file_type | downloaded_file                |
@@ -45,7 +45,7 @@ Feature: Download Results
     And I should see results for catalogue "<catalogue>" as "<results>" in all pages with limit "50"
     Then I follow "Download Results"
     And I select "<file_type>" from "Select download format:"
-    And I fake download rectangular search request for catalogue "<catalogue>" with "<downloaded_file>"
+    And I fake download request for catalogue "<catalogue>" with "<downloaded_file>"
     Then the file "<downloaded_file>" should contain more records than "<results>"
   Examples:
     | survey             | catalogue | ra_min | ra_max | dec_min | dec_max | results                              | count | file_type | downloaded_file                      |
