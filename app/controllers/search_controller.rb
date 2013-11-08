@@ -159,6 +159,17 @@ class SearchController < ApplicationController
     redirect_to raw_image_search_path(params)
   end
 
+  def bulk_catalogue_download
+    params.delete(:file)
+    session[:search] = { type: 'bulk-catalogue', params: params }
+
+    render 'download_results'
+  end
+
+  def bulk_catalogue_query
+
+  end
+
   # HELPERS
 
   def fetch_search_results(service, query_args, query_factory)

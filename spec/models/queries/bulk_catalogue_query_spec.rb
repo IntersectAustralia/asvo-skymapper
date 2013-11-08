@@ -10,7 +10,7 @@ describe BulkCatalogueQuery do
   it { should allow_value('   .01234567    ').for(:sr) }
 
   it { should_not allow_value('0').for(:sr) }
-  it { should_not allow_value('0.06').for(:sr) }
+  it { should_not allow_value('0.05000001').for(:sr) }
   it { should_not allow_value('1000').for(:sr) }
   it { should_not allow_value('-1000').for(:sr) }
   it { should_not allow_value('.012345678').for(:sr) }

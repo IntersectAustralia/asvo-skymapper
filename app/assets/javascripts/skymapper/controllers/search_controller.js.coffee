@@ -3,7 +3,6 @@ window.skymapper_app.controller 'SearchController', ['$scope', '$window',
   class SearchController
 
     constructor: ($scope, $window) ->
-      $scope.searching = false
       $scope.submitted = false
       $scope.form = {}
 
@@ -15,6 +14,10 @@ window.skymapper_app.controller 'SearchController', ['$scope', '$window',
             params[key] = value unless isBlank(value)
           args = encodeQueryParams(params)
           $window.location.href = "#{url}?#{args}"
+
+      $scope.download = (form, event) ->
+        $scope.submitted = true
+        event.preventDefault() unless $scope[form].$valid
 
       $scope.setInput = (field, value) ->
         $scope.form[field] = value unless isBlank(value)

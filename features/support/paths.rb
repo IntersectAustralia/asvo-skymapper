@@ -52,8 +52,11 @@ module NavigationHelpers
     when /^the rectangular search results page$/
       rectangular_search_path
 
-      when /^the raw image search results page$/
-        raw_image_search_path
+    when /^the raw image search results page$/
+      raw_image_search_path
+
+    when /^the bulk catalogue download page$/
+      bulk_catalogue_download_path
 
 # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

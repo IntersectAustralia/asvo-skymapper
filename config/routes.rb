@@ -42,6 +42,7 @@ AsvoSkymapper::Application.routes.draw do
   get '/search/raw-image', to: 'search#raw_image_search', as: 'raw_image_search'
   get '/search/raw-image/results', to: 'search#raw_image_search_results', as: 'raw_image_search_results'
   get '/search/raw-image/details/:id', to: 'search#raw_image_search_details', as: 'raw_image_search_details'
+  post '/search/bulk-catalogue/download', to: 'search#bulk_catalogue_download', as: 'bulk_catalogue_download'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
