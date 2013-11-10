@@ -3,17 +3,17 @@ require 'spec_helper'
 describe BulkCatalogueQuery do
 
   # Validate Search Radius (SR)
-  it { should allow_value('0.00000001').for(:sr) }
+  it { should allow_value('0.000001').for(:sr) }
   it { should allow_value('0.05').for(:sr) }
-  it { should allow_value('0.01234567').for(:sr) }
-  it { should allow_value('.01234567').for(:sr) }
-  it { should allow_value('   .01234567    ').for(:sr) }
+  it { should allow_value('0.012345').for(:sr) }
+  it { should allow_value('.012345').for(:sr) }
+  it { should allow_value('   .012345    ').for(:sr) }
 
   it { should_not allow_value('0').for(:sr) }
-  it { should_not allow_value('0.05000001').for(:sr) }
+  it { should_not allow_value('0.050001').for(:sr) }
   it { should_not allow_value('1000').for(:sr) }
   it { should_not allow_value('-1000').for(:sr) }
-  it { should_not allow_value('.012345678').for(:sr) }
+  it { should_not allow_value('.0123456').for(:sr) }
   it { should_not allow_value(nil).for(:sr) }
   it { should_not allow_value('').for(:sr) }
   it { should_not allow_value('7abc').for(:sr) }
@@ -68,16 +68,16 @@ describe BulkCatalogueQuery do
     query.valid?
     # RA values
     # '0' 
-    # '359.99999999' 
-    # '123.12345678' 
-    # '1.12345678' 
-    # '.12345678' 
-    # '   .12345678    ' 
-    # '-0.00000001' 
+    # '359.999999'
+    # '123.123456'
+    # '1.123456'
+    # '.123456'
+    # '   .123456    '
+    # '-0.000001'
     # '360' 
     # '1000' 
     # '-1000' 
-    # '.123456789' 
+    # '.1234567'
     # '' 
     # '7abc' 
     # '.' 
@@ -85,15 +85,15 @@ describe BulkCatalogueQuery do
     query.errors.messages[:file].include?('Line 7: Right ascension must be greater than or equal to 0').should be_true
     query.errors.messages[:file].include?('Line 8: Right ascension must be less than 360').should be_true
     query.errors.messages[:file].include?('Line 9: Right ascension must be less than 360').should be_true
-    query.errors.messages[:file].include?('Line 10: Right ascension must be a number with 8 decimal places').should be_true
+    query.errors.messages[:file].include?('Line 10: Right ascension must be a number with 6 decimal places').should be_true
     query.errors.messages[:file].include?("Line 11: Right ascension can't be blank").should be_true
     query.errors.messages[:file].include?('Line 11: Right ascension is not a number').should be_true
     query.errors.messages[:file].include?('Line 12: Right ascension is not a number').should be_true
-    query.errors.messages[:file].include?('Line 12: Right ascension must be a number with 8 decimal places').should be_true
+    query.errors.messages[:file].include?('Line 12: Right ascension must be a number with 6 decimal places').should be_true
     query.errors.messages[:file].include?('Line 13: Right ascension is not a number').should be_true
-    query.errors.messages[:file].include?('Line 13: Right ascension must be a number with 8 decimal places').should be_true
+    query.errors.messages[:file].include?('Line 13: Right ascension must be a number with 6 decimal places').should be_true
     query.errors.messages[:file].include?('Line 14: Right ascension is not a number').should be_true
-    query.errors.messages[:file].include?('Line 14: Right ascension must be a number with 8 decimal places').should be_true
+    query.errors.messages[:file].include?('Line 14: Right ascension must be a number with 6 decimal places').should be_true
 
     query.file = Rails.root.join('spec/fixtures/skymapper_bulk_catalogue_invalid_3.csv')
     query.valid?
@@ -101,15 +101,15 @@ describe BulkCatalogueQuery do
     # '-90' 
     # '90' 
     # '0' 
-    # '1.12345678' 
-    # '-1.12345678' 
-    # '   -.12345678    ' 
-    # '-90.00000001' 
-    # '90.00000001' 
+    # '1.123456'
+    # '-1.123456'
+    # '   -.123456    '
+    # '-90.000001'
+    # '90.000001'
     # '1000' 
     # '-1000' 
-    # '1.123456789' 
-    # '-1.123456789' 
+    # '1.1234567'
+    # '-1.1234567'
     # '' 
     # '7abc' 
     # '.' 
@@ -118,16 +118,16 @@ describe BulkCatalogueQuery do
     query.errors.messages[:file].include?('Line 8: Declination must be less than or equal to 90').should be_true
     query.errors.messages[:file].include?('Line 9: Declination must be less than or equal to 90').should be_true
     query.errors.messages[:file].include?('Line 10: Declination must be greater than or equal to -90').should be_true
-    query.errors.messages[:file].include?('Line 11: Declination must be a number with 8 decimal places').should be_true
-    query.errors.messages[:file].include?('Line 12: Declination must be a number with 8 decimal places').should be_true
+    query.errors.messages[:file].include?('Line 11: Declination must be a number with 6 decimal places').should be_true
+    query.errors.messages[:file].include?('Line 12: Declination must be a number with 6 decimal places').should be_true
     query.errors.messages[:file].include?("Line 13: Declination can't be blank").should be_true
     query.errors.messages[:file].include?('Line 13: Declination is not a number').should be_true
     query.errors.messages[:file].include?('Line 14: Declination is not a number').should be_true
-    query.errors.messages[:file].include?('Line 14: Declination must be a number with 8 decimal places').should be_true
+    query.errors.messages[:file].include?('Line 14: Declination must be a number with 6 decimal places').should be_true
     query.errors.messages[:file].include?('Line 15: Declination is not a number').should be_true
-    query.errors.messages[:file].include?('Line 15: Declination must be a number with 8 decimal places').should be_true
+    query.errors.messages[:file].include?('Line 15: Declination must be a number with 6 decimal places').should be_true
     query.errors.messages[:file].include?('Line 16: Declination is not a number').should be_true
-    query.errors.messages[:file].include?('Line 16: Declination must be a number with 8 decimal places').should be_true
+    query.errors.messages[:file].include?('Line 16: Declination must be a number with 6 decimal places').should be_true
 
     query.file = Rails.root.join('spec/fixtures/skymapper_bulk_catalogue_invalid_4.csv')
     query.valid?
@@ -137,32 +137,32 @@ describe BulkCatalogueQuery do
     query.errors.messages[:file].include?('Line 8: Right ascension must be less than 360').should be_true
     query.errors.messages[:file].include?('Line 9: Right ascension must be less than 360').should be_true
     query.errors.messages[:file].include?('Line 10: Right ascension must be greater than or equal to 0').should be_true
-    query.errors.messages[:file].include?('Line 11: Right ascension must be a number with 8 decimal places').should be_true
+    query.errors.messages[:file].include?('Line 11: Right ascension must be a number with 6 decimal places').should be_true
     query.errors.messages[:file].include?("Line 12: Right ascension can't be blank").should be_true
     query.errors.messages[:file].include?('Line 12: Right ascension is not a number').should be_true
     query.errors.messages[:file].include?("Line 13: Right ascension can't be blank").should be_true
     query.errors.messages[:file].include?('Line 13: Right ascension is not a number').should be_true
     query.errors.messages[:file].include?('Line 14: Right ascension is not a number').should be_true
-    query.errors.messages[:file].include?('Line 14: Right ascension must be a number with 8 decimal places').should be_true
+    query.errors.messages[:file].include?('Line 14: Right ascension must be a number with 6 decimal places').should be_true
     query.errors.messages[:file].include?('Line 15: Right ascension is not a number').should be_true
-    query.errors.messages[:file].include?('Line 15: Right ascension must be a number with 8 decimal places').should be_true
+    query.errors.messages[:file].include?('Line 15: Right ascension must be a number with 6 decimal places').should be_true
     query.errors.messages[:file].include?('Line 16: Right ascension is not a number').should be_true
-    query.errors.messages[:file].include?('Line 16: Right ascension must be a number with 8 decimal places').should be_true
+    query.errors.messages[:file].include?('Line 16: Right ascension must be a number with 6 decimal places').should be_true
 
     query.errors.messages[:file].include?('Line 7: Declination must be greater than or equal to -90').should be_true
     query.errors.messages[:file].include?('Line 8: Declination must be less than or equal to 90').should be_true
     query.errors.messages[:file].include?('Line 9: Declination must be less than or equal to 90').should be_true
     query.errors.messages[:file].include?('Line 10: Declination must be greater than or equal to -90').should be_true
-    query.errors.messages[:file].include?('Line 11: Declination must be a number with 8 decimal places').should be_true
-    query.errors.messages[:file].include?('Line 12: Declination must be a number with 8 decimal places').should be_true
+    query.errors.messages[:file].include?('Line 11: Declination must be a number with 6 decimal places').should be_true
+    query.errors.messages[:file].include?('Line 12: Declination must be a number with 6 decimal places').should be_true
     query.errors.messages[:file].include?("Line 13: Declination can't be blank").should be_true
     query.errors.messages[:file].include?('Line 13: Declination is not a number').should be_true
     query.errors.messages[:file].include?('Line 14: Declination is not a number').should be_true
-    query.errors.messages[:file].include?('Line 14: Declination must be a number with 8 decimal places').should be_true
+    query.errors.messages[:file].include?('Line 14: Declination must be a number with 6 decimal places').should be_true
     query.errors.messages[:file].include?('Line 15: Declination is not a number').should be_true
-    query.errors.messages[:file].include?('Line 15: Declination must be a number with 8 decimal places').should be_true
+    query.errors.messages[:file].include?('Line 15: Declination must be a number with 6 decimal places').should be_true
     query.errors.messages[:file].include?('Line 16: Declination is not a number').should be_true
-    query.errors.messages[:file].include?('Line 16: Declination must be a number with 8 decimal places').should be_true
+    query.errors.messages[:file].include?('Line 16: Declination must be a number with 6 decimal places').should be_true
   end
 
   it 'Create bulk catalogue query for skymapper service fs' do

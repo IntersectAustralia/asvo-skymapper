@@ -7,7 +7,7 @@ class BulkCatalogueQuery < Query
   attr_accessor *PARAMETER_FIELDS
 
   validates :file, presence: true
-  validates :sr, presence: true, numericality: { greater_than: 0, less_than_or_equal_to: 0.05 }, format: { with: /^-?\d*(\.\d{1,8})?$/, message: 'must be a number with 8 decimal places' }
+  validates :sr, presence: true, numericality: { greater_than: 0, less_than_or_equal_to: 0.05 }, format: { with: /^-?\d*(\.\d{1,6})?$/, message: 'must be a number with 6 decimal places' }
   validate :file, :valid_search_file
 
   before_validation :clean_values
