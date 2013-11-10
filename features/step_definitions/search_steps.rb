@@ -1,6 +1,6 @@
 Before do
   FakeWeb.clean_registry
-  #FileUtils.rm_rf Rails.root.join('tmp/downloads') # clear downloads directory
+  FileUtils.rm_rf Rails.root.join('tmp/downloads') # clear downloads directory
 end
 
 And /^I select the "([^"]*)" tab$/ do |tab|
@@ -341,6 +341,11 @@ Then /^the file "([^"]*)" should contain more records than "([^"]*)"$/ do |downl
   download_file.size.should be > web_view.size
 end
 
-Then /^I should download file "([^"]*)"$/ do |file|
-  page.source.should == File.read(Rails.root.join("spec/fixtures/#{file}.xml"))
+Then /^I should download xml file "([^"]*)"$/ do |file|
+  VOTableParser.parse_xml(page.source).eql?(VOTableParser.parse_xml(File.read(Rails.root.join("spec/fixtures/#{file}.xml")))).should be_true
+end
+
+Then /^I should downloaded csv file "([^"]*)"$/ do |file|
+  sleep(2)
+  File.read(Rails.root.join('tmp/downloads/sync')).should == File.read("spec/fixtures/#{file}.csv")
 end

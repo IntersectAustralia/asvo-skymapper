@@ -69,6 +69,7 @@ Capybara.match = :prefer_exact
 
 Capybara.register_driver :selenium do |app|
   profile = Selenium::WebDriver::Firefox::Profile.new
+  profile['browser.download.folderList'] = 2
   profile['browser.download.dir'] = Rails.root.join('tmp/downloads').to_s
   profile['browser.helperApps.neverAsk.saveToDisk'] = "text/csv" # content-type of file that will be downloaded
   Capybara::Selenium::Driver.new(app, :browser => :firefox, profile: profile)
