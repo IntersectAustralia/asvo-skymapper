@@ -2,19 +2,19 @@
   .span6
     %label{ for: "#{filter}_min" }
       = "#{filter.upcase} min:"
-    %input{ type: 'text', id: "#{filter}_min", name: "#{filter}_min", 'ng-model' => "form.#{filter}_min", decimal: 8,
+    %input{ type: 'text', id: "#{filter}_min", name: "#{filter}_min", 'ng-model' => "form.#{filter}_min", decimal: 3,
       'ng-init' => "setInput('#{filter}_min', '#{session_param(type, "#{filter}_min".to_sym)}')" }
     %ul.error{ 'ng-show' => "(submitted || #{form}.#{filter}_min.$dirty) && #{form}.#{filter}_min.$invalid" }
       %li.error{ 'ng-show' => "#{form}.#{filter}_min.$error.decimal" }
-        This field should be a number with 8 decimal places.
+        This field should be a number with 3 decimal places.
   .span6
     %label{ for: "#{filter}_max" }
       = "#{filter.upcase} max:"
-    %input{ type: 'text', id: "#{filter}_max", name: "#{filter}_max", 'ng-model' => "form.#{filter}_max", decimal: 8,
+    %input{ type: 'text', id: "#{filter}_max", name: "#{filter}_max", 'ng-model' => "form.#{filter}_max", decimal: 3,
       'min-max' => "{{form.#{filter}_min}}", 'dependent-on' => "form.#{filter}_min",
       'ng-init' => "setInput('#{filter}_max', '#{session_param(type, "#{filter}_max".to_sym)}')" }
     %ul.error{ 'ng-show' => "(submitted || #{form}.#{filter}_max.$dirty) && #{form}.#{filter}_max.$invalid" }
       %li.error{ 'ng-show' => "#{form}.#{filter}_max.$error.decimal" }
-        This field should be a number with 8 decimal places.
+        This field should be a number with 3 decimal places.
       %li.error{ 'ng-show' => "#{form}.#{filter}_max.$error.minMax" }
         = "This field should be a number greater than {{form.#{filter}_min}}."

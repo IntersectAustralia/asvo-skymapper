@@ -4,11 +4,11 @@ describe PointQuery do
 
   # Validate Right Ascension (RA)
   it { should allow_value('0').for(:ra) }
-  it { should allow_value('359.99999999').for(:ra) }
-  it { should allow_value('123.12345678').for(:ra) }
-  it { should allow_value('1.12345678').for(:ra) }
-  it { should allow_value('.12345678').for(:ra) }
-  it { should allow_value('   .12345678    ').for(:ra) }
+  it { should allow_value('359.999999').for(:ra) }
+  it { should allow_value('123.123456').for(:ra) }
+  it { should allow_value('1.123456').for(:ra) }
+  it { should allow_value('.123456').for(:ra) }
+  it { should allow_value('   .123456    ').for(:ra) }
 
   it { should_not allow_value('-0.00000001').for(:ra) }
   it { should_not allow_value('360').for(:ra) }
@@ -25,9 +25,9 @@ describe PointQuery do
   it { should allow_value('-90').for(:dec) }
   it { should allow_value('90').for(:dec) }
   it { should allow_value('0').for(:dec) }
-  it { should allow_value('1.12345678').for(:dec) }
-  it { should allow_value('-1.12345678').for(:dec) }
-  it { should allow_value('   -.12345678    ').for(:dec) }
+  it { should allow_value('1.123456').for(:dec) }
+  it { should allow_value('-1.123456').for(:dec) }
+  it { should allow_value('   -.123456    ').for(:dec) }
 
   it { should_not allow_value('-90.00000001').for(:dec) }
   it { should_not allow_value('90.00000001').for(:dec) }
@@ -42,11 +42,11 @@ describe PointQuery do
   it { should_not allow_value(' -  1.  ').for(:dec) }
 
   # Validate Search Radius (SR)
-  it { should allow_value('0.00000001').for(:sr) }
+  it { should allow_value('0.000001').for(:sr) }
   it { should allow_value('10').for(:sr) }
-  it { should allow_value('1.12345678').for(:sr) }
-  it { should allow_value('.12345678').for(:sr) }
-  it { should allow_value('   .12345678    ').for(:sr) }
+  it { should allow_value('1.123456').for(:sr) }
+  it { should allow_value('.123456').for(:sr) }
+  it { should allow_value('   .123456    ').for(:sr) }
 
   it { should_not allow_value('0').for(:sr) }
   it { should_not allow_value('10.00000001').for(:sr) }

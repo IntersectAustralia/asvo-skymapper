@@ -52,11 +52,11 @@ Feature: Raw image search
   Examples:
     | field                 | value        |
     | Right ascension (deg) | 0            |
-    | Right ascension (deg) | 359.99999999 |
-    | Right ascension (deg) | 123.12345678 |
+    | Right ascension (deg) | 359.999999   |
+    | Right ascension (deg) | 123.123456   |
     | Declination (deg)     | -90          |
     | Declination (deg)     | 90           |
-    | Declination (deg)     | 12.12345678  |
+    | Declination (deg)     | 12.123456    |
 
   @javascript
   Scenario Outline: I cannot submit raw image search if form has errors
@@ -67,14 +67,14 @@ Feature: Raw image search
     | field                 | value       | error                                                                                    |
     | Right ascension (deg) | -1          | This field should be a number greater than or equal to 0 and less than 360.              |
     | Right ascension (deg) | 360         | This field should be a number greater than or equal to 0 and less than 360.              |
-    | Right ascension (deg) | 1.123456789 | This field should be a number with 8 decimal places.                                     |
+    | Right ascension (deg) | 1.123456789 | This field should be a number with 6 decimal places.                                     |
     | Right ascension (deg) | 7abc        | This field should be a number greater than or equal to 0 and less than 360.              |
-    | Right ascension (deg) | 7abc        | This field should be a number with 8 decimal places.                                     |
+    | Right ascension (deg) | 7abc        | This field should be a number with 6 decimal places.                                     |
     | Declination (deg)     | -91         | This field should be a number greater than or equal to -90 and less than or equal to 90. |
     | Declination (deg)     | 91          | This field should be a number greater than or equal to -90 and less than or equal to 90. |
-    | Declination (deg)     | 1.123456789 | This field should be a number with 8 decimal places.                                     |
+    | Declination (deg)     | 1.123456789 | This field should be a number with 6 decimal places.                                     |
     | Declination (deg)     | 7abc        | This field should be a number greater than or equal to -90 and less than or equal to 90. |
-    | Declination (deg)     | 7abc        | This field should be a number with 8 decimal places.                                     |
+    | Declination (deg)     | 7abc        | This field should be a number with 6 decimal places.                                     |
 
   @javascript
   Scenario Outline: I cannot submit raw image search if form has errors (required errors)

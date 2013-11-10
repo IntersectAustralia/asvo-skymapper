@@ -4,11 +4,11 @@ describe RectangularQuery do
 
   # Validate Right Ascension min (RA)
   it { should allow_value('0').for(:ra_min) }
-  it { should allow_value('359.99999999').for(:ra_min) }
-  it { should allow_value('123.12345678').for(:ra_min) }
-  it { should allow_value('1.12345678').for(:ra_min) }
-  it { should allow_value('.12345678').for(:ra_min) }
-  it { should allow_value('   .12345678    ').for(:ra_min) }
+  it { should allow_value('359.999999').for(:ra_min) }
+  it { should allow_value('123.123456').for(:ra_min) }
+  it { should allow_value('1.123456').for(:ra_min) }
+  it { should allow_value('.123456').for(:ra_min) }
+  it { should allow_value('   .123456    ').for(:ra_min) }
 
   it { should_not allow_value('-0.00000001').for(:ra_min) }
   it { should_not allow_value('360').for(:ra_min) }
@@ -23,11 +23,11 @@ describe RectangularQuery do
 
   # Validate Right Ascension max (RA)
   it { should allow_value('0').for(:ra_max) }
-  it { should allow_value('359.99999999').for(:ra_max) }
-  it { should allow_value('123.12345678').for(:ra_max) }
-  it { should allow_value('1.12345678').for(:ra_max) }
-  it { should allow_value('.12345678').for(:ra_max) }
-  it { should allow_value('   .12345678    ').for(:ra_max) }
+  it { should allow_value('359.999999').for(:ra_max) }
+  it { should allow_value('123.123456').for(:ra_max) }
+  it { should allow_value('1.123456').for(:ra_max) }
+  it { should allow_value('.123456').for(:ra_max) }
+  it { should allow_value('   .123456    ').for(:ra_max) }
 
   it { should_not allow_value('-0.00000001').for(:ra_max) }
   it { should_not allow_value('360').for(:ra_max) }
@@ -44,9 +44,9 @@ describe RectangularQuery do
   it { should allow_value('-90').for(:dec_min) }
   it { should allow_value('90').for(:dec_min) }
   it { should allow_value('0').for(:dec_min) }
-  it { should allow_value('1.12345678').for(:dec_min) }
-  it { should allow_value('-1.12345678').for(:dec_min) }
-  it { should allow_value('   -.12345678    ').for(:dec_min) }
+  it { should allow_value('1.123456').for(:dec_min) }
+  it { should allow_value('-1.123456').for(:dec_min) }
+  it { should allow_value('   -.123456    ').for(:dec_min) }
 
   it { should_not allow_value('-90.00000001').for(:dec_min) }
   it { should_not allow_value('90.00000001').for(:dec_min) }
@@ -64,9 +64,9 @@ describe RectangularQuery do
   it { should allow_value('-90').for(:dec_max) }
   it { should allow_value('90').for(:dec_max) }
   it { should allow_value('0').for(:dec_max) }
-  it { should allow_value('1.12345678').for(:dec_max) }
-  it { should allow_value('-1.12345678').for(:dec_max) }
-  it { should allow_value('   -.12345678    ').for(:dec_max) }
+  it { should allow_value('1.123456').for(:dec_max) }
+  it { should allow_value('-1.123456').for(:dec_max) }
+  it { should allow_value('   -.123456    ').for(:dec_max) }
 
   it { should_not allow_value('-90.00000001').for(:dec_max) }
   it { should_not allow_value('90.00000001').for(:dec_max) }

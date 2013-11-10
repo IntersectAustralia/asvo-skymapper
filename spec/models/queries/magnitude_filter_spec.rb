@@ -8,8 +8,8 @@ describe MagnitudeFilter do
 
   # Validate min
   it { should allow_value('0').for(:min) }
-  it { should allow_value('0.12345678').for(:min) }
-  it { should allow_value('.12345678').for(:min) }
+  it { should allow_value('0.123').for(:min) }
+  it { should allow_value('.123').for(:min) }
   it { should allow_value('100000000').for(:min) }
   it { should allow_value('-100000000').for(:min) }
   it { should allow_value('   -100000000   ').for(:min) }
@@ -21,8 +21,8 @@ describe MagnitudeFilter do
 
   # Validate max
   it { should allow_value('0').for(:max) }
-  it { should allow_value('0.12345678').for(:max) }
-  it { should allow_value('.12345678').for(:max) }
+  it { should allow_value('0.123').for(:max) }
+  it { should allow_value('.123').for(:max) }
   it { should allow_value('100000000').for(:max) }
   it { should allow_value('-100000000').for(:max) }
   it { should allow_value('   -100000000   ').for(:max) }
