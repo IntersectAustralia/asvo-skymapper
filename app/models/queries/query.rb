@@ -53,6 +53,30 @@ class Query
     end
   end
 
+  def search_file_valid
+    if file and File.file? file
+      csv = CSV.parse(File.read(file), headers: true)
+      if csv.empty?
+        errors.add(:file, 'must not be empty')
+      else
+        csv.each_with_index do |row, index|
+          query_args = { sr: sr }
+          headers = row.headers.map { |h| h.strip.downcase if h }
+          fields = row.fields
+          query_args[:ra] = fields[headers.index('ra')] if headers.index('ra') and fields[headers.index('ra')]
+          query_args[:dec] = fields[headers.index('dec')] if headers.index('dec') and fields[headers.index('dec')]
+          query = PointQuery.new(query_args)
+          unless query.valid?
+            query.errors.messages[:ra].each { |error| errors.add(:file, "Line #{index + 1}: Right ascension #{error}") } if query.errors.messages[:ra]
+            query.errors.messages[:dec].each { |error| errors.add(:file, "Line #{index + 1}: Declination #{error}") } if query.errors.messages[:dec]
+          end
+        end
+      end
+    else
+      errors.add(:file, 'must be a file')
+    end
+  end
+
   protected
 
   def clean(value)

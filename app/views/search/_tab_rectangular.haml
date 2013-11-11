@@ -30,7 +30,7 @@
             %li.error{ 'ng-show' => 'rectangular_search_form.ra_min.$error.range' }
               This field should be a number greater than or equal to 0 and less than 360.
             %li.error{ 'ng-show' => 'rectangular_search_form.ra_min.$error.decimal' }
-              This field should be a number with 6 decimal places.
+              This field should be a number with a maximum of 6 decimal places.
 
         .span6
           %label{ for: :ra_max }
@@ -43,7 +43,7 @@
             %li.error{ 'ng-show' => 'rectangular_search_form.ra_max.$error.range' }
               This field should be a number greater than {{form.ra_min | isNumber:form.ra_min:'or equal to 0'}} and less than 360.
             %li.error{ 'ng-show' => 'rectangular_search_form.ra_max.$error.decimal' }
-              This field should be a number with 6 decimal places.
+              This field should be a number with a maximum of 6 decimal places.
 
       .row-fluid
         .span6
@@ -57,7 +57,7 @@
             %li.error{ 'ng-show' => 'rectangular_search_form.dec_min.$error.range' }
               This field should be a number greater than or equal to -90 and less than or equal to 90.
             %li.error{ 'ng-show' => 'rectangular_search_form.dec_min.$error.decimal' }
-              This field should be a number with 6 decimal places.
+              This field should be a number with a maximum of 6 decimal places.
 
         .span6
           %label{ for: :dec_max }
@@ -70,7 +70,7 @@
             %li.error{ 'ng-show' => 'rectangular_search_form.dec_max.$error.range' }
               This field should be a number greater than {{form.dec_min | isNumber:form.dec_min:'or equal to -90'}} and less than or equal to 90.
             %li.error{ 'ng-show' => 'rectangular_search_form.dec_max.$error.decimal' }
-              This field should be a number with 6 decimal places.
+              This field should be a number with a maximum of 6 decimal places.
 
       = render partial: 'search_filter', locals: { form: 'rectangular_search_form', filter: 'u', type: 'rectangular' }
       = render partial: 'search_filter', locals: { form: 'rectangular_search_form', filter: 'v', type: 'rectangular' }

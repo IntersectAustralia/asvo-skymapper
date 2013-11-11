@@ -5,9 +5,9 @@ class PointQuery < Query
   attr_accessor *PARAMETER_FIELDS
   attr_accessor :filters
 
-  validates :ra, presence: true, numericality: { greater_than_or_equal_to: 0, less_than: 360 }, format: { with: /^-?\d*(\.\d{1,6})?$/, message: 'must be a number with 6 decimal places' }
-  validates :dec, presence: true, numericality: { greater_than_or_equal_to: -90, less_than_or_equal_to: 90 }, format: { with: /^-?\d*(\.\d{1,6})?$/, message: 'must be a number with 6 decimal places' }
-  validates :sr, presence: true, numericality: { greater_than: 0, less_than_or_equal_to: 10 }, format: { with: /^-?\d*(\.\d{1,6})?$/, message: 'must be a number with 6 decimal places' }
+  validates :ra, presence: true, numericality: { greater_than_or_equal_to: 0, less_than: 360 }, format: { with: /^-?\d*(\.\d{1,6})?$/, message: 'must be a number with a maximum of 6 decimal places' }
+  validates :dec, presence: true, numericality: { greater_than_or_equal_to: -90, less_than_or_equal_to: 90 }, format: { with: /^-?\d*(\.\d{1,6})?$/, message: 'must be a number with a maximum of 6 decimal places' }
+  validates :sr, presence: true, numericality: { greater_than: 0, less_than_or_equal_to: 10 }, format: { with: /^-?\d*(\.\d{1,6})?$/, message: 'must be a number with a maximum of 6 decimal places' }
   validate :filters, :filters_valid
 
   before_validation :clean_values
