@@ -43,6 +43,14 @@ class QueryGenerator
     query
   end
 
+  def self.generate_bulk_image_query(args)
+    query_args = {
+        file: args[:file]
+    }
+    query = BulkImageQuery.new(query_args)
+    query
+  end
+
   protected
 
   def self.generate_query_filters(args)

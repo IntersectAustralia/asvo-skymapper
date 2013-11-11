@@ -114,10 +114,18 @@ describe QueryGenerator do
 
   it 'Generates bulk catalogue query' do
     args = {
-        file: Rails.root.join('spec/fixtures/skymapper_bulk_catalogue_valid_1.csv'),
+        file: Rails.root.join('spec/fixtures/skymapper_bulk_valid_1.csv'),
         sr: '0.05'
     }
     bulk_query = QueryGenerator.generate_bulk_catalogue_query(args)
+    bulk_query.valid?.should be_true
+  end
+
+  it 'Generates bulk image query' do
+    args = {
+        file: Rails.root.join('spec/fixtures/skymapper_bulk_valid_1.csv')
+    }
+    bulk_query = QueryGenerator.generate_bulk_image_query(args)
     bulk_query.valid?.should be_true
   end
 
