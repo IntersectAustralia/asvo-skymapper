@@ -84,7 +84,7 @@ class SearchController < ApplicationController
 
     service_args = {
         dataset: DEFAULT_DATASET,
-        catalogue: params[:catalogue]
+        catalogue: params[:query][:catalogue]
     }
 
     service = SyncTapService.new(service_args)
@@ -124,7 +124,7 @@ class SearchController < ApplicationController
 
     service_args = {
         dataset: DEFAULT_DATASET,
-        catalogue: params[:catalogue]
+        catalogue: params[:query][:catalogue]
     }
 
     service = SyncTapService.new(service_args)
@@ -178,7 +178,7 @@ class SearchController < ApplicationController
         z_max: args[:z_max]
     }
 
-    fetch_search_results(SyncTapService, query_args, QueryGenerator.method(:generate_point_query), params[:catalogue])
+    fetch_search_results(SyncTapService, query_args, QueryGenerator.method(:generate_point_query), params[:query][:catalogue])
   end
 
   def rectangular_search_results
@@ -204,7 +204,7 @@ class SearchController < ApplicationController
         z_max: args[:z_max]
     }
 
-    fetch_search_results(SyncTapService, query_args, QueryGenerator.method(:generate_rectangular_query), params[:catalogue])
+    fetch_search_results(SyncTapService, query_args, QueryGenerator.method(:generate_rectangular_query), params[:query][:catalogue])
   end
 
   def raw_image_search_results
