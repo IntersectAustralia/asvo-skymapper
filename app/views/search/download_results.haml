@@ -3,19 +3,13 @@
   %section.row-fluid
 
     .span9
-      %h3 Download Results
+      %h3 Downloading Results
 
       %a.btn{ href: root_path }
         Back
 
-      - if @errors
-        %h5 Please correct the following errors in the CSV file:
-        %ul.error
-          - @errors.each do |error|
-            %li.error= error
-      - else
-        %pre#query.hide{ 'ng-init' => "downloadResults(\"#{@request[:url]}\", \"#{@request[:type]}\", 'query')" }
-          = @request[:query]
+      %pre#query.hide{ 'ng-init' => "downloadResults(\"#{@request[:url]}\", \"#{@request[:type]}\", 'query')" }
+        = @request[:query]
 
     .aside.span3
       = render 'help'

@@ -156,6 +156,20 @@ class SearchController < ApplicationController
     render 'search_results_and_details'
   end
 
+  def bulk_raw_image_search
+    session[:search] = { type: 'bulk-raw-image', params: params }
+
+    @results_path = raw_image_search_results_path
+
+    @fields = search_fields('image', 'siap')
+
+    @filters = ["rawImageOrder:[#{@fields.map { |x| "'#{x[:field]}',"}.join[0..-2]}]"]
+  rescue StandardError
+    flash.now[:error] = 'The search parameters contain some errors.'
+  ensure
+    render 'search_results_and_details'
+  end
+
   def radial_search_results
     args = params[:query]
     raise SearchError.new 'Invalid search arguments' unless args
@@ -259,15 +273,19 @@ class SearchController < ApplicationController
           query: service.get_raw_query(query),
           type: params[:type]
       }
+
+      render 'download_results'
     else
       raise SearchError.new 'Invalid search arguments' if query.errors.messages[:sr]
 
       @errors = query.errors.messages[:file] # print file errors to page
+
+      render 'index'
     end
   rescue StandardError
     flash.now[:error] = 'The search parameters contain some errors.'
-  ensure
-    render 'download_results'
+
+    render 'index'
   end
 
   # HELPERS

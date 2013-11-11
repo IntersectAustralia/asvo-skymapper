@@ -100,7 +100,7 @@ Feature: Bulk catalogue search
       | Line 16: Declination must be a number with a maximum of 6 decimal places     |
 
   @javascript
-  Scenario Outline: I cannot submit radial search if form has errors (required errors)
+  Scenario Outline: I cannot submit bulk catalogue search if form has errors (required errors)
     Given I select the "Bulk Catalogue" tab
     And I press "Search SkyMapper"
     Then I should see error "<error>" for "<field>"

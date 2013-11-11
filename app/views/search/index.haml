@@ -18,6 +18,9 @@
       %li
         %a{ href: '#tab-bulk-catalogue', 'data-toggle' => 'tab'}
           Bulk Catalogue
+      %li
+        %a{ href: '#tab-bulk-image', 'data-toggle' => 'tab'}
+          Bulk Image
 
     .tab-content
       #tab-radial.tab-pane
@@ -28,6 +31,8 @@
         = render partial: 'tab_raw_image'
       #tab-bulk-catalogue.tab-pane
         = render partial: 'tab_bulk_catalogue'
+      #tab-bulk-image.tab-pane
+        = render partial: 'tab_bulk_image'
 
   .aside.span3
     = render 'help'

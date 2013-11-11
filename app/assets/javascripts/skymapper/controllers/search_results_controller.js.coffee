@@ -48,7 +48,7 @@ window.skymapper_app.controller 'SearchResultsController', ['$scope', '$window',
         $scope.selectedObject = obj
 
       $scope.postDownloadForm = (url, query, format) ->
-        flash('notice', 'Fetching results...', 10000)
+        flash('notice', 'Please wait...', 10000)
 
         if "CSV" == format
           format_param = '?format=csv'
