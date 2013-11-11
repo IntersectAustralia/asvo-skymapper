@@ -50,13 +50,13 @@ Feature: Raw image search
     And I fill in "<value>" for "<field>"
     Then I should not see any errors for "<field>"
   Examples:
-    | field                 | value        |
-    | Right ascension (deg) | 0            |
-    | Right ascension (deg) | 359.999999   |
-    | Right ascension (deg) | 123.123456   |
-    | Declination (deg)     | -90          |
-    | Declination (deg)     | 90           |
-    | Declination (deg)     | 12.123456    |
+    | field                 | value      |
+    | Right ascension (deg) | 0          |
+    | Right ascension (deg) | 359.999999 |
+    | Right ascension (deg) | 123.123456 |
+    | Declination (deg)     | -90        |
+    | Declination (deg)     | 90         |
+    | Declination (deg)     | 12.123456  |
 
   @javascript
   Scenario Outline: I cannot submit raw image search if form has errors
@@ -67,14 +67,14 @@ Feature: Raw image search
     | field                 | value       | error                                                                                    |
     | Right ascension (deg) | -1          | This field should be a number greater than or equal to 0 and less than 360.              |
     | Right ascension (deg) | 360         | This field should be a number greater than or equal to 0 and less than 360.              |
-    | Right ascension (deg) | 1.123456789 | This field should be a number with 6 decimal places.                                     |
+    | Right ascension (deg) | 1.123456789 | This field should be a number with a maximum of 6 decimal places.                        |
     | Right ascension (deg) | 7abc        | This field should be a number greater than or equal to 0 and less than 360.              |
-    | Right ascension (deg) | 7abc        | This field should be a number with 6 decimal places.                                     |
+    | Right ascension (deg) | 7abc        | This field should be a number with a maximum of 6 decimal places.                        |
     | Declination (deg)     | -91         | This field should be a number greater than or equal to -90 and less than or equal to 90. |
     | Declination (deg)     | 91          | This field should be a number greater than or equal to -90 and less than or equal to 90. |
-    | Declination (deg)     | 1.123456789 | This field should be a number with 6 decimal places.                                     |
+    | Declination (deg)     | 1.123456789 | This field should be a number with a maximum of 6 decimal places.                        |
     | Declination (deg)     | 7abc        | This field should be a number greater than or equal to -90 and less than or equal to 90. |
-    | Declination (deg)     | 7abc        | This field should be a number with 6 decimal places.                                     |
+    | Declination (deg)     | 7abc        | This field should be a number with a maximum of 6 decimal places.                        |
 
   @javascript
   Scenario Outline: I cannot submit raw image search if form has errors (required errors)
@@ -105,8 +105,8 @@ Feature: Raw image search
     Then I should see popup with message "You are about to download a large image. Are you sure you want to continue?"
     And I download the image file
   Examples:
-  | catalogue | ra        | dec      | results                 | count |
-  | image     | 181.16129 | -1.18844 | skymapper_image_query_1 | 36    |
+    | catalogue | ra        | dec      | results                 | count |
+    | image     | 181.16129 | -1.18844 | skymapper_image_query_1 | 36    |
 
   @javascript
   Scenario Outline: I can see raw image search object details

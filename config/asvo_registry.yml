@@ -227,67 +227,67 @@
               :pi:
                 :field: pi
                 :name: pi
-                :group: todo1
+                :group: group1
               :sigma_pi:
                 :field: sigma_pi
                 :name: Sigma pi
-                :group: todo1
+                :group: group1
               :mu_x:
                 :field: mu_x
                 :name: mu x
-                :group: todo1
+                :group: group1
               :mu_y:
                 :field: mu_y
                 :name: mu y
-                :group: todo1
+                :group: group1
               :sigma_mu_x:
                 :field: sigma_mu_x
                 :name: Sigma mu x
-                :group: todo1
+                :group: group1
               :sigma_mu_y:
                 :field: sigma_mu_y
                 :name: Sigma mu y
-                :group: todo1
+                :group: group1
               :variability:
                 :field: variability
                 :name: Variability
-                :group: todo1
+                :group: group1
               :transient:
                 :field: transient
                 :name: Transient
-                :group: todo1
+                :group: group1
               :a:
                 :field: a
                 :name: a
-                :group: todo2
+                :group: group2
               :b:
                 :field: b
                 :name: b
-                :group: todo2
+                :group: group2
               :theta:
                 :field: theta
                 :name: Theta
-                :group: todo2
+                :group: group2
               :sigma_a:
                 :field: sigma_a
                 :name: Sigma a
-                :group: todo2
+                :group: group2
               :sigma_b:
                 :field: sigma_b
                 :name: Sigma b
-                :group: todo2
+                :group: group2
               :sigma_theta:
                 :field: sigma_theta
                 :name: Sigma theta
-                :group: todo2
+                :group: group2
               :radius_frac_20:
                 :field: radius_frac_20
                 :name: Radius frac 20
-                :group: todo2
+                :group: group2
               :radius_frac_90:
                 :field: radius_frac_90
                 :name: Radius frac 90
-                :group: todo2
+                :group: group2
               :class_star:
                 :field: class_star
                 :name: Class star
@@ -368,62 +368,62 @@
               :object_id:
                 :field: OBJECT_ID
                 :name: Object id
-                :group: todo1
+                :group: group1
               :title:
                 :field: TITLE
                 :name: Title
-                :group: todo1
+                :group: group1
               :night_id:
                 :field: NIGHT_ID
                 :name: Night id
-                :group: todo1
+                :group: group1
               :combined_id:
                 :field: COMBINED_ID
                 :name: Combined id
-                :group: todo1
+                :group: group1
               :naxes:
                 :field: NAXES
                 :name: N axes
-                :group: todo1
+                :group: group1
               :naxis:
                 :field: NAXIS
                 :name: N axis
-                :group: todo1
+                :group: group1
               :scale:
                 :field: SCALE
                 :name: Scale
-                :group: todo1
+                :group: group1
               :format:
                 :field: FORMAT
                 :name: Format
-                :group: todo2
+                :group: group2
               :field_id:
                 :field: FIELD_ID
                 :name: Field id
-                :group: todo2
+                :group: group2
               :exp_time:
                 :field: EXP_TIME
                 :name: Exp time
-                :group: todo2
+                :group: group2
               :air_mass:
                 :field: AIRMASS
                 :name: Air mass
-                :group: todo2
+                :group: group2
               :rotator_pos:
                 :field: ROTATOR_POS
                 :name: Rotator pos
-                :group: todo2
+                :group: group2
               :object:
                 :field: OBJECT
                 :name: Object
-                :group: todo2
+                :group: group2
               :binning:
                 :field: BINNING
                 :name: Binning
-                :group: todo2
+                :group: group2
               :qa_status:
                 :field: QA_STATUS
                 :name: QA status
-                :group: todo2
+                :group: group2
   - :dataset: wigglez
     :description: TODO

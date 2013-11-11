@@ -16,7 +16,7 @@
             %li.error{ 'ng-show' => 'raw_image_search_form.ra.$error.range' }
               This field should be a number greater than or equal to 0 and less than 360.
             %li.error{ 'ng-show' => 'raw_image_search_form.ra.$error.decimal' }
-              This field should be a number with 6 decimal places.
+              This field should be a number with a maximum of 6 decimal places.
         .span6
           %label{ for: :dec }
             Declination (deg):
@@ -28,7 +28,7 @@
             %li.error{ 'ng-show' => 'raw_image_search_form.dec.$error.range' }
               This field should be a number greater than or equal to -90 and less than or equal to 90.
             %li.error{ 'ng-show' => 'raw_image_search_form.dec.$error.decimal' }
-              This field should be a number with 6 decimal places.
+              This field should be a number with a maximum of 6 decimal places.
 
     .form-actions
       %input#submit.btn.btn-primary{ type: 'submit', value: 'Search SkyMapper' }

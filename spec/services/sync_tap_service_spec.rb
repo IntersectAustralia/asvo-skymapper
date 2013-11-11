@@ -127,10 +127,10 @@ describe SyncTapService do
         { type: 'rectangular', message: 'no', dataset: 'skymapper', catalogue: 'ms', params: { ra_min: '1', ra_max: '1.1', dec_min: '1', dec_max: '1.1' }, filename: 'skymapper_rectangular_query_ms_2', method: :generate_rectangular_query },
         { type: 'rectangular', message: 'exactly 1000', dataset: 'skymapper', catalogue: 'ms', params: { ra_min: '1.75', ra_max: '2.25', dec_min: '-2.25', dec_max: '-0.75' }, filename: 'skymapper_rectangular_query_ms_3', method: :generate_rectangular_query },
 
-        { type: 'bulk catalogue', message: 'exactly 5', dataset: 'skymapper', catalogue: 'fs', params: {file: Rails.root.join('spec/fixtures/skymapper_bulk_catalogue_valid_1.csv'), sr: 0.05 }, filename: 'skymapper_bulk_catalogue_query_fs_1', method: :generate_bulk_catalogue_query },
-        { type: 'bulk catalogue', message: 'no', dataset: 'skymapper', catalogue: 'fs', params: {file: Rails.root.join('spec/fixtures/skymapper_bulk_catalogue_valid_3.csv'), sr: 0.05 }, filename: 'skymapper_bulk_catalogue_query_fs_2', method: :generate_bulk_catalogue_query },
-        { type: 'bulk catalogue', message: 'exactly 106', dataset: 'skymapper', catalogue: 'ms', params: {file: Rails.root.join('spec/fixtures/skymapper_bulk_catalogue_valid_1.csv'), sr: 0.05 }, filename: 'skymapper_bulk_catalogue_query_ms_1', method: :generate_bulk_catalogue_query },
-        { type: 'bulk catalogue', message: 'no', dataset: 'skymapper', catalogue: 'ms', params: {file: Rails.root.join('spec/fixtures/skymapper_bulk_catalogue_valid_3.csv'), sr: 0.05 }, filename: 'skymapper_bulk_catalogue_query_ms_2', method: :generate_bulk_catalogue_query }
+        { type: 'bulk catalogue', message: 'exactly 5', dataset: 'skymapper', catalogue: 'fs', params: {file: Rails.root.join('spec/fixtures/skymapper_bulk_valid_1.csv'), sr: 0.05 }, filename: 'skymapper_bulk_catalogue_query_fs_1', method: :generate_bulk_catalogue_query },
+        { type: 'bulk catalogue', message: 'no', dataset: 'skymapper', catalogue: 'fs', params: {file: Rails.root.join('spec/fixtures/skymapper_bulk_valid_3.csv'), sr: 0.05 }, filename: 'skymapper_bulk_catalogue_query_fs_2', method: :generate_bulk_catalogue_query },
+        { type: 'bulk catalogue', message: 'exactly 106', dataset: 'skymapper', catalogue: 'ms', params: {file: Rails.root.join('spec/fixtures/skymapper_bulk_valid_1.csv'), sr: 0.05 }, filename: 'skymapper_bulk_catalogue_query_ms_1', method: :generate_bulk_catalogue_query },
+        { type: 'bulk catalogue', message: 'no', dataset: 'skymapper', catalogue: 'ms', params: {file: Rails.root.join('spec/fixtures/skymapper_bulk_valid_3.csv'), sr: 0.05 }, filename: 'skymapper_bulk_catalogue_query_ms_2', method: :generate_bulk_catalogue_query }
     ]
 
     query_data.each do |data|

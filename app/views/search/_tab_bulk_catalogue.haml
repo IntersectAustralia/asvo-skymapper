@@ -50,7 +50,7 @@
             %li.error{ 'ng-show' => 'bulk_catalogue_search_form.sr.$error.range' }
               This field should be a number greater than 0 and less than or equal to 0.05.
             %li.error{ 'ng-show' => 'bulk_catalogue_search_form.sr.$error.decimal' }
-              This field should be a number with 6 decimal places.
+              This field should be a number with a maximum of 6 decimal places.
 
       .form-actions
         %input#submit.btn.btn-primary{ type: 'submit', value: 'Search SkyMapper', 'ng-click' => "submit('bulk_catalogue_search_form', $event)"  }

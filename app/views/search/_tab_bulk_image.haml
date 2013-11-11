@@ -1,0 +1,29 @@
+%p
+  The bulk image search will return SkyMapper images centered on the specified right ascension and declination found in the uploaded csv file. All values are in decimal degrees.
+  
+.form-container{ 'ng-controller' => 'SearchController' }
+  %form#bulk_image_search_form.cancel{ name: 'bulk_image_search_form', action: bulk_image_download_path, method: 'post', enctype: 'multipart/form-data', novalidate: '' }
+    %fieldset
+      .row-fluid
+        .span6
+          %label{ for: :file }
+            File (csv):
+          %input#file{ type: 'file', name: 'file', 'ng-model' => 'form.file', 'file-required' => '', accept: 'text/csv' }
+          %ul.error{ 'ng-show' => '(submitted || bulk_image_search_form.file.$dirty) && bulk_image_search_form.file.$invalid' }
+            %li.error{ 'ng-show' => 'bulk_image_search_form.file.$error.fileRequired' }
+              This field is required.
+
+        .span6
+          %label{ for: :type }
+            Download format:
+          %select#type{ 'ng-model' => 'form.type', name: 'type', required: '',
+            'ng-init' => "setInput('type', '#{session_param('bulk-catalogue', :type)}')" }
+            - Query::FILE_TYPE.each do |type|
+              %option{ value: type }= type
+          %ul.error{ 'ng-show' => '(submitted || bulk_image_search_form.type.$dirty) && bulk_image_search_form.type.$invalid' }
+            %li.error{ 'ng-show' => 'bulk_image_search_form.type.$error.required' }
+              This field is required.
+
+      .form-actions
+        %input#submit.btn.btn-primary{ type: 'submit', value: 'Search SkyMapper', 'ng-click' => "submit('bulk_image_search_form', $event)"  }
+
