@@ -55,45 +55,54 @@ class SearchController < ApplicationController
     render 'search_results_and_details'
   end
 
-  def rectangular_query
-    args = params[:query]
-    raise SearchError.new 'Invalid search arguments' unless args
+  def raw_image_search
+    session[:search] = { type: 'raw-image', params: params }
 
+    @results_path = raw_image_search_results_path
+
+    @parameters = [
+        { name: 'Right ascension:', value: params[:ra] },
+        { name: 'Declination:', value: params[:dec] }
+    ]
+    clean_parameters(@parameters)
+
+    @fields = search_fields('image', 'siap')
+
+    @filters = ["rawImageOrder:[#{@fields.map { |x| "'#{x[:field]}',"}.join[0..-2]}]"]
+  rescue StandardError
+    flash.now[:error] = 'The search parameters contain some errors.'
+  ensure
+    render 'search_results_and_details'
+  end
+
+  def bulk_image_search
+    clone_params = params.clone
+    clone_params.delete(:file)
+    session[:search] = { type: 'bulk-image', params: clone_params }
     query_args = {
-        ra_min: args[:ra_min],
-        ra_max: args[:ra_max],
-        dec_min: args[:dec_min],
-        dec_max: args[:dec_max],
-        u_min: args[:u_min],
-        u_max: args[:u_max],
-        v_min: args[:v_min],
-        v_max: args[:v_max],
-        g_min: args[:g_min],
-        g_max: args[:g_max],
-        r_min: args[:r_min],
-        r_max: args[:r_max],
-        i_min: args[:i_min],
-        i_max: args[:i_max],
-        z_min: args[:z_min],
-        z_max: args[:z_max],
-        limit: false
+        file: params[:file].tempfile.path
     }
 
-    query = QueryGenerator.method(:generate_rectangular_query).call(query_args)
-    raise SearchError.new 'Invalid search arguments' unless query and query.valid?
+    query = QueryGenerator.generate_bulk_image_query(query_args)
+    raise SearchError.new 'Invalid search arguments' unless query
 
-    service_args = {
-        dataset: DEFAULT_DATASET,
-        catalogue: params[:query][:catalogue]
-    }
+    if query.valid?
+      @results_path = raw_image_search_results_path
 
-    service = SyncTapService.new(service_args)
-    request = {
-        url: service.request.to_s,
-        query: service.get_raw_query(query)
-    }
+      @fields = search_fields('image', 'siap')
 
-    render json: request
+      @filters = ["rawImageOrder:[#{@fields.map { |x| "'#{x[:field]}',"}.join[0..-2]}]"]
+
+      render 'search_results_and_details'
+    else
+      @errors = query.errors.messages[:file]
+
+      render 'index'
+    end
+  rescue StandardError
+    flash.now[:error] = 'The search parameters contain some errors.'
+
+    render 'search_results_and_details'
   end
 
   def radial_query
@@ -136,38 +145,45 @@ class SearchController < ApplicationController
     render json: request
   end
 
-  def raw_image_search
-    session[:search] = { type: 'raw-image', params: params }
+  def rectangular_query
+    args = params[:query]
+    raise SearchError.new 'Invalid search arguments' unless args
 
-    @results_path = raw_image_search_results_path
+    query_args = {
+        ra_min: args[:ra_min],
+        ra_max: args[:ra_max],
+        dec_min: args[:dec_min],
+        dec_max: args[:dec_max],
+        u_min: args[:u_min],
+        u_max: args[:u_max],
+        v_min: args[:v_min],
+        v_max: args[:v_max],
+        g_min: args[:g_min],
+        g_max: args[:g_max],
+        r_min: args[:r_min],
+        r_max: args[:r_max],
+        i_min: args[:i_min],
+        i_max: args[:i_max],
+        z_min: args[:z_min],
+        z_max: args[:z_max],
+        limit: false
+    }
 
-    @parameters = [
-        { name: 'Right ascension:', value: params[:ra] },
-        { name: 'Declination:', value: params[:dec] }
-    ]
-    clean_parameters(@parameters)
+    query = QueryGenerator.method(:generate_rectangular_query).call(query_args)
+    raise SearchError.new 'Invalid search arguments' unless query and query.valid?
 
-    @fields = search_fields('image', 'siap')
+    service_args = {
+        dataset: DEFAULT_DATASET,
+        catalogue: params[:query][:catalogue]
+    }
 
-    @filters = ["rawImageOrder:[#{@fields.map { |x| "'#{x[:field]}',"}.join[0..-2]}]"]
-  rescue StandardError
-    flash.now[:error] = 'The search parameters contain some errors.'
-  ensure
-    render 'search_results_and_details'
-  end
+    service = SyncTapService.new(service_args)
+    request = {
+        url: service.request.to_s,
+        query: service.get_raw_query(query)
+    }
 
-  def bulk_raw_image_search
-    session[:search] = { type: 'bulk-raw-image', params: params }
-
-    @results_path = raw_image_search_results_path
-
-    @fields = search_fields('image', 'siap')
-
-    @filters = ["rawImageOrder:[#{@fields.map { |x| "'#{x[:field]}',"}.join[0..-2]}]"]
-  rescue StandardError
-    flash.now[:error] = 'The search parameters contain some errors.'
-  ensure
-    render 'search_results_and_details'
+    render json: request
   end
 
   def radial_search_results
@@ -285,7 +301,7 @@ class SearchController < ApplicationController
   rescue StandardError
     flash.now[:error] = 'The search parameters contain some errors.'
 
-    render 'index'
+    render 'download_results'
   end
 
   # HELPERS

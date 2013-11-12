@@ -7,34 +7,34 @@ Feature: Bulk catalogue search
     Given I am on the home page
 
   @javascript
+  @not-jenkins
   Scenario Outline: I perform bulk catalogue search downloads csv files
     Given I select the "Bulk Catalogue" tab
     And I select "<survey>" from "SkyMapper survey"
     And I attach the file "<file>" to "File"
     And I select "<type>" from "Download format"
     And I fill in "<sr>" for "Search radius (deg)"
-    And I fake download request for catalogue "<catalogue>" with "<downloaded_file>"
     And I press "Search SkyMapper"
     Then I should downloaded csv file "<downloaded_file>"
   Examples:
-    | survey             | catalogue | file                       | sr   | type | downloaded_file                     |
-    | Five-Second Survey | fs        | skymapper_bulk_valid_1.csv | 0.05 | CSV  | skymapper_bulk_catalogue_query_fs_1 |
-    | Main Survey        | ms        | skymapper_bulk_valid_1.csv | 0.05 | CSV  | skymapper_bulk_catalogue_query_ms_1 |
+    | survey             | file                       | sr   | type | downloaded_file                     |
+    | Five-Second Survey | skymapper_bulk_valid_1.csv | 0.05 | CSV  | skymapper_bulk_catalogue_query_fs_1 |
+    | Main Survey        | skymapper_bulk_valid_1.csv | 0.05 | CSV  | skymapper_bulk_catalogue_query_ms_1 |
 
   @javascript
+  @not-jenkins
   Scenario Outline: I perform bulk catalogue search downloads vo tables
     Given I select the "Bulk Catalogue" tab
     And I select "<survey>" from "SkyMapper survey"
     And I attach the file "<file>" to "File"
     And I select "<type>" from "Download format"
     And I fill in "<sr>" for "Search radius (deg)"
-    And I fake download request for catalogue "<catalogue>" with "<downloaded_file>"
     And I press "Search SkyMapper"
     Then I should download xml file "<downloaded_file>"
   Examples:
-    | survey             | catalogue | file                       | sr   | type    | downloaded_file                     |
-    | Five-Second Survey | fs        | skymapper_bulk_valid_1.csv | 0.05 | VOTable | skymapper_bulk_catalogue_query_fs_1 |
-    | Main Survey        | ms        | skymapper_bulk_valid_1.csv | 0.05 | VOTable | skymapper_bulk_catalogue_query_ms_1 |
+    | survey             | file                       | sr   | type    | downloaded_file                     |
+    | Five-Second Survey | skymapper_bulk_valid_1.csv | 0.05 | VOTable | skymapper_bulk_catalogue_query_fs_1 |
+    | Main Survey        | skymapper_bulk_valid_1.csv | 0.05 | VOTable | skymapper_bulk_catalogue_query_ms_1 |
 
   @javascript
   Scenario Outline: I can submit bulk catalogue search with the follow values
