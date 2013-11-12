@@ -342,6 +342,7 @@ Then /^the file "([^"]*)" should contain more records than "([^"]*)"$/ do |downl
 end
 
 Then /^I should download xml file "([^"]*)"$/ do |file|
+  sleep(2)
   VOTableParser.parse_xml(page.source).eql?(VOTableParser.parse_xml(File.read(Rails.root.join("spec/fixtures/#{file}.xml")))).should be_true
 end
 

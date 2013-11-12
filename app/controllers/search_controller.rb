@@ -27,7 +27,7 @@ class SearchController < ApplicationController
 
     @fields = search_fields(params[:catalogue], 'tap')
 
-    @downloads_path = radial_query_path
+    @query_path = radial_query_path
   rescue StandardError
     flash.now[:error] = 'The search parameters contain some errors.'
   ensure
@@ -50,7 +50,7 @@ class SearchController < ApplicationController
 
     @fields = search_fields(params[:catalogue], 'tap')
 
-    @downloads_path = rectangular_query_path
+    @query_path = rectangular_query_path
   rescue StandardError
     flash.now[:error] = 'The search parameters contain some errors.'
   ensure
@@ -77,7 +77,7 @@ class SearchController < ApplicationController
     render 'search_results_and_details'
   end
 
-  def bulk_catalogue_search
+  def bulk_catalogue_validate
     clone_params = params.clone
     clone_params.delete(:file)
     session[:search] = { type: 'bulk-catalogue', params: clone_params }
@@ -91,15 +91,15 @@ class SearchController < ApplicationController
     raise SearchError.new 'Invalid search arguments' unless query
 
     if query.valid?
+      create_temp_file(params[:file].tempfile)
+
       args = {
           catalogue: params[:catalogue],
           type: params[:type],
           sr: params[:sr]
       }
 
-      create_temp_file(params[:file].tempfile)
-
-      redirect_to bulk_catalogue_download_path(args)
+      redirect_to bulk_catalogue_search_path(args)
     else
       raise SearchError.new 'Invalid search arguments' if query.errors.messages[:sr]
 
@@ -113,13 +113,16 @@ class SearchController < ApplicationController
     render 'download_results'
   end
 
-  def bulk_catalogue_download
-    @downloads_path = bulk_catalogue_query_path
+  def bulk_catalogue_search
+    @query_path = bulk_catalogue_query_path
 
+  rescue StandardError
+    flash.now[:error] = 'The search parameters contain some errors.'
+  ensure
     render 'download_results'
   end
 
-  def bulk_image_search
+  def bulk_image_validate
     clone_params = params.clone
     clone_params.delete(:file)
     session[:search] = { type: 'bulk-image', params: clone_params }
@@ -132,15 +135,9 @@ class SearchController < ApplicationController
     raise SearchError.new 'Invalid search arguments' unless query
 
     if query.valid?
-      @results_path = raw_image_search_results_path
+      create_temp_file(params[:file].tempfile)
 
-      @fields = search_fields('image', 'siap')
-
-      @filters = ["rawImageOrder:[#{@fields.map { |x| "'#{x[:field]}',"}.join[0..-2]}]"]
-
-      @action = 'doBulkImageSearch'
-
-      render 'search_results_and_details'
+      redirect_to bulk_image_search_path
     else
       @errors = query.errors.messages[:file]
 
@@ -149,6 +146,18 @@ class SearchController < ApplicationController
   rescue StandardError
     flash.now[:error] = 'The search parameters contain some errors.'
 
+    render 'search_results_and_details'
+  end
+
+  def bulk_image_search
+    @results_path = bulk_image_search_results_path
+
+    @fields = search_fields('image', 'siap')
+
+    @filters = ["rawImageOrder:[#{@fields.map { |x| "'#{x[:field]}',"}.join[0..-2]}]"]
+  rescue StandardError
+    flash.now[:error] = 'The search parameters contain some errors.'
+  ensure
     render 'search_results_and_details'
   end
 
@@ -321,6 +330,55 @@ class SearchController < ApplicationController
     }
 
     fetch_search_results(SiapService, query_args, QueryGenerator.method(:generate_image_query), 'image')
+  end
+
+  def bulk_image_search_results
+    args = params[:query]
+    raise SearchError.new 'Invalid search arguments' unless args
+
+    query_args = {
+        file: get_temp_file
+    }
+
+    query = QueryGenerator.generate_bulk_image_query(query_args)
+    raise SearchError.new 'Invalid search arguments' unless query and query.valid?
+
+    # repeat raw image search using point in csv file
+
+    total_table_data = []
+
+    query.to_points.each do |point|
+
+      query_args = {
+          ra: point[:ra],
+          dec: point[:dec]
+      }
+
+      query = QueryGenerator.generate_image_query(query_args)
+      raise SearchError.new 'Invalid search arguments' unless query and query.valid?
+
+      service_args = {
+          dataset: DEFAULT_DATASET,
+          catalogue: 'image'
+      }
+
+      service = SiapService.new(service_args)
+      results_table = service.fetch_results(query)
+      raise SearchError.new 'Search request failed' unless results_table
+
+      total_table_data = total_table_data.concat(results_table.table_data)
+    end
+
+    respond_with do |format|
+      format.html do
+        render json: { objects: total_table_data }, status: 200
+      end
+      format.json do
+        render json: { objects: total_table_data }, status: 200
+      end
+    end
+  rescue StandardError => error
+    raise error
   end
 
   def radial_search_details

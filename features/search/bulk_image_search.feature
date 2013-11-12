@@ -6,6 +6,24 @@ Feature: Bulk raw image search
   Background:
     Given I am on the home page
 
+#  @javascript
+#  @not-jenkins
+#  Scenario Outline: I perform bulk image search
+#    Given I select the "Bulk Image" tab
+#    And I attach the file "<file>" to "File"
+#    And I press "Search SkyMapper"
+#    Then I should be on the raw image search results page
+#    And I wait for "Fetching results..."
+#    And I should see "Query returned <count> objects."
+#    And I should see results for catalogue "<catalogue>" as "<results>" in all pages with limit "50"
+#    And I should see raw image results as "<results>" in all pages with limit "50" in proper order
+#    Then I follow "Back"
+#    And I should see the "Bulk Image" tab
+#  Examples:
+#    | catalogue | file | results                 | count |
+#    | image     |      | skymapper_image_query_1 | 36    |
+#    | image     |      | skymapper_image_query_3 | 1000  |
+
   @javascript
   Scenario: I cannot submit bulk image search if csv file has errors
     Given I select the "Bulk Image" tab

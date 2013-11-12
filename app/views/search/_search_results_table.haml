@@ -7,7 +7,7 @@
 
         = render 'pagination'
 
-        - if @downloads_path
+        - if @query_path
           %a.btn{'data-toggle' => 'modal', href: "#downloadModal", role: "button" } Download Results
 
         %table.table.table-striped.table-bordered.table-fluid

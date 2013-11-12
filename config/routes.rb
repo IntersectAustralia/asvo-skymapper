@@ -44,10 +44,12 @@ AsvoSkymapper::Application.routes.draw do
   get '/search/raw-image', to: 'search#raw_image_search', as: 'raw_image_search'
   get '/search/raw-image/results', to: 'search#raw_image_search_results', as: 'raw_image_search_results'
   get '/search/raw-image/details/:id', to: 'search#raw_image_search_details', as: 'raw_image_search_details'
-  post '/search/bulk-catalogue', to: 'search#bulk_catalogue_search', as: 'bulk_catalogue_search'
-  get '/search/bulk-catalogue/download', to: 'search#bulk_catalogue_download', as: 'bulk_catalogue_download'
+  get '/search/bulk-catalogue', to: 'search#bulk_catalogue_search', as: 'bulk_catalogue_search'
+  post '/search/bulk-catalogue/validate', to: 'search#bulk_catalogue_validate', as: 'bulk_catalogue_validate'
   get '/search/bulk-catalogue/query', to: 'search#bulk_catalogue_query', as: 'bulk_catalogue_query'
-  post '/search/bulk-image', to: 'search#bulk_image_search', as: 'bulk_image_search'
+  get '/search/bulk-image', to: 'search#bulk_image_search', as: 'bulk_image_search'
+  post '/search/bulk-image/validate', to: 'search#bulk_image_validate', as: 'bulk_image_validate'
+  get '/search/bulk-image/results', to: 'search#bulk_image_search_results', as: 'bulk_image_search_results'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
