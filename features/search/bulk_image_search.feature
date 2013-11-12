@@ -27,7 +27,6 @@ Feature: Bulk raw image search
   Scenario: I cannot submit bulk image search if csv file has errors
     Given I select the "Bulk Image" tab
     And I attach the file "skymapper_bulk_invalid_4.csv" to "File"
-    And I select "CSV" from "Download format"
     And I press "Search SkyMapper"
     Then I should the following list of file errors
       | error                                                                        |
@@ -69,4 +68,3 @@ Feature: Bulk raw image search
   Examples:
     | field           | error                   |
     | File (csv)      | This field is required. |
-    | Download format | This field is required. |
