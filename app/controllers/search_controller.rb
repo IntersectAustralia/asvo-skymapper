@@ -366,7 +366,9 @@ class SearchController < ApplicationController
       results_table = service.fetch_results(query)
       raise SearchError.new 'Search request failed' unless results_table
 
-      total_table_data = total_table_data.concat(results_table.table_data)
+      results_table.table_data.each do |data|
+        total_table_data << data unless total_table_data.include? data
+      end
     end
 
     respond_with do |format|

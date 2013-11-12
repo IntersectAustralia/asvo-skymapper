@@ -134,7 +134,8 @@ def generate_image_query_fixtures
 
   query_data = [
       {dataset: 'skymapper', catalogue: 'image', params: {ra: '181.16129', dec: '-1.18844'}, filename: 'skymapper_image_query_1', method: :generate_image_query},
-      {dataset: 'skymapper', catalogue: 'image', params: {ra: '178.83871', dec: '-1.18844'}, filename: 'skymapper_image_query_2', method: :generate_image_query}
+      {dataset: 'skymapper', catalogue: 'image', params: {ra: '178.83871', dec: '-1.18844'}, filename: 'skymapper_image_query_2', method: :generate_image_query},
+      {dataset: 'skymapper', catalogue: 'image', params: {ra: '7.01299', dec: '-8.2162'}, filename: 'skymapper_image_query_4', method: :generate_image_query}
   ]
 
   query_data.each do |data|

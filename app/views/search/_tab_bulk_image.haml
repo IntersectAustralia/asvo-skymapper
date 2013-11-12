@@ -13,17 +13,6 @@
             %li.error{ 'ng-show' => 'bulk_image_search_form.file.$error.fileRequired' }
               This field is required.
 
-        .span6
-          %label{ for: :type }
-            Download format:
-          %select#type{ 'ng-model' => 'form.type', name: 'type', required: '',
-            'ng-init' => "setInput('type', '#{session_param('bulk-image', :type)}')" }
-            - Query::FILE_TYPE.each do |type|
-              %option{ value: type }= type
-          %ul.error{ 'ng-show' => '(submitted || bulk_image_search_form.type.$dirty) && bulk_image_search_form.type.$invalid' }
-            %li.error{ 'ng-show' => 'bulk_image_search_form.type.$error.required' }
-              This field is required.
-
       - if @bulk_image_errors
         %h5 Please correct the following errors in the CSV file:
         %ul.error.alert-danger.alert-block
