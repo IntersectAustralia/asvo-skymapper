@@ -24,10 +24,10 @@
             %li.error{ 'ng-show' => 'bulk_image_search_form.type.$error.required' }
               This field is required.
 
-      - if @errors
+      - if @bulk_image_errors
         %h5 Please correct the following errors in the CSV file:
-        %ul.error
-          - @errors.each do |error|
+        %ul.error.alert-danger.alert-block
+          - @bulk_image_errors.each do |error|
             %li.error= error
 
       .form-actions

@@ -7,11 +7,7 @@
 
     - if @fields
       %pagination{ 'max-page-links' => '10', 'items-per-page' => '50', items: 'objects' }
-
         = render 'pagination'
-
-        - if @query_path
-          %a.btn{'data-toggle' => 'modal', href: "#downloadModal", role: "button" } Download Results
 
         %table.table.table-striped.table-bordered.table-fluid
           %thead

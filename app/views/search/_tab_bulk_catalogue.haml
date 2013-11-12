@@ -52,10 +52,10 @@
             %li.error{ 'ng-show' => 'bulk_catalogue_search_form.sr.$error.decimal' }
               This field should be a number with a maximum of 6 decimal places.
 
-      - if @errors
+      - if @bulk_catalogue_errors
         %h5 Please correct the following errors in the CSV file:
         %ul.error.alert-danger.alert-block
-          - @errors.each do |error|
+          - @bulk_catalogue_errors.each do |error|
             %li.error= error
 
       .form-actions
