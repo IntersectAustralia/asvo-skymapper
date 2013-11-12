@@ -1,4 +1,5 @@
-%form{ action: @url, method: 'post', id: 'downloadResults' }
+%form{ action: @url, method: 'post', id: 'downloadResults', target: '_blank' }
   %input{ type: 'hidden', name: 'request', value: 'doQuery' }
   %input{ type: 'hidden', name: 'lang', value: 'ADQL' }
   %input{ type: 'hidden', name: 'query', value: @query }
+  %input{ type: 'hidden', name: 'maxrec', value: 100000 }

@@ -335,9 +335,15 @@ Then /^I should the following list of file errors$/ do |table|
   end
 end
 
-Then /^the file "([^"]*)" should contain more records than "([^"]*)"$/ do |download, file|
+Then /^the VO file "([^"]*)" should contain more records than "([^"]*)"$/ do |download, file|
   download_file = File.read(Rails.root.join("spec/fixtures/#{download}.vo"))
   web_view = File.read(Rails.root.join("spec/fixtures/#{file}.vo"))
+  download_file.size.should be > web_view.size
+end
+
+Then /^the CSV file "([^"]*)" should contain more records than "([^"]*)"$/ do |download, file|
+  download_file = File.read(Rails.root.join("spec/fixtures/#{download}.csv"))
+  web_view = File.read(Rails.root.join("spec/fixtures/#{file}.csv"))
   download_file.size.should be > web_view.size
 end
 

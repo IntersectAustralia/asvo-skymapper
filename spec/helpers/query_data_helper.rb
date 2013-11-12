@@ -155,6 +155,7 @@ def generate_download_results
 
   query_data.each do |data|
     save_query_fixture(data)
+    save_csv_fixture(data)
   end
 end
 
