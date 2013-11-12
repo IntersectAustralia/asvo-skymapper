@@ -103,7 +103,7 @@ class SearchController < ApplicationController
     else
       raise SearchError.new 'Invalid search arguments' if query.errors.messages[:sr]
 
-      @errors = query.errors.messages[:file] # print file errors to page
+      @bulk_catalogue_errors = query.errors.messages[:file] # print file errors to page
 
       render 'index'
     end
@@ -139,7 +139,7 @@ class SearchController < ApplicationController
 
       redirect_to bulk_image_search_path
     else
-      @errors = query.errors.messages[:file]
+      @bulk_image_errors = query.errors.messages[:file]
 
       render 'index'
     end

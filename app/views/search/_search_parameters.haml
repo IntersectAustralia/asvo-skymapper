@@ -1,6 +1,6 @@
 .row-fluid
   .span12.well
-    - if @service
+    - if @query_path
       %a.btn.btn-primary.btn-block.downloadresults{'data-toggle' => 'modal', href: "#downloadModal", role: "button" } Download Results
     %h4 Search Parameters
     - if @parameters
