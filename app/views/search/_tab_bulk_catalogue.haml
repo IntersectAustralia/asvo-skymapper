@@ -54,7 +54,7 @@
 
       - if @errors
         %h5 Please correct the following errors in the CSV file:
-        %ul.error
+        %ul.error.alert-danger.alert-block
           - @errors.each do |error|
             %li.error= error
 

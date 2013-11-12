@@ -583,10 +583,10 @@ border-left:thick solid #d0d0d0;
 }
 
 footer {
-    color: #222;
-    background: #DDD;
-    padding: 0 0 0 0;
-    border-top: 1px solid #000;
+  color: #666;
+  background: none;
+  padding: 10px 0 60px 0;
+  border-top: 0px solid #000;
 }
 
 .wrapper {
@@ -802,6 +802,8 @@ color: #888;
     width: 12em;
 }
 
+a.btn.btn-primary { color: #FFF; }
+
 /* #body.flex { padding-top: 20px; } */
 div.breadcrumbs { position: absolute; top: 40px; left: 0; right: 0; padding: 50px 60px 0 60px; }
 ul.messagelist { position: fixed; top: 48px; left: 0; right: 0; }
@@ -813,4 +815,46 @@ ul.messagelist { position: fixed; top: 48px; left: 0; right: 0; }
 /* Acknowledgement Text on the home page */
 .acknowledgements {
 	opacity: 0.7;
+}
+
+.aside .span12 { margin-left: 0; }
+.downloadresults { margin-bottom: 20px; }
+
+.btn-block {
+  display: block;
+  width: 100%;
+  padding-right: 0;
+  padding-left: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.center { text-align: center; }
+.pagination { margin: 0 0 20px 0; display: inline-block; }
+
+.pagination ul > li > a, .pagination ul > li > span {
+  float: left;
+  width: 15px;
+  padding: 4px 12px;
+  line-height: 20px;
+  text-decoration: none;
+  background-color: white;
+  border: 1px solid #dddddd;
+  border-left-width: 0;
+  cursor: pointer;
+}
+
+a { cursor: pointer; }
+
+#search-details .table { margin-bottom: 40px; }
+
+.error.alert-block {
+  margin: 0 0 10px 0;
+  padding: 14px 35px 14px 35px;
+  margin-bottom: 20px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
 }

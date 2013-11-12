@@ -1,6 +1,9 @@
 #search-results.row-fluid{ 'ng-hide' => 'objects == undefined || objects.length == 0' }
 
-  .span12
+  .span12.center
+
+    %a.btn.pull-left{ href: root_path }
+      Back
 
     - if @fields
       %pagination{ 'max-page-links' => '10', 'items-per-page' => '50', items: 'objects' }
