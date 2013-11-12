@@ -64,8 +64,16 @@ window.skymapper_app.controller 'SearchResultsController', ['$scope', '$window',
         $("#downloadResults").submit()
         $("#downloadResults").remove()
 
-      $scope.downloadResults = (url, format, elem) ->
-        query = $("##{elem}").text()
-        $scope.postDownloadForm(url, query, format)
-
+      $scope.downloadResults = (url) ->
+        args = decodeQueryParams($window.location.search.substring(1))
+        results_promise = dataService.get(url, args)
+        results_promise.then(
+          (data) ->
+            $scope.postDownloadForm(data['url'], data['query'], data['type'])
+          ,
+          (error) ->
+            flash('error', 'There was an error fetching the results.', 10000)
+          ,
+            undefined
+        )
 ]

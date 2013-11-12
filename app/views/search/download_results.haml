@@ -1,4 +1,4 @@
-%div#download-results{ 'ng-controller' => 'SearchResultsController' }
+%div#download-results{ 'ng-controller' => 'SearchResultsController', 'ng-init' => "downloadResults('#{@downloads_path}')" }
 
   %section.row-fluid
 
@@ -7,9 +7,6 @@
 
       %a.btn{ href: root_path }
         Back
-
-      %pre#query.hide{ 'ng-init' => "downloadResults(\"#{@request[:url]}\", \"#{@request[:type]}\", 'query')" }
-        = @request[:query]
 
     .aside.span3
       = render 'help'

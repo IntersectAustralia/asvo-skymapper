@@ -26,7 +26,8 @@ class SearchController < ApplicationController
     clean_parameters(@parameters)
 
     @fields = search_fields(params[:catalogue], 'tap')
-    @service = radial_query_path
+
+    @downloads_path = radial_query_path
   rescue StandardError
     flash.now[:error] = 'The search parameters contain some errors.'
   ensure
@@ -48,7 +49,8 @@ class SearchController < ApplicationController
     clean_parameters(@parameters)
 
     @fields = search_fields(params[:catalogue], 'tap')
-    @service = rectangular_query_path
+
+    @downloads_path = rectangular_query_path
   rescue StandardError
     flash.now[:error] = 'The search parameters contain some errors.'
   ensure
@@ -75,10 +77,53 @@ class SearchController < ApplicationController
     render 'search_results_and_details'
   end
 
+  def bulk_catalogue_search
+    clone_params = params.clone
+    clone_params.delete(:file)
+    session[:search] = { type: 'bulk-catalogue', params: clone_params }
+
+    query_args = {
+        file: params[:file].tempfile.path,
+        sr: params[:sr]
+    }
+
+    query = QueryGenerator.generate_bulk_catalogue_query(query_args)
+    raise SearchError.new 'Invalid search arguments' unless query
+
+    if query.valid?
+      args = {
+          catalogue: params[:catalogue],
+          type: params[:type],
+          sr: params[:sr]
+      }
+
+      create_temp_file(params[:file].tempfile)
+
+      redirect_to bulk_catalogue_download_path(args)
+    else
+      raise SearchError.new 'Invalid search arguments' if query.errors.messages[:sr]
+
+      @errors = query.errors.messages[:file] # print file errors to page
+
+      render 'index'
+    end
+  rescue StandardError
+    flash.now[:error] = 'The search parameters contain some errors.'
+
+    render 'download_results'
+  end
+
+  def bulk_catalogue_download
+    @downloads_path = bulk_catalogue_query_path
+
+    render 'download_results'
+  end
+
   def bulk_image_search
     clone_params = params.clone
     clone_params.delete(:file)
     session[:search] = { type: 'bulk-image', params: clone_params }
+
     query_args = {
         file: params[:file].tempfile.path
     }
@@ -92,6 +137,8 @@ class SearchController < ApplicationController
       @fields = search_fields('image', 'siap')
 
       @filters = ["rawImageOrder:[#{@fields.map { |x| "'#{x[:field]}',"}.join[0..-2]}]"]
+
+      @action = 'doBulkImageSearch'
 
       render 'search_results_and_details'
     else
@@ -133,7 +180,7 @@ class SearchController < ApplicationController
 
     service_args = {
         dataset: DEFAULT_DATASET,
-        catalogue: params[:query][:catalogue]
+        catalogue: args[:catalogue]
     }
 
     service = SyncTapService.new(service_args)
@@ -174,13 +221,40 @@ class SearchController < ApplicationController
 
     service_args = {
         dataset: DEFAULT_DATASET,
-        catalogue: params[:query][:catalogue]
+        catalogue: args[:catalogue]
     }
 
     service = SyncTapService.new(service_args)
     request = {
         url: service.request.to_s,
         query: service.get_raw_query(query)
+    }
+
+    render json: request
+  end
+
+  def bulk_catalogue_query
+    args = params[:query]
+    raise SearchError.new 'Invalid search arguments' unless args
+
+    query_args = {
+        file: get_temp_file,
+        sr: args[:sr]
+    }
+
+    query = QueryGenerator.method(:generate_bulk_catalogue_query).call(query_args)
+    raise SearchError.new 'Invalid search arguments' unless query and query.valid?
+
+    service_args = {
+        dataset: DEFAULT_DATASET,
+        catalogue: args[:catalogue]
+    }
+
+    service = SyncTapService.new(service_args)
+    request = {
+        url: service.request.to_s,
+        query: service.get_raw_query(query),
+        type: args[:type]
     }
 
     render json: request
@@ -264,46 +338,6 @@ class SearchController < ApplicationController
     redirect_to raw_image_search_path(params)
   end
 
-  def bulk_catalogue_download
-    clone_params = params.clone
-    clone_params.delete(:file)
-    session[:search] = { type: 'bulk-catalogue', params: clone_params }
-
-    query_args = {
-        file: params[:file].tempfile.path,
-        sr: params[:sr]
-    }
-
-    query = QueryGenerator.generate_bulk_catalogue_query(query_args)
-    raise SearchError.new 'Invalid search arguments' unless query
-
-    if query.valid?
-      service_args = {
-          dataset: DEFAULT_DATASET,
-          catalogue: params[:catalogue]
-      }
-
-      service = SyncTapService.new(service_args)
-      @request = {
-          url: service.request,
-          query: service.get_raw_query(query),
-          type: params[:type]
-      }
-
-      render 'download_results'
-    else
-      raise SearchError.new 'Invalid search arguments' if query.errors.messages[:sr]
-
-      @errors = query.errors.messages[:file] # print file errors to page
-
-      render 'index'
-    end
-  rescue StandardError
-    flash.now[:error] = 'The search parameters contain some errors.'
-
-    render 'download_results'
-  end
-
   # HELPERS
 
   def fetch_search_results(service, query_args, query_factory, catalogue)
@@ -375,6 +409,23 @@ class SearchController < ApplicationController
         render json: { error: error.message }, status: 422
       end
     end
+  end
+
+  def create_temp_file(file)
+    FileUtils.rm session[:temp_file] if session[:temp_file] and File.file? session[:temp_file]
+    temp_file = Tempfile.new('query')
+    path = temp_file.path
+    temp_file.close
+    temp_file.unlink
+
+    temp_file = File.open(path, 'w')
+    temp_file.write(file.read)
+    temp_file.close
+    session[:temp_file] = temp_file.path
+  end
+
+  def get_temp_file
+    session[:temp_file]
   end
 
 end

@@ -1,4 +1,5 @@
-%div{ 'ng-controller' => 'SearchResultsController', 'ng-init' => "doSearch('#{@results_path}')" }
+- action = @action ? @action : 'doSearch'
+%div{ 'ng-controller' => 'SearchResultsController', 'ng-init' => "#{action}('#{@results_path}')" }
   %div{ 'ng-hide' => 'selectedObject' }
     = render 'search_results'
   %div{ 'ng-show' => 'selectedObject' }

@@ -2,7 +2,7 @@
   The bulk catalogue search will return all objects in the SkyMapper catalogue that fall within the search radius of the specified right ascension and declination points found in the uploaded csv file. All values are in decimal degrees.
 
 .form-container{ 'ng-controller' => 'SearchController' }
-  %form#bulk_catalogue_search_form.cancel{ name: 'bulk_catalogue_search_form', action: bulk_catalogue_download_path, method: 'post', enctype: 'multipart/form-data', novalidate: '' }
+  %form#bulk_catalogue_search_form.cancel{ name: 'bulk_catalogue_search_form', action: bulk_catalogue_search_path, method: 'post', enctype: 'multipart/form-data', novalidate: '' }
     %fieldset
       .row-fluid
         .span6
