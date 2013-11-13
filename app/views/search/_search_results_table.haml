@@ -1,4 +1,4 @@
-#search-results.row-fluid{ 'ng-hide' => 'objects == undefined || objects.length == 0' }
+#search-results.row-fluid
 
   .span12.center
 
@@ -6,7 +6,7 @@
       Back
 
     - if @fields
-      %pagination{ 'max-page-links' => '10', 'items-per-page' => '50', items: 'objects' }
+      %pagination{ 'max-page-links' => '10', 'items-per-page' => '50', items: 'objects', 'ng-hide' => 'objects == undefined || objects.length == 0' }
         = render 'pagination'
 
         %table.table.table-striped.table-bordered.table-fluid

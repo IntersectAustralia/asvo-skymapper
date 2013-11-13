@@ -150,7 +150,10 @@ class SearchController < ApplicationController
   end
 
   def bulk_image_search
+    session[:search][:progress_file] = generate_filepath # generate temp path to store search progress
+
     @results_path = bulk_image_search_results_path
+    @progress_path = bulk_image_search_progress_path
 
     @fields = search_fields('image', 'siap')
 
@@ -347,7 +350,12 @@ class SearchController < ApplicationController
 
     total_table_data = []
 
-    query.to_points.each do |point|
+    points = query.to_points
+    points.each_with_index do |point, index|
+      progress = { 'current' => index + 1, 'total' => points.size }
+      write_progress(session[:search][:progress_file], progress)
+
+      sleep(2)
 
       query_args = {
           ra: point[:ra],
@@ -381,6 +389,14 @@ class SearchController < ApplicationController
     end
   rescue StandardError => error
     raise error
+  end
+
+  def bulk_image_search_progress
+    progress = read_progress(session[:search][:progress_file])
+
+    return render json: { message: "Fetching results..." } unless progress
+
+    render json: { message: "Fetching results... completed #{progress['current']} of #{progress['total']} points" }
   end
 
   def radial_search_details
@@ -473,19 +489,30 @@ class SearchController < ApplicationController
 
   def create_temp_file(file)
     FileUtils.rm session[:temp_file] if session[:temp_file] and File.file? session[:temp_file]
-    temp_file = Tempfile.new('query')
-    path = temp_file.path
-    temp_file.close
-    temp_file.unlink
-
-    temp_file = File.open(path, 'w')
-    temp_file.write(file.read)
-    temp_file.close
-    session[:temp_file] = temp_file.path
+    path = generate_filepath
+    File.write(path, file.read)
+    session[:temp_file] = path
   end
 
   def get_temp_file
     session[:temp_file]
+  end
+
+  def generate_filepath
+    temp_file = Tempfile.new('temp')
+    path = temp_file.path
+    temp_file.close
+    temp_file.unlink
+
+    path
+  end
+
+  def write_progress(file, progress)
+    File.write(file, progress.to_json) if file
+  end
+
+  def read_progress(file)
+    JSON.parse(File.read(file)) if File.file? file
   end
 
 end

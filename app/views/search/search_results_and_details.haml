@@ -1,5 +1,5 @@
-- action = @action ? @action : 'doSearch'
-%div{ 'ng-controller' => 'SearchResultsController', 'ng-init' => "#{action}('#{@results_path}')" }
+- progress_arg = @progress_path ? ", '#{@progress_path}'" : nil
+%div{ 'ng-controller' => 'SearchResultsController', 'ng-init' => "doSearch('#{@results_path}'#{progress_arg})" }
   %div{ 'ng-hide' => 'selectedObject' }
     = render 'search_results'
   %div{ 'ng-show' => 'selectedObject' }

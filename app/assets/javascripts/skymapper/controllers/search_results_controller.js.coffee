@@ -6,12 +6,12 @@ window.skymapper_app.controller 'SearchResultsController', ['$scope', '$window',
 
       $scope.objects = undefined
 
-      $scope.doSearch = (url) ->
+      $scope.doSearch = (url, progressUrl = undefined) ->
 
         $scope.objects = undefined
 
         args = decodeQueryParams($window.location.search.substring(1))
-        results_promise = dataService.get(url, args)
+        results_promise = dataService.fetch(url, args, progressUrl)
         results_promise.then(
             (data) ->
               $scope.objects = data.objects
@@ -20,7 +20,8 @@ window.skymapper_app.controller 'SearchResultsController', ['$scope', '$window',
             (error) ->
               flash('error', 'There was an error fetching the results.', 10000)
             ,
-            undefined
+            (progress) ->
+              flash('notice', progress.message)
           )
         flash('notice', 'Fetching results...')
 
@@ -36,8 +37,6 @@ window.skymapper_app.controller 'SearchResultsController', ['$scope', '$window',
           (error) ->
             flash('error', 'There was an error downloading the results.', 8000)
             $("#downloadModal").modal('hide')
-          ,
-          undefined
         )
         $("#downloadModal").modal('show')
 
@@ -73,7 +72,5 @@ window.skymapper_app.controller 'SearchResultsController', ['$scope', '$window',
           ,
           (error) ->
             flash('error', 'There was an error fetching the results.', 10000)
-          ,
-            undefined
         )
 ]

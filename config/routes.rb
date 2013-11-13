@@ -50,6 +50,7 @@ AsvoSkymapper::Application.routes.draw do
   get '/search/bulk-image', to: 'search#bulk_image_search', as: 'bulk_image_search'
   post '/search/bulk-image/validate', to: 'search#bulk_image_validate', as: 'bulk_image_validate'
   get '/search/bulk-image/results', to: 'search#bulk_image_search_results', as: 'bulk_image_search_results'
+  get '/search/bulk-image/results/progress', to: 'search#bulk_image_search_progress', as: 'bulk_image_search_progress'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
