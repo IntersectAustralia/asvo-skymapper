@@ -477,7 +477,7 @@ class SearchController < ApplicationController
   def handle_error(error)
     respond_with do |format|
       format.html do
-        raise error
+        render json: { error: error.message }, status: 422
       end
       format.json do
         render json: { error: error.message }, status: 422
