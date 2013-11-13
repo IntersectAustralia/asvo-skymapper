@@ -21,7 +21,7 @@ class BulkCatalogueQuery < Query
       ra = fields[headers.index('ra')]
       dec = fields[headers.index('dec')]
       point_queries += "OR\n" unless point_queries.blank?
-      point_queries += "1=CONTAINS(POINT('ICRS', #{service[:fields][:ra][:field]}, #{service[:fields][:dec][:field]}), CIRCLE('ICRS', #{clean(ra)}, #{clean(dec)}, #{clean(sr)}))\n"
+      point_queries += "(#{service[:fields][:object_id][:field]} in (SELECT #{service[:fields][:object_id][:field]} FROM #{service[:table_name]} WHERE 1=CONTAINS(POINT('ICRS', #{service[:fields][:ra][:field]}, #{service[:fields][:dec][:field]}), CIRCLE('ICRS', #{clean(ra)}, #{clean(dec)}, #{clean(sr)}))))\n"
     end
     <<-END_ADQL
 SELECT

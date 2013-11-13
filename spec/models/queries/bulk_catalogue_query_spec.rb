@@ -62,6 +62,13 @@ describe BulkCatalogueQuery do
     query.errors.messages[:file].should_not be_nil
   end
 
+  it 'Search file cannot have more than 50 points' do
+    query = BulkCatalogueQuery.new
+    query.file = Rails.root.join('spec/fixtures/skymapper_bulk_invalid_8.csv')
+    query.valid?
+    query.errors.messages[:file].should_not be_nil
+  end
+
   it 'Search file cannot have invalid points' do
     query = BulkCatalogueQuery.new
     query.file = Rails.root.join('spec/fixtures/skymapper_bulk_invalid_2.csv')
@@ -182,9 +189,9 @@ SELECT
     *
     FROM #{service[:table_name]}
     WHERE
-1=CONTAINS(POINT('ICRS', #{service[:fields][:ra][:field]}, #{service[:fields][:dec][:field]}), CIRCLE('ICRS', 178.364690, -2.027719, 0.05))
+(#{service[:fields][:object_id][:field]} in (SELECT #{service[:fields][:object_id][:field]} FROM #{service[:table_name]} WHERE 1=CONTAINS(POINT('ICRS', #{service[:fields][:ra][:field]}, #{service[:fields][:dec][:field]}), CIRCLE('ICRS', 178.364690, -2.027719, 0.05))))
 OR
-1=CONTAINS(POINT('ICRS', #{service[:fields][:ra][:field]}, #{service[:fields][:dec][:field]}), CIRCLE('ICRS', 178.218423, -2.180722, 0.05))
+(#{service[:fields][:object_id][:field]} in (SELECT #{service[:fields][:object_id][:field]} FROM #{service[:table_name]} WHERE 1=CONTAINS(POINT('ICRS', #{service[:fields][:ra][:field]}, #{service[:fields][:dec][:field]}), CIRCLE('ICRS', 178.218423, -2.180722, 0.05))))
 
     END_ADQL
 
@@ -208,9 +215,9 @@ SELECT
     *
     FROM #{service[:table_name]}
     WHERE
-1=CONTAINS(POINT('ICRS', #{service[:fields][:ra][:field]}, #{service[:fields][:dec][:field]}), CIRCLE('ICRS', 178.364690, -2.027719, 0.05))
+(#{service[:fields][:object_id][:field]} in (SELECT #{service[:fields][:object_id][:field]} FROM #{service[:table_name]} WHERE 1=CONTAINS(POINT('ICRS', #{service[:fields][:ra][:field]}, #{service[:fields][:dec][:field]}), CIRCLE('ICRS', 178.364690, -2.027719, 0.05))))
 OR
-1=CONTAINS(POINT('ICRS', #{service[:fields][:ra][:field]}, #{service[:fields][:dec][:field]}), CIRCLE('ICRS', 178.218423, -2.180722, 0.05))
+(#{service[:fields][:object_id][:field]} in (SELECT #{service[:fields][:object_id][:field]} FROM #{service[:table_name]} WHERE 1=CONTAINS(POINT('ICRS', #{service[:fields][:ra][:field]}, #{service[:fields][:dec][:field]}), CIRCLE('ICRS', 178.218423, -2.180722, 0.05))))
 
     END_ADQL
 
