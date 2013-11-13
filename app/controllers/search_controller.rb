@@ -355,8 +355,6 @@ class SearchController < ApplicationController
       progress = { 'current' => index + 1, 'total' => points.size }
       write_progress(session[:search][:progress_file], progress)
 
-      sleep(2)
-
       query_args = {
           ra: point[:ra],
           dec: point[:dec]
