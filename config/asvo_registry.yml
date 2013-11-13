@@ -367,11 +367,11 @@
                 :group: image
               :object_id:
                 :field: OBJECT_ID
-                :name: Object id
+                :name: Image id
                 :group: group1
               :title:
                 :field: TITLE
-                :name: Title
+                :name: Obs title
                 :group: group1
               :night_id:
                 :field: NIGHT_ID
@@ -383,19 +383,19 @@
                 :group: group1
               :naxes:
                 :field: NAXES
-                :name: N axes
+                :name: Axes
                 :group: group1
               :naxis:
                 :field: NAXIS
-                :name: N axis
+                :name: Axis length
                 :group: group1
               :scale:
                 :field: SCALE
-                :name: Scale
+                :name: Axis scale
                 :group: group1
               :format:
                 :field: FORMAT
-                :name: Format
+                :name: Observation format
                 :group: group2
               :field_id:
                 :field: FIELD_ID
