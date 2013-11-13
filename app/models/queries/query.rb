@@ -56,14 +56,14 @@ class Query
   def search_file_valid
     if file and File.file? file
       csv = CSV.parse(File.read(file), headers: true)
-      return errors.add(:file, 'must not be empty') if csv.empty?
-      return errors.add(:file, 'must have less than 50 points') if csv.size > 50
+      return errors.add(:file, 'File must not be empty') if csv.empty?
+      return errors.add(:file, 'File must have less than 50 points') if csv.size > 50
       csv.each_with_index do |row, index|
         query_args = { sr: sr }
         headers = row.headers.map { |h| h.strip.downcase if h }
         fields = row.fields
         if headers.index('ra').blank? or headers.index('dec').blank?
-          errors.add(:file, 'must include proper headers ra and dec')
+          errors.add(:file, 'File must include headers RA and DEC')
         else
           query_args[:ra] = fields[headers.index('ra')] if headers.index('ra') and fields[headers.index('ra')]
           query_args[:dec] = fields[headers.index('dec')] if headers.index('dec') and fields[headers.index('dec')]
@@ -75,7 +75,7 @@ class Query
         end
       end
     else
-      errors.add(:file, 'must be a file')
+      errors.add(:file, 'File cannot be read')
     end
   end
 
