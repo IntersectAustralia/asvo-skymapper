@@ -24,6 +24,7 @@ window.skymapper_app.controller 'SearchResultsController', ['$scope', '$window',
               flash('notice', progress.message)
           )
         flash('notice', 'Fetching results...')
+        return
 
       $scope.doDownload = (url) ->
         args = decodeQueryParams($window.location.search.substring(1))
@@ -39,6 +40,7 @@ window.skymapper_app.controller 'SearchResultsController', ['$scope', '$window',
             $("#downloadModal").modal('hide')
         )
         $("#downloadModal").modal('show')
+        return
 
       $scope.downloadImage = (url) ->
         window.location.href = url if confirm('You are about to download a large image. Are you sure you want to continue?')
@@ -51,17 +53,21 @@ window.skymapper_app.controller 'SearchResultsController', ['$scope', '$window',
 
         if "CSV" == format
           format_param = '?format=csv'
+          target = undefined
         else
           format_param = '?format=votable'
+          target = '_blank'
 
         form = JST['download_query_form']({
           url: url + format_param,
-          query: query
+          query: query,
+          target: target
         })
 
         $('body').append(form)
         $("#downloadResults").submit()
         $("#downloadResults").remove()
+        return
 
       $scope.downloadResults = (url) ->
         args = decodeQueryParams($window.location.search.substring(1))
@@ -73,4 +79,5 @@ window.skymapper_app.controller 'SearchResultsController', ['$scope', '$window',
           (error) ->
             flash('error', 'There was an error fetching the results.', 10000)
         )
+        return
 ]
