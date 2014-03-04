@@ -461,6 +461,7 @@ class SearchController < ApplicationController
   def clean_parameters(parameters)
     parameters.each do |p|
       p[:value] = p[:value].gsub(/\s/, '') if p[:value]
+      p[:value] = p[:value].gsub(/^\+/, '') if p[:value]
     end
   end
 
