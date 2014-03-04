@@ -8,4 +8,8 @@
         - @parameters.each do |param|
           %li.search-parameter
             %label= param[:name]
-            .search-value= "#{param[:value]}°"
+            - if param[:name].include? 'min' or param[:name].include? 'max'
+              .search-value= "#{param[:value]}"
+            - else
+              .search-value= "#{param[:value]}°"
+
