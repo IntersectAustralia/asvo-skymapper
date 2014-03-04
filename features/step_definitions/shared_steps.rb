@@ -101,3 +101,7 @@ Then /^pause$/ do
   puts "Press Enter to continue"
   STDIN.getc
 end
+
+Then /^I pause for (\d+) seconds$/ do |seconds|
+  sleep(seconds.to_i)
+end
