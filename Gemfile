@@ -57,6 +57,9 @@ group :development, :test do
   gem "teaspoon"
 
   gem "create_deployment_record", git: 'https://github.com/IntersectAustralia/create_deployment_record.git'
+
+  gem "xray-rails"
+  gem "pry-rails"
 end
 
 group :test do

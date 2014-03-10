@@ -45,4 +45,13 @@ describe SearchController do
     ]
   end
 
+  # SKYM-82: Leading zeros are stripped
+  it 'strips leading zeros from search parameters' do
+    ctrl = SearchController.new
+    params = [{value: '000123.123'}]
+    ctrl.clean_parameters(params).should == [{value: '123.123'}]
+    params = [{value: '-000.123'}]
+    ctrl.clean_parameters(params).should == [{value: '-0.123'}]
+  end
+
 end
