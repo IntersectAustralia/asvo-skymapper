@@ -462,6 +462,7 @@ class SearchController < ApplicationController
     parameters.each do |p|
       p[:value] = p[:value].gsub(/\s/, '') if p[:value]
       p[:value] = p[:value].gsub(/^\+/, '') if p[:value]
+      p[:value] = p[:value].gsub(/^(-)?0+(0|\d+)(\.)/, '\1\2\3') if p[:value]
     end
   end
 
