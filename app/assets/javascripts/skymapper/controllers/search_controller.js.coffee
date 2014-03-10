@@ -11,7 +11,8 @@ window.skymapper_app.controller 'SearchController', ['$scope', '$window',
         if $scope[form].$valid
           params = {}
           for key, value of $scope.form
-            params[key] = clean(value) unless isBlank(value)
+#            params[key] = clean(value) unless isBlank(value)
+            params[key] = value unless isBlank(value)
           args = encodeQueryParams(params)
           $window.location.href = "#{url}?#{args}"
 

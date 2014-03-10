@@ -26,7 +26,7 @@
 
 @clean = (value) ->
   value = value.replace(/\s+/g, '') if typeof value == 'string'
-  value = value.replace(/^\+/, '') if typeof value == 'string'
+  value = value.replace(/^\+/g, '') if typeof value == 'string'
   value
 
 @isBlank = (value) ->
