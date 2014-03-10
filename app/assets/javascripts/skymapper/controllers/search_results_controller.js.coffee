@@ -16,6 +16,9 @@ window.skymapper_app.controller 'SearchResultsController', ['$scope', '$window',
             (data) ->
               $scope.objects = data.objects
               flash('notice', "Query returned #{$scope.objects.length} objects.", 10000)
+              $('#results-count').text("Query returned #{$scope.objects.length} objects.")
+              if $scope.objects.length == 1000
+                $('#truncate-warn').removeAttr('hidden')
             ,
             (error) ->
               if (error.error != null)

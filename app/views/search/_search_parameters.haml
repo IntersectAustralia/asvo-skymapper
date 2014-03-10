@@ -1,6 +1,8 @@
 .row-fluid
   .span12.well
     - if @query_path
+      %p#results-count
+      %p#truncate-warn{hidden: 'hidden'} Search results are currently limited to displaying the first 1,000 results.  To retrieve all possible results please click the "Download Results" button.
       %a.btn.btn-primary.btn-block.downloadresults{'data-toggle' => 'modal', href: "#downloadModal", role: "button" } Download Results
     %h4 Search Parameters
     - if @parameters

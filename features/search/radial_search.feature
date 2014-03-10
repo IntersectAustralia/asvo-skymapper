@@ -502,9 +502,9 @@ Feature: Radial search
     | survey             | catalogue | ra        | dec      | sr    | results                    |
     | Five-Second Survey | fs        | 178.83871 | -1.18844 | +0.5  | skymapper_error_in_votable |
 
-  # SKYM-82: Leading zeros are stripped
+  # SKYM-82
   @javascript
-  Scenario Outline: I perform radial search
+  Scenario Outline: Leading zeros are stripped from the parameters when I perform a search
     Given I select the "Radial" tab
     And I select "<survey>" from "SkyMapper survey"
     And I fill in "<ra>" for "Right ascension (deg)"
@@ -521,3 +521,42 @@ Feature: Radial search
     | survey             | catalogue | ra           | dec         | sr    | results                    | count | stripped_ra | stripped_dec |
     | Five-Second Survey | fs        | 000178.83871 |  0001.18844 | +0.5  | skymapper_point_query_fs_1 | 272   | 178.83871   | 1.18844      |
     | Five-Second Survey | fs        | 178.83871    | -0000.18844 | +2    | skymapper_point_query_fs_3 | 1000  | 178.83871   | -0.18844     |
+
+
+  # SKYM-94
+  @javascript
+  Scenario Outline: I perform a search which returns less than 1000 results, no truncation warning is shown
+    Given I select the "Radial" tab
+    And I select "<survey>" from "SkyMapper survey"
+    And I fill in "<ra>" for "Right ascension (deg)"
+    And I fill in "<dec>" for "Declination (deg)"
+    And I fill in "<sr>" for "Search radius (deg)"
+    And I fake tap search request for catalogue "<catalogue>" with "<results>"
+    And I press "Search SkyMapper"
+    Then I should be on the radial search results page
+    And I wait for "Fetching results..."
+    And I should see "Query returned <count> objects."
+    Then I should not see "To retrieve all possible results please click the "
+  Examples:
+    | survey             | catalogue | ra           | dec         | sr    | results                    | count |
+    | Five-Second Survey | fs        | 000178.83871 |  0001.18844 | +0.5  | skymapper_point_query_fs_1 | 272   |
+
+
+  # SKYM-94
+  @javascript
+  Scenario Outline: I perform a search which returns less 1000 results, a truncation warning is shown
+    Given I select the "Radial" tab
+    And I select "<survey>" from "SkyMapper survey"
+    And I fill in "<ra>" for "Right ascension (deg)"
+    And I fill in "<dec>" for "Declination (deg)"
+    And I fill in "<sr>" for "Search radius (deg)"
+    And I fake tap search request for catalogue "<catalogue>" with "<results>"
+    And I press "Search SkyMapper"
+    Then I should be on the radial search results page
+    And I wait for "Fetching results..."
+    And I should see "Query returned <count> objects."
+    Then I should see "To retrieve all possible results please click the "
+  Examples:
+    | survey             | catalogue | ra           | dec         | sr    | results                    | count |
+    | Five-Second Survey | fs        | 000178.83871 |  0001.18844 | +0.5  | skymapper_point_query_fs_3 | 1000  |
+
