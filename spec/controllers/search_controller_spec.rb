@@ -41,7 +41,7 @@ describe SearchController do
         { name: 'Filter', field: 'FILTER' },
         { name: 'Survey', field: 'IMAGE_TYPE' },
         { name: 'Observation Date (MJD)', field: 'DATE' },
-        { name: 'Image URL', field: 'ACCESSURL' }
+        { name: 'FITS Image URL', field: 'ACCESSURL' }
     ]
   end
 

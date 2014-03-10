@@ -155,7 +155,7 @@ describe Registry do
         filter: { field: 'FILTER', name: 'Filter', options: 'show-in-list', group: 'image' },
         image_type: { field: 'IMAGE_TYPE', name: 'Survey', options: 'show-in-list', group: 'image' },
         observation_date: { field: 'DATE', name: 'Observation Date (MJD)', options: 'show-in-list', group: 'image' },
-        image_url: { field: 'ACCESSURL', name: 'Image URL', options: 'show-in-list | image-link', group: 'image' },
+        image_url: { field: 'ACCESSURL', name: 'FITS Image URL', options: 'show-in-list | image-link', group: 'image' },
         object_id: { field: 'OBJECT_ID', name: 'Image id', group: 'group1' },
         title: { field: 'TITLE', name: 'Obs title', group: 'group1' },
         night_id: { field: 'NIGHT_ID', name: 'Night id', group: 'group1' },

@@ -362,7 +362,7 @@
                 :group: image
               :image_url:
                 :field: ACCESSURL
-                :name: Image URL
+                :name: FITS Image URL
                 :options: show-in-list | image-link
                 :group: image
               :object_id:
