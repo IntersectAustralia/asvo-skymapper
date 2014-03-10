@@ -484,3 +484,25 @@ Feature: Radial search
     | Five-Second Survey | fs        | 178.83871 | -1.18844 | +2    | skymapper_point_query_fs_3 | 1000  |
     | Main Survey        | ms        | 178.83871 | -1.18844 | +0.15 | skymapper_point_query_ms_1 | 488   |
     | Main Survey        | ms        | 178.83871 | -1.18844 | +0.5  | skymapper_point_query_ms_3 | 1000  |
+
+
+  # SKYM-82: Leading zeros are stripped
+  @javascript
+  Scenario Outline: I perform radial search
+    Given I select the "Radial" tab
+    And I select "<survey>" from "SkyMapper survey"
+    And I fill in "<ra>" for "Right ascension (deg)"
+    And I fill in "<dec>" for "Declination (deg)"
+    And I fill in "<sr>" for "Search radius (deg)"
+    And I fake tap search request for catalogue "<catalogue>" with "<results>"
+    And I press "Search SkyMapper"
+    Then I should be on the radial search results page
+    And I wait for "Fetching results..."
+    And I should see "Query returned <count> objects."
+    And I should see search parameter "Right ascension:" as "<stripped_ra>"
+    And I should see search parameter "Declination:" as "<stripped_dec>"
+  Examples:
+    | survey             | catalogue | ra           | dec         | sr    | results                    | count | stripped_ra | stripped_dec |
+    | Five-Second Survey | fs        | 000178.83871 |  0001.18844 | +0.5  | skymapper_point_query_fs_1 | 272   | 178.83871   | 1.18844      |
+    | Five-Second Survey | fs        | 178.83871    | -0000.18844 | +2    | skymapper_point_query_fs_3 | 1000  | 178.83871   | -0.18844     |
+   
