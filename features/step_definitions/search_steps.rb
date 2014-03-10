@@ -31,8 +31,14 @@ end
 
 And /^I should see search parameter "([^"]*)" as "([^"]*)"/ do |parameter, value|
   unless value.blank?
-    within(find('.search-parameter', text: parameter)) do
-      find('.search-value').text.should == "#{value}°"
+    if parameter.include? 'min' or parameter.include? 'max'
+      within(find('.search-parameter', text: parameter)) do
+        find('.search-value').text.should == "#{value}"
+      end
+    else
+      within(find('.search-parameter', text: parameter)) do
+        find('.search-value').text.should == "#{value}°"
+      end
     end
   end
 end
