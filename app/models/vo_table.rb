@@ -1,6 +1,6 @@
 class VOTable
 
-  attr_accessor :query_status, :provider, :query # radial and rectangular fields
+  attr_accessor :query_status, :query_status_description, :provider, :query # radial and rectangular fields
   attr_accessor :pos # image fields
   attr_accessor :table_fields, :table_data # common fields
 

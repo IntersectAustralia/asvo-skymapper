@@ -484,3 +484,19 @@ Feature: Radial search
     | Five-Second Survey | fs        | 178.83871 | -1.18844 | +2    | skymapper_point_query_fs_3 | 1000  |
     | Main Survey        | ms        | 178.83871 | -1.18844 | +0.15 | skymapper_point_query_ms_1 | 488   |
     | Main Survey        | ms        | 178.83871 | -1.18844 | +0.5  | skymapper_point_query_ms_3 | 1000  |
+
+  @javascript
+  Scenario Outline: Show error message when there was an error while running query
+    Given I select the "Radial" tab
+    And I select "<survey>" from "SkyMapper survey"
+    And I fill in "<ra>" for "Right ascension (deg)"
+    And I fill in "<dec>" for "Declination (deg)"
+    And I fill in "<sr>" for "Search radius (deg)"
+    And I fake tap search request for catalogue "<catalogue>" with "<results>"
+    And I press "Search SkyMapper"
+    Then I should be on the radial search results page
+    And I wait for "Fetching results..."
+    And I should see "There was an error while running query: 'Error while accessing DB'. Please try again later"
+     Examples:
+    | survey             | catalogue | ra        | dec      | sr    | results                    |
+    | Five-Second Survey | fs        | 178.83871 | -1.18844 | +0.5  | skymapper_error_in_votable |

@@ -8,6 +8,8 @@ class VOTableParser
     # catalogue fields
     vo_table.query_status = doc.xpath('//info[@name="QUERY_STATUS"]').attr('value').value.upcase unless
         doc.xpath('//info[@name="QUERY_STATUS"]').empty?
+    vo_table.query_status_description = doc.xpath('//info[@name="QUERY_STATUS"]').text unless
+        doc.xpath('//info[@name="QUERY_STATUS"]').empty?
     vo_table.provider = doc.xpath('//info[@name="PROVIDER"]').text unless
         doc.xpath('//info[@name="PROVIDER"]').empty?
     vo_table.query = doc.xpath('//info[@name="QUERY"]').attr('value').value unless

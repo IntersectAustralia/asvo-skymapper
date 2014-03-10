@@ -425,8 +425,12 @@ class SearchController < ApplicationController
 
     service = service.new(service_args)
     results_table = service.fetch_results(query)
-    raise SearchError.new 'Search request failed' unless results_table
+    if !results_table.nil? and !results_table.query_status.nil? and results_table.query_status != 'OK'
+      raise SearchError.new "There was an error while running query: '#{results_table.query_status_description}'. Please try again later"
+    end
 
+    raise SearchError.new 'There was an error fetching the results.' unless results_table
+    #raise error if there was error in search
     respond_with do |format|
       format.html do
         render json: { objects: results_table.table_data }, status: 200

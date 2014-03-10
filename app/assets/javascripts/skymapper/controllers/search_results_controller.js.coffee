@@ -18,7 +18,10 @@ window.skymapper_app.controller 'SearchResultsController', ['$scope', '$window',
               flash('notice', "Query returned #{$scope.objects.length} objects.", 10000)
             ,
             (error) ->
-              flash('error', 'There was an error fetching the results.', 10000)
+              if (error.error != null)
+                flash('error', error.error, 10000)
+              else
+                flash('error', 'There was an error fetching the results.', 10000)
             ,
             (progress) ->
               flash('notice', progress.message)
@@ -77,7 +80,8 @@ window.skymapper_app.controller 'SearchResultsController', ['$scope', '$window',
             $scope.postDownloadForm(data['url'], data['query'], data['type'])
           ,
           (error) ->
-            flash('error', 'There was an error fetching the results.', 10000)
+            flash('error', error.error, 1000)
+#            flash('error', 'There was an error fetching the results.', 10000)
         )
         return
 ]
