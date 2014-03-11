@@ -12,7 +12,7 @@ window.skymapper_app.controller 'SearchController', ['$scope', '$window',
           params = {}
           for key, value of $scope.form
             unless isBlank(value)
-              if key.contains("_max") or key.contains("_min")
+              if key.indexOf("_max") > -1 or key.indexOf("_min")  > -1
                 params[key] = value
               else
                 params[key] = clean(value)
