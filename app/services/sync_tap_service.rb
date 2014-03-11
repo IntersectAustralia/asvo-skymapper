@@ -47,4 +47,12 @@ class SyncTapService
     query.to_adql(service)
   end
 
+  def get_capabilities
+    registry = Rails.application.config.asvo_registry
+    service = registry.find_service(@dataset, @catalogue, 'tap')
+    uri = URI("#{service[:service_end_point]}/capabilities")
+    response = Net::HTTP.get_response(uri)
+    response.body
+  end
+
 end

@@ -1,5 +1,6 @@
 Before do
   FakeWeb.clean_registry
+  FakeWeb.register_uri(:get, "http://astroa.anu.edu.au:8080/skymapperpublic-asov-tap/tap/capabilities", :body => '<outputLimit><hard>1234</hard></outputLimit>')
   FileUtils.rm_rf Rails.root.join('tmp/downloads') # clear downloads directory
 end
 
