@@ -2,6 +2,10 @@
   The radial search will return all objects in the SkyMapper catalogue that fall within the search radius of the specified right ascension and declination. All values are in decimal degrees.
 %p
   The system currently supports a maximum search radius of 10°.
+%p 
+  The web interface is limited to displaying the first 1000 results of a query.
+  = get_tap_download_limit_msg
+  
 
 .form-container{ 'ng-controller' => 'SearchController' }
   %form#radial_search_form.cancel{ name: 'radial_search_form', 'ng-submit' => "fetchResults('radial_search_form', '#{radial_search_path}')", novalidate: '' }

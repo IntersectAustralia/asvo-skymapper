@@ -560,3 +560,9 @@ Feature: Radial search
     | survey             | catalogue | ra           | dec         | sr    | results                    | count |
     | Five-Second Survey | fs        | 000178.83871 |  0001.18844 | +0.5  | skymapper_point_query_fs_3 | 1000  |
 
+  # SKYM-97
+  @javascript
+  Scenario: I am informed of the search limits on the radial search tab
+    Given I select the "Radial" tab
+    Then I should see "The web interface is limited to displaying the first 1000 results of a query."
+    And I should see "The upper limit for results downloaded via the TAP service is 1234 results."

@@ -1,5 +1,8 @@
 %p
   The rectangular search will return all objects in the SkyMapper catalogue that fall within the specified right ascension and declination ranges.
+%p 
+  The web interface is limited to displaying the first 1000 results of a query.
+  = get_tap_download_limit_msg
 
 .form-container{ 'ng-controller' => 'SearchController' }
   %form#rectangular_search_form.cancel{ name: 'rectangular_search_form', 'ng-submit' => "fetchResults('rectangular_search_form', '#{rectangular_search_path}')", novalidate: '' }
