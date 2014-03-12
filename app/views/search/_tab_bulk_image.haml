@@ -1,5 +1,7 @@
 %p
-  The bulk image search will return SkyMapper images centered on the specified right ascension and declination found in the uploaded csv file. All values are in decimal degrees.
+  The bulk image search will return SkyMapper images centered on the specified right ascension and declination found in the uploaded csv file (
+  = link_to 'example', 'bulk_image.csv'
+  ). All values are in decimal degrees.
   
 .form-container{ 'ng-controller' => 'SearchController' }
   %form#bulk_image_search_form.cancel{ name: 'bulk_image_search_form', action: bulk_image_validate_path, method: 'post', enctype: 'multipart/form-data', novalidate: '' }
