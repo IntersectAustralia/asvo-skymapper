@@ -22,13 +22,13 @@
         .span6
           %label{ for: :ra_min }
             Right ascension min (deg):
-          %input#ra_min{ type: 'text', name: 'ra_min', 'ng-model' => 'form.ra_min', required: '', range: '[0, 360)', decimal: 6,
+          %input#ra_min{ type: 'text', name: 'ra_min', 'ng-model' => 'form.ra_min', required: '', ravalidate: '',
             'ng-init' => "setInput('ra_min', '#{session_param('rectangular', :ra_min)}')" }
           %ul.error{ 'ng-show' => '(submitted || rectangular_search_form.ra_min.$dirty) && rectangular_search_form.ra_min.$invalid' }
             %li.error{ 'ng-show' => 'rectangular_search_form.ra_min.$error.required' }
               This field is required.
-            %li.error{ 'ng-show' => 'rectangular_search_form.ra_min.$error.range' }
-              This field should be a number greater than or equal to 0 and less than 360.
+            %li.error{ 'ng-show' => 'rectangular_search_form.ra_min.$error.ravalidate' }
+              This field should be a number in one of the following formats HH:MM:SS.S or  HH MM SS.S  or DDD.DD
             %li.error{ 'ng-show' => 'rectangular_search_form.ra_min.$error.decimal' }
               This field should be a number with a maximum of 6 decimal places.
 
