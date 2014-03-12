@@ -39,6 +39,7 @@ Feature: Bulk catalogue search
   @javascript
   Scenario Outline: I can submit bulk catalogue search with the follow values
     Given I select the "Bulk Catalogue" tab
+    Then I should see link "example"
     And I fill in "<value>" for "<field>"
     Then I should not see any errors for "<field>"
   Examples:

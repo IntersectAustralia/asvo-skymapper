@@ -500,3 +500,9 @@ Feature: Rectangular search
     | Main Survey        | ms        | 1.975  | 2.025  | -1.525  | -1.475  | skymapper_rectangular_query_ms_1 | 44    | 1   |
     | Main Survey        | ms        | 1.75   | 2.25   | -2.25   | -0.75   | skymapper_rectangular_query_ms_3 | 1000  | 2   |
 
+  # SKYM-97
+  @javascript
+  Scenario: I am informed of the search limits on the rectangular search tab
+    Given I select the "Radial" tab
+    Then I should see "The web interface is limited to displaying the first 1000 results of a query."
+    And I should see "The upper limit for results downloaded via the TAP service is 1234 results."

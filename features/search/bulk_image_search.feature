@@ -10,6 +10,7 @@ Feature: Bulk raw image search
   @not-jenkins
   Scenario Outline: I perform bulk image search
     Given I select the "Bulk Image" tab
+    Then I should see link "example"
     And I attach the file "<file>" to "File"
     And I press "Search SkyMapper"
     Then I should be on the bulk image search results page
