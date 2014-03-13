@@ -278,13 +278,21 @@ Feature: Rectangular search
   Examples:
     | field                     | value      |
     | Right ascension min (deg) | 0          |
+    | Right ascension min (deg) | 00 00 00   |
+    | Right ascension min (deg) | 00:00:00   |
+    | Right ascension min (deg) | 23:59:59   |
+    | Right ascension min (deg) | 23 59 59   |
     | Right ascension min (deg) | 359.999999 |
     | Right ascension min (deg) | 123.123456 |
     | Right ascension max (deg) | 0          |
     | Right ascension max (deg) | 359.999999 |
     | Right ascension max (deg) | 123.123456 |
     | Declination min (deg)     | -90        |
+    | Declination min (deg)     | -90:00:00  |
+    | Declination min (deg)     | -90 00 00  |
     | Declination min (deg)     | 90         |
+    | Declination min (deg)     | 90 00 00   |
+    | Declination min (deg)     | 90:00:00   |
     | Declination min (deg)     | 12.123456  |
     | Declination max (deg)     | -90        |
     | Declination max (deg)     | 90         |
@@ -333,27 +341,23 @@ Feature: Rectangular search
     And I fill in "<value>" for "<field>"
     Then I should see error "<error>" for "<field>"
   Examples:
-    | field                     | value       | error                                                                                    |
-    | Right ascension min (deg) | -1          | This field should be a number greater than or equal to 0 and less than 360.              |
-    | Right ascension min (deg) | 360         | This field should be a number greater than or equal to 0 and less than 360.              |
-    | Right ascension min (deg) | 1.123456789 | This field should be a number with a maximum of 6 decimal places.                        |
-    | Right ascension min (deg) | 7abc        | This field should be a number greater than or equal to 0 and less than 360.              |
-    | Right ascension min (deg) | 7abc        | This field should be a number with a maximum of 6 decimal places.                        |
-    | Right ascension max (deg) | -1          | This field should be a number greater than or equal to 0 and less than 360.              |
-    | Right ascension max (deg) | 360         | This field should be a number greater than or equal to 0 and less than 360.              |
-    | Right ascension max (deg) | 1.123456789 | This field should be a number with a maximum of 6 decimal places.                        |
-    | Right ascension max (deg) | 7abc        | This field should be a number greater than or equal to 0 and less than 360.              |
-    | Right ascension max (deg) | 7abc        | This field should be a number with a maximum of 6 decimal places.                        |
-    | Declination min (deg)     | -91         | This field should be a number greater than or equal to -90 and less than or equal to 90. |
-    | Declination min (deg)     | 91          | This field should be a number greater than or equal to -90 and less than or equal to 90. |
-    | Declination min (deg)     | 1.123456789 | This field should be a number with a maximum of 6 decimal places.                        |
-    | Declination min (deg)     | 7abc        | This field should be a number greater than or equal to -90 and less than or equal to 90. |
-    | Declination min (deg)     | 7abc        | This field should be a number with a maximum of 6 decimal places.                        |
+    | field                     | value       | error                                                                                            |
+    | Right ascension min (deg) | -1          | This field should be a number in one of the following formats HH:MM:SS.S or HH MM SS.S or DDD.DD. |
+    | Right ascension min (deg) | 360         | Value in degrees should be in range [0, 360). |
+    | Right ascension min (deg) | 1.123456789 | This field should be a number in one of the following formats HH:MM:SS.S or HH MM SS.S or DDD.DD. |
+    | Right ascension min (deg) | 7abc        | This field should be a number in one of the following formats HH:MM:SS.S or HH MM SS.S or DDD.DD. |
+    | Right ascension max (deg) | -1          | This field should be a number in one of the following formats HH:MM:SS.S or HH MM SS.S or DDD.DD. |
+    | Right ascension max (deg) | 360         | This field should be a number greater than or equal to 0 and less than 360. |
+    | Right ascension max (deg) | 1.123456789 | This field should be a number in one of the following formats HH:MM:SS.S or HH MM SS.S or DDD.DD. |
+    | Right ascension max (deg) | 7abc        | This field should be a number in one of the following formats HH:MM:SS.S or HH MM SS.S or DDD.DD. |
+    | Declination min (deg)     | -91         | Value in degrees should be a number greater than or equal to -90 and less than or equal to 90. |
+    | Declination min (deg)     | 91          | Value in degrees should be a number greater than or equal to -90 and less than or equal to 90. |
+    | Declination min (deg)     | 1.123456789 | This field should be a number in one of the following formats DD:MM:SS.S or DD MM SS.S or DDD.DD. |
+    | Declination min (deg)     | 7abc        | This field should be a number in one of the following formats DD:MM:SS.S or DD MM SS.S or DDD.DD. |
     | Declination max (deg)     | -91         | This field should be a number greater than or equal to -90 and less than or equal to 90. |
-    | Declination max (deg)     | 91          | This field should be a number greater than or equal to -90 and less than or equal to 90. |
-    | Declination max (deg)     | 1.123456789 | This field should be a number with a maximum of 6 decimal places.                        |
-    | Declination max (deg)     | 7abc        | This field should be a number greater than or equal to -90 and less than or equal to 90. |
-    | Declination max (deg)     | 7abc        | This field should be a number with a maximum of 6 decimal places.                        |
+    | Declination max (deg)     | 91          | This field should be a number greater than or equal to -90 and less than or equal to 90.|
+    | Declination max (deg)     | 1.123456789 | This field should be a number in one of the following formats DD:MM:SS.S or DD MM SS.S or DDD.DD. |
+    | Declination max (deg)     | 7abc        | This field should be a number in one of the following formats DD:MM:SS.S or DD MM SS.S or DDD.DD. |
     | U min                     | 1.123456789 | This field should be a number with a maximum of 3 decimal places.                          |
     | U min                     | 7abc        | This field should be a number with a maximum of 3 decimal places.                          |
     | U max                     | 1.123456789 | This field should be a number with a maximum of 3 decimal places.                          |
@@ -506,3 +510,28 @@ Feature: Rectangular search
     Given I select the "Radial" tab
     Then I should see "The web interface is limited to displaying the first 1000 results of a query."
     And I should see "The upper limit for results downloaded via the TAP service is 1234 results."
+  #SKYM-xxx
+  @javascript
+  Scenario Outline: I can search using different formats
+    Given I select the "Rectangular" tab
+    And I select "<survey>" from "SkyMapper survey"
+    And I fill in "<ra_hh_min>" for "Right ascension min (deg)"
+    And I fill in "<ra_hh_max>" for "Right ascension max (deg)"
+    And I fill in "<dec_dd_min>" for "Declination min (deg)"
+    And I fill in "<dec_dd_max>" for "Declination max (deg)"
+    And I pause for 1000 seconds
+    And I fake tap search request for catalogue "<catalogue>" with "<results>"
+    And I press "Search SkyMapper"
+    Then I should be on the rectangular search results page
+    And I wait for "Fetching results..."
+    And I should see "Query returned <count> objects."
+    And I should see rectangular search parameters with values ("<ra_min>", "<ra_max>", "<dec_min>", "<dec_max>")
+    And I should see results for catalogue "<catalogue>" as "<results>" in all pages with limit "50"
+    And I click on the object in row "<row>"
+    Then I should see details for the object in row "<row>" with results "<results>"
+  Examples:
+    | survey             | catalogue | ra_min | ra_max | dec_min | dec_max | results                          | count | row |ra_hh_min | ra_hh_max| dec_dd_min| dec_dd_max|
+    | Five-Second Survey | fs        | 1.75   | 2.25   | -2.25   | -0.75   | skymapper_rectangular_query_fs_1 | 547   | 1   | 00:07:00 | 00:09:00 | -02:15:00 | -00:45:00 |
+    | Five-Second Survey | fs        | 0      | 10     | -2.25   | -0.75   | skymapper_rectangular_query_fs_3 | 1000  | 2   | 00:00:00 | 00:40:00 | -02:15:00 | -00:45:00 |
+    | Main Survey        | ms        | 1.975  | 2.025  | -1.525  | -1.475  | skymapper_rectangular_query_ms_1 | 44    | 1   | 00:07:54 | 00:08:06 | -01:31:30 | -01:28:30 |
+    | Main Survey        | ms        | 1.75   | 2.25   | -2.25   | -0.75   | skymapper_rectangular_query_ms_3 | 1000  | 2   | 00:07:54 | 00:09:00 | -02:15:00 | -00:45:00 |

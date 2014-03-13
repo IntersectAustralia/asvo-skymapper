@@ -18,9 +18,6 @@ class SyncTapService
   def fetch_results(query)
     begin
       res = fetch_query_response(query)
-      p "###########"
-      p res.body
-      p "###########"
       results_table = VOTableParser.parse_xml(res.body)
     rescue Exception
       puts $!.inspect, $@ unless Rails.env == 'test'
