@@ -37,6 +37,15 @@
 @isNumber = (value) ->
   !isNaN(Number(clean(value)))
 
+@check_ra_and_dec = (key, value) ->
+    ra_values = ["ra", "ra_min", "ra_max"]
+    dec_values = ["dec", "dec_min", "dec_max"]
+    if $.inArray(key, ra_values) > -1
+      return  @clean(@ra_to_deg(value))
+    if $.inArray(key, dec_values) > -1
+      return  @clean(@dec_to_deg(value))
+    value
+
 @ra_to_deg = (value) ->
   format = "^[+]?\\d*(\\.\\d{1,6})?$"
   degreeFormatValidator = new RegexFormatValidator(format)
@@ -45,7 +54,10 @@
   hourFormat = "^([0-2][0-9])[:\\s]?([0-6][0-9])[:\\s]?([0-6][0-9])(.[0-9]{1,5})?$"
   values = value.match(hourFormat)
   if values != null
-    return (parseFloat(values[1]) + parseFloat(values[2])/60 + parseFloat(values[3])/3600)/24 * 360
+    calc_value = (parseFloat(values[1]) + parseFloat(values[2])/60 + parseFloat(values[3])/3600)/24 * 360
+    round_value = parseFloat(calc_value.toFixed(6))
+    sting_value = round_value.toString()
+    return sting_value
   return null
 
 @dec_to_deg = (value) ->
@@ -57,7 +69,10 @@
   values = value.match(decFormat)
   if values != null
     negative = 1
-    if parseFloat(values[1]) < 0
+    if values[1].indexOf("-")  > -1
       negative = -1
-    return (Math.abs(parseFloat(values[1])) + parseFloat(values[2])/60 + parseFloat(values[3])/3600)*negative
+    calc_value = (Math.abs(parseFloat(values[1])) + parseFloat(values[2])/60 + parseFloat(values[3])/3600)*negative
+    round_value = parseFloat(calc_value.toFixed(6))
+    sting_value = round_value.toString()
+    return sting_value
   return null

@@ -5,17 +5,13 @@ window.skymapper_app.controller 'SearchController', ['$scope', '$window',
     constructor: ($scope, $window) ->
       $scope.submitted = false
       $scope.form = {}
-
       $scope.fetchResults = (form, url) ->
         $scope.submitted = true
         if $scope[form].$valid
           params = {}
           for key, value of $scope.form
             unless isBlank(value)
-              if key.indexOf("_max") > -1 or key.indexOf("_min")  > -1
-                params[key] = value
-              else
-                params[key] = clean(value)
+              params[key] = check_ra_and_dec(key, value)
           args = encodeQueryParams(params)
           $window.location.href = "#{url}?#{args}"
 
