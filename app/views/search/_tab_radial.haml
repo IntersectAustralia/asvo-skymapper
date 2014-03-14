@@ -73,3 +73,7 @@
 
     .form-actions
       %input#submit.btn.btn-primary{ type: 'submit', value: 'Search SkyMapper' }
+      = check_box_tag 'async', nil, false,'ng-model' => 'form.async'
+      = label_tag 'async', 'Asynchronous Query'
+
+      = render 'async_popup'
