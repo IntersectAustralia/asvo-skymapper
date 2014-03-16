@@ -267,9 +267,18 @@ Feature: Radial search
     | field                 | value      |
     | Right ascension (deg) | 0          |
     | Right ascension (deg) | 359.999999 |
+    | Right ascension (deg) | 00:00:00   |
+    | Right ascension (deg) | 23:59:59   |
+    | Right ascension (deg) | 00 00 00   |
+    | Right ascension (deg) | 23 59 59   |
+    | Right ascension (deg) | 359.999999 |
     | Right ascension (deg) | 123.123456 |
     | Declination (deg)     | -90        |
     | Declination (deg)     | 90         |
+    | Declination (deg)     | -90:00:00  |
+    | Declination (deg)     | 01:00:00   |
+    | Declination (deg)     | 01 00 00   |
+    | Declination (deg)     | 90:00:00   |
     | Declination (deg)     | 12.123456  |
     | Search radius (deg)   | 0.000001   |
     | Search radius (deg)   | 10         |
@@ -318,17 +327,19 @@ Feature: Radial search
     And I fill in "<value>" for "<field>"
     Then I should see error "<error>" for "<field>"
   Examples:
-    | field                 | value       | error                                                                                    |
-    | Right ascension (deg) | -1          | This field should be a number greater than or equal to 0 and less than 360.              |
-    | Right ascension (deg) | 360         | This field should be a number greater than or equal to 0 and less than 360.              |
-    | Right ascension (deg) | 1.123456789 | This field should be a number with a maximum of 6 decimal places.                        |
-    | Right ascension (deg) | 7abc        | This field should be a number greater than or equal to 0 and less than 360.              |
-    | Right ascension (deg) | 7abc        | This field should be a number with a maximum of 6 decimal places.                        |
-    | Declination (deg)     | -91         | This field should be a number greater than or equal to -90 and less than or equal to 90. |
-    | Declination (deg)     | 91          | This field should be a number greater than or equal to -90 and less than or equal to 90. |
-    | Declination (deg)     | 1.123456789 | This field should be a number with a maximum of 6 decimal places.                        |
-    | Declination (deg)     | 7abc        | This field should be a number greater than or equal to -90 and less than or equal to 90. |
-    | Declination (deg)     | 7abc        | This field should be a number with a maximum of 6 decimal places.                        |
+    | field                 | value       | error                                                                                             |
+    | Right ascension (deg) | -1          | This field should be a number in one of the following formats HH:MM:SS.S or HH MM SS.S or DDD.DD. |
+    | Right ascension (deg) | 360         | Value in degrees should be a number greater than or equal to 0 and less than or equal to 360.     |
+    | Right ascension (deg) | 1.123456789 | This field should be a number in one of the following formats HH:MM:SS.S or HH MM SS.S or DDD.DD. |
+    | Right ascension (deg) | 7abc        | This field should be a number in one of the following formats HH:MM:SS.S or HH MM SS.S or DDD.DD. |
+    | Right ascension (deg) | 7abc        | This field should be a number in one of the following formats HH:MM:SS.S or HH MM SS.S or DDD.DD. |
+    | Declination (deg)     | -91         | Value in degrees should be a number greater than or equal to -90 and less than or equal to 90.    |
+    | Declination (deg)     | -91:00:00   | Value in degrees should be a number greater than or equal to -90 and less than or equal to 90.    |
+    | Declination (deg)     | 91          | Value in degrees should be a number greater than or equal to -90 and less than or equal to 90.    |
+    | Declination (deg)     | 91:00:00    | Value in degrees should be a number greater than or equal to -90 and less than or equal to 90.    |
+    | Declination (deg)     | 1.123456789 | This field should be a number in one of the following formats DD:MM:SS.S or DD MM SS.S or DDD.DD. |
+    | Declination (deg)     | 7abc        | This field should be a number in one of the following formats DD:MM:SS.S or DD MM SS.S or DDD.DD. |
+    | Declination (deg)     | 7abc        | This field should be a number in one of the following formats DD:MM:SS.S or DD MM SS.S or DDD.DD. |
     | Search radius (deg)   | 0           | This field should be a number greater than 0 and less than or equal to 10.               |
     | Search radius (deg)   | 11          | This field should be a number greater than 0 and less than or equal to 10.               |
     | Search radius (deg)   | 1.123456789 | This field should be a number with a maximum of 6 decimal places.                        |
@@ -479,7 +490,7 @@ Feature: Radial search
     And I should see search field "Right ascension (deg)" with value "<ra>"
     And I should see search field "Declination (deg)" with value "<dec>"
   Examples:
-    | survey             | catalogue | ra        | dec      | sr    | results                    | count |
+    | survey             | catalogue | ra         | dec      | sr    | results                    | count |
     | Five-Second Survey | fs        | 178.83871 | -1.18844 | +0.5  | skymapper_point_query_fs_1 | 272   |
     | Five-Second Survey | fs        | 178.83871 | -1.18844 | +2    | skymapper_point_query_fs_3 | 1000  |
     | Main Survey        | ms        | 178.83871 | -1.18844 | +0.15 | skymapper_point_query_ms_1 | 488   |
@@ -566,3 +577,23 @@ Feature: Radial search
     Given I select the "Radial" tab
     Then I should see "The web interface is limited to displaying the first 1000 results of a query."
     And I should see "The upper limit for results downloaded via the TAP service is 1234 results."
+
+
+  # SKYM-101
+  @javascript
+  Scenario Outline: I can search using different formats
+    Given I select the "Radial" tab
+    And I select "<survey>" from "SkyMapper survey"
+    And I fill in "<ra>" for "Right ascension (deg)"
+    And I fill in "<dec>" for "Declination (deg)"
+    And I fill in "<sr>" for "Search radius (deg)"
+    And I fake tap search request for catalogue "<catalogue>" with "<results>"
+    And I press "Search SkyMapper"
+    Then I should be on the radial search results page
+    And I wait for "Fetching results..."
+    And I should see "Query returned <count> objects."
+  Examples:
+    | survey             | catalogue | ra        | dec         | sr    | results                    | count  |
+    | Five-Second Survey | fs        | 11:55:21  |  01:11:18   | +0.5  | skymapper_point_query_fs_1 | 272    |
+    | Main Survey        | ms        | 11 55 21  | -01 11 18   | +0.15 | skymapper_point_query_ms_1 | 488    |
+

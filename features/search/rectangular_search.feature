@@ -510,7 +510,8 @@ Feature: Rectangular search
     Given I select the "Radial" tab
     Then I should see "The web interface is limited to displaying the first 1000 results of a query."
     And I should see "The upper limit for results downloaded via the TAP service is 1234 results."
-  #SKYM-xxx
+
+  #SKYM-101
   @javascript
   Scenario Outline: I can search using different formats
     Given I select the "Rectangular" tab
