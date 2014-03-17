@@ -52,9 +52,18 @@ Feature: Raw image search
   Examples:
     | field                 | value      |
     | Right ascension (deg) | 0          |
+    | Right ascension (deg) | 00:00:00   |
+    | Right ascension (deg) | 00 00 00   |
+    | Right ascension (deg) | 15 15 15   |
+    | Right ascension (deg) | 23 59 00   |
+    | Right ascension (deg) | 23:59:00   |
     | Right ascension (deg) | 359.999999 |
     | Right ascension (deg) | 123.123456 |
     | Declination (deg)     | -90        |
+    | Declination (deg)     | -90:00:00  |
+    | Declination (deg)     | -90 00 00  |
+    | Declination (deg)     | 90:00:00  |
+    | Declination (deg)     | 90 00 00  |
     | Declination (deg)     | 90         |
     | Declination (deg)     | 12.123456  |
 
@@ -64,17 +73,21 @@ Feature: Raw image search
     And I fill in "<value>" for "<field>"
     Then I should see error "<error>" for "<field>"
   Examples:
-    | field                 | value       | error                                                                                    |
-    | Right ascension (deg) | -1          | This field should be a number greater than or equal to 0 and less than 360.              |
-    | Right ascension (deg) | 360         | This field should be a number greater than or equal to 0 and less than 360.              |
-    | Right ascension (deg) | 1.123456789 | This field should be a number with a maximum of 6 decimal places.                        |
-    | Right ascension (deg) | 7abc        | This field should be a number greater than or equal to 0 and less than 360.              |
-    | Right ascension (deg) | 7abc        | This field should be a number with a maximum of 6 decimal places.                        |
-    | Declination (deg)     | -91         | This field should be a number greater than or equal to -90 and less than or equal to 90. |
-    | Declination (deg)     | 91          | This field should be a number greater than or equal to -90 and less than or equal to 90. |
-    | Declination (deg)     | 1.123456789 | This field should be a number with a maximum of 6 decimal places.                        |
-    | Declination (deg)     | 7abc        | This field should be a number greater than or equal to -90 and less than or equal to 90. |
-    | Declination (deg)     | 7abc        | This field should be a number with a maximum of 6 decimal places.                        |
+    | field                 | value       | error                                                                                             |
+    | Right ascension (deg) | -1          | This field should be a number in one of the following formats HH:MM:SS.S or HH MM SS.S or DDD.DD. |
+    | Right ascension (deg) | -01:12:12   | This field should be a number in one of the following formats HH:MM:SS.S or HH MM SS.S or DDD.DD. |
+    | Right ascension (deg) | 360         | Value in degrees should be a number greater than or equal to 0 and less than or equal to 360.     |
+    | Right ascension (deg) | 24:00:00    | Value in degrees should be a number greater than or equal to 0 and less than or equal to 360.     |
+    | Right ascension (deg) | 1.123456789 | This field should be a number in one of the following formats HH:MM:SS.S or HH MM SS.S or DDD.DD. |
+    | Right ascension (deg) | 7abc        | This field should be a number in one of the following formats HH:MM:SS.S or HH MM SS.S or DDD.DD. |
+    | Right ascension (deg) | 7abc        | This field should be a number in one of the following formats HH:MM:SS.S or HH MM SS.S or DDD.DD. |
+    | Declination (deg)     | -91         | Value in degrees should be a number greater than or equal to -90 and less than or equal to 90.    |
+    | Declination (deg)     | -91:00:00   | Value in degrees should be a number greater than or equal to -90 and less than or equal to 90.    |
+    | Declination (deg)     | -91 00 00   | Value in degrees should be a number greater than or equal to -90 and less than or equal to 90.    |
+    | Declination (deg)     | 91          | Value in degrees should be a number greater than or equal to -90 and less than or equal to 90.    |
+    | Declination (deg)     | 1.123456789 | This field should be a number in one of the following formats DD:MM:SS.S or DD MM SS.S or DDD.DD. |
+    | Declination (deg)     | 7abc        | This field should be a number in one of the following formats DD:MM:SS.S or DD MM SS.S or DDD.DD. |
+    | Declination (deg)     | 7abc        | This field should be a number in one of the following formats DD:MM:SS.S or DD MM SS.S or DDD.DD. |
 
   @javascript
   Scenario Outline: I cannot submit raw image search if form has errors (required errors)
@@ -118,12 +131,13 @@ Feature: Raw image search
     Then I should be on the raw image search results page
     And I wait for "Fetching results..."
     And I should see "Query returned <count> objects."
-    And I should see raw image search parameters with values ("<ra>", "<dec>")
     And I should see results for catalogue "<catalogue>" as "<results>" in all pages with limit "50"
     And I should see raw image results as "<results>" in all pages with limit "50" in proper order
     And I click on the object in row "<row>"
     Then I should see details for the object in row "<row>" with image results "<results>"
   Examples:
-    | catalogue | ra        | dec      | results                 | count | row |
-    | image     | 181.16129 | -1.18844 | skymapper_image_query_1 | 36    | 1   |
-    | image     | 7.01299   | -8.2162  | skymapper_image_query_3 | 1000  | 2   |
+    | catalogue | ra        | dec       | results                 | count | row |
+    | image     | 181.16129 | -1.18844  | skymapper_image_query_1 | 36    | 1   |
+    | image     | 12:04:39  | -01:53:04 | skymapper_image_query_1 | 36    | 1   |
+    | image     | 7.01299   | -8.2162   | skymapper_image_query_3 | 1000  | 2   |
+    | image     | 00:28:03  | -08 12 58 | skymapper_image_query_3 | 1000  | 2   |
