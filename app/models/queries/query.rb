@@ -83,7 +83,9 @@ class Query
 
   def clean(value)
     #check for degrees regex
-    return value if value and  !value.match("^([+-]?[0-9][0-9])[:\\s]?([0-6][0-9])[:\\s]?([0-6][0-9])(.[0-9]{1,5})?$").nil?
+    if value && (value.respond_to? :match)
+       return value unless value.match("^([+-]?[0-9][0-9])[:\\s]?([0-6][0-9])[:\\s]?([0-6][0-9])(.[0-9]{1,5})?$").nil?
+    end
     value = value.to_s.gsub(/\s+/, '') if value
     value
   end
