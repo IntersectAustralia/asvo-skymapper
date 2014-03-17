@@ -9,6 +9,11 @@ describe PointQuery do
   it { should allow_value('1.123456').for(:ra) }
   it { should allow_value('.123456').for(:ra) }
   it { should allow_value('   .123456    ').for(:ra) }
+  it { should allow_value('00:00:00').for(:ra) }
+  it { should allow_value('00 00 00').for(:ra) }
+  it { should allow_value('23:59:59.1').for(:ra) }
+  it { should allow_value('23 59 59.1').for(:ra) }
+  it { should allow_value('23:59:59.123').for(:ra) }
 
   it { should_not allow_value('-0.00000001').for(:ra) }
   it { should_not allow_value('360').for(:ra) }
@@ -20,11 +25,25 @@ describe PointQuery do
   it { should_not allow_value('7abc').for(:ra) }
   it { should_not allow_value('.').for(:ra) }
   it { should_not allow_value(' 1.  ').for(:ra) }
+  it { should_not allow_value('-00:00:01').for(:ra) }
+  it { should_not allow_value('-00 00 01').for(:ra) }
+  it { should_not allow_value('24:59:59.1').for(:ra) }
+  it { should_not allow_value('24 00 00.1').for(:ra) }
+  it { should_not allow_value('24:00:00.123').for(:ra) }
+
 
   # Validate Declination (DEC)
   it { should allow_value('-90').for(:dec) }
   it { should allow_value('90').for(:dec) }
   it { should allow_value('0').for(:dec) }
+  it { should allow_value('-90:00:00').for(:dec) }
+  it { should allow_value('90:00:00').for(:dec) }
+  it { should allow_value('-00:00:00').for(:dec) }
+  it { should allow_value('-90 00 00').for(:dec) }
+  it { should allow_value('90 00 00.00').for(:dec) }
+  it { should allow_value('00 00 00').for(:dec) }
+  it { should allow_value('00:00:00.12').for(:dec) }
+
   it { should allow_value('1.123456').for(:dec) }
   it { should allow_value('-1.123456').for(:dec) }
   it { should allow_value('   -.123456    ').for(:dec) }
@@ -32,6 +51,11 @@ describe PointQuery do
   it { should_not allow_value('-90.00000001').for(:dec) }
   it { should_not allow_value('90.00000001').for(:dec) }
   it { should_not allow_value('1000').for(:dec) }
+  it { should_not allow_value('-1000').for(:dec) }
+  it { should_not allow_value('-91:00:00.1').for(:dec) }
+  it { should_not allow_value('91:00:00.01').for(:dec) }
+  it { should_not allow_value('100:00:00').for(:dec) }
+  it { should_not allow_value('-100:00:00').for(:dec) }
   it { should_not allow_value('-1000').for(:dec) }
   it { should_not allow_value('1.123456789').for(:dec) }
   it { should_not allow_value('-1.123456789').for(:dec) }

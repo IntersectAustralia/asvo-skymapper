@@ -69,36 +69,27 @@ Feature: Bulk catalogue search
     And I fill in "0.05" for "Search radius (deg)"
     And I press "Search SkyMapper"
     Then I should the following list of file errors
-      | error                                                                        |
-      | Line 7: Right ascension must be greater than or equal to 0                   |
-      | Line 8: Right ascension must be less than 360                                |
-      | Line 9: Right ascension must be less than 360                                |
-      | Line 10: Right ascension must be greater than or equal to 0                  |
-      | Line 11: Right ascension must be a number with a maximum of 6 decimal places |
-      | Line 12: Right ascension can't be blank                                      |
-      | Line 12: Right ascension is not a number                                     |
-      | Line 13: Right ascension can't be blank                                      |
-      | Line 13: Right ascension is not a number                                     |
-      | Line 14: Right ascension is not a number                                     |
-      | Line 14: Right ascension must be a number with a maximum of 6 decimal places |
-      | Line 15: Right ascension is not a number                                     |
-      | Line 15: Right ascension must be a number with a maximum of 6 decimal places |
-      | Line 16: Right ascension is not a number                                     |
-      | Line 16: Right ascension must be a number with a maximum of 6 decimal places |
-      | Line 7: Declination must be greater than or equal to -90                     |
-      | Line 8: Declination must be less than or equal to 90                         |
-      | Line 9: Declination must be less than or equal to 90                         |
-      | Line 10: Declination must be greater than or equal to -90                    |
-      | Line 11: Declination must be a number with a maximum of 6 decimal places     |
-      | Line 12: Declination must be a number with a maximum of 6 decimal places     |
-      | Line 13: Declination can't be blank                                          |
-      | Line 13: Declination is not a number                                         |
-      | Line 14: Declination is not a number                                         |
-      | Line 14: Declination must be a number with a maximum of 6 decimal places     |
-      | Line 15: Declination is not a number                                         |
-      | Line 15: Declination must be a number with a maximum of 6 decimal places     |
-      | Line 16: Declination is not a number                                         |
-      | Line 16: Declination must be a number with a maximum of 6 decimal places     |
+  | error                                                                                                          |
+  | Line 7: Right ascension should be a number in one of the following formats HH:MM:SS.S or HH MM SS.S or DDD.DD. |
+  | Line 7: Declination must be greater than or equal to -90 and less then or equal to 90.                         |
+  | Line 8: Right ascension must be greater than or equal to 0 and less then 360.                                  |
+  | Line 8: Declination must be greater than or equal to -90 and less then or equal to 90.                         |
+  | Line 9: Right ascension must be greater than or equal to 0 and less then 360.                                  |
+  | Line 9: Declination must be greater than or equal to -90 and less then or equal to 90.                         |
+  | Line 10: Right ascension should be a number in one of the following formats HH:MM:SS.S or HH MM SS.S or DDD.DD.|
+  | Line 10: Declination must be greater than or equal to -90 and less then or equal to 90.                        |
+  | Line 11: Right ascension should be a number in one of the following formats HH:MM:SS.S or HH MM SS.S or DDD.DD.|
+  | Line 11: Declination should be a number in one of the following formats DD:MM:SS.S or DD MM SS.S or DDD.DD.    |
+  | Line 12: Right ascension can't be blank                                                                        |
+  | Line 12: Declination should be a number in one of the following formats DD:MM:SS.S or DD MM SS.S or DDD.DD.    |
+  | Line 13: Right ascension can't be blank                                                                        |
+  | Line 13: Declination can't be blank                                                                            |
+  | Line 14: Right ascension should be a number in one of the following formats HH:MM:SS.S or HH MM SS.S or DDD.DD.|
+  | Line 14: Declination should be a number in one of the following formats DD:MM:SS.S or DD MM SS.S or DDD.DD.    |
+  | Line 15: Right ascension should be a number in one of the following formats HH:MM:SS.S or HH MM SS.S or DDD.DD.|
+  | Line 15: Declination should be a number in one of the following formats DD:MM:SS.S or DD MM SS.S or DDD.DD.    |
+  | Line 16: Right ascension should be a number in one of the following formats HH:MM:SS.S or HH MM SS.S or DDD.DD.|
+  | Line 16: Declination should be a number in one of the following formats DD:MM:SS.S or DD MM SS.S or DDD.DD.    |
 
   @javascript
   Scenario Outline: I cannot submit bulk catalogue search if form has errors (required errors)

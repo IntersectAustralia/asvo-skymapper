@@ -13,7 +13,6 @@ class PointQuery < Query
   validate :filters, :filters_valid
 
   before_validation :clean_values
-  #before_validation :convert_to_deg
 
   def initialize(args = {})
     super(args)
@@ -84,7 +83,6 @@ SELECT
     elsif self.dec.size > 0
       decValue = self.dec.to_f.round(6)
     end
-
     #error for format
     errors.add(:dec, 'should be a number in one of the following formats DD:MM:SS.S or DD MM SS.S or DDD.DD.') if decValue.nil?
     return if decValue.nil?
