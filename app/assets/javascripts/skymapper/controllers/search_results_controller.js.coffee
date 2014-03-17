@@ -84,7 +84,6 @@ window.skymapper_app.controller 'SearchResultsController', ['$scope', '$window',
           ,
           (error) ->
             flash('error', error.error, 1000)
-#            flash('error', 'There was an error fetching the results.', 10000)
         )
         return
 ]
