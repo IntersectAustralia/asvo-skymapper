@@ -4,7 +4,7 @@
   The web interface is limited to displaying the first 1000 results of a query.
   = get_tap_download_limit_msg
 
-.form-container{ 'ng-controller' => 'SearchController' }
+.form-container{ 'ng-controller' => 'SearchController', 'ng-init' => "init('#rect_modal')" }
   %form#rectangular_search_form.cancel{ name: 'rectangular_search_form', 'ng-submit' => "fetchResults('rectangular_search_form', '#{rectangular_search_path}')", novalidate: '' }
     %fieldset
       .row-fluid
@@ -83,7 +83,11 @@
       = render partial: 'search_filter', locals: { form: 'rectangular_search_form', filter: 'z', type: 'rectangular' }
 
     .form-actions
-      %input.btn.btn-primary{ type: 'submit', value: 'Search SkyMapper' }
+      %input.btn.btn-primary{ type: 'submit', value: 'Search SkyMapper', 'ng-disabled'=> "rectangular_search_form.catalogue.$invalid || rectangular_search_form.ra_min.$invalid || rectangular_search_form.ra_max.$invalid || rectangular_search_form.dec_min.$invalid || rectangular_search_form.dec_max.$invalid || rectangular_search_form.u_min.$invalid || rectangular_search_form.u_max.$invalid || rectangular_search_form.v_min.$invalid || rectangular_search_form.v_max.$invalid || rectangular_search_form.g_min.$invalid || rectangular_search_form.g_max.$invalid || rectangular_search_form.r_min.$invalid || rectangular_search_form.r_max.$invalid || rectangular_search_form.i_min.$invalid || rectangular_search_form.i_max.$invalid || rectangular_search_form.z_min.$invalid || rectangular_search_form.z_max.$invalid" }
+      = check_box_tag 'async', nil, false,'ng-model' => 'form.async'
+      = label_tag 'async', 'Asynchronous Query'
+
+      = render partial: 'async_popup', locals: { form: 'rectangular_search_form', modal_id: 'rect_modal' }
 
   %table#results.table.table-striped.table-condensed
     %thead
@@ -94,3 +98,5 @@
       %tr{ 'ng-repeat' => 'obj in objects' }
         %td{ 'ng-repeat' => '(field, value) in obj' }
           {{value}}
+
+

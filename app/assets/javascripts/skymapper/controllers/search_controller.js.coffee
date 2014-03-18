@@ -6,9 +6,9 @@ window.skymapper_app.controller 'SearchController', ['$scope', '$window',
       $scope.submitted = false
       $scope.form = {}
 
-      $scope.fetchResults = (form, url) ->
+      $scope.fetchResults = (form, url, method='get') ->
         if $scope.form.async
-          $('#asyncJob').modal('show')
+          $($scope.modal_id).modal('show')
           return # need this line or Angular freaks out
         else
           $scope.submitted = true
@@ -20,16 +20,23 @@ window.skymapper_app.controller 'SearchController', ['$scope', '$window',
                   params[key] = value
                 else
                   params[key] = clean(value)
-            args = encodeQueryParams(params)
-            $window.location.href = "#{url}?#{args}"
+            if method == 'post'
+              return
+            else
+              args = encodeQueryParams(params)
+              $window.location.href = "#{url}?#{args}"
+
 
       $scope.submit = (form, event) ->
-        event.preventDefault()
-        false
-        # $scope.submitted = true
-        # event.preventDefault() unless $scope[form].$valid
+        # event.preventDefault()
+        # false
+        $scope.submitted = true
+        event.preventDefault() unless $scope[form].$valid
 
       $scope.setInput = (field, value) ->
         $scope.form[field] = value unless isBlank(value)
+
+      $scope.init = (modal_id) ->
+        $scope.modal_id = modal_id
 
 ]

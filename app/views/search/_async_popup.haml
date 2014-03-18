@@ -1,15 +1,14 @@
-#asyncJob.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "asynclJobLabel", role: "dialog", tabindex: "-1"}
+.modal.hide.fade{id: "#{modal_id}", "aria-hidden" => "true", "aria-labelledby" => "asynclJobLabel", role: "dialog", tabindex: "-1"}
   .modal-header
     %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
     %h3#asynclJobLabel Asynchronous Query
   .modal-body
     = label_tag :email, 'Email address'
     / the required true means the form can't be submitted without email
-    / = text_field_tag :email, nil, type: 'email', 'ng-model' => 'form.email', required: 'true'
-    = text_field_tag :email, nil, type: 'email', 'ng-model' => 'form.email'
+    = text_field_tag :email, nil, type: 'email', 'ng-model' => 'form.email', 'ng-required' => 'form.async'
     = label_tag :confirm_email, 'Confirm email address'
     = text_field_tag :confirm_email, nil, type: 'email', 'ng-model' => 'form.emailConfirm', match: 'form.email'
-    %span{'ng-show' => "radial_search_form.confirm_email.$error.mismatch"} Email and Confirm Email must match.
+    %span{'ng-show' => "#{form}.confirm_email.$error.mismatch"} Email and Confirm Email must match.
   .modal-footer
     %button.btn{"aria-hidden" => "true", "data-dismiss" => "modal"} Cancel
-    %button#submit-query.btn.btn-primary Submit
+    %button#submit-query.btn.btn-primary{type: 'submit', 'ng-disabled'=> "#{form}.$invalid"} Submit
