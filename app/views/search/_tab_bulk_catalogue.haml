@@ -4,8 +4,7 @@
   ). All values are in decimal degrees.
 
 .form-container{ 'ng-controller' => 'SearchController' }
-  / %form#bulk_catalogue_search_form.cancel{ 'ng-init' => "init('#bulk_modal')", name: 'bulk_catalogue_search_form', 'ng-submit' => "fetchResults('bulk_catalogue_search_form', '#{bulk_catalogue_validate_path}')", enctype: 'multipart/form-data', novalidate: '' }
-  %form#bulk_catalogue_search_form.cancel{ 'ng-init' => "init('#bulk_modal')", name: 'bulk_catalogue_search_form', method: 'post', enctype: 'multipart/form-data', novalidate: '' }
+  %form#bulk_catalogue_search_form.cancel{ 'ng-init' => "init('#bulk_modal')", name: 'bulk_catalogue_search_form', action: bulk_catalogue_validate_path, 'ng-submit' => "fetchResults('bulk_catalogue_search_form', '#{bulk_catalogue_validate_path}')", enctype: 'multipart/form-data', novalidate: '' }
     %fieldset
       .row-fluid
         .span6
@@ -62,8 +61,7 @@
             %li.error= error
 
       .form-actions
-        / %input#submit.btn.btn-primary{ type: 'submit', value: 'Search SkyMapper', 'ng-click' => "submit('bulk_catalogue_search_form', $event)"  }
-        %input#submit.btn.btn-primary{ type: 'submit', value: 'Search SkyMapper', 'ng-click' => "fetchResults('bulk_catalogue_search_form', '#{bulk_catalogue_validate_path}', 'post')", 'ng-disabled'=> "bulk_catalogue_search_form.catalogue.$invalid || bulk_catalogue_search_form.file.$invalid || bulk_catalogue_search_form.type.$invalid || bulk_catalogue_search_form.sr.$invalid" }
+        #submit.btn.btn-primary{'ng-click' => "fetchResults('bulk_catalogue_search_form', '#{bulk_catalogue_validate_path}', 'post')" } Search SkyMapper
         = check_box_tag 'async', nil, false,'ng-model' => 'form.async'
         = label_tag 'async', 'Asynchronous Query'
 

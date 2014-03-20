@@ -7,7 +7,7 @@ window.skymapper_app.controller 'SearchController', ['$scope', '$window',
       $scope.form = {}
 
       $scope.fetchResults = (form, url, method='get') ->
-        if $scope.form.async
+        if $scope.form.async and $scope.requiredValid(form)
           $($scope.modal_id).modal('show')
           return # need this line or Angular freaks out
         else
@@ -21,6 +21,7 @@ window.skymapper_app.controller 'SearchController', ['$scope', '$window',
                 else
                   params[key] = clean(value)
             if method == 'post'
+              alert('ding')
               return
             else
               args = encodeQueryParams(params)
@@ -28,8 +29,6 @@ window.skymapper_app.controller 'SearchController', ['$scope', '$window',
 
 
       $scope.submit = (form, event) ->
-        # event.preventDefault()
-        # false
         $scope.submitted = true
         event.preventDefault() unless $scope[form].$valid
 
@@ -38,5 +37,11 @@ window.skymapper_app.controller 'SearchController', ['$scope', '$window',
 
       $scope.init = (modal_id) ->
         $scope.modal_id = modal_id
+
+      $scope.requiredValid = (form) ->
+        errors = $scope[form].$error
+        Object.keys(errors).length == 1 and errors.required and errors.required.length == 1 and errors.required[0].$name == 'email'
+       
+
 
 ]

@@ -9,6 +9,8 @@
     = label_tag :confirm_email, 'Confirm email address'
     = text_field_tag :confirm_email, nil, type: 'email', 'ng-model' => 'form.emailConfirm', match: 'form.email'
     %span{'ng-show' => "#{form}.confirm_email.$error.mismatch"} Email and Confirm Email must match.
+    = label_tag :download_options, "Select download format:"
+    = select_tag :download_options, options_for_select(Query::FILE_TYPE)
   .modal-footer
     %button.btn{"aria-hidden" => "true", "data-dismiss" => "modal"} Cancel
     %button#submit-query.btn.btn-primary{type: 'submit', 'ng-disabled'=> "#{form}.$invalid"} Submit

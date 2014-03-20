@@ -83,7 +83,7 @@
       = render partial: 'search_filter', locals: { form: 'rectangular_search_form', filter: 'z', type: 'rectangular' }
 
     .form-actions
-      %input.btn.btn-primary{ type: 'submit', value: 'Search SkyMapper', 'ng-disabled'=> "rectangular_search_form.catalogue.$invalid || rectangular_search_form.ra_min.$invalid || rectangular_search_form.ra_max.$invalid || rectangular_search_form.dec_min.$invalid || rectangular_search_form.dec_max.$invalid || rectangular_search_form.u_min.$invalid || rectangular_search_form.u_max.$invalid || rectangular_search_form.v_min.$invalid || rectangular_search_form.v_max.$invalid || rectangular_search_form.g_min.$invalid || rectangular_search_form.g_max.$invalid || rectangular_search_form.r_min.$invalid || rectangular_search_form.r_max.$invalid || rectangular_search_form.i_min.$invalid || rectangular_search_form.i_max.$invalid || rectangular_search_form.z_min.$invalid || rectangular_search_form.z_max.$invalid" }
+      %input.btn.btn-primary{ type: 'submit', value: 'Search SkyMapper' }
       = check_box_tag 'async', nil, false,'ng-model' => 'form.async'
       = label_tag 'async', 'Asynchronous Query'
 
