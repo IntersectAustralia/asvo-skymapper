@@ -38,7 +38,10 @@ window.skymapper_app.controller 'SearchController', ['$scope', '$window',
       # Should move this to helpers
       $scope.requiredValid = (form) ->
         errors = $scope[form].$error
-        Object.keys(errors).length == 1 and errors.required and errors.required.length == 1 and errors.required[0].$name == 'email'
+        console.log(errors)
+        # Object.keys(errors).length == 1 and errors.required and errors.required.length == 1 and errors.required[0].$name == 'email'
+        #NOTE this is broken
+        errors.required and errors.required.length == 1 and errors.required[0].$name == 'email'
        
 
 
