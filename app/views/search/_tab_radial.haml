@@ -7,7 +7,7 @@
   = get_tap_download_limit_msg
   
 
-.form-container{ 'ng-controller' => 'SearchController' }
+.form-container{ 'ng-controller' => 'SearchController', 'ng-init' => "init('#rad_modal')" }
   %form#radial_search_form.cancel{ name: 'radial_search_form', 'ng-submit' => "fetchResults('radial_search_form', '#{radial_search_path}')", novalidate: '' }
     %fieldset
       .row-fluid
@@ -73,4 +73,8 @@
       = render partial: 'search_filter', locals: { form: 'radial_search_form', filter: 'z', type: 'radial' }
 
     .form-actions
-      %input#submit.btn.btn-primary{ type: 'submit', value: 'Search SkyMapper' }
+      %input#submit.btn.btn-primary{ type: 'submit', value: 'Search SkyMapper'}
+      = check_box_tag 'async', nil, false,'ng-model' => 'form.async'
+      = label_tag 'async', 'Asynchronous Query'
+
+      = render partial: 'async_popup', locals: { form: 'radial_search_form', modal_id: 'rad_modal' }

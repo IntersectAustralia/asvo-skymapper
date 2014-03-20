@@ -94,6 +94,7 @@ window.skymapper_app.directive 'fileRequired', ->
         ctrl.$setViewValue(elem.val())
         scope.$apply()
   }
+
 window.skymapper_app.directive 'ravalidate', ->
 
   {
@@ -187,4 +188,18 @@ window.skymapper_app.directive 'decrange', ->
     if attr.dependentOn
       scope.$watch attr.dependentOn, ->
         validate(elem.val())
+    }
+
+window.skymapper_app.directive "match", ($parse) ->
+
+  {
+    require: "ngModel"
+    link: (scope, elem, attrs, ctrl) ->
+      
+      scope.$watch (->
+        $parse(attrs.match)(scope) is ctrl.$modelValue
+      ), (currentValue) ->
+        ctrl.$setValidity "mismatch", currentValue
+        return
+      return
   }
