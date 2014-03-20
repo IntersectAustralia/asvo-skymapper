@@ -14,31 +14,21 @@ class AsyncTapService
     uri
   end
 
-  def fetch_results(query)
-    begin
-      res = fetch_query_response(query)
-      results_table = VOTableParser.parse_xml(res.body)
-    rescue Exception
-      puts $!.inspect, $@ unless Rails.env == 'test'
-    end
-
-    results_table
-  end
-
-  def fetch_query_response(query)
+  def start_async_job(query, format, email)
     registry = Rails.application.config.asvo_registry
     service = registry.find_service(@dataset, @catalogue, 'tap')
 
     form = {
         request: 'doQuery',
         lang: 'adql',
-        query: query.to_adql(service)
+        query: query.to_adql(service),
+        format: format
     }
     res = Net::HTTP.post_form(request, form)
     if res.code == "303" and res.key? 'Location'
       job_status = JobStatus.new(res['Location'])
       job = AsyncJob.create
-      job.email = "test@test.com"
+      job.email = email
       job.status = job_status.job_status
       job.url = res['Location']
       job.job_id = job_status.job_id

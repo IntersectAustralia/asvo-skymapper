@@ -44,7 +44,9 @@
       return  @clean(@ra_to_deg(value))
     if $.inArray(key, dec_values) > -1
       return  @clean(@dec_to_deg(value))
-    value.replace(/^\+/g, '')
+    if typeof value == 'string'
+        return value.replace(/^\+/g, '')
+    value
 
 @ra_to_deg = (value) ->
   format = "^[+]?\\d*(\\.\\d{1,6})?$"

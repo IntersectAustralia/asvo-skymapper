@@ -26,7 +26,7 @@ class SearchController < ApplicationController
     clean_parameters(@parameters)
 
     @fields = search_fields(params[:catalogue], 'tap')
-    #@async = true
+    @async = params[:async] == "true"
     @query_path = radial_query_path
   rescue StandardError
     flash.now[:error] = 'The search parameters contain some errors.'
@@ -44,7 +44,7 @@ class SearchController < ApplicationController
         catalogue: params[:catalogue]
     }
     service = AsyncTapService.new(service_args)
-    job_id  = service.fetch_query_response(query)
+    job_id  = service.start_async_job(query, params[:format], params[:email])
 
     if !job_id.nil?
       Notifier.job_scheduled_notification("#{request.base_url}#{job_details_view_path}?id=#{job_id}", "schemek@intersect.org.au").deliver

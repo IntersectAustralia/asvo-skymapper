@@ -17,12 +17,10 @@
         %td= @job.job_id
         %td
           -if @job.can_be_canceled?
-            = link_to job_details_cancel_job_path, id: "#{@job.id}", title: "Cancel Job", class: "btn btn-success btn-mini", method: :put do
+            = link_to "#{job_details_cancel_path}?id=#{@job.job_id}"  do
               %i.icon-ban-circle
-              Cancel Job
           -if @job.results_ready?
             = link_to "#{@job.url}/results/result" do
-              %i.icon-ban-circle
-              Download Results
+              %i.icon-download
 .aside.span3
   = render 'search/help'
