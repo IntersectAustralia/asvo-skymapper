@@ -1,0 +1,28 @@
+.span9
+  .span12.center
+    %a.btn.pull-left{ href: root_path }
+      Back
+
+  %table.table.table-bordered.table-striped.table-condensed
+    %thead
+      %tr
+        %th Job start time
+        %th Job status
+        %th Job ID
+        %th Actions
+    %tbody
+      %tr
+        %td= @job.created_at
+        %td= @job.status
+        %td= @job.job_id
+        %td
+          -if @job.can_be_canceled?
+            = link_to job_details_cancel_job_path, id: "#{@job.id}", title: "Cancel Job", class: "btn btn-success btn-mini", method: :put do
+              %i.icon-ban-circle
+              Cancel Job
+          -if @job.results_ready?
+            = link_to "#{@job.url}/results/result" do
+              %i.icon-ban-circle
+              Download Results
+.aside.span3
+  = render 'search/help'

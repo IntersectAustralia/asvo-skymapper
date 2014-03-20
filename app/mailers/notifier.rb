@@ -36,4 +36,14 @@ class Notifier < ActionMailer::Base
           :subject => PREFIX + "Reset password instructions")
   end
 
+  def job_scheduled_notification(details_url, email)
+    @details_url = details_url
+    mail( :to => email,
+          :from => APP_CONFIG['job_scheduled_email'],
+          :reply_to => APP_CONFIG['job_scheduled_email'],
+          :subject => APP_CONFIG['job_scheduled_subject']
+
+    )
+  end
+
 end
