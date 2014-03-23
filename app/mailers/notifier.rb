@@ -46,4 +46,23 @@ class Notifier < ActionMailer::Base
     )
   end
 
+  def job_finished_notification(job)
+    @download_url = "#{job.url}/results/result"
+    mail( :to => job.email,
+          :from => APP_CONFIG['job_scheduled_email'],
+          :reply_to => APP_CONFIG['job_scheduled_email'],
+          :subject => APP_CONFIG['job_finished_subject']
+
+    )
+  end
+
+  def job_error_notification(job, job_status)
+    @error_message = job_status.error
+    @error_url = "#{job.url}/error"
+    mail( :to => job.email,
+         :from => APP_CONFIG['job_scheduled_email'],
+         :reply_to => APP_CONFIG['job_scheduled_email'],
+         :subject => APP_CONFIG['job_error_subject']
+    )
+  end
 end

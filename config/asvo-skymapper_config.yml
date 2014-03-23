@@ -3,7 +3,8 @@ defaults: &defaults
   account_request_user_status_email_sender: account-status@intersect.org.au
   account_request_admin_notification_sender: account-request@intersect.org.au
   job_scheduled_email: no-reply@intersect.org.au
-  job_scheduled_subject: New job has been sucessfully scheduled.
+  job_scheduled_subject: New job has been successfully scheduled.
+  job_finished_subject: Scheduled job finished successfully.
 
 
 development:

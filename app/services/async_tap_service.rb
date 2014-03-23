@@ -34,7 +34,7 @@ class AsyncTapService
       job.job_id = job_status.job_id
       job.save!
       start_job(job)
-      return job.job_id
+      return job
     else
       #render index wit some errors
     end

@@ -16,11 +16,11 @@ class PointQuery < Query
 
   def initialize(args = {})
     super(args)
-    if args[:limit]
-      @limit = "TOP args[:limit]"
+    if args[:limit] && args[:limit] != 'unlimited'
+      @limit = "TOP #{args[:limit]}"
     elsif args[:limit].nil?
       @limit = 'TOP 1000'
-    else
+    elsif
       @limit = nil
     end
   end

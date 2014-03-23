@@ -86,4 +86,4 @@ gem "rvm-capistrano"
 gem "colorize"
 gem "nokogiri"
 gem "unicorn"
-
+gem 'whenever', :require => false
