@@ -106,7 +106,7 @@ window.skymapper_app.directive 'ravalidate', ->
       #first check for standard degree format
       format = "^[+]?\\d*(\\.\\d{1,6})?$"
       degreeFormatValidator = new RegexFormatValidator(format)
-      hourFormat = "^[0-2][0-9][:\\s][0-6][0-9][:\\s][0-6][0-9](.[0-9]{1,5})?$"
+      hourFormat = "^[0-2][0-9][:\\s][0-6][0-9][:\\s][0-6][0-9](\\.[0-9]{1,5})?$"
       hourFormatValidator = new RegexFormatValidator(hourFormat)
       valid = degreeFormatValidator.validate(value) || hourFormatValidator.validate(value)
       ctrl.$setValidity('ravalidate', valid)
@@ -153,7 +153,7 @@ window.skymapper_app.directive 'decvalidate', ->
       #first check for standard degree format
       format = "^[+-]?\\d*(\\.\\d{1,6})?$"
       degreeFormatValidator = new RegexFormatValidator(format)
-      decFormat = "^[+-]?[0-9][0-9][:\\s][0-6][0-9][:\\s][0-6][0-9](.[0-9]{1,5})?$"
+      decFormat = "^[+-]?[0-9][0-9][:\\s][0-6][0-9][:\\s][0-6][0-9](\\.[0-9]{1,5})?$"
       decFormatValidator = new RegexFormatValidator(decFormat)
       valid = degreeFormatValidator.validate(value) || decFormatValidator.validate(value)
       ctrl.$setValidity('decvalidate', valid)

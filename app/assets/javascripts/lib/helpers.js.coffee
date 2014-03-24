@@ -53,7 +53,7 @@
   degreeFormatValidator = new RegexFormatValidator(format)
   if degreeFormatValidator.validate(value)
     return value
-  hourFormat = "^([0-2][0-9])[:\\s]([0-6][0-9])[:\\s]([0-6][0-9])(.[0-9]{1,5})?$"
+  hourFormat = "^([0-2][0-9])[:\\s]([0-6][0-9])[:\\s]([0-6][0-9])(\\.[0-9]{1,5})?$"
   values = value.match(hourFormat)
   if values != null
     calc_value = (parseFloat(values[1]) + parseFloat(values[2])/60 + parseFloat(values[3])/3600)/24 * 360
@@ -67,7 +67,7 @@
   degreeFormatValidator = new RegexFormatValidator(format)
   if degreeFormatValidator.validate(value)
     return value
-  decFormat = "^([+-]?[0-9][0-9])[:\\s]([0-6][0-9])[:\\s]([0-6][0-9])(.[0-9]{1,5})?$"
+  decFormat = "^([+-]?[0-9][0-9])[:\\s]([0-6][0-9])[:\\s]([0-6][0-9])(\\.[0-9]{1,5})?$"
   values = value.match(decFormat)
   if values != null
     negative = 1

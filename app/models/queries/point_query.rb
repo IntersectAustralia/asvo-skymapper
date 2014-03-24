@@ -48,7 +48,7 @@ SELECT
     format = "^[+]?\\d*(\\.\\d{1,6})?$"
     isDeg = self.ra.match(format)
     if isDeg.nil?
-      hourFormat = "^([0-2][0-9])[:\\s]?([0-6][0-9])[:\\s]?([0-6][0-9])(.[0-9]{1,5})?$"
+      hourFormat = "^([0-2][0-9])[:\\s]([0-6][0-9])[:\\s]([0-6][0-9])(\\.[0-9]{1,5})?$"
       values = self.ra.match(hourFormat).to_a
       if values.size > 0
         raValue = ((values[1].to_f + values[2].to_f/60 + values[3].to_f/3600) / 24 * 360).round(6)
@@ -73,7 +73,7 @@ SELECT
     format = "^[+-]?\\d*(\\.\\d{1,6})?$"
     isDeg = self.dec.match(format)
     if isDeg.nil?
-      hourFormat = "^([+-]?[0-9][0-9])[:\\s]?([0-6][0-9])[:\\s]?([0-6][0-9])(.[0-9]{1,5})?$"
+      hourFormat = "^([+-]?[0-9][0-9])[:\\s]([0-6][0-9])[:\\s]([0-6][0-9])(\\.[0-9]{1,5})?$"
       values = self.dec.match(hourFormat).to_a
       if values.size > 0
         negative = 1
