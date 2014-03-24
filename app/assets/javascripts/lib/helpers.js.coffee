@@ -56,7 +56,10 @@
   hourFormat = "^([0-2][0-9])[:\\s]([0-6][0-9])[:\\s]([0-6][0-9])(\\.[0-9]{1,5})?$"
   values = value.match(hourFormat)
   if values != null
-    calc_value = (parseFloat(values[1]) + parseFloat(values[2])/60 + parseFloat(values[3])/3600)/24 * 360
+    seconds = values[3]
+    if (values.length > 4)
+      seconds = seconds + values[4]
+    calc_value = (parseFloat(values[1]) + parseFloat(values[2])/60 + parseFloat(seconds)/3600)/24 * 360
     round_value = parseFloat(calc_value.toFixed(6))
     sting_value = round_value.toString()
     return sting_value
@@ -73,7 +76,10 @@
     negative = 1
     if values[1].indexOf("-")  > -1
       negative = -1
-    calc_value = (Math.abs(parseFloat(values[1])) + parseFloat(values[2])/60 + parseFloat(values[3])/3600)*negative
+    seconds = values[3]
+    if (values.length > 4)
+      seconds = seconds + values[4]
+    calc_value = (Math.abs(parseFloat(values[1])) + parseFloat(values[2])/60 + parseFloat(seconds)/3600)*negative
     round_value = parseFloat(calc_value.toFixed(6))
     sting_value = round_value.toString()
     return sting_value

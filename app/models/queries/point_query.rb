@@ -51,7 +51,11 @@ SELECT
       hourFormat = "^([0-2][0-9])[:\\s]([0-6][0-9])[:\\s]([0-6][0-9])(\\.[0-9]{1,5})?$"
       values = self.ra.match(hourFormat).to_a
       if values.size > 0
-        raValue = ((values[1].to_f + values[2].to_f/60 + values[3].to_f/3600) / 24 * 360).round(6)
+        seconds = values[3]
+        if values.size > 4
+          seconds = seconds + values[4]
+        end
+        raValue = ((values[1].to_f + values[2].to_f/60 + seconds.to_f/3600) / 24 * 360).round(6)
       end
     elsif self.ra.size > 0
       raValue = self.ra.to_f.round(6)
@@ -78,7 +82,11 @@ SELECT
       if values.size > 0
         negative = 1
         negative = -1 if values[1].include? ('-')
-        decValue = ((values[1].to_f.abs + values[2].to_f / 60 + values[3].to_f / 3600) * negative ).round(6)
+        seconds = values[3]
+        if values.size > 4
+          seconds = seconds + values[4]
+        end
+        decValue = ((values[1].to_f.abs + values[2].to_f / 60 + seconds.to_f / 3600) * negative ).round(6)
       end
     elsif self.dec.size > 0
       decValue = self.dec.to_f.round(6)
