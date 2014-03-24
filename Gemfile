@@ -52,7 +52,7 @@ group :development, :test do
   #gem "spork"
   gem "launchy"    # So you can do Then show me the page
   gem "zeus"
-
+  gem "mailcatcher"
   gem "poltergeist"
   gem "teaspoon"
 
@@ -86,3 +86,4 @@ gem "rvm-capistrano"
 gem "colorize"
 gem "nokogiri"
 gem "unicorn"
+gem 'whenever', :require => false

@@ -1,4 +1,7 @@
 AsvoSkymapper::Application.routes.draw do
+  get "job_details/view"
+  get "job_details/cancel"
+
   devise_for :users, controllers: {registrations: 'user_registers', passwords: 'user_passwords' }
   devise_scope :user do
     get '/users/profile', :to => 'user_registers#profile' #page which gives options to edit details or change password

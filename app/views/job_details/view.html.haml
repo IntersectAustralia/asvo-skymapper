@@ -1,0 +1,30 @@
+.span9
+  .span12.center
+    %a.btn.pull-left{ href: root_path }
+      Back
+
+  -if @job
+    %table.table.table-bordered.table-striped.table-condensed
+      %thead
+        %tr
+          %th Job start time
+          %th Job status
+          %th Job ID
+          %th Actions
+      %tbody
+        %tr
+          %td= @job.created_at
+          %td= @job.status
+          %td= @job.job_id
+          %td
+            -if @job.can_be_canceled?
+              = link_to "#{job_details_cancel_path}?id=#{@job.job_id}"  do
+                %i.icon-ban-circle
+            -if @job.results_ready?
+              = link_to "#{@job.url}/results/result" do
+                %i.icon-download
+  - else
+    %h4
+      Specified job doesn't exist
+.aside.span3
+  = render 'search/help'

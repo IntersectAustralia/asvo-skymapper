@@ -4,6 +4,11 @@ require 'capistrano_colors'
 require 'rvm/capistrano'
 require 'deploy/create_deployment_record'
 
+set :whenever_command, "bundle exec whenever"
+set :whenever_environment, defer { stage }
+
+require 'whenever/capistrano'
+
 set :keep_releases, 5
 set :application, 'asvo-skymapper'
 set :stages, %w(qa staging production)

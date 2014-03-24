@@ -26,12 +26,33 @@ class SearchController < ApplicationController
     clean_parameters(@parameters)
 
     @fields = search_fields(params[:catalogue], 'tap')
-
+    @async = params[:async] == "true"
     @query_path = radial_query_path
   rescue StandardError
     flash.now[:error] = 'The search parameters contain some errors.'
   ensure
-    render 'search_results_and_details'
+    render 'search_results_and_details' unless @async
+    async_job_start :generate_point_query if @async
+  end
+
+  def async_job_start (method)
+    params[:limit] = 'unlimited'
+    query = QueryGenerator.method(method).call(params)
+    raise SearchError.new 'Invalid search arguments' unless query and query.valid?
+
+    service_args = {
+        dataset: DEFAULT_DATASET,
+        catalogue: params[:catalogue]
+    }
+    service = AsyncTapService.new(service_args)
+    job = service.start_async_job(query, params[:format], params[:email])
+
+    if !job.nil?
+      Notifier.job_scheduled_notification("#{request.base_url}#{job_details_view_path}?id=#{job.job_id}", "#{job.email}").deliver
+      redirect_to :controller => 'job_details', :action => 'view', :id => job.job_id
+    end
+
+    render 'index' if job.nil?
   end
 
   def rectangular_search
@@ -49,12 +70,13 @@ class SearchController < ApplicationController
     clean_parameters(@parameters)
 
     @fields = search_fields(params[:catalogue], 'tap')
-
+    @async = params[:async] == "true"
     @query_path = rectangular_query_path
   rescue StandardError
     flash.now[:error] = 'The search parameters contain some errors.'
   ensure
-    render 'search_results_and_details'
+    render 'search_results_and_details' unless @async
+    async_job_start :generate_rectangular_query if @async
   end
 
   def raw_image_search
