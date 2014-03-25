@@ -365,3 +365,7 @@ Then /^I should downloaded csv file "([^"]*)"$/ do |file|
   sleep(2)
   File.read(Rails.root.join('tmp/downloads/sync')).should == File.read("spec/fixtures/#{file}.csv")
 end
+
+Then /^the "(.*?)" button should be disabled$/ do |button|
+  find_button(button, disabled: true)[:disabled].should eq "true"
+end

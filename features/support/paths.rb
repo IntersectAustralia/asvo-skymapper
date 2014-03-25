@@ -58,6 +58,9 @@ module NavigationHelpers
     when /^the bulk image search results page$/
       bulk_image_search_path
 
+    when /^the job deatils view page$/
+      job_details_view_path
+
 # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

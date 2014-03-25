@@ -597,3 +597,84 @@ Feature: Radial search
     | Five-Second Survey | fs        | 11:55:21  |  01:11:18   | +0.5  | skymapper_point_query_fs_1 | 272    |
     | Main Survey        | ms        | 11 55 21  | -01 11 18   | +0.15 | skymapper_point_query_ms_1 | 488    |
 
+  #SKYM-75
+  @javascript
+  Scenario Outline: Async popup only shows up when form is valid
+    Given I select the "Radial" tab
+    And I check "Asynchronous Query"
+    And I select "<survey>" from "SkyMapper survey"
+    And I fill in "<ra>" for "Right ascension (deg)"
+    And I fill in "<sr>" for "Search radius (deg)"
+    And I press "Search SkyMapper"
+    Then I should see error "This field is required." for "Declination (deg)"
+    And I should not see "Email address"
+    And I fill in "<dec>" for "Declination (deg)"
+    And I press "Search SkyMapper"
+    And I pause for 1 seconds
+    Then I should see "Email address"
+  Examples:
+    | survey             | catalogue | ra        | dec         | sr    | results                    | count  |
+    | Five-Second Survey | fs        | 11:55:21  |  01:11:18   | +0.5  | skymapper_point_query_fs_1 | 272    |
+
+  #SKYM-75
+  @javascript
+  Scenario Outline: Can submit an Async job
+    Given I select the "Radial" tab
+    And I check "Asynchronous Query"
+    And I select "<survey>" from "SkyMapper survey"
+    And I fill in "<ra>" for "Right ascension (deg)"
+    And I fill in "<sr>" for "Search radius (deg)"
+    And I fill in "<dec>" for "Declination (deg)"
+    And I press "Search SkyMapper"
+    And I pause for 1 seconds
+    Then I should see "Email address"
+    When I fill in "elvis@graceland.org" for "Email address"
+    When I fill in "elvis@graceland.org" for "Confirm email address"
+    And I press "Submit"
+    Then I should be on the job details view page
+  Examples:
+    | survey             | catalogue | ra        | dec         | sr    | results                    | count  |
+    | Five-Second Survey | fs        | 11:55:21  |  01:11:18   | +0.5  | skymapper_point_query_fs_1 | 272    |
+
+  #SKYM-75
+  @javascript
+  Scenario Outline: Async job won't submit without matching email addresses
+    Given I select the "Radial" tab
+    And I check "Asynchronous Query"
+    And I select "<survey>" from "SkyMapper survey"
+    And I fill in "<ra>" for "Right ascension (deg)"
+    And I fill in "<sr>" for "Search radius (deg)"
+    And I fill in "<dec>" for "Declination (deg)"
+    And I press "Search SkyMapper"
+    And I pause for 1 seconds
+    Then I should see "Email address"
+    When I fill in "elvis@graceland.org" for "Email address"
+    When I fill in "priscilla@graceland.org" for "Confirm email address"
+    Then I should see "Email and Confirm Email must match."
+    Then the "Submit" button should be disabled
+  Examples:
+    | survey             | catalogue | ra        | dec         | sr    | results                    | count  |
+    | Five-Second Survey | fs        | 11:55:21  |  01:11:18   | +0.5  | skymapper_point_query_fs_1 | 272    |
+
+#SKYM-75
+  @javascript
+  Scenario Outline: Can cancel and async job with bad emails and submit a sync job
+    Given I select the "Radial" tab
+    And I check "Asynchronous Query"
+    And I select "<survey>" from "SkyMapper survey"
+    And I fill in "<ra>" for "Right ascension (deg)"
+    And I fill in "<sr>" for "Search radius (deg)"
+    And I fill in "<dec>" for "Declination (deg)"
+    And I press "Search SkyMapper"
+    And I pause for 1 seconds
+    Then I should see "Email address"
+    When I fill in "elvis@graceland.org" for "Email address"
+    When I fill in "priscilla@graceland.org" for "Confirm email address"
+    Then I should see "Email and Confirm Email must match."
+    Then I press "Cancel"
+    And I uncheck "Asynchronous Query"
+    And I press "Search SkyMapper"
+    Then I should be on the radial search results page
+  Examples:
+    | survey             | catalogue | ra        | dec         | sr    | results                    | count  |
+    | Five-Second Survey | fs        | 11:55:21  |  01:11:18   | +0.5  | skymapper_point_query_fs_1 | 272    |

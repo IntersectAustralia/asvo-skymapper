@@ -13,4 +13,4 @@
     = select_tag :download_options, options_for_select(Query::FILE_TYPE)
   .modal-footer
     %button.btn{"aria-hidden" => "true", "data-dismiss" => "modal"} Cancel
-    %button#submit-query.btn.btn-primary{type: 'submit', 'ng-disabled'=> "#{form}.$invalid"} Submit
+    %button.btn.btn-primary{id: "#{modal_id}-button", type: 'submit', 'ng-disabled'=> "#{form}.$invalid"} Submit
