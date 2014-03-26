@@ -62,8 +62,9 @@
 
       .form-actions
         #submit.btn.btn-primary{'ng-click' => "fetchResults('bulk_catalogue_search_form', '#{bulk_catalogue_validate_path}', 'post')" } Search SkyMapper
-        = check_box_tag 'async', nil, false,'ng-model' => 'form.async'
-        = label_tag 'async', 'Asynchronous Query'
+        %label.checkbox.inline{:target => 'async'}
+          = check_box_tag 'async', nil, false,'ng-model' => 'form.async'
+          Asynchronous Query
 
         = render partial: 'async_popup', locals: { form: 'bulk_catalogue_search_form', modal_id: 'bulk_modal' }
 

@@ -1,10 +1,7 @@
 .span9
-  .span12.center
-    %a.btn.pull-left{ href: root_path }
-      Back
 
   -if @job
-    %table.table.table-bordered.table-striped.table-condensed
+    %table.table.table-striped.table-condensed
       %thead
         %tr
           %th Job start time
@@ -26,5 +23,8 @@
   - else
     %h4
       Specified job doesn't exist
+  .span12.center
+    %a.btn.pull-left{ href: root_path }
+      Back
 .aside.span3
   = render 'search/help'

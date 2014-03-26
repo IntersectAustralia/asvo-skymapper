@@ -85,9 +85,9 @@
 
     .form-actions
       %input.btn.btn-primary{ type: 'submit', value: 'Search SkyMapper' }
-      = check_box_tag 'async', nil, false,'ng-model' => 'form.async'
-      = label_tag 'async', 'Asynchronous Query'
-
+      %label.checkbox.inline{:target => 'async'}
+        = check_box_tag 'async', nil, false,'ng-model' => 'form.async'
+        Asynchronous Query
       = render partial: 'async_popup', locals: { form: 'rectangular_search_form', modal_id: 'rect_modal' }
 
   %table#results.table.table-striped.table-condensed
