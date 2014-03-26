@@ -4,7 +4,7 @@
   ). All values are in decimal degrees.
 
 .form-container{ 'ng-controller' => 'SearchController' }
-  %form#bulk_catalogue_search_form.cancel{ 'ng-init' => "init('#bulk_modal')", name: 'bulk_catalogue_search_form', action: bulk_catalogue_validate_path, 'ng-submit' => "fetchResults('bulk_catalogue_search_form', '#{bulk_catalogue_validate_path}')", enctype: 'multipart/form-data', novalidate: '' }
+  %form#bulk_catalogue_search_form.cancel{ 'ng-init' => "init('#bulk_modal')", name: 'bulk_catalogue_search_form', action: bulk_catalogue_validate_path, method: 'post', enctype: 'multipart/form-data', novalidate: '' }
     %fieldset
       .row-fluid
         .span6
@@ -61,7 +61,7 @@
             %li.error= error
 
       .form-actions
-        #submit.btn.btn-primary{'ng-click' => "fetchResults('bulk_catalogue_search_form', '#{bulk_catalogue_validate_path}', 'post')" } Search SkyMapper
+        #submit_bulk.btn.btn-primary{'ng-click' => "fetchResults('bulk_catalogue_search_form', '#{bulk_catalogue_validate_path}', 'post')" } Search SkyMapper
         %label.checkbox.inline{:target => 'async'}
           = check_box_tag 'async', nil, false,'ng-model' => 'form.async'
           Asynchronous Query

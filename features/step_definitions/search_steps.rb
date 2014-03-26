@@ -369,3 +369,7 @@ end
 Then /^the "(.*?)" button should be disabled$/ do |button|
   find_button(button, disabled: true)[:disabled].should eq "true"
 end
+
+When /^(?:|I )click on Search SkyMapper$/ do
+  find("#submit_bulk").click
+end
