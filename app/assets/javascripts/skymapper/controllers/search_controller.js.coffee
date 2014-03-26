@@ -18,12 +18,11 @@ window.skymapper_app.controller 'SearchController', ['$scope', '$window',
               unless isBlank(value)
                 params[key] = check_ra_and_dec(key, value)
             if method == 'post'
-              alert('ding')
+              $('#' + form).submit()
               return
             else
               args = encodeQueryParams(params)
               $window.location.href = "#{url}?#{args}"
-
 
       $scope.submit = (form, event) ->
         $scope.submitted = true

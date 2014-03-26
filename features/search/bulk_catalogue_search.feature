@@ -14,7 +14,7 @@ Feature: Bulk catalogue search
     And I attach the file "<file>" to "File"
     And I select "<type>" from "Download format"
     And I fill in "<sr>" for "Search radius (deg)"
-    And I press "Search SkyMapper"
+    And I click on Search SkyMapper
     Then I should downloaded csv file "<downloaded_file>"
   Examples:
     | survey             | file                       | sr   | type | downloaded_file                     |
@@ -29,7 +29,7 @@ Feature: Bulk catalogue search
     And I attach the file "<file>" to "File"
     And I select "<type>" from "Download format"
     And I fill in "<sr>" for "Search radius (deg)"
-    And I press "Search SkyMapper"
+    And I click on Search SkyMapper
     Then I should download xml file "<downloaded_file>"
   Examples:
     | survey             | file                       | sr   | type    | downloaded_file                     |
@@ -67,7 +67,7 @@ Feature: Bulk catalogue search
     And I attach the file "skymapper_bulk_invalid_4.csv" to "File"
     And I select "CSV" from "Download format"
     And I fill in "0.05" for "Search radius (deg)"
-    And I press "Search SkyMapper"
+    And I click on Search SkyMapper
     Then I should the following list of file errors
   | error                                                                                                          |
   | Line 7: Right ascension should be a number in one of the following formats HH:MM:SS.S or HH MM SS.S or DDD.DD. |
@@ -94,7 +94,7 @@ Feature: Bulk catalogue search
   @javascript
   Scenario Outline: I cannot submit bulk catalogue search if form has errors (required errors)
     Given I select the "Bulk Catalogue" tab
-    And I press "Search SkyMapper"
+    And I click on Search SkyMapper
     Then I should see error "<error>" for "<field>"
   Examples:
     | field               | error                   |
