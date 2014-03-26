@@ -102,3 +102,71 @@ Feature: Bulk catalogue search
     | File (csv)          | This field is required. |
     | Download format     | This field is required. |
     | Search radius (deg) | This field is required. |
+
+  #SKYM-75
+  @javascript
+  Scenario Outline: Can submit an Async job
+    Given I select the "Bulk Catalogue" tab
+    And I select "<survey>" from "SkyMapper survey"
+    And I attach the file "<file>" to "File"
+    And I select "<type>" from "Download format"
+    And I fill in "<sr>" for "Search radius (deg)"
+    And I check "Asynchronous Query"
+    And I click on Search SkyMapper
+    And I pause for 1 seconds
+    Then I should see "Email address"
+    When I fill in "elvis@graceland.org" for "Email address"
+    When I fill in "elvis@graceland.org" for "Confirm email address"
+    And I press "Submit"
+    Then I should be on the job details view page
+  Examples:
+    | survey             | file                       | sr   | type | downloaded_file                     |
+    | Five-Second Survey | skymapper_bulk_valid_1.csv | 0.05 | CSV  | skymapper_bulk_catalogue_query_fs_1 |
+
+
+  #SKYM-75
+  @javascript
+  Scenario Outline: Async job won't submit without matching email addresses
+    Given I select the "Bulk Catalogue" tab
+    And I select "<survey>" from "SkyMapper survey"
+    And I attach the file "<file>" to "File"
+    And I select "<type>" from "Download format"
+    And I fill in "<sr>" for "Search radius (deg)"
+    And I check "Asynchronous Query"
+    And I click on Search SkyMapper
+    And I pause for 1 seconds
+    Then I should see "Email address"
+    When I fill in "elvis@graceland.org" for "Email address"
+    When I fill in "priscilla@graceland.org" for "Confirm email address"
+    Then I should see "Email and Confirm Email must match."
+    Then the "Submit" button should be disabled
+  Examples:
+    | survey             | file                       | sr   | type | downloaded_file                     |
+    | Five-Second Survey | skymapper_bulk_valid_1.csv | 0.05 | CSV  | skymapper_bulk_catalogue_query_fs_1 |
+
+
+  #SKYM-75
+  @javascript
+  @not-jenkins
+  Scenario Outline: Can cancel and async job with bad emails and submit a sync job
+    Given I select the "Bulk Catalogue" tab
+    And I select "<survey>" from "SkyMapper survey"
+    And I attach the file "<file>" to "File"
+    And I select "<type>" from "Download format"
+    And I fill in "<sr>" for "Search radius (deg)"
+    And I check "Asynchronous Query"
+    And I click on Search SkyMapper
+    And I pause for 1 seconds
+    Then I should see "Email address"
+    When I fill in "elvis@graceland.org" for "Email address"
+    When I fill in "priscilla@graceland.org" for "Confirm email address"
+    Then I should see "Email and Confirm Email must match."
+    Then I press "Cancel"
+    And I uncheck "Asynchronous Query"
+    And I click on Search SkyMapper
+    Then I should downloaded csv file "<downloaded_file>"
+  Examples:
+    | survey             | file                       | sr   | type | downloaded_file                     |
+    | Five-Second Survey | skymapper_bulk_valid_1.csv | 0.05 | CSV  | skymapper_bulk_catalogue_query_fs_1 |
+
+
