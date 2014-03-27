@@ -42,7 +42,6 @@ describe PointQuery do
   it { should allow_value('-90 00 00').for(:dec) }
   it { should allow_value('90 00 00.00').for(:dec) }
   it { should allow_value('00 00 00').for(:dec) }
-  it { should allow_value('00:00:00.12').for(:dec) }
 
   it { should allow_value('1.123456').for(:dec) }
   it { should allow_value('-1.123456').for(:dec) }

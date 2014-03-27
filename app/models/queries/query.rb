@@ -101,7 +101,7 @@ class Query
       values = self.ra.match(hourFormat).to_a
       if values.size > 0
         seconds = values[3]
-        if values.size > 4
+        if values.size > 4 and values[4]
           seconds = seconds + values[4]
         end
         raValue = ((values[1].to_f + values[2].to_f/60 + seconds.to_f/3600) / 24 * 360).round(6)
@@ -132,7 +132,7 @@ class Query
         negative = 1
         negative = -1 if values[1].include? ('-')
         seconds = values[3]
-        if values.size > 4
+        if values.size > 4  and values[4]
           seconds = seconds + values[4]
         end
         decValue = ((values[1].to_f.abs + values[2].to_f / 60 + seconds.to_f / 3600) * negative ).round(6)
