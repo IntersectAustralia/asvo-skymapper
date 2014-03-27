@@ -146,8 +146,8 @@ class SearchController < ApplicationController
   rescue StandardError
     flash.now[:error] = 'The search parameters contain some errors.'
   ensure
-    render 'download_results' unless params[:async]
-    async_job_start :generate_bulk_catalogue_query if params[:async]
+    render 'download_results' unless params[:async]=="true"
+    async_job_start :generate_bulk_catalogue_query if params[:async] == "true"
 
   end
 
