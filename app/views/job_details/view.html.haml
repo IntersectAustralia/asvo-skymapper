@@ -18,7 +18,9 @@
               = link_to "#{job_details_cancel_path}?id=#{@job.job_id}"  do
                 %i.icon-ban-circle
             -if @job.results_ready?
-              = link_to "#{@job.url}/results/result" do
+              -#= link_to "#{@job.url}/results/result" do
+              = link_to "#{job_details_download_path}?id=#{@job.job_id}" do
+
                 %i.icon-download
   - else
     %h4

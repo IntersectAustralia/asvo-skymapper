@@ -47,7 +47,8 @@ class Notifier < ActionMailer::Base
   end
 
   def job_finished_notification(job)
-    @download_url = "#{job.url}/results/result"
+    @download_url = "#{job_details_download_url}?id=#{job.job_id}"
+    #@download_url = "#{job.url}/results/result"
     mail( :to => job.email,
           :from => APP_CONFIG['job_scheduled_email'],
           :reply_to => APP_CONFIG['job_scheduled_email'],

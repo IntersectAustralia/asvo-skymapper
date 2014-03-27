@@ -15,4 +15,18 @@ class JobDetailsController < ApplicationController
     res = Net::HTTP.post_form(uri, form)
     render 'view'
   end
+
+  def download
+    job = AsyncJob.find_by_job_id(params[:id])
+    res = Net::HTTP.get URI("#{job.url}/results/result")
+    if job.format == "CSV"
+      type = 'text/csv; charset=utf-16 header=present'
+      extension = "csv"
+    else
+      type = 'application/xml; charset=utf-16'
+      extension ="votable"
+    end
+
+    send_data res, :type => type, :disposition => "attachment", :filename => "#{job.job_id}.#{extension}"
+  end
 end

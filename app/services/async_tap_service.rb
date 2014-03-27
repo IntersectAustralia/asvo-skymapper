@@ -32,6 +32,7 @@ class AsyncTapService
       job.status = job_status.job_status
       job.url = res['Location']
       job.job_id = job_status.job_id
+      job.format = format
       job.save!
       start_job(job)
       return job
