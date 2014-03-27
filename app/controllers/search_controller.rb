@@ -45,7 +45,7 @@ class SearchController < ApplicationController
         catalogue: params[:catalogue]
     }
     service = AsyncTapService.new(service_args)
-    job = service.start_async_job(query, params[:format], params[:email])
+    job = service.start_async_job(query, params[:type], params[:email])
 
     if !job.nil?
       Notifier.job_scheduled_notification("#{request.base_url}#{job_details_view_path}?id=#{job.job_id}", "#{job.email}").deliver
