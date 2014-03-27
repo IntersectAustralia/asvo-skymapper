@@ -48,7 +48,7 @@ class SearchController < ApplicationController
     job = service.start_async_job(query, params[:type], params[:email])
 
     if !job.nil?
-      Notifier.job_scheduled_notification("#{request.base_url}#{job_details_view_path}?id=#{job.job_id}", "#{job.email}").deliver
+      Notifier.job_scheduled_notification("#{request.base_url}#{job_details_view_path}?id=#{job.job_id}", job.email).deliver
       redirect_to :controller => 'job_details', :action => 'view', :id => job.job_id
     end
 
