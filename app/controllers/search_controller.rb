@@ -108,7 +108,6 @@ class SearchController < ApplicationController
         file: params[:file].tempfile.path,
         sr: params[:sr]
     }
-
     query = QueryGenerator.generate_bulk_catalogue_query(query_args)
     raise SearchError.new 'Invalid search arguments' unless query
 
@@ -118,7 +117,12 @@ class SearchController < ApplicationController
       args = {
           catalogue: params[:catalogue],
           type: params[:type],
-          sr: params[:sr]
+          sr: params[:sr],
+          async: params[:async] == "on",
+          file: params[:file].tempfile.path,
+          email: params[:email],
+          format: params[:type]
+
       }
 
       redirect_to bulk_catalogue_search_path(args)
@@ -138,10 +142,13 @@ class SearchController < ApplicationController
   def bulk_catalogue_search
     @query_path = bulk_catalogue_query_path
 
+
   rescue StandardError
     flash.now[:error] = 'The search parameters contain some errors.'
   ensure
-    render 'download_results'
+    render 'download_results' unless params[:async]
+    async_job_start :generate_bulk_catalogue_query if params[:async]
+
   end
 
   def bulk_image_validate
