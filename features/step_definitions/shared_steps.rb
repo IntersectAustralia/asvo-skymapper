@@ -105,3 +105,7 @@ end
 Then /^I pause for (\d+) seconds$/ do |seconds|
   sleep(seconds.to_i)
 end
+
+When(/^I click on element with css "(.*?)"$/)  do |css|
+  find(css).click
+end

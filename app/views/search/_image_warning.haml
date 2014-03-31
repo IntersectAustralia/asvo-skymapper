@@ -1,0 +1,13 @@
+#imageWarnModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "imageWarnModal", role: "dialog", tabindex: "-1"}
+  .modal-header
+    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
+    %h3#myModalLabel Download Image
+  .modal-body
+    %p
+      %i.icon-warning-sign
+      You are about to download an image that is approximately 512MB.
+      %br
+      Are you sure you want to continue?
+  .modal-footer
+    %button.btn{"aria-hidden" => "true", "data-dismiss" => "modal"} Cancel
+    %button.btn.btn-primary{ 'ng_click' => "downloadImage()" } Download

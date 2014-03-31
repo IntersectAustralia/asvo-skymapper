@@ -29,8 +29,7 @@
                       = "{{obj['#{field[:field]}']}}"
                 - elsif field[:options].include?('image-link')
                   %td
-                    %a.image-link{ 'ng-click' => "downloadImage(obj['#{field[:field]}'])", 'data-href' => "{{obj['#{field[:field]}']}}" }
-                      download image
+                    %a.image-link{ 'ng-click' => "warnImage(obj['#{field[:field]}'])", 'data-href' => "{{obj['#{field[:field]}']}}" } download image
                 - else
                   - if field[:options].include?('6dp')
                     %td

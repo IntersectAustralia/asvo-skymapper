@@ -60,3 +60,23 @@ Feature: Bulk raw image search
   Examples:
     | field           | error                   |
     | File (csv)      | This field is required. |
+
+
+  @javascript
+  Scenario Outline: I perform bulk image search
+    Given I select the "Bulk Image" tab
+    Then I should see link "example"
+    And I attach the file "<file>" to "File"
+    And I press "Search SkyMapper"
+    Then I should be on the bulk image search results page
+    And I wait for "Fetching results..."
+    And I should see "Query returned <count> objects."
+    And I should see results for catalogue "<catalogue>" as "<results>" in all pages with limit "50"
+    And I should see raw image results as "<results>" in all pages with limit "50" in proper order
+    When I click on element with css "a.image-link"
+    And I pause for 1 seconds
+    Then I should see "You are about to download an image that is approximately 512MB."
+  Examples:
+    | catalogue | file                       | results                      | count |
+    | image     | skymapper_bulk_valid_4.csv | skymapper_bulk_image_query_1 | 72    |
+

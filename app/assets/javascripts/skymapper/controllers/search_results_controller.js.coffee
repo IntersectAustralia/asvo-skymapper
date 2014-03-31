@@ -48,8 +48,14 @@ window.skymapper_app.controller 'SearchResultsController', ['$scope', '$window',
         $("#downloadModal").modal('show')
         return
 
-      $scope.downloadImage = (url) ->
-        window.location.href = url if confirm('You are about to download a large image. Are you sure you want to continue?')
+      $scope.warnImage = (url)->
+        $scope.currentImage = url
+        $('#imageWarnModal').modal('show')
+        return
+
+      $scope.downloadImage = ->
+        $('#imageWarnModal').modal('hide')
+        window.location.href = $scope.currentImage if $scope.currentImage
 
       $scope.selectObject = (obj) ->
         $scope.selectedObject = obj
