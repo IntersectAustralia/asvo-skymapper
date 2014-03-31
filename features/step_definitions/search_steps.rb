@@ -129,6 +129,21 @@ And /^I fake siap search request for catalogue "([^"]*)" with "([^"]*)"$/ do |ca
   FakeWeb.register_uri(:any, %r|#{service.request}.*|, body: File.read(Rails.root.join("spec/fixtures/#{file}.xml")) )
 end
 
+
+And /^I fake tap request to schedule async job for  catalogue "([^"]*)"  / do   |catalogue|
+  service_args = {dataset:SearchController::DEFAULT_DATASET, catalogue: catalogue}
+  service = AsyncTapService.new(service_args)
+  FakeWeb.register_uri(:post, %r|#{service.request}.*|, :body => "", :status =>"303", :location => "someurl")
+end
+
+And /^I fake tap request to start async job/ do
+
+end
+
+And /^I fake tap request for error in async job/ do
+
+end
+
 And /^I fake siap search request for catalogue "([^"]*)" returns error$/ do |catalogue|
   service_args = {dataset:SearchController::DEFAULT_DATASET, catalogue: catalogue}
   service = SiapService.new(service_args)
