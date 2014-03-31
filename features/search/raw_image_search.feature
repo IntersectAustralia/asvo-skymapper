@@ -115,7 +115,8 @@ Feature: Raw image search
     And I should see results for catalogue "<catalogue>" as "<results>" in all pages with limit "50"
     Then I fake request for first image link
     And I click the first image link
-    Then I should see popup with message "You are about to download a large image. Are you sure you want to continue?"
+    And I pause for 1 seconds
+    Then I should see "You are about to download an image that is approximately 512MB."
     And I download the image file
   Examples:
     | catalogue | ra        | dec      | results                 | count |

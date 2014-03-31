@@ -269,7 +269,8 @@ Then /^I should see popup with message "([^"]*)"$/ do |message|
 end
 
 And /^I download the image file$/ do
-  page.driver.browser.switch_to.alert.accept
+  # page.driver.browser.switch_to.alert.accept
+  click_button('Download')
 end
 
 And /^I should see search field "([^"]*)" with value "([^"]*)"$/ do |field, value|
