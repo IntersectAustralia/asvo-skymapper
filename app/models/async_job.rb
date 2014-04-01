@@ -11,15 +11,11 @@ class AsyncJob < ActiveRecord::Base
 
   def check_for_update
     job_status = JobStatus.new(self.url)
-    if job_status && job_status.job_status == 'COMPLETED'
-      Notifier.job_finished_notification(self).deliver
-    end
-    if job_status && job_status.job_status == 'ERROR'
-      Notifier.job_error_notification(self, job_status).deliver
-    end
     if job_status && job_status.job_status != self.status
       self.update_attribute(:status, job_status.job_status)
       self.update_attribute(:end_time, job_status.finish_time)
+      Notifier.job_finished_notification(self).deliver if job_status.job_status == 'COMPLETED'
+      Notifier.job_error_notification(self, job_status).deliver if job_status.job_status == 'ERROR'
     end
   end
   def self.check_jobs_status

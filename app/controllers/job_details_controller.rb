@@ -8,13 +8,17 @@ class JobDetailsController < ApplicationController
     #PHASE=ABORT
 
     @job = AsyncJob.find_by_job_id(params[:id])
-    uri = URI("#{@job.url}/phase")
-    form = {
+    job_status = JobStatus.new(@job.url)
+    if job_status.job_status == 'QUEUED'  || job_status.job_status == 'EXECUTING'
+      uri = URI("#{@job.url}/phase")
+      form = {
         PHASE: 'ABORT',
-    }
-    res = Net::HTTP.post_form(uri, form)
+      }
+      res = Net::HTTP.post_form(uri, form)
+    else
+      flash[:error] = 'Only job in state QUEUED or EXECUTING can be canceled.'
+    end
     redirect_to :controller => 'job_details', :action => 'view', :id =>  params[:id]
-
   end
 
   def download
