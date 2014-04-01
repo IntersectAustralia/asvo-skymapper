@@ -25,8 +25,6 @@ class AsyncTapService
         format: format,
         maxrec: 100000
     }
-    p params[:query_type]
-    p parameters
     res = Net::HTTP.post_form(request, form)
     if res.code == "303" and res.key? 'Location'
       job_status = JobStatus.new(res['Location'])
