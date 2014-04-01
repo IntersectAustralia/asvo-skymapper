@@ -11,7 +11,7 @@ require 'whenever/capistrano'
 
 set :keep_releases, 5
 set :application, 'asvo-skymapper'
-set :stages, %w(qa staging production)
+set :stages, %w(qa staging production production_local)
 set :default_stage, 'qa'
 set :rpms, 'openssl openssl-devel curl-devel httpd-devel apr-devel apr-util-devel zlib zlib-devel libxml2 libxml2-devel libxslt libxslt-devel libffi mod_ssl mod_xsendfile'
 set :shared_children, shared_children + %w(log_archive)
