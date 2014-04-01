@@ -1,27 +1,40 @@
 .span9
 
   -if @job
-    %table.table.table-striped.table-condensed
+    %table.table.table-condensed
       %thead
         %tr
-          %th Job start time
-          %th Job status
-          %th Job ID
-          %th Actions
+          %th &nbsp;
+          %th.value
       %tbody
         %tr
-          %td= @job.created_at
-          %td= @job.status
-          %td= @job.job_id
-          %td
+          %td Job start time
+          %td.value=@job.start_time
+        %tr
+          %td Job finish time
+          %td.value=@job.end_time
+        %tr
+          %td Job status
+          %td.value=@job.status
+        %tr
+          %td Job ID
+          %td.value=@job.job_id
+        %tr
+          %td Query type
+          %td.value=@job.query_type
+        %tr
+          %td Parameters
+          %td.value=@job.query_params
+        %tr
+          %td Action
+          %td.value
             -if @job.can_be_canceled?
               = link_to "#{job_details_cancel_path}?id=#{@job.job_id}"  do
-                %i.icon-ban-circle
+                %i.icon-ban-circle{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', :title => 'Cancel operation'}
             -if @job.results_ready?
               -#= link_to "#{@job.url}/results/result" do
               = link_to "#{job_details_download_path}?id=#{@job.job_id}" do
-
-                %i.icon-download
+                %i.icon-download{'data-toggle' => 'tooltip', 'data-placement' => 'bottom', :title => 'Download results'}
   - else
     %h4
       Specified job doesn't exist
@@ -30,3 +43,12 @@
       Back
 .aside.span3
   = render 'search/help'
+
+:javascript
+  $(".icon-ban-circle").click(function(e) {
+    if (!confirm("Are you sure you want to cancel this job ?")) {
+      e.preventDefault();
+      return false;
+    }
+  });
+

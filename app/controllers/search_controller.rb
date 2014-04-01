@@ -24,7 +24,7 @@ class SearchController < ApplicationController
     ]
     add_filter_parameters(@parameters, params)
     clean_parameters(@parameters)
-
+    params[:query_type] = 'Radial search'
     @fields = search_fields(params[:catalogue], 'tap')
     @async = params[:async] == "true"
     @query_path = radial_query_path
@@ -45,7 +45,7 @@ class SearchController < ApplicationController
         catalogue: params[:catalogue]
     }
     service = AsyncTapService.new(service_args)
-    job = service.start_async_job(query, params[:type], params[:email])
+    job = service.start_async_job(query, params[:type], params[:email], params, @parameters)
 
     if !job.nil?
       Notifier.job_scheduled_notification("#{request.base_url}#{job_details_view_path}?id=#{job.job_id}", job.email).deliver
@@ -68,7 +68,7 @@ class SearchController < ApplicationController
     ]
     add_filter_parameters(@parameters, params)
     clean_parameters(@parameters)
-
+    params[:query_type] = 'Rectangular search'
     @fields = search_fields(params[:catalogue], 'tap')
     @async = params[:async] == "true"
     @query_path = rectangular_query_path
@@ -142,7 +142,7 @@ class SearchController < ApplicationController
   def bulk_catalogue_search
     @query_path = bulk_catalogue_query_path
 
-
+    params[:query_type] = 'Bulk catalogue search'
   rescue StandardError
     flash.now[:error] = 'The search parameters contain some errors.'
   ensure

@@ -7,13 +7,14 @@ class JobDetailsController < ApplicationController
     #HTTP POST http://example.com/tap/async/42/phase
     #PHASE=ABORT
 
-    job = AsyncJob.find_by_job_id(params[:id])
-    uri = URI("#{job.url}/phase")
+    @job = AsyncJob.find_by_job_id(params[:id])
+    uri = URI("#{@job.url}/phase")
     form = {
         PHASE: 'ABORT',
     }
     res = Net::HTTP.post_form(uri, form)
-    render 'view'
+    redirect_to :controller => 'job_details', :action => 'view', :id =>  params[:id]
+
   end
 
   def download
