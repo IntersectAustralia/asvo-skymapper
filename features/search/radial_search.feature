@@ -631,7 +631,13 @@ Feature: Radial search
     When I fill in "elvis@graceland.org" for "Email address"
     When I fill in "elvis@graceland.org" for "Confirm email address"
     And I press "Submit"
+    And I pause for 5 seconds
     Then I should be on the job details view page
+    And "elvis@graceland.org" should receive 2 emails
+    When "elvis@graceland.org" opens the email with subject "New job has been successfully scheduled."
+    Then I should see "Your job has been successfully scheduled. You can find status and more details under this" in the email body
+    When "elvis@graceland.org" opens the email with subject "Scheduled job finished successfully."
+    Then I should see "Your scheduled job has finished successfully. You can download results from" in the email body
   Examples:
     | survey             | catalogue | ra        | dec         | sr    | results                    | count  |
     | Five-Second Survey | fs        | 11:55:21  |  01:11:18   | +0.5  | skymapper_point_query_fs_1 | 272    |

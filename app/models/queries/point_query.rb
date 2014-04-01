@@ -20,7 +20,7 @@ class PointQuery < Query
       @limit = "TOP #{args[:limit]}"
     elsif args[:limit].nil?
       @limit = 'TOP 1000'
-    elsif
+    else
       @limit = nil
     end
   end

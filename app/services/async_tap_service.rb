@@ -14,7 +14,7 @@ class AsyncTapService
     uri
   end
 
-  def start_async_job(query, format, email)
+  def start_async_job(query, format, email, params, parameters)
     registry = Rails.application.config.asvo_registry
     service = registry.find_service(@dataset, @catalogue, 'tap')
 
@@ -22,7 +22,8 @@ class AsyncTapService
         request: 'doQuery',
         lang: 'adql',
         query: query.to_adql(service),
-        format: format
+        format: format,
+        maxrec: 100000
     }
     res = Net::HTTP.post_form(request, form)
     if res.code == "303" and res.key? 'Location'
@@ -33,6 +34,10 @@ class AsyncTapService
       job.url = res['Location']
       job.job_id = job_status.job_id
       job.format = format
+      job.query_type = params[:query_type]
+      job.query_params = parameters.map {|x| "#{x[:name]} #{x[:value]}"}.join(', ')
+      job.start_time = job_status.start_time
+      job.end_time = job_status.finish_time
       job.save!
       start_job(job)
       return job
@@ -52,6 +57,8 @@ class AsyncTapService
     if res.code == "303" and res.key? 'Location'
       job_status = JobStatus.new(res['Location'])
       job.update_attribute(:status, job_status.job_status)
+      job.update_attribute(:start_time, job_status.start_time)
+      job.update_attribute(:end_time, job_status.finish_time)
     end
   end
 
