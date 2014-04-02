@@ -3,7 +3,7 @@ require 'uglifier'
 AsvoSkymapper::Application.configure do
 
   # TODO: set your own correct URL for action mailer
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.default_url_options = { :host => 'ic2-skymapper-qa1-vm.intersect.org.au' }
 
   # Settings specified here will take precedence over those in config/application.rb
 
