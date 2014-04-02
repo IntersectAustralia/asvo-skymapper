@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140331054345) do
+ActiveRecord::Schema.define(:version => 20140401233944) do
 
   create_table "async_jobs", :force => true do |t|
     t.string   "email"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(:version => 20140331054345) do
     t.datetime "updated_at",   :null => false
     t.string   "format"
     t.string   "query_type"
-    t.string   "query_params"
+    t.text     "query_params"
     t.datetime "start_time"
     t.datetime "end_time"
   end

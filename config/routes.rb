@@ -1,6 +1,7 @@
 AsvoSkymapper::Application.routes.draw do
   get "job_details/view"
   get "job_details/cancel"
+  get "job_details/view_error"
   get "job_details/download"
 
   devise_for :users, controllers: {registrations: 'user_registers', passwords: 'user_passwords' }
