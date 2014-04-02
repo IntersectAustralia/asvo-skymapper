@@ -265,7 +265,7 @@ task :generate_database_yml, :roles => :app do
   # Populate production password
   if rails_env == 'production'
     set :production_database_password, proc { Capistrano::CLI.password_prompt('Database password: ') }
-    buffer[rails_env]['password'] = production_database_password
+    buffer[rails_env]['password'] = production_database_password.to_s
   end
 
   put YAML::dump(buffer), "#{release_path}/config/database.yml", :mode => 0664

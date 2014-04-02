@@ -6,7 +6,7 @@ gem 'rails', '3.2.14'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
-
+gem "create_deployment_record", git: 'https://github.com/IntersectAustralia/create_deployment_record.git'
 gem 'uglifier', '>= 1.0.3'
 # Gems used only for assets and not required
 # in production environments by default.
@@ -53,8 +53,6 @@ group :development, :test do
   gem "mailcatcher"
   gem "poltergeist"
   gem "teaspoon"
-
-  gem "create_deployment_record", git: 'https://github.com/IntersectAustralia/create_deployment_record.git'
 
   gem "xray-rails"
   gem "pry-rails"
