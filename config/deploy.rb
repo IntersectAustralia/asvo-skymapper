@@ -148,6 +148,11 @@ namespace :deploy do
     run("cd #{current_path} && bundle exec rake db:create", :env => {'RAILS_ENV' => "#{stage}"})
   end
 
+  desc "Migrate the database"
+  task :db_migrate, :roles => :db do
+    run("cd #{current_path} && bundle exec rake db:migrate", :env => {'RAILS_ENV' => "#{stage}"})
+  end
+
   # Load the schema
   desc 'Load the schema into the database (WARNING: destructive!)'
   task :schema_load, :roles => :db do
@@ -174,9 +179,7 @@ namespace :deploy do
     end
 
     if input.match(/^yes/)
-      schema_load
-      seed
-      populate
+      db_migrate
     else
       puts 'Skipping database nuke'
     end
