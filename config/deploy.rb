@@ -24,7 +24,7 @@ set :scm, 'git'
 set :repository, 'git@github.com:IntersectAustralia/asvo-skymapper.git'
 set :deploy_via, :copy
 set :copy_exclude, ['.git/*']
-set :passenger_version, '4.0.20'
+set :passenger_version, '4.0.40'
 
 set :branch do
   default_tag = 'master'
@@ -97,9 +97,9 @@ after 'deploy:update' do
   server_setup.logging.rotation
   server_setup.config.apache
   deploy.new_secret
-  deploy.restart
   deploy.additional_symlinks
   deploy.precompile_assets
+  deploy.restart
 end
 after 'deploy:finalize_update' do
    generate_database_yml
@@ -142,23 +142,16 @@ namespace :deploy do
     run "ln -s #{shared_path}/db_dumps #{release_path}/db_dumps"
   end
 
+  # Create the db
+  desc "Create the database"
+  task :db_create, :roles => :db do
+    run("cd #{current_path} && bundle exec rake db:create", :env => {'RAILS_ENV' => "#{stage}"})
+  end
+
   # Load the schema
   desc 'Load the schema into the database (WARNING: destructive!)'
   task :schema_load, :roles => :db do
     run("cd #{current_path} && bundle exec rake db:schema:load", :env => {'RAILS_ENV' => "#{stage}"})
-  end
-
-  # Run the sample data populator
-  desc 'Run the test data populator script to load test data into the db (WARNING: destructive!)'
-  task :populate, :roles => :db do
-    generate_populate_yml
-    run("cd #{current_path} && bundle exec rake db:populate", :env => {'RAILS_ENV' => "#{stage}"})
-  end
-
-  # Seed the db
-  desc 'Run the seeds script to load seed data into the db (WARNING: destructive!)'
-  task :seed, :roles => :db do
-    run("cd #{current_path} && bundle exec rake db:seed", :env => {'RAILS_ENV' => "#{stage}"})
   end
 
   desc 'Full redepoyment, it runs deploy:update and deploy:refresh_db'
