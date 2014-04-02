@@ -24,7 +24,7 @@ set :scm, 'git'
 set :repository, 'git@github.com:IntersectAustralia/asvo-skymapper.git'
 set :deploy_via, :copy
 set :copy_exclude, ['.git/*']
-set :passenger_version, '4.0.20'
+set :passenger_version, '4.0.40'
 
 set :branch do
   default_tag = 'master'
