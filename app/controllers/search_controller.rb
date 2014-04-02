@@ -120,6 +120,7 @@ class SearchController < ApplicationController
           sr: params[:sr],
           async: params[:async] == "on",
           file: params[:file].tempfile.path,
+          file_name: params[:file].original_filename,
           email: params[:email],
           format: params[:type]
 
@@ -141,6 +142,12 @@ class SearchController < ApplicationController
 
   def bulk_catalogue_search
     @query_path = bulk_catalogue_query_path
+    @parameters = [
+        { name: 'Search radius:', value: params[:sr] },
+        { name: 'File name:', value: params[:file_name]},
+
+        ]
+
 
     params[:query_type] = 'Bulk catalogue search'
   rescue StandardError
