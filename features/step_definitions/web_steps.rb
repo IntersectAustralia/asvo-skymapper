@@ -262,6 +262,9 @@ Then /^show me the page$/ do
   save_and_open_page
 end
 
+When /^I reload the page$/ do
+  visit [ current_path, page.driver.request.env['QUERY_STRING'] ].reject(&:blank?).join('?')
+end
 When /^I pry$/ do
   require 'pry'
   binding.pry

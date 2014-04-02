@@ -120,6 +120,7 @@ Feature: Bulk catalogue search
     And I press "Submit"
     And I pause for 5 seconds
     Then I should be on the job details view page
+    And I reload the page
     And "elvis@graceland.org" should receive 2 emails
     When "elvis@graceland.org" opens the email with subject "New job has been successfully scheduled."
     Then I should see "Your job has been successfully scheduled. You can find status and more details under this" in the email body
