@@ -50,9 +50,9 @@ class SearchController < ApplicationController
     if !job.nil?
       Notifier.job_scheduled_notification("#{request.base_url}#{job_details_view_path}?id=#{job.job_id}", job.email).deliver
       redirect_to :controller => 'job_details', :action => 'view', :id => job.job_id
+    else
+      render 'index'
     end
-
-    render 'index' if job.nil?
   end
 
   def rectangular_search

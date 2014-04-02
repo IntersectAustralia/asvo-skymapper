@@ -56,9 +56,8 @@ class AsyncTapService
     res = Net::HTTP.post_form(uri, form)
     if res.code == "303" and res.key? 'Location'
       job_status = JobStatus.new(res['Location'])
-      job.update_attribute(:status, job_status.job_status)
       job.update_attribute(:start_time, job_status.start_time)
-      job.update_attribute(:end_time, job_status.finish_time)
+      job.check_for_update
     end
   end
 

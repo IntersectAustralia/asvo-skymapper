@@ -263,7 +263,8 @@ Then /^show me the page$/ do
 end
 
 When /^I reload the page$/ do
-  visit [ current_path, page.driver.request.env['QUERY_STRING'] ].reject(&:blank?).join('?')
+  visit page.driver.browser.current_url
+  #[ current_path, page.driver.last_request.env['QUERY_STRING'] ].reject(&:blank?).join('?')
 end
 When /^I pry$/ do
   require 'pry'
