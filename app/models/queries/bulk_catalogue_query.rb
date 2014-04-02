@@ -18,8 +18,10 @@ class BulkCatalogueQuery < Query
     csv.each do |row|
       headers = row.headers.map { |h| h.strip.downcase }
       fields = row.fields
-      ra = fields[headers.index('ra')]
-      dec = fields[headers.index('dec')]
+      pq = PointQuery.new({:ra => fields[headers.index('ra')], :dec => fields[headers.index('dec')]})
+      pq.valid?
+      ra = pq.ra
+      dec = pq.dec
       point_queries += "OR\n" unless point_queries.blank?
       point_queries += "(#{service[:fields][:object_id][:field]} in (SELECT #{service[:fields][:object_id][:field]} FROM #{service[:table_name]} WHERE 1=CONTAINS(POINT('ICRS', #{service[:fields][:ra][:field]}, #{service[:fields][:dec][:field]}), CIRCLE('ICRS', #{clean(ra)}, #{clean(dec)}, #{clean(sr)}))))\n"
     end

@@ -53,7 +53,8 @@ group :development, :test do
   gem "mailcatcher"
   gem "poltergeist"
   gem "teaspoon"
-
+  gem 'better_errors'
+  gem 'binding_of_caller'
   gem "xray-rails"
   gem "pry-rails"
 end
