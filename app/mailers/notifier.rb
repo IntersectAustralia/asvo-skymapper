@@ -59,7 +59,7 @@ class Notifier < ActionMailer::Base
 
   def job_error_notification(job, job_status)
     @error_message = job_status.error
-    @error_url = "#{job.url}/error"
+    @error_url = "#{job_details_view_error_url}?id=#{job.job_id}"
     mail( :to => job.email,
          :from => APP_CONFIG['job_scheduled_email'],
          :reply_to => APP_CONFIG['job_scheduled_email'],

@@ -1,4 +1,8 @@
 class JobDetailsController < ApplicationController
+  def view_error
+    @job = AsyncJob.find_by_job_id(params[:id])
+    @error = Net::HTTP.get URI("#{@job.url}/error/details")
+  end
   def view
     @job = AsyncJob.find_by_job_id(params[:id])
     @job.check_for_update unless @job.nil?

@@ -1,0 +1,12 @@
+.span9
+  -if @job
+    =@error
+  - else
+    %h4
+      Specified job doesn't exist
+  .span12.center
+    %a.btn.pull-left{ href: root_path }
+      Back
+.aside.span3
+  = render 'search/help'
+
