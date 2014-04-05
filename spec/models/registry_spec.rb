@@ -26,7 +26,7 @@ describe Registry do
 
     tap_service = registry.find_service('skymapper', 'fs', 'tap')
     tap_service[:service].should == 'TAP'
-    tap_service[:service_end_point].should == 'http://astroa.anu.edu.au:8080/skymapperpublic-asov-tap/tap'
+    tap_service[:service_end_point].should == 'http://asvo.nci.org.au:8080/skymapperpublic-tap/tap'
     tap_service[:table_name].should == 'public.fs_distilled'
    end
 
@@ -38,7 +38,7 @@ describe Registry do
 
     tap_service = registry.find_service('skymapper', 'ms', 'tap')
     tap_service[:service].should == 'TAP'
-    tap_service[:service_end_point].should == 'http://astroa.anu.edu.au:8080/skymapperpublic-asov-tap/tap'
+    tap_service[:service_end_point].should == 'http://asvo.nci.org.au:8080/skymapperpublic-tap/tap'
     tap_service[:table_name].should == 'public.ms_distilled'
   end
   

@@ -7,7 +7,7 @@
         :services:
           - :service: TAP
             :description: TODO
-            :service_end_point: http://astroa.anu.edu.au:8080/skymapperpublic-asov-tap/tap
+            :service_end_point: http://asvo.nci.org.au:8080/skymapperpublic-tap/tap
             :table_name: public.fs_distilled
             :fields:
               :object_id:
@@ -100,7 +100,7 @@
         :services:
           - :service: TAP
             :description: TODO
-            :service_end_point: http://astroa.anu.edu.au:8080/skymapperpublic-asov-tap/tap
+            :service_end_point: http://asvo.nci.org.au:8080/skymapperpublic-tap/tap
             :table_name: public.ms_distilled
             :fields:
               :object_id:
