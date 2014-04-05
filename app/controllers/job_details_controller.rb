@@ -19,6 +19,7 @@ class JobDetailsController < ApplicationController
         PHASE: 'ABORT',
       }
       res = Net::HTTP.post_form(uri, form)
+      flash[:notice] = 'Job successfully canceled.'
     else
       flash[:error] = 'Only job in state QUEUED or EXECUTING can be canceled.'
     end

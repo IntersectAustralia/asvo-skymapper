@@ -51,6 +51,7 @@ class SearchController < ApplicationController
       Notifier.job_scheduled_notification("#{request.base_url}#{job_details_view_path}?id=#{job.job_id}", job.email).deliver
       redirect_to :controller => 'job_details', :action => 'view', :id => job.job_id
     else
+      flash.now[:error] = 'There was an error when scheduling a job. Please try again later.'
       render 'index'
     end
   end

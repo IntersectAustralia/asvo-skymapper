@@ -179,3 +179,41 @@ Feature: Bulk catalogue search
     | Five-Second Survey | skymapper_bulk_valid_1.csv | 0.05 | CSV  | skymapper_bulk_catalogue_query_fs_1 |
 
 
+  #SKYM-105
+  @javascript
+  Scenario Outline: Successfully scheduled and executed async job
+    Given I select the "Bulk Catalogue" tab
+    And I select "<survey>" from "SkyMapper survey"
+    And I attach the file "<file>" to "File"
+    And I select "<type>" from "Download format"
+    And I fill in "<sr>" for "Search radius (deg)"
+    And I check "Asynchronous Query"
+    And I click on Search SkyMapper
+    And I pause for 1 seconds
+    When I fill in "elvis@graceland.org" for "Email address"
+    When I fill in "elvis@graceland.org" for "Confirm email address"
+    And I clean fake web
+    And I fake tap request to schedule async job
+    And I fake tap request to start async job
+    And I fake tap request successfully finished
+    And I fake download results for async job
+    And I press "Submit"
+    Then I should be on the job details view page
+    And I should see "<start_time>"
+    And I should see "<end_time>"
+    And I should see "<params>"
+    And I should see "<status>"
+    And I should see "<id>"
+    And I should see "<query_type>"
+    And I should see results download button
+    And "elvis@graceland.org" should receive 2 emails
+    When "elvis@graceland.org" opens the email with subject "New job has been successfully scheduled."
+    Then I should see "Your job has been successfully scheduled. You can find status and more details under this" in the email body
+    When "elvis@graceland.org" opens the email with subject "Scheduled job finished successfully."
+    Then I should see "Your scheduled job has finished successfully. You can download results from" in the email body
+    And I click on download results button
+    And I should downloaded csv file "<downloaded_file>" with name "<id>.csv"
+
+  Examples:
+    | survey             | file                       | sr   | type  | start_time              |         end_time        | params                                                         | status      | id      | query_type               |  downloaded_file               |
+    | Five-Second Survey |skymapper_bulk_valid_1.csv  | 0.05 | CSV   | 2014-03-27 09:44:44 UTC | 2014-03-27 09:45:47 UTC |  	Search radius: 0.05, File name: skymapper_bulk_valid_1.csv| COMPLETED   | somejob |  	Bulk catalogue search|  skymapper_download_point_query|

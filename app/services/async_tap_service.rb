@@ -42,7 +42,7 @@ class AsyncTapService
       start_job(job)
       return job
     else
-      #render index wit some errors
+      return nil
     end
   end
 

@@ -103,6 +103,21 @@ And /^I should see results for catalogue "([^"]*)" as "([^"]*)" in all pages wit
     results_table = YAML.load(File.read(Rails.root.join("spec/fixtures/#{file}.vo")))
   end
 end
+And /^I should see results download button$/ do
+  find('i.icon-download')
+end
+And /^I should not see results download button$/ do
+  page.has_no_css?('i.icon-download')
+end
+And /^I should see cancel button$/ do
+  find('i.icon-ban-circle')
+end
+And /^I click on download results button$/ do
+  find('i.icon-download').click
+end
+And /^I click on cancel button$/ do
+  find('i.icon-ban-circle').click
+end
 
 And /^I should see the full list of results in "([^"]*)" compared to "([^"]*)"$/ do |web, file|
 
@@ -130,18 +145,44 @@ And /^I fake siap search request for catalogue "([^"]*)" with "([^"]*)"$/ do |ca
 end
 
 
-And /^I fake tap request to schedule async job for  catalogue "([^"]*)"  / do   |catalogue|
-  service_args = {dataset:SearchController::DEFAULT_DATASET, catalogue: catalogue}
+And /^I fake tap request to schedule async job$/ do
+  service_args = {dataset:SearchController::DEFAULT_DATASET, catalogue: "fs"}
   service = AsyncTapService.new(service_args)
-  FakeWeb.register_uri(:post, %r|#{service.request}.*|, :body => "", :status =>"303", :location => "someurl")
+  FakeWeb.register_uri(:post, %r|#{service.request}.*|, :body => "", :status =>"303", :location => "http://someurl/somejob")
 end
 
-And /^I fake tap request to start async job/ do
+And /^I fake tap request to start async job$/ do
+  FakeWeb.register_uri(:post, "http://someurl/somejob/phase", :body => "", :status =>"303", :location => "http://someurl/somejob")
+end
+
+
+And /^I fake tap request successfully finished$/ do
+  FakeWeb.register_uri(:get, "http://someurl/somejob",[ {:body => File.read(Rails.root.join('spec/fixtures/job_status_pending.xml'))},
+                                                        {:body => File.read(Rails.root.join('spec/fixtures/job_status_running.xml'))},
+                                                        {:body => File.read(Rails.root.join('spec/fixtures/job_status_finished.xml'))}
+                                                      ])
+end
+
+And /^I fake long running async job$/ do
+  FakeWeb.register_uri(:get, "http://someurl/somejob",[ {:body => File.read(Rails.root.join('spec/fixtures/job_status_pending.xml'))},
+                                                        {:body => File.read(Rails.root.join('spec/fixtures/job_status_running.xml'))},
+                                                        {:body => File.read(Rails.root.join('spec/fixtures/job_status_running.xml'))},
+                                                        {:body => File.read(Rails.root.join('spec/fixtures/job_status_running.xml'))},
+                                                        {:body => File.read(Rails.root.join('spec/fixtures/job_status_running.xml'))},
+                                                        {:body => File.read(Rails.root.join('spec/fixtures/job_status_canceled.xml'))}
+                                                      ])
 
 end
 
-And /^I fake tap request for error in async job/ do
+And /^I fake download results for async job$/ do
+  FakeWeb.register_uri(:get, "http://someurl/somejob/results/result", {:body => File.read(Rails.root.join('spec/fixtures/skymapper_download_point_query.csv'))})
+end
+And /^I clean fake web$/ do
+  FakeWeb.clean_registry
+end
 
+And /^I fake tap error request to schedule async job$/ do
+  FakeWeb.register_uri(:post, "http://someurl/somejob/phase", :body => "", :status =>'404')
 end
 
 And /^I fake siap search request for catalogue "([^"]*)" returns error$/ do |catalogue|
@@ -382,6 +423,10 @@ Then /^I should downloaded csv file "([^"]*)"$/ do |file|
   File.read(Rails.root.join('tmp/downloads/sync')).should == File.read("spec/fixtures/#{file}.csv")
 end
 
+Then /^I should downloaded csv file "([^"]*)" with name "([^"]*)"$/ do |file, name|
+  sleep(2)
+  File.read(Rails.root.join("tmp/downloads/#{name}")).should == File.read("spec/fixtures/#{file}.csv")
+end
 Then /^the "(.*?)" button should be disabled$/ do |button|
   find_button(button, disabled: true)[:disabled].should eq "true"
 end

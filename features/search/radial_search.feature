@@ -663,7 +663,7 @@ Feature: Radial search
     | survey             | catalogue | ra        | dec         | sr    | results                    | count  |
     | Five-Second Survey | fs        | 11:55:21  |  01:11:18   | +0.5  | skymapper_point_query_fs_1 | 272    |
 
-#SKYM-75
+  #SKYM-75
   @javascript
   Scenario Outline: Can cancel and async job with bad emails and submit a sync job
     Given I select the "Radial" tab
@@ -685,3 +685,105 @@ Feature: Radial search
   Examples:
     | survey             | catalogue | ra        | dec         | sr    | results                    | count  |
     | Five-Second Survey | fs        | 11:55:21  |  01:11:18   | +0.5  | skymapper_point_query_fs_1 | 272    |
+
+  #SKYM-105
+  @javascript
+  Scenario Outline: Successfully scheduled and executed async job
+    Given I select the "Radial" tab
+    And I check "Asynchronous Query"
+    And I select "<survey>" from "SkyMapper survey"
+    And I fill in "<ra>" for "Right ascension (deg)"
+    And I fill in "<sr>" for "Search radius (deg)"
+    And I fill in "<dec>" for "Declination (deg)"
+    And I press "Search SkyMapper"
+    And I pause for 1 seconds
+    When I fill in "elvis@graceland.org" for "Email address"
+    When I fill in "elvis@graceland.org" for "Confirm email address"
+    And I clean fake web
+    And I fake tap request to schedule async job
+    And I fake tap request to start async job
+    And I fake tap request successfully finished
+    And I fake download results for async job
+    And I press "Submit"
+    Then I should be on the job details view page
+    And I should see "<start_time>"
+    And I should see "<end_time>"
+    And I should see "<params>"
+    And I should see "<status>"
+    And I should see "<id>"
+    And I should see "<query_type>"
+    And I should see results download button
+    And "elvis@graceland.org" should receive 2 emails
+    When "elvis@graceland.org" opens the email with subject "New job has been successfully scheduled."
+    Then I should see "Your job has been successfully scheduled. You can find status and more details under this" in the email body
+    When "elvis@graceland.org" opens the email with subject "Scheduled job finished successfully."
+    Then I should see "Your scheduled job has finished successfully. You can download results from" in the email body
+    And I click on download results button
+    And I should downloaded csv file "<downloaded_file>" with name "<id>.csv"
+
+  Examples:
+    | survey             | ra        | dec         | sr    | start_time              |         end_time        | params                                                       | status      | id      | query_type   |  downloaded_file               |
+    | Five-Second Survey | 11:55:21  |  01:11:18   | +0.5  | 2014-03-27 09:44:44 UTC | 2014-03-27 09:45:47 UTC | Right ascension: 178.8375, Declination: 1.188333, Radius: 0.5| COMPLETED   | somejob | Radial search|  skymapper_download_point_query|
+
+  #SKYM-105
+  @javascript
+  Scenario Outline: I can cancel running async job
+    Given I select the "Radial" tab
+    And I check "Asynchronous Query"
+    And I select "<survey>" from "SkyMapper survey"
+    And I fill in "<ra>" for "Right ascension (deg)"
+    And I fill in "<sr>" for "Search radius (deg)"
+    And I fill in "<dec>" for "Declination (deg)"
+    And I press "Search SkyMapper"
+    And I pause for 1 seconds
+    When I fill in "elvis@graceland.org" for "Email address"
+    When I fill in "elvis@graceland.org" for "Confirm email address"
+    And I clean fake web
+    And I fake tap request to schedule async job
+    And I fake tap request to start async job
+    And I fake long running async job
+    And I press "Submit"
+    Then I should be on the job details view page
+    And I should see "<start_time>"
+    And I should see "<params>"
+    And I should see "<status>"
+    And I should see "<id>"
+    And I should see "<query_type>"
+    And I should see cancel button
+    And "elvis@graceland.org" should receive 1 emails
+    When "elvis@graceland.org" opens the email with subject "New job has been successfully scheduled."
+    Then I should see "Your job has been successfully scheduled. You can find status and more details under this" in the email body
+    And I click on cancel button
+    And I cancel the dialog "Are you sure you want to cancel this job ?"
+    Then I should be on the job details view page
+    And I click on cancel button
+    And I confirm the dialog "Are you sure you want to cancel this job ?"
+    Then I should be on the job details view page
+    And I should see "Job successfully canceled."
+    And I should see "<status_canceled>"
+    And I should not see results download button
+  Examples:
+    | survey             | ra        | dec         | sr    | start_time              |      params                                                       | status      | id      | query_type   | status_canceled |
+    | Five-Second Survey | 11:55:21  |  01:11:18   | +0.5  | 2014-03-27 09:44:44 UTC |  Right ascension: 178.8375, Declination: 1.188333, Radius: 0.5    | EXECUTING   | somejob | Radial search| CANCELED        |
+
+
+  @javascript
+  Scenario Outline: Backend error when scheduling a job
+    Given I select the "Radial" tab
+    And I check "Asynchronous Query"
+    And I select "<survey>" from "SkyMapper survey"
+    And I fill in "<ra>" for "Right ascension (deg)"
+    And I fill in "<sr>" for "Search radius (deg)"
+    And I fill in "<dec>" for "Declination (deg)"
+    And I press "Search SkyMapper"
+    And I pause for 1 seconds
+    When I fill in "elvis@graceland.org" for "Email address"
+    When I fill in "elvis@graceland.org" for "Confirm email address"
+    And I clean fake web
+    And I fake tap error request to schedule async job
+    And I press "Submit"
+    Then I should be on the radial search page
+    And I should see "There was an error when scheduling a job. Please try again later."
+  Examples:
+    | survey             | ra        | dec         | sr    |
+    | Five-Second Survey | 11:55:21  |  01:11:18   | +0.5  |

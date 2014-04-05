@@ -84,6 +84,7 @@ When /^(?:|I )fill in the following:$/ do |fields|
   end
 end
 
+
 When /^(?:|I )select "([^"]*)" from "([^"]*)"$/ do |value, field|
   select(value, :from => field)
 end
@@ -269,4 +270,14 @@ end
 When /^I pry$/ do
   require 'pry'
   binding.pry
+end
+
+And /^I confirm the dialog "(.*)"$/ do |text|
+  page.driver.browser.switch_to.alert.text.should eq(text)
+  page.driver.browser.switch_to.alert.accept
+end
+
+And /^I cancel the dialog "(.*)"$/ do |text|
+  page.driver.browser.switch_to.alert.text.should eq(text)
+  page.driver.browser.switch_to.alert.dismiss
 end

@@ -560,3 +560,43 @@ Feature: Rectangular search
     | Five-Second Survey | fs        | 0       | +10     | -2.25   | -0.75   | skymapper_rectangular_query_fs_3 | 1000  | 2   | 0            | 10           |
     | Main Survey        | ms        | +1.975  | +2.025  | -1.525  | -1.475  | skymapper_rectangular_query_ms_1 | 44    | 1   | 1.975        | 2.025        |
     | Main Survey        | ms        | +1.75   | +2.25   | -2.25   | -0.75   | skymapper_rectangular_query_ms_3 | 1000  | 2   |  1.75        | 2.25         |
+
+  #SKYM-105
+  @javascript
+  Scenario Outline: Successfully scheduled and executed async job
+    Given I select the "Rectangular" tab
+    And I check "Asynchronous Query"
+    And I select "<survey>" from "SkyMapper survey"
+    And I fill in "<ra_min>" for "Right ascension min (deg)"
+    And I fill in "<ra_max>" for "Right ascension max (deg)"
+    And I fill in "<dec_min>" for "Declination min (deg)"
+    And I fill in "<dec_max>" for "Declination max (deg)"
+    And I press "Search SkyMapper"
+    And I pause for 1 seconds
+    When I fill in "elvis@graceland.org" for "Email address"
+    When I fill in "elvis@graceland.org" for "Confirm email address"
+    And I clean fake web
+    And I fake tap request to schedule async job
+    And I fake tap request to start async job
+    And I fake tap request successfully finished
+    And I fake download results for async job
+    And I press "Submit"
+    Then I should be on the job details view page
+    And I should see "<start_time>"
+    And I should see "<end_time>"
+    And I should see "<params>"
+    And I should see "<status>"
+    And I should see "<id>"
+    And I should see "<query_type>"
+    And I should see results download button
+    And "elvis@graceland.org" should receive 2 emails
+    When "elvis@graceland.org" opens the email with subject "New job has been successfully scheduled."
+    Then I should see "Your job has been successfully scheduled. You can find status and more details under this" in the email body
+    When "elvis@graceland.org" opens the email with subject "Scheduled job finished successfully."
+    Then I should see "Your scheduled job has finished successfully. You can download results from" in the email body
+    And I click on download results button
+    And I should downloaded csv file "<downloaded_file>" with name "<id>.csv"
+
+  Examples:
+    | survey             | ra_min  | ra_max  | dec_min | dec_max | start_time              |         end_time        | params                                                                                             | status      | id      | query_type          |  downloaded_file               |
+    | Five-Second Survey | +1.75   | +2.25   | -2.25   | -0.75   | 2014-03-27 09:44:44 UTC | 2014-03-27 09:45:47 UTC |Right ascension min: 1.75, Right ascension max: 2.25, Declination min: -2.25, Declination max: -0.75| COMPLETED   | somejob |  	Rectangular search|  skymapper_download_point_query|
