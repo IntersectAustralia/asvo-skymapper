@@ -766,7 +766,7 @@ Feature: Radial search
     | survey             | ra        | dec         | sr    | start_time              |      params                                                       | status      | id      | query_type   | status_canceled |
     | Five-Second Survey | 11:55:21  |  01:11:18   | +0.5  | 2014-03-27 09:44:44 UTC |  Right ascension: 178.8375, Declination: 1.188333, Radius: 0.5    | EXECUTING   | somejob | Radial search| CANCELED        |
 
-
+  #SKYM-114
   @javascript
   Scenario Outline: Backend error when scheduling a job
     Given I select the "Radial" tab
