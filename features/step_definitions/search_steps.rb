@@ -182,7 +182,9 @@ And /^I clean fake web$/ do
 end
 
 And /^I fake tap error request to schedule async job$/ do
-  FakeWeb.register_uri(:post, "http://someurl/somejob/phase", :body => "", :status =>'404')
+  service_args = {dataset:SearchController::DEFAULT_DATASET, catalogue: "fs"}
+  service = AsyncTapService.new(service_args)
+  FakeWeb.register_uri(:post, %r|#{service.request}.*|, :body => "", :status =>'404')
 end
 
 And /^I fake siap search request for catalogue "([^"]*)" returns error$/ do |catalogue|
