@@ -333,7 +333,7 @@
         :services:
           - :service: SIAP
             :description: TODO
-            :service_end_point: http://astroa.anu.edu.au/skymapper/image_siap/siap
+            :service_end_point: http://asvo.nci.org.au/skymapper/image_siap/siap
             :fields:
               :ra:
                 :field: POINTRA_DEG
