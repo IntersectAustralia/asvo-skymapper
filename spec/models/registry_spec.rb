@@ -141,7 +141,7 @@ describe Registry do
 
     siap_service = registry.find_service('skymapper', 'image', 'siap')
     siap_service[:service].should == 'SIAP'
-    siap_service[:service_end_point].should == 'http://astroa.anu.edu.au/skymapper/image_siap/siap'
+    siap_service[:service_end_point].should == 'http://asvo.nci.org.au/skymapper/image_siap/siap'
   end
 
   it 'Registry includes fields for image catalogue in skymapper dataset' do
