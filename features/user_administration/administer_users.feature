@@ -1,3 +1,4 @@
+@wip @not-jenkins
 Feature: Administer users
   In order to allow users to access the system
   As an administrator

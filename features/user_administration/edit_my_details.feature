@@ -1,3 +1,4 @@
+@wip @not-jenkins
 Feature: Edit my details
   In order to keep my details up to date
   As a user

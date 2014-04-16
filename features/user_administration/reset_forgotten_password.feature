@@ -1,3 +1,4 @@
+@wip @not-jenkins
 Feature: Reset forgotten password
   In order to access the system
   As a user

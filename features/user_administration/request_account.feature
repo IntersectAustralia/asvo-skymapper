@@ -1,3 +1,4 @@
+@wip @not-jenkins
 Feature: Request an account
   In order to use the system
   As a user

@@ -1,3 +1,4 @@
+@wip @not-jenkins
 Feature: Logging In
   In order to use the system
   As a user

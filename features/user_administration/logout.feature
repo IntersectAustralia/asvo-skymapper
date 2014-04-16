@@ -1,3 +1,4 @@
+@wip @not-jenkins
 Feature: Logging Out
   In order to keep the system secure
   As a user
