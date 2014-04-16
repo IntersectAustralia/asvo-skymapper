@@ -30,4 +30,12 @@ compare_numbers = (num1, num2) ->
 
   order = compare_numbers(obj1[fields[4]], obj2[fields[4]])
   #console.log('date', order)
+  return -1 if order < 0
+  return 1 if order > 0
+
+  # do a final sort on object_id to provide consistent ordering of test data that doesn't have filters or dates
+  order = compare_numbers(obj1[fields[6]], obj2[fields[6]])
+  return -1 if order < 0
+  return 1 if order > 0
+
   return order
