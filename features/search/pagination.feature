@@ -4,7 +4,7 @@ Feature: Pagination
   I want to use pagination
 
   Background:
-    Given I am on the home page
+    Given I am on the search page
 
   @javascript
   Scenario Outline: I perform radial search

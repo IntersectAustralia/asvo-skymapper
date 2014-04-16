@@ -4,7 +4,7 @@ Feature: Download Results
   I want to download the results
 
   Background:
-    Given I am on the home page
+    Given I am on the search page
 
   @javascript
   Scenario Outline: I perform radial search and download the results in VO table format

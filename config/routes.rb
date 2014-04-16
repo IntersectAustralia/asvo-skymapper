@@ -32,12 +32,13 @@ AsvoSkymapper::Application.routes.draw do
 
   end
 
-  root :to => 'search#index'
+  root :to => 'pages#home'
+
 
   get 'pages/home'
 
   # Search routes
-  get '/search', to: 'search#index'
+  get '/search', to: 'search#index', as: 'search_root'
   get '/search/radial', to: 'search#radial_search', as: 'radial_search'
   get '/search/radial/results', to: 'search#radial_search_results', as: 'radial_search_results'
   get '/search/radial/details/:id', to: 'search#radial_search_details', as: 'radial_search_details'

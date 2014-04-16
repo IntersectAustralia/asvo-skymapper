@@ -4,7 +4,7 @@ Feature: Bulk catalogue search
   I want to search using bulk point queries
 
   Background:
-    Given I am on the home page
+    Given I am on the search page
 
   @javascript
   @not-jenkins

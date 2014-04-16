@@ -1,9 +1,51 @@
-.container
-  - title 'Home'
-  - if !user_signed_in?
-    = simple_form_for("user", :url => user_session_path) do |f|
-      = render(:partial => 'devise/sessions/form', :locals => { :f => f })
-    = link_to "Sign Up", new_user_registration_path, :class => "button"
-    = link_to "Forgot your password?", new_user_password_path, :class => "button"
-  - else
-    %p TODO: you are logged in: put your own home page content here
+%section.row-fluid
+
+  .span9
+    %h2 SkyMapper Southern-Sky Survey
+    %p
+      .skymapper-dropcap
+      SkyMapper is a state-of-the-art automated wide field survey telescope that represents a new vehicle for scientific discovery.  It is sited under the dark skies of 
+      %a{ href: 'http://rsaa.anu.edu.au/observatories/siding-spring-observatory'} Siding Spring Observatory
+      near Coonabarabran, in central NSW. SkyMapper's mission is to robotically create the first comprehensive digital survey of the entire southern sky. The result will be a massively detailed record of more than a billion stars and galaxies, to a sensitivity one million times fainter than the human eye can see. The survey's data set will be made freely available to the scientific and general community via the internet. 
+
+    %p
+      The telescope's advanced 1.35 metre modified Cassegrain optics have an f4.79 focal ratio, making the system highly efficient as a photographic instrument. At the heart of the telescope is a unique digital camera designed and constructed in house by ANU technicians. The A$2.5 million camera uses 268 million pixels to capture a region of sky 29 times larger than the full moon every minute. As well as recording the brightness and shape of objects, a series of filters enables the camera to record the spectral type of stars, giving astronomers information about their age, mass and temperature.
+
+    %p
+      Because SkyMapper will image each part of the sky 36 times, it will help identify changes occurring within the Universe that would otherwise pass unnoticed. This will enable astronomers to identify targets of special interest and should greatly assist in tasks such as discovering large dwarf planets like Pluto in the outer solar system, and tracking asteroids.
+
+
+    .row-fluid.explore-button
+      .span2
+
+      %a.span8.btn.large.btn-primary{ href: '/search' }
+        Begin Exploring SkyMapper
+
+      .span2
+        
+
+
+
+  .span3
+    .container.container-fluid
+      .row.row-fluid
+        %img{ src: '/images/karrer-12_small.jpg'}
+      .row.row-fluid
+        %img{ src: '/images/karrer_startrails_small.jpg'}
+      .row.row-fuild
+        %img{ src: '/images/skymapper_internal_keller1_small.jpg'}
+
+.row-fluid
+  .span12
+
+.well.well-sm     
+  .row-fluid
+    .span2
+      %img.nectar-logo{ src: '/images/nectar-logo.png'}
+    .span8
+      The SkyMapper team acknowledges support from the NeCTAR project 
+      = surround '(', '),' do
+        %a{ href: 'http://www.nectar.org.au', target: '_blank'} www.nectar.org.au
+      which is funded by the Australian Government through its Super Science initiative and financed by the Education Investment Fund.
+    .span2
+      %img{ src: '/images/aal-logo.png'}

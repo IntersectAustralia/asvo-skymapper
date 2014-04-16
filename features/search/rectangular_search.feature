@@ -4,7 +4,7 @@ Feature: Rectangular search
   I want to search using rectangle queries
 
   Background:
-    Given I am on the home page
+    Given I am on the search page
 
   @javascript
   Scenario Outline: I perform rectangular search

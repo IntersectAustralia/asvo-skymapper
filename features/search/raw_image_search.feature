@@ -4,7 +4,7 @@ Feature: Raw image search
   I want to search using image queries
 
   Background:
-    Given I am on the home page
+    Given I am on the search page
 
   @javascript
   Scenario Outline: I perform raw image search
