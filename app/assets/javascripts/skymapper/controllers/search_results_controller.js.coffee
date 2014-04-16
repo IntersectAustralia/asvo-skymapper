@@ -68,7 +68,7 @@ window.skymapper_app.controller 'SearchResultsController', ['$scope', '$window',
           target = undefined
         else
           format_param = '?format=votable'
-          target = '_blank'
+          target = undefined
 
         form = JST['download_query_form']({
           url: url + format_param,

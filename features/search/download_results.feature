@@ -27,6 +27,7 @@ Feature: Download Results
   Examples:
     | survey             | catalogue | ra        | dec      | sr | results                        | count | file_type | downloaded_file                |
     | Five-Second Survey | fs        | 178.83871 | -1.18844 | 2  | skymapper_web_view_point_query | 1000  | CSV       | skymapper_download_point_query |
+    | Five-Second Survey | fs        | 178.83871 | -1.18844 | 2  | skymapper_web_view_point_query | 1000  | VOTable   | skymapper_download_point_query |
 
   @javascript
   Scenario Outline: I perform radial search and download the results in CSV table format
