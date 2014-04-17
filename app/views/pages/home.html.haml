@@ -9,21 +9,42 @@
       near Coonabarabran, in central NSW. SkyMapper's mission is to robotically create the first comprehensive digital survey of the entire southern sky. The result will be a massively detailed record of more than a billion stars and galaxies, to a sensitivity one million times fainter than the human eye can see. The survey's data set will be made freely available to the scientific and general community via the internet. 
 
     %p
-      The telescope's advanced 1.35 metre modified Cassegrain optics have an f4.79 focal ratio, making the system highly efficient as a photographic instrument. At the heart of the telescope is a unique digital camera designed and constructed in house by ANU technicians. The A$2.5 million camera uses 268 million pixels to capture a region of sky 29 times larger than the full moon every minute. As well as recording the brightness and shape of objects, a series of filters enables the camera to record the spectral type of stars, giving astronomers information about their age, mass and temperature.
+      Access to SkyMapper data is being made available through the 
+      = surround '',',' do
+        %a{ href: 'http://www.asvo.org.au/'} All-Sky Virtual Observatory (ASVO)
+      a 
+      %a{ href: 'http://www.nectar.org.au/'} National eResearch Collaboration Tools and Resources (NeCTAR)
+      Virtual Laboratory project.  To begin searching the SkyMapper dataset simply click the button below. 
 
-    %p
-      Because SkyMapper will image each part of the sky 36 times, it will help identify changes occurring within the Universe that would otherwise pass unnoticed. This will enable astronomers to identify targets of special interest and should greatly assist in tasks such as discovering large dwarf planets like Pluto in the outer solar system, and tracking asteroids.
-
-
+  
     .row-fluid.explore-button
       .span2
 
       %a.span8.btn.large.btn-primary{ href: '/search' }
-        Begin Exploring SkyMapper
+        Use ASVO to search SkyMapper
 
       .span2
-        
 
+    .well.well-sm     
+      .row-fluid
+        .span2
+          %img.nectar-logo{ src: '/images/nectar-logo.png'}
+        .span8
+          The SkyMapper team acknowledges support from the NeCTAR project 
+          = surround '(', '),' do
+            %a{ href: 'http://www.nectar.org.au', target: '_blank'} www.nectar.org.au
+          which is funded by the Australian Government through its Super Science initiative and financed by the Education Investment Fund.
+        .span2
+          %img{ src: '/images/aal-logo.png'}
+  
+    
+    .row-fluid
+      .span4
+        %img.contributor-logo{ src: '/images/Intersect.gif'}
+      .span4
+        %img.contributor-logo{ src: '/images/nci-logo.png'}
+      .span4    
+        %img.contributor-logo{ src: '/images/anu-logo.png'}
 
 
   .span3
@@ -38,14 +59,3 @@
 .row-fluid
   .span12
 
-.well.well-sm     
-  .row-fluid
-    .span2
-      %img.nectar-logo{ src: '/images/nectar-logo.png'}
-    .span8
-      The SkyMapper team acknowledges support from the NeCTAR project 
-      = surround '(', '),' do
-        %a{ href: 'http://www.nectar.org.au', target: '_blank'} www.nectar.org.au
-      which is funded by the Australian Government through its Super Science initiative and financed by the Education Investment Fund.
-    .span2
-      %img{ src: '/images/aal-logo.png'}

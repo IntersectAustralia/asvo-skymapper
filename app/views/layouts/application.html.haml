@@ -22,6 +22,8 @@
             %img{:src => "/images/asvo_logo.png"}
           - if Rails.env == 'test'
             = render 'layouts/user_menu'
+          - if current_page?(root_path)
+            %a.pull-right.btn.btn-primary{ href: '/search'}  Search SkyMapper
     .container-fluid.main_content
       .flash
         - flash.each do |name, msg|

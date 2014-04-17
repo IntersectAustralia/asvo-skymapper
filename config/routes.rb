@@ -35,7 +35,7 @@ AsvoSkymapper::Application.routes.draw do
   root :to => 'pages#home'
 
 
-  get 'pages/home'
+  get 'pages/home', as: 'home_page'
 
   # Search routes
   get '/search', to: 'search#index', as: 'search_root'
