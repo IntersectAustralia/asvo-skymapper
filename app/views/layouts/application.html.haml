@@ -1,16 +1,21 @@
 !!!
 %html{ 'ng-app' => 'SkyMapperApp' }
   %head
-    %title 
+    %title
       SkyMapper
       = " - #{yield :title}"
 
     = stylesheet_link_tag    "application", :media => "all"
     = javascript_include_tag "application"
     = csrf_meta_tags
+    = analytics_init if Rails.env.production?
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}
   %body
-
+    .ribbon-right
+      %p#test-data-warning{'data-container' => 'body', 'data-toggle' => 'popover',
+      'data-placement'=>'left', 'data-trigger' => 'hover',
+      'data-content' => 'This site is currently using test data until SkyMapper data becomes available.  Results presented here are not suitable for research purposes.' }
+        USING&nbsp;&nbsp;TEST&nbsp;&nbsp;DATA
     #banner.navbar
       .navbar-inner
         .container
@@ -39,3 +44,5 @@
 
     %footer Developed by Intersect 2013.
 
+:javascript
+  $('#test-data-warning').popover()

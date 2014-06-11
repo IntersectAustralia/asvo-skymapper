@@ -37,7 +37,7 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
-    
+
 gem "therubyracer" # TODO should this be in group :assets ?
 group :development, :test do
   gem "rspec-rails"
@@ -84,3 +84,4 @@ gem "colorize"
 gem "nokogiri"
 gem "unicorn"
 gem 'whenever', :require => false
+gem 'google-analytics-rails'
